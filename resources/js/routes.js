@@ -24,12 +24,12 @@ export const routes = [
     {
         path:'/admin',
         component:Home,
-        beforeEnter: ifAuth,
+        // beforeEnter: ifAuth,
     },
     {
         path:'/admin/login',
         component:Login,
-        beforeEnter: ifNotAuth,
+        // beforeEnter: ifNotAuth,
     },
 
 ];
