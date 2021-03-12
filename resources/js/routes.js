@@ -1,10 +1,10 @@
 import Home from './Pages/Home.vue'
 import Login from './Pages/Login.vue'
 
-
+import store from './store/admin'
 
 const ifAuth = (to, from, next) => {
-    if (1==1) {
+    if (store.state.auth==true) {
       next()
       return
     }
@@ -12,7 +12,7 @@ const ifAuth = (to, from, next) => {
   }
 
   const ifNotAuth = (to, from, next) => {
-    if (1!=1) {
+    if (store.state.auth!=true) {
       next()
       return
     }
@@ -24,12 +24,12 @@ export const routes = [
     {
         path:'/admin',
         component:Home,
-        // beforeEnter: ifAuth,
+        beforeEnter: ifAuth,
     },
     {
         path:'/admin/login',
         component:Login,
-        // beforeEnter: ifNotAuth,
+        beforeEnter: ifNotAuth,
     },
 
 ];
