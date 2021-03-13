@@ -20,8 +20,6 @@ Route::get('/notAuth', function (Request $request) {
 Route::post('/admin', [AdminAuthController::class, 'new']);
 Route::post('/admin/login', [AdminAuthController::class, 'login']);
 
-
-
 Route::prefix('admin')->middleware(['auth:sanctum', 'type.admin'])->group(function () {
     Route::get('/auth', [AdminAuthController::class, 'profile']);
     Route::get('/logout', [AdminAuthController::class, 'logout']);

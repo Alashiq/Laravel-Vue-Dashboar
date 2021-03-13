@@ -24,25 +24,26 @@ class AdminAuthController extends Controller
 
     public function login(Request $request)
     {
-        // $request->validate([
-        //     'username' => 'required|username',
-        //     'password' => 'required',
-        // ]);
+
 
         $customer = Admin::where('username', $request->username)->first();
 
         if (!$customer || !Hash::check($request->password, $customer->password)) {
 
             return response()->json(['success' => false, 'message' => 'your email or password wrong'], 400);
-            // throw ValidationException::withMessages([
-            //     'username' => ['The provided credentials are incorrect.'],
-            // ]);
         }
 
 
         return response()->json([
-            'customer' => $customer,
-            'token' => $customer->createToken('website', ['role:admin'])->plainTextToken
+            'success'=>true,
+            'message'=>'تم تسجيل الدخول بنجاح',
+            'user'=>[
+                'id'=>$customer->id,
+                'name'=>$customer->name,
+                'username'=>$customer->username,
+                'photo'=>$customer->photo,
+                'token' => $customer->createToken('website', ['role:admin'])->plainTextToken                
+            ]
         ]);
     }
 
