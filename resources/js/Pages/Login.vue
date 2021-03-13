@@ -13,14 +13,19 @@
                 type="text"
                 placeholder="كلمة المرور"
             />
-{{auth}}
-            <div class="w-40 h-12 bg-red-400 text-white rounded shadow-lg text-center" @click="login">تسجيل الدخول</div>
+            {{ auth }}
+            <div
+                class="w-40 h-12 bg-red-400 text-white rounded shadow-lg text-center"
+                @click="login"
+            >
+                تسجيل الدخول
+            </div>
         </div>
     </div>
 </template>
 
 <script>
-
+import Swal from "sweetalert2";
 export default {
     data() {
         return {
@@ -32,29 +37,25 @@ export default {
     },
     methods: {
         login: function() {
+            Swal.showLoading();
             this.$store.dispatch("login", this.formData).then(
                 response => {
-                    //alert(response.message);
-                   // Swal.fire("نجاح", response.message, "success");
+                    Swal.fire("نجاح", response.message, "success");
                     this.$router.push("/admin");
                 },
                 error => {
                     if (error.status == 401) {
-                        alert(error.message);
-                       // Swal.fire("فشل", error.message, "warning");
+                        Swal.fire("فشل", error.message, "warning");
                     } else if (error.status == 400) {
-                        alert(error.message);
-                        //Swal.fire("فشل", error.message, "warning");
-                    } else
-                        alert(error.message);
-                    // Swal.fire("فشل", error.message, "warning");
+                        Swal.fire("فشل", error.message, "warning");
+                    } else Swal.fire("فشل", error.message, "warning");
                 }
             );
         }
     },
     mounted() {},
     computed: {
-        auth(){
+        auth() {
             return this.$store.state.auth;
         }
     },

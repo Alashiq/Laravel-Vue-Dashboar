@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="w-full text-5xl text-center my-20 text-red-500">
-            Home Page
+            welcome {{ user.name }}
         </div>
 
         <router-link
@@ -26,12 +26,23 @@ export default {
         return {};
     },
     methods: {
-        check:function(){
+        check: function() {
             alert("hello");
         }
     },
-    mounted() {},
-    computed: {},
-    created() {},
+    mounted() {
+
+    },
+    computed: {
+        user() {
+            return this.$store.state.user;
+        },
+        auth() {
+            return this.$store.state.auth;
+        }
+    },
+    created() {
+                if (!this.auth) this.$router.push("/admin/login");
+    }
 };
 </script>

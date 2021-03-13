@@ -1,35 +1,37 @@
-import Home from './Pages/Home.vue'
-import Login from './Pages/Login.vue'
+import Home from "./Pages/Home.vue";
+import Login from "./Pages/Login.vue";
 
-import store from './store/admin'
+import store from "./store/admin";
 
 const ifAuth = (to, from, next) => {
-    if (store.state.auth==true) {
-      next()
-      return
+    if (store.state.auth == true) {
+        next();
+        return;
     }
-    next('/admin/login')
-  }
+    next("/admin/login");
+};
 
-  const ifNotAuth = (to, from, next) => {
-    if (store.state.auth!=true) {
-      next()
-      return
+const ifNotAuth = (to, from, next) => {
+    if (store.state.auth != true) {
+        next();
+        return;
     }
-    next('/admin')
-  }
-
+    next("/admin");
+};
 
 export const routes = [
     {
-        path:'/admin',
-        component:Home,
-        beforeEnter: ifAuth,
+        path: "/admin",
+        component: Home
     },
     {
-        path:'/admin/login',
-        component:Login,
-        beforeEnter: ifNotAuth,
+        path: "/admin/profile",
+        component: Home,
+        beforeEnter: ifAuth
     },
-
+    {
+        path: "/admin/login",
+        component: Login,
+        beforeEnter: ifNotAuth
+    }
 ];

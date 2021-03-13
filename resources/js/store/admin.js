@@ -1,7 +1,7 @@
 export default {
     state: () => ({
         loadAuth: false,
-        auth: "false",
+        auth: false,
         user: {
             id: null,
             name: "",
