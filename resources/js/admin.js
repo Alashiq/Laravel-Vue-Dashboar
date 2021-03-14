@@ -1,6 +1,7 @@
 require("./bootstrap");
 
 import Vue from "vue";
+import Swal from "sweetalert2";
 
 window.Vue = require("vue");
 
@@ -26,6 +27,9 @@ const app = new Vue({
     router,
     store,
     beforeCreate: function () {
-        alert("hello");
     },
 });
+
+
+
+

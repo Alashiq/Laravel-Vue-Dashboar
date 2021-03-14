@@ -1,5 +1,7 @@
 import Home from "./Pages/Home.vue";
+import Profile from "./Pages/Profile.vue";
 import Login from "./Pages/Login.vue";
+import Layout from "./Pages/Layout.vue";
 
 import store from "./store/admin";
 
@@ -21,17 +23,23 @@ const ifNotAuth = (to, from, next) => {
 
 export const routes = [
     {
-        path: "/admin",
-        component: Home
-    },
-    {
-        path: "/admin/profile",
-        component: Home,
-        beforeEnter: ifAuth
+        path: "/",
+        name: "layout",
+        component: Layout,
+        children: [
+            {
+                path: "admin",
+                component: Home
+            },
+            {
+                path: "admin/profile",
+                component: Profile,
+            },
+        ]
     },
     {
         path: "/admin/login",
         component: Login,
-        beforeEnter: ifNotAuth
+        //beforeEnter: ifNotAuth
     }
 ];

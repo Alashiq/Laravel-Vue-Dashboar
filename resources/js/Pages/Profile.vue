@@ -1,10 +1,29 @@
 <template>
-    <div class="bg-blue-100 w-auto mx-8 my-8">
-<div class="bg-red-400 h-96 w-32"></div>
-<div class="bg-green-400 h-96 w-32"></div>
-<div class="bg-blue-400 h-96 w-32"></div>
-<div class="bg-red-400 h-96 w-32"></div>
+    <div>
+        <div class="w-full text-5xl text-center my-20 text-red-500">
+            welcome {{ user.name }}
+        </div>
 
+        <div
+            class="w-40 h-20 flex items-center justify-center bg-red-400 text-white"
+            @click="checkAuth"
+        >
+            check Auth
+        </div>
+
+        <router-link
+            to="/admin"
+            class="bg-blue-400 text-white px-2 py-2 rounded shadow"
+        >
+            home
+        </router-link>
+
+        <router-link
+            to="/admin/login"
+            class="bg-blue-400 text-white px-2 py-2 rounded shadow"
+        >
+            login
+        </router-link>
     </div>
 </template>
 
@@ -27,9 +46,7 @@ export default {
             );
         }
     },
-    mounted() {
-        alert('hello');
-    },
+    mounted() {},
     computed: {
         user() {
             return this.$store.state.user;

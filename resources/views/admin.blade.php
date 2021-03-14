@@ -10,10 +10,9 @@
     <title>إسم الموقع - لوحة التحكم</title>
 </head>
 
-<body>
+<body style="background-color:#eee;">
 
     <div id="app" dir="rtl">
-    <div class="h-12 w-full bg-green-400"></div>
         <router-view></router-view>
     </div>
 

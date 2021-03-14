@@ -35,21 +35,23 @@ class AdminAuthController extends Controller
 
 
         return response()->json([
-            'success'=>true,
-            'message'=>'تم تسجيل الدخول بنجاح',
-            'user'=>[
-                'id'=>$customer->id,
-                'name'=>$customer->name,
-                'username'=>$customer->username,
-                'photo'=>$customer->photo,
-                'token' => $customer->createToken('website', ['role:admin'])->plainTextToken                
+            'success' => true,
+            'message' => 'تم تسجيل الدخول بنجاح',
+            'user' => [
+                'id' => $customer->id,
+                'name' => $customer->name,
+                'username' => $customer->username,
+                'photo' => $customer->photo,
+                'token' => $customer->createToken('website', ['role:admin'])->plainTextToken
+
             ]
         ]);
     }
 
     public function profile(Request $request)
     {
-        return $request->user()->tokenCan('role:admin');
+        return response()->json(["success" => true, "message" => "مرحبا بالمستخدم", "user" => $request->user()]);
+        // return $request->user()->tokenCan('role:admin');
     }
 
 
@@ -67,8 +69,6 @@ class AdminAuthController extends Controller
             "name"
         ));
 
-        return response()->json(["success"=>true,"message"=>"تم تحديث اسم المستخدم بنجاح","user"=>$request->user()]);
+        return response()->json(["success" => true, "message" => "تم تحديث اسم المستخدم بنجاح", "user" => $request->user()]);
     }
-
-
 }
