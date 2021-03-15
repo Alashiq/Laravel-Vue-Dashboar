@@ -8,12 +8,9 @@
 
         <!-- Left Part -->
         <div class="relative md:mr-64">
-            <div class="h-16 w-full bg-white shadow mb-8 flex justify-end px-8">
-                <img
-                    :src="user.photo"
-                    class="h-12 w-12 rounded-full my-2 mx-2"
-                />
-            </div>
+            <!-- Header Bar -->
+            <header-bar></header-bar>
+            <!-- End Header Bar -->
             <router-view></router-view>
         </div>
         <!-- End Left Part -->

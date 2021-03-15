@@ -28,6 +28,7 @@ const router = new VueRouter({
 
 // Shared Components
 Vue.component('side-menu', require('./dash/components/shared/side-menu.vue').default);
+Vue.component('header-bar', require('./dash/components/shared/header-bar.vue').default);
 
 
 
