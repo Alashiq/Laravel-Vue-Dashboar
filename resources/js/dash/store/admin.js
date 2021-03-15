@@ -7,7 +7,29 @@ export default {
             name: "",
             username: "",
             photo: ""
-        }
+        },
+        pageList: [
+            {
+                id: 1,
+                name: "الرئيسية",
+                active: false,
+                path: "/admin"
+            },
+
+            {
+                id: 2,
+                name: "حسابي",
+                active: false,
+                path: "/admin/profile"
+            },
+
+            {
+                id: 3,
+                name: "تسجيل الدخول",
+                active: false,
+                path: "/admin/login"
+            }
+        ]
     }),
 
     mutations: {
@@ -17,6 +39,16 @@ export default {
         },
         authLoaded(state) {
             state.loadAuth = true;
+        },
+        clearUser(state){
+            state.user={
+                id: null,
+                name: "",
+                username: "",
+                photo: ""
+            };
+            state.auth=false;
+            state.loadAuth=false;
         }
     },
 
@@ -30,6 +62,7 @@ export default {
                         axios.defaults.headers.common["Authorization"] =
                             "Bearer " + response.data.user.token;
                         this.commit("setUser", response.data.user);
+                        this.commit("authLoaded");
                         resolve({
                             message: "تم تسجيل الدخول بنجاح",
                             status: response.status
@@ -51,6 +84,7 @@ export default {
                             message: "حدث خطأ ما",
                             status: error.response.status
                         });
+                        this.commit("authLoaded");
                     }
                 );
             });
@@ -63,10 +97,14 @@ export default {
                 axios.get("/api/admin/auth").then(
                     response => {
                         this.commit("setUser", response.data.user);
-                        resolve({
-                            message: "مرحبا بالمستخدم",
-                            status: response.status
-                        });
+                        setTimeout(
+                            () =>
+                                resolve({
+                                    message: "مرحبا بالمستخدم",
+                                    status: response.status
+                                }),
+                            2000
+                        );
                     },
                     error => {
                         console.log(error.response);
@@ -87,6 +125,6 @@ export default {
                     }
                 );
             });
-        }
+        },
     }
 };

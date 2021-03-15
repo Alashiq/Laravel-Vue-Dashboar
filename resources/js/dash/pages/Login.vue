@@ -53,10 +53,35 @@ export default {
             );
         }
     },
-    mounted() {},
     computed: {
+        loadAuth() {
+            return this.$store.state.loadAuth;
+        },
         auth() {
             return this.$store.state.auth;
+        }
+    },
+    mounted() {
+        if (this.auth) {
+            this.$router.push("/admin");
+        } else if (localStorage.getItem("token") && !this.loadAuth) {
+            Swal.showLoading();
+            this.$store.dispatch("checkAuth").then(
+                response => {
+                    Swal.fire("نجاح", response.message, "success");
+                    this.$store.commit("authLoaded");
+                    this.$router.push("/admin");
+                },
+                error => {
+                    if (error.status == 401) {
+                        Swal.fire("فشل", error.message, "warning");
+                        localStorage.removeItem("token");
+                    } else if (error.status == 400) {
+                        Swal.fire("فشل", error.message, "warning");
+                    } else Swal.fire("فشل", error.message, "warning");
+                    this.$store.commit("authLoaded");
+                }
+            );
         }
     },
     created() {}

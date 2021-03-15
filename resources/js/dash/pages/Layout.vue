@@ -3,11 +3,7 @@
 <template>
     <div v-if="loadAuth" class="w-full">
         <!-- Side Menu -->
-        <div
-            class="md:right-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:flex-row md:flex-no-wrap md:overflow-hidden shadow bg-white flex flex-wrap items-center justify-between relative md:w-64 z-10 py-4 px-6"
-        >
-            s
-        </div>
+        <side-menu></side-menu>
         <!-- End Side Menu -->
 
         <!-- Left Part -->
@@ -27,17 +23,24 @@
 
 <script>
 import Swal from "sweetalert2";
+import sideMenu from "../components/shared/side-menu.vue";
 export default {
+    components: { sideMenu },
     computed: {
         loadAuth() {
             return this.$store.state.loadAuth;
         },
         user() {
             return this.$store.state.user;
+        },
+        auth() {
+            return this.$store.state.auth;
         }
     },
-    beforeMount() {
-        if (localStorage.getItem("token")) {
+    mounted() {
+        if(this.auth){
+
+        }else if (localStorage.getItem("token") && !this.auth) {
             Swal.showLoading();
             this.$store.dispatch("checkAuth").then(
                 response => {
@@ -47,6 +50,7 @@ export default {
                 error => {
                     if (error.status == 401) {
                         Swal.fire("فشل", error.message, "warning");
+                        localStorage.removeItem("token");
                     } else if (error.status == 400) {
                         Swal.fire("فشل", error.message, "warning");
                     } else Swal.fire("فشل", error.message, "warning");

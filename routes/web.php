@@ -7,5 +7,5 @@ Route::view(uri:'/',view:'web/home');
 
 
 // =====> Dashboard
-Route::view(uri:'/admin',view:'admin');
-Route::view(uri:'/admin/{a?}/{b?}/{c?}/{d?}',view:'admin');
+Route::view(uri:'/admin',view:'dash.admin');
+Route::view(uri:'/admin/{a?}/{b?}/{c?}/{d?}',view:'dash.admin');

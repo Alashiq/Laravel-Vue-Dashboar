@@ -1,7 +1,7 @@
-import Home from "./Pages/Home.vue";
-import Profile from "./Pages/Profile.vue";
-import Login from "./Pages/Login.vue";
-import Layout from "./Pages/Layout.vue";
+import Home from "./pages/Home.vue";
+import Profile from "./pages/Profile.vue";
+import Login from "./pages/Login.vue";
+import Layout from "./pages/Layout.vue";
 
 import store from "./store/admin";
 

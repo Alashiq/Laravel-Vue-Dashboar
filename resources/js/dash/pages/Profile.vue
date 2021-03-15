@@ -51,15 +51,8 @@ export default {
         user() {
             return this.$store.state.user;
         },
-        auth() {
-            return this.$store.state.auth;
-        },
-        loadAuth(){
-            return this.$store.state.loadAuth;
-        }
     },
     created() {
-        //if (!this.auth) this.$router.push("/admin/login");
     }
 };
 </script>
