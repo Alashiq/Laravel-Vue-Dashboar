@@ -1,3 +1,4 @@
+import router from '../routes.js'
 export default {
     state: () => ({
         loadAuth: false,
@@ -126,5 +127,9 @@ export default {
                 );
             });
         },
+        // If 401 Error 
+        async clearAuth({ commit }) {
+            this.commit("clearUser");
+        }
     }
 };

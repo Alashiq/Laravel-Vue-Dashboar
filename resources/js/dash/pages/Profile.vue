@@ -42,6 +42,9 @@ export default {
                 },
                 error => {
                     Swal.fire("فشل", error.response.data.message, "warning");
+                    this.$store.dispatch("clearAuth");
+                    localStorage.removeItem("token");
+                    this.$router.push("/admin/login");
                 }
             );
         }
@@ -50,9 +53,8 @@ export default {
     computed: {
         user() {
             return this.$store.state.user;
-        },
+        }
     },
-    created() {
-    }
+    created() {}
 };
 </script>

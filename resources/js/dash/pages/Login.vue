@@ -1,25 +1,67 @@
 <template>
-    <div class=" h-full w-full bg-blue-200 flex">
-        <div class="h-96 w-96 mx-auto bg-white my-12 shadow-lg rounded px-4">
-            <input
-                class="h-10 w-full border my-12 rounded px-3 text-xl"
-                v-model="formData.username"
-                type="text"
-                placeholder="اسم المستخدم"
-            />
-            <input
-                class="h-10 w-full border my-12 rounded px-3 text-xl"
-                v-model="formData.password"
-                type="text"
-                placeholder="كلمة المرور"
-            />
-            {{ auth }}
-            <div
-                class="w-40 h-12 bg-red-400 text-white rounded shadow-lg text-center"
-                @click="login"
-            >
-                تسجيل الدخول
+    <div class="flex">
+        <div
+            class="grid md:grid-cols-2 lg:mx-auto md:my-48 my-20 bg-white shadow-lg rounded-lg lg:w-auto w-full mx-4"
+        >
+            <!-- Form -->
+            <div class="lg:w-96">
+                <div
+                    class="h-48 flex items-center justify-center text-4xl font-medium"
+                >
+                    تسجيل الدخول
+                </div>
+                <div class="w-full h-24 flex items-center justify-center">
+                    <div class="w-full mx-4">
+                                            <input
+                        class="h-14 w-full border rounded px-3 text-xl"
+                        v-model="formData.username"
+                        type="text"
+                        placeholder="اسم المستخدم"
+                    />
+                    <!-- <div class="h-6 text-sm text-red-400 mr-2 flex items-center">لا يمكنك ترك هذا الحقل فارغ</div> -->
+                    </div>
+                </div>
+                <div class="w-full h-24 flex items-center justify-center">
+                    <input
+                        class="h-14 mx-4 w-full border rounded px-3 text-xl"
+                        v-model="formData.password"
+                        type="text"
+                        placeholder="كلمة المرور"
+                    />
+                </div>
+
+                <div class="w-full h-24 flex items-center justify-center">
+                    <div
+                        class="w-56 h-14 bg-green-400 text-white flex items-center justify-center rounded shadow-lg text-xl font-medium cursor-pointer hover:bg-green-500"
+                        @click="login"
+                    >
+                        تسجيل الدخول
+                    </div>
+                </div>
+
+                <a href="/"
+                    class="text-red-400 hover:text-red-500 h-10 w-full my-6 text-lg font-medium underline flex items-center justify-center"
+                >
+                    الذهاب للموقع
+                </a>
             </div>
+            <!-- End Form  -->
+            <!-- Left Side -->
+            <div
+                class="lg:w-96 md:h-auto h-96 bg-cover bg-center md:rounded-l-lg md:rounded-br-none rounded-b-lg flex items-center justify-center"
+                style="background-image:url('https://coloredbrain.com/wp-content/uploads/2016/07/login-background.jpg');"
+            >
+            
+            <div class="w-full mx-4">
+                <div class="text-2xl font-bold text-white text-center">لوحة التحكم</div>
+                <div class="h-6 w-full"></div>
+                <div class=" text-justify font-light text-gray-200">
+                    من خلال هذه اللوحة يمكنك التحكم في الموقع بشكل كامل, كذلك يمكنك اضافة مستخدمين للموقع ومتابعة رسائل العملاء 
+                </div>
+            </div>
+            
+            </div>
+            <!-- End Left Side -->
         </div>
     </div>
 </template>

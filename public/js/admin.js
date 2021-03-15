@@ -2048,6 +2048,48 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
@@ -2163,11 +2205,19 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     checkAuth: function checkAuth() {
+      var _this = this;
+
       sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().showLoading();
       axios.get("/api/admin/auth").then(function (response) {
         sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire("نجاح", response.data.message, "success");
       }, function (error) {
         sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire("فشل", error.response.data.message, "warning");
+
+        _this.$store.dispatch("clearAuth");
+
+        localStorage.removeItem("token");
+
+        _this.$router.push("/admin/login");
       });
     }
   },
@@ -2285,11 +2335,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _routes_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../routes.js */ "./resources/js/dash/routes.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   state: function state() {
@@ -2436,6 +2488,28 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             }
           }
         }, _callee2);
+      }))();
+    },
+    // If 401 Error 
+    clearAuth: function clearAuth(_ref3) {
+      var _this3 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
+        var commit;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                commit = _ref3.commit;
+
+                _this3.commit("clearUser");
+
+              case 2:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
       }))();
     }
   }
@@ -24784,71 +24858,149 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: " h-full w-full bg-blue-200 flex" }, [
+  return _c("div", { staticClass: "flex" }, [
     _c(
       "div",
       {
-        staticClass: "h-96 w-96 mx-auto bg-white my-12 shadow-lg rounded px-4"
+        staticClass:
+          "grid md:grid-cols-2 lg:mx-auto md:my-48 my-20 bg-white shadow-lg rounded-lg lg:w-auto w-full mx-4"
       },
       [
-        _c("input", {
-          directives: [
+        _c("div", { staticClass: "lg:w-96" }, [
+          _c(
+            "div",
             {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.formData.username,
-              expression: "formData.username"
-            }
-          ],
-          staticClass: "h-10 w-full border my-12 rounded px-3 text-xl",
-          attrs: { type: "text", placeholder: "اسم المستخدم" },
-          domProps: { value: _vm.formData.username },
-          on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
-              }
-              _vm.$set(_vm.formData, "username", $event.target.value)
-            }
-          }
-        }),
+              staticClass:
+                "h-48 flex items-center justify-center text-4xl font-medium"
+            },
+            [_vm._v("\n                تسجيل الدخول\n            ")]
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "w-full h-24 flex items-center justify-center" },
+            [
+              _c("div", { staticClass: "w-full mx-4" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.formData.username,
+                      expression: "formData.username"
+                    }
+                  ],
+                  staticClass: "h-14 w-full border rounded px-3 text-xl",
+                  attrs: { type: "text", placeholder: "اسم المستخدم" },
+                  domProps: { value: _vm.formData.username },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.formData, "username", $event.target.value)
+                    }
+                  }
+                })
+              ])
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "w-full h-24 flex items-center justify-center" },
+            [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.formData.password,
+                    expression: "formData.password"
+                  }
+                ],
+                staticClass: "h-14 mx-4 w-full border rounded px-3 text-xl",
+                attrs: { type: "text", placeholder: "كلمة المرور" },
+                domProps: { value: _vm.formData.password },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.formData, "password", $event.target.value)
+                  }
+                }
+              })
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "w-full h-24 flex items-center justify-center" },
+            [
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "w-56 h-14 bg-green-400 text-white flex items-center justify-center rounded shadow-lg text-xl font-medium cursor-pointer hover:bg-green-500",
+                  on: { click: _vm.login }
+                },
+                [_vm._v("\n                    تسجيل الدخول\n                ")]
+              )
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "a",
+            {
+              staticClass:
+                "text-red-400 hover:text-red-500 h-10 w-full my-6 text-lg font-medium underline flex items-center justify-center",
+              attrs: { href: "/" }
+            },
+            [_vm._v("\n                الذهاب للموقع\n            ")]
+          )
+        ]),
         _vm._v(" "),
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.formData.password,
-              expression: "formData.password"
-            }
-          ],
-          staticClass: "h-10 w-full border my-12 rounded px-3 text-xl",
-          attrs: { type: "text", placeholder: "كلمة المرور" },
-          domProps: { value: _vm.formData.password },
-          on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
-              }
-              _vm.$set(_vm.formData, "password", $event.target.value)
-            }
-          }
-        }),
-        _vm._v("\n        " + _vm._s(_vm.auth) + "\n        "),
-        _c(
-          "div",
-          {
-            staticClass:
-              "w-40 h-12 bg-red-400 text-white rounded shadow-lg text-center",
-            on: { click: _vm.login }
-          },
-          [_vm._v("\n            تسجيل الدخول\n        ")]
-        )
+        _vm._m(0)
       ]
     )
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticClass:
+          "lg:w-96 md:h-auto h-96 bg-cover bg-center md:rounded-l-lg md:rounded-br-none rounded-b-lg flex items-center justify-center",
+        staticStyle: {
+          "background-image":
+            "url('https://coloredbrain.com/wp-content/uploads/2016/07/login-background.jpg')"
+        }
+      },
+      [
+        _c("div", { staticClass: "w-full mx-4" }, [
+          _c(
+            "div",
+            { staticClass: "text-2xl font-bold text-white text-center" },
+            [_vm._v("لوحة التحكم")]
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "h-6 w-full" }),
+          _vm._v(" "),
+          _c("div", { staticClass: " text-justify font-light text-gray-200" }, [
+            _vm._v(
+              "\n                من خلال هذه اللوحة يمكنك التحكم في الموقع بشكل كامل, كذلك يمكنك اضافة مستخدمين للموقع ومتابعة رسائل العملاء \n            "
+            )
+          ])
+        ])
+      ]
+    )
+  }
+]
 render._withStripped = true
 
 
