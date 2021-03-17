@@ -2450,21 +2450,43 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       formData: {
+        name: "",
         oldPassword: "",
         newPassword: "",
         confirmPassword: ""
       }
     };
   },
-  methods: {},
+  methods: {
+    changeName: function changeName() {
+      var _this = this;
+
+      sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().showLoading();
+      axios.put("/api/admin", {
+        name: this.formData.name
+      }).then(function (response) {
+        sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire("نجاح", response.data.message, "success");
+
+        _this.$store.commit("updateName", _this.formData.name);
+      }, function (error) {
+        if (error.response.status == 401) {
+          sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire("فشل", "انتهت الجلسة الخاصة بك قم بعمل تسجيل دخول مجددا", "warning");
+
+          _this.$router.push("/admin/login");
+
+          localStorage.removeItem("token");
+        } else sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire("فشل", "حدث خطأ ما", "warning");
+      });
+    }
+  },
   mounted: function mounted() {
     this.$store.commit("activePage", 0);
+    this.formData.name = this.user.name;
   },
   computed: {
     user: function user() {
@@ -2636,6 +2658,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       };
       state.auth = false;
       state.loadAuth = false;
+    },
+    updateName: function updateName(state, name) {
+      state.user.name = name;
     },
     activePage: function activePage(state, pageNumber) {
       for (var i = 0; i < state.pageList.length; i++) {
@@ -25603,20 +25628,20 @@ var render = function() {
                 {
                   name: "model",
                   rawName: "v-model",
-                  value: _vm.user.name,
-                  expression: "user.name"
+                  value: _vm.formData.name,
+                  expression: "formData.name"
                 }
               ],
               staticClass:
-                "border rounded h-10 lg:w-96 w-full px-4 text-lg text-gray-700",
+                "border rounded h-12 lg:w-96 w-full px-4 text-lg text-gray-700",
               attrs: { type: "text" },
-              domProps: { value: _vm.user.name },
+              domProps: { value: _vm.formData.name },
               on: {
                 input: function($event) {
                   if ($event.target.composing) {
                     return
                   }
-                  _vm.$set(_vm.user, "name", $event.target.value)
+                  _vm.$set(_vm.formData, "name", $event.target.value)
                 }
               }
             })
@@ -25631,7 +25656,7 @@ var render = function() {
               "div",
               {
                 staticClass:
-                  "border rounded h-10 lg:w-96 w-full px-4 text-lg text-gray-700 flex items-center bg-gray-100"
+                  "border rounded h-12 lg:w-96 w-full px-4 text-lg text-gray-700 flex items-center bg-gray-100"
               },
               [
                 _vm._v(
@@ -25643,7 +25668,17 @@ var render = function() {
             )
           ]),
           _vm._v(" "),
-          _vm._m(1)
+          _c("div", { staticClass: "flex items-center h-20" }, [
+            _c(
+              "div",
+              {
+                staticClass:
+                  "btn-color-one rounded shadow px-12 h-12 w-auto flex items-center justify-center text-white text-lg cursor-pointer",
+                on: { click: _vm.changeName }
+              },
+              [_vm._v("\n                    تحديث\n                ")]
+            )
+          ])
         ]),
         _vm._v(" "),
         _c("div", [
@@ -25670,7 +25705,7 @@ var render = function() {
                 }
               ],
               staticClass:
-                "border rounded h-10 lg:w-96 w-full px-4 text-lg text-gray-700",
+                "border rounded h-12 lg:w-96 w-full px-4 text-lg text-gray-700",
               attrs: { type: "text" },
               domProps: { value: _vm.formData.oldPassword },
               on: {
@@ -25701,7 +25736,7 @@ var render = function() {
                 }
               ],
               staticClass:
-                "border rounded h-10 lg:w-96 w-full px-4 text-lg text-gray-700",
+                "border rounded h-12 lg:w-96 w-full px-4 text-lg text-gray-700",
               attrs: { type: "text" },
               domProps: { value: _vm.formData.newPassword },
               on: {
@@ -25732,7 +25767,7 @@ var render = function() {
                 }
               ],
               staticClass:
-                "border rounded h-10 lg:w-96 w-full px-4 text-lg text-gray-700",
+                "border rounded h-12 lg:w-96 w-full px-4 text-lg text-gray-700",
               attrs: { type: "text" },
               domProps: { value: _vm.formData.confirmPassword },
               on: {
@@ -25746,7 +25781,7 @@ var render = function() {
             })
           ]),
           _vm._v(" "),
-          _vm._m(2)
+          _vm._m(1)
         ])
       ]
     )
@@ -25768,21 +25803,6 @@ var staticRenderFns = [
         _vm._v("\n                إختر صورة\n            ")
       ]
     )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "flex items-center h-20" }, [
-      _c(
-        "div",
-        {
-          staticClass:
-            "btn-color-one rounded shadow px-12 h-12 w-auto flex items-center justify-center text-white text-lg cursor-pointer"
-        },
-        [_vm._v("\n                    تحديث\n                ")]
-      )
-    ])
   },
   function() {
     var _vm = this

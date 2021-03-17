@@ -36,8 +36,8 @@
                     </div>
                     <input
                         type="text"
-                        class="border rounded h-10 lg:w-96 w-full px-4 text-lg text-gray-700"
-                        v-model="user.name"
+                        class="border rounded h-12 lg:w-96 w-full px-4 text-lg text-gray-700"
+                        v-model="formData.name"
                     />
                 </div>
 
@@ -46,7 +46,7 @@
                         إسم الدخول
                     </div>
                     <div
-                        class="border rounded h-10 lg:w-96 w-full px-4 text-lg text-gray-700 flex items-center bg-gray-100"
+                        class="border rounded h-12 lg:w-96 w-full px-4 text-lg text-gray-700 flex items-center bg-gray-100"
                     >
                         {{ user.username }}
                     </div>
@@ -54,6 +54,7 @@
 
                 <div class="flex items-center h-20">
                     <div
+                        @click="changeName"
                         class="btn-color-one rounded shadow px-12 h-12 w-auto flex items-center justify-center text-white text-lg cursor-pointer"
                     >
                         تحديث
@@ -73,7 +74,7 @@
                     </div>
                     <input
                         type="text"
-                        class="border rounded h-10 lg:w-96 w-full px-4 text-lg text-gray-700"
+                        class="border rounded h-12 lg:w-96 w-full px-4 text-lg text-gray-700"
                         v-model="formData.oldPassword"
                     />
                 </div>
@@ -84,7 +85,7 @@
                     </div>
                     <input
                         type="text"
-                        class="border rounded h-10 lg:w-96 w-full px-4 text-lg text-gray-700"
+                        class="border rounded h-12 lg:w-96 w-full px-4 text-lg text-gray-700"
                         v-model="formData.newPassword"
                     />
                 </div>
@@ -95,20 +96,18 @@
                     </div>
                     <input
                         type="text"
-                        class="border rounded h-10 lg:w-96 w-full px-4 text-lg text-gray-700"
+                        class="border rounded h-12 lg:w-96 w-full px-4 text-lg text-gray-700"
                         v-model="formData.confirmPassword"
                     />
                 </div>
 
-                                <div class="flex items-center h-20">
+                <div class="flex items-center h-20">
                     <div
                         class="btn-color-one rounded shadow px-12 h-12 w-auto flex items-center justify-center text-white text-lg cursor-pointer"
                     >
                         تحديث
                     </div>
                 </div>
-
-                
             </div>
             <!-- End Change Password -->
         </div>
@@ -123,15 +122,42 @@ export default {
     data() {
         return {
             formData: {
+                name: "",
                 oldPassword: "",
                 newPassword: "",
                 confirmPassword: ""
             }
         };
     },
-    methods: {},
+    methods: {
+        changeName: function() {
+            Swal.showLoading();
+            axios
+                .put("/api/admin", {
+                    name: this.formData.name
+                })
+                .then(
+                    response => {
+                        Swal.fire("نجاح", response.data.message, "success");
+                        this.$store.commit("updateName", this.formData.name);
+                    },
+                    error => {
+                        if (error.response.status == 401) {
+                            Swal.fire(
+                                "فشل",
+                                "انتهت الجلسة الخاصة بك قم بعمل تسجيل دخول مجددا",
+                                "warning"
+                            );
+                            this.$router.push("/admin/login");
+                            localStorage.removeItem("token");
+                        } else Swal.fire("فشل", "حدث خطأ ما", "warning");
+                    }
+                );
+        }
+    },
     mounted() {
         this.$store.commit("activePage", 0);
+        this.formData.name = this.user.name;
     },
     computed: {
         user() {

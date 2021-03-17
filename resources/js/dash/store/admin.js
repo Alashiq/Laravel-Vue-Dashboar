@@ -54,6 +54,9 @@ export default {
             state.auth=false;
             state.loadAuth=false;
         },
+        updateName(state,name){
+            state.user.name=name;
+        },
         activePage(state,pageNumber){
             for(var i=0;i<state.pageList.length;i++){
               if(state.pageList[i].id==pageNumber)
