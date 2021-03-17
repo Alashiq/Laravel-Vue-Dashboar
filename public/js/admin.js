@@ -2025,7 +2025,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
@@ -2362,29 +2361,108 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
-    return {};
+    return {
+      formData: {
+        oldPassword: "",
+        newPassword: "",
+        confirmPassword: ""
+      }
+    };
   },
-  methods: {
-    checkAuth: function checkAuth() {
-      var _this = this;
-
-      sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().showLoading();
-      axios.get("/api/admin/auth").then(function (response) {
-        sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire("نجاح", response.data.message, "success");
-      }, function (error) {
-        sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire("فشل", error.response.data.message, "warning");
-
-        _this.$store.dispatch("clearAuth");
-
-        localStorage.removeItem("token");
-
-        _this.$router.push("/admin/login");
-      });
-    }
-  },
+  methods: {},
   mounted: function mounted() {
     this.$store.commit("activePage", 0);
   },
@@ -25201,7 +25279,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "bg-blue-100 w-auto mx-8 my-8" }, [
+    return _c("div", { staticClass: "bg-blue-100 w-auto md:p-8 p-4" }, [
       _c("div", { staticClass: "bg-red-400 h-96 w-32" }),
       _vm._v(" "),
       _c("div", { staticClass: "bg-green-400 h-96 w-32" }),
@@ -25485,47 +25563,243 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      _c(
-        "div",
-        { staticClass: "w-full text-5xl text-center my-20 text-red-500" },
-        [_vm._v("\n        welcome " + _vm._s(_vm.user.name) + "\n    ")]
-      ),
-      _vm._v(" "),
+  return _c("div", { staticClass: "w-auto md:p-8 p-4" }, [
+    _c(
+      "div",
+      { staticClass: "w-full bg-white shadow-2 lg:px-8 md:px-6 px-4 py-4" },
+      [
+        _c(
+          "div",
+          {
+            staticClass:
+              "text-2xl font-bold h-20 flex items-center justify-start border-b"
+          },
+          [_vm._v("\n            الملف الشخصي\n        ")]
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "md:flex items-center my-8" }, [
+          _c("img", {
+            staticClass: "h-52 w-52 border md:mx-px mx-auto",
+            attrs: { src: _vm.user.photo }
+          }),
+          _vm._v(" "),
+          _vm._m(0)
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: " border-b border-t" }, [
+          _c(
+            "div",
+            { staticClass: "text-2xl text-gray-600 font-medium mt-12" },
+            [_vm._v("\n                البيانات الشخصية\n            ")]
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "mt-4 lg:h-16 lg:flex items-center" }, [
+            _c("div", { staticClass: "md:w-48 h-8 text-lg text-gray-600" }, [
+              _vm._v("\n                    إسم المستخدم\n                ")
+            ]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.user.name,
+                  expression: "user.name"
+                }
+              ],
+              staticClass:
+                "border rounded h-10 lg:w-96 w-full px-4 text-lg text-gray-700",
+              attrs: { type: "text" },
+              domProps: { value: _vm.user.name },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.user, "name", $event.target.value)
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "mt-4 lg:h-16 lg:flex items-center" }, [
+            _c("div", { staticClass: "md:w-48 h-8 text-lg text-gray-600" }, [
+              _vm._v("\n                    إسم الدخول\n                ")
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass:
+                  "border rounded h-10 lg:w-96 w-full px-4 text-lg text-gray-700 flex items-center bg-gray-100"
+              },
+              [
+                _vm._v(
+                  "\n                    " +
+                    _vm._s(_vm.user.username) +
+                    "\n                "
+                )
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _vm._m(1)
+        ]),
+        _vm._v(" "),
+        _c("div", [
+          _c(
+            "div",
+            { staticClass: "text-2xl text-gray-600 font-medium mt-12" },
+            [_vm._v("\n                تغيير كلمة المرور\n            ")]
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "mt-4 lg:h-16 lg:flex items-center" }, [
+            _c("div", { staticClass: "md:w-48 h-8 text-lg text-gray-600" }, [
+              _vm._v(
+                "\n                    كلمة المرور الحالية\n                "
+              )
+            ]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.formData.oldPassword,
+                  expression: "formData.oldPassword"
+                }
+              ],
+              staticClass:
+                "border rounded h-10 lg:w-96 w-full px-4 text-lg text-gray-700",
+              attrs: { type: "text" },
+              domProps: { value: _vm.formData.oldPassword },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.formData, "oldPassword", $event.target.value)
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "mt-4 lg:h-16 lg:flex items-center" }, [
+            _c("div", { staticClass: "md:w-48 h-8 text-lg text-gray-600" }, [
+              _vm._v(
+                "\n                    كلمة المرور الجديدة\n                "
+              )
+            ]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.formData.newPassword,
+                  expression: "formData.newPassword"
+                }
+              ],
+              staticClass:
+                "border rounded h-10 lg:w-96 w-full px-4 text-lg text-gray-700",
+              attrs: { type: "text" },
+              domProps: { value: _vm.formData.newPassword },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.formData, "newPassword", $event.target.value)
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "mt-4 lg:h-16 lg:flex items-center" }, [
+            _c("div", { staticClass: "md:w-48 h-8 text-lg text-gray-600" }, [
+              _vm._v(
+                "\n                    تأكيد كلمة المرور\n                "
+              )
+            ]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.formData.confirmPassword,
+                  expression: "formData.confirmPassword"
+                }
+              ],
+              staticClass:
+                "border rounded h-10 lg:w-96 w-full px-4 text-lg text-gray-700",
+              attrs: { type: "text" },
+              domProps: { value: _vm.formData.confirmPassword },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.formData, "confirmPassword", $event.target.value)
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _vm._m(2)
+        ])
+      ]
+    )
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticClass:
+          "btn-color-one cursor-pointer h-12 w-40 rounded  text-lg shadow-1 md:mr-12 md:ml-0 md:mt-0 mt-4 mx-auto text-white flex items-center justify-center"
+      },
+      [
+        _c("i", { staticClass: "fas fa-upload ml-4" }),
+        _vm._v("\n                إختر صورة\n            ")
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "flex items-center h-20" }, [
       _c(
         "div",
         {
           staticClass:
-            "w-40 h-20 flex items-center justify-center bg-red-400 text-white",
-          on: { click: _vm.checkAuth }
+            "btn-color-one rounded shadow px-12 h-12 w-auto flex items-center justify-center text-white text-lg cursor-pointer"
         },
-        [_vm._v("\n        check Auth\n    ")]
-      ),
-      _vm._v(" "),
-      _c(
-        "router-link",
-        {
-          staticClass: "bg-blue-400 text-white px-2 py-2 rounded shadow",
-          attrs: { to: "/admin" }
-        },
-        [_vm._v("\n        home\n    ")]
-      ),
-      _vm._v(" "),
-      _c(
-        "router-link",
-        {
-          staticClass: "bg-blue-400 text-white px-2 py-2 rounded shadow",
-          attrs: { to: "/admin/login" }
-        },
-        [_vm._v("\n        login\n    ")]
+        [_vm._v("\n                    تحديث\n                ")]
       )
-    ],
-    1
-  )
-}
-var staticRenderFns = []
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "flex items-center h-20" }, [
+      _c(
+        "div",
+        {
+          staticClass:
+            "btn-color-one rounded shadow px-12 h-12 w-auto flex items-center justify-center text-white text-lg cursor-pointer"
+        },
+        [_vm._v("\n                    تحديث\n                ")]
+      )
+    ])
+  }
+]
 render._withStripped = true
 
 

@@ -1,10 +1,9 @@
 <template>
-    <div class="bg-blue-100 w-auto mx-8 my-8">
-<div class="bg-red-400 h-96 w-32"></div>
-<div class="bg-green-400 h-96 w-32"></div>
-<div class="bg-blue-400 h-96 w-32"></div>
-<div class="bg-red-400 h-96 w-32"></div>
-
+    <div class="bg-blue-100 w-auto md:p-8 p-4">
+        <div class="bg-red-400 h-96 w-32"></div>
+        <div class="bg-green-400 h-96 w-32"></div>
+        <div class="bg-blue-400 h-96 w-32"></div>
+        <div class="bg-red-400 h-96 w-32"></div>
     </div>
 </template>
 
@@ -14,14 +13,11 @@ export default {
     data() {
         return {};
     },
-    methods: {
-    },
+    methods: {},
     mounted() {
-                this.$store.commit("activePage", 1);
+        this.$store.commit("activePage", 1);
     },
-    computed: {
-    },
-    created() {
-    }
+    computed: {},
+    created() {}
 };
 </script>
