@@ -17,6 +17,7 @@ export default {
     methods: {
     },
     mounted() {
+                this.$store.commit("activePage", 1);
     },
     computed: {
     },

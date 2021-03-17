@@ -49,7 +49,9 @@ export default {
             );
         }
     },
-    mounted() {},
+    mounted() {
+                this.$store.commit("activePage", 0);
+    },
     computed: {
         user() {
             return this.$store.state.user;

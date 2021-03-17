@@ -1888,6 +1888,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -1908,14 +1910,93 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {};
   },
-  methods: {},
+  methods: {
+    logout: function logout() {
+      var _this = this;
+
+      sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().showLoading();
+      this.$store.dispatch("logout").then(function (response) {
+        _this.$router.push("/admin/login");
+
+        sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire("نجاح", response.message, "success");
+
+        _this.$store.commit("clearUser");
+
+        localStorage.removeItem("token");
+        axios.defaults.headers.common["Authorization"] = null;
+      }, function (error) {
+        _this.$router.push("/admin/login");
+
+        sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire("فشل", error.message, "warning");
+        localStorage.removeItem("token");
+
+        _this.$store.commit("clearUser");
+
+        axios.defaults.headers.common["Authorization"] = null;
+      });
+    }
+  },
   computed: {
     pageList: function pageList() {
       return this.$store.state.pageList;
+    },
+    user: function user() {
+      return this.$store.state.user;
     }
   }
 });
@@ -1951,7 +2032,9 @@ __webpack_require__.r(__webpack_exports__);
     return {};
   },
   methods: {},
-  mounted: function mounted() {},
+  mounted: function mounted() {
+    this.$store.commit("activePage", 1);
+  },
   computed: {},
   created: function created() {}
 });
@@ -2009,6 +2092,7 @@ __webpack_require__.r(__webpack_exports__);
       return this.$store.state.auth;
     }
   },
+  methods: {},
   mounted: function mounted() {
     var _this = this;
 
@@ -2051,6 +2135,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_0__);
+//
+//
 //
 //
 //
@@ -2299,7 +2385,9 @@ __webpack_require__.r(__webpack_exports__);
       });
     }
   },
-  mounted: function mounted() {},
+  mounted: function mounted() {
+    this.$store.commit("activePage", 0);
+  },
   computed: {
     user: function user() {
       return this.$store.state.user;
@@ -2435,18 +2523,21 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       pageList: [{
         id: 1,
         name: "الرئيسية",
-        active: false,
-        path: "/admin"
+        active: true,
+        path: "/admin",
+        icon: 'fas fa-home'
       }, {
         id: 2,
-        name: "حسابي",
+        name: "الرسائل",
         active: false,
-        path: "/admin/profile"
+        path: "/admin/message",
+        icon: 'fas fa-comment-dots'
       }, {
         id: 3,
-        name: "تسجيل الدخول",
+        name: "المشرفين",
         active: false,
-        path: "/admin/login"
+        path: "/admin/admin",
+        icon: 'fas fa-users'
       }]
     };
   },
@@ -2467,6 +2558,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       };
       state.auth = false;
       state.loadAuth = false;
+    },
+    activePage: function activePage(state, pageNumber) {
+      for (var i = 0; i < state.pageList.length; i++) {
+        if (state.pageList[i].id == pageNumber) state.pageList[i].active = true;else state.pageList[i].active = false;
+      }
     }
   },
   actions: {
@@ -2537,12 +2633,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   axios.get("/api/admin/auth").then(function (response) {
                     _this2.commit("setUser", response.data.user);
 
-                    setTimeout(function () {
-                      return resolve({
-                        message: "مرحبا بالمستخدم",
-                        status: response.status
-                      });
-                    }, 2000);
+                    resolve({
+                      message: "مرحبا بالمستخدم",
+                      status: response.status
+                    });
                   }, function (error) {
                     console.log(error.response);
                     if (error.response.status == 401) reject({
@@ -2568,10 +2662,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee2);
       }))();
     },
-    // If 401 Error 
-    clearAuth: function clearAuth(_ref3) {
-      var _this3 = this;
-
+    //  Logout
+    logout: function logout(_ref3) {
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
         var commit;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
@@ -2579,8 +2671,28 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context3.prev = _context3.next) {
               case 0:
                 commit = _ref3.commit;
-
-                _this3.commit("clearUser");
+                return _context3.abrupt("return", new Promise(function (resolve, reject) {
+                  axios.get("/api/admin/logout").then(function (response) {
+                    resolve({
+                      message: "تم تسجيل الخروج بنجاح",
+                      status: response.status
+                    });
+                  }, function (error) {
+                    console.log(error.response);
+                    if (error.response.status == 401) reject({
+                      message: error.response.data.message,
+                      status: error.response.status
+                    });
+                    if (error.response.status == 400) reject({
+                      message: error.response.data.message,
+                      status: error.response.status
+                    });
+                    reject({
+                      message: "حدث خطأ ما",
+                      status: error.response.status
+                    });
+                  });
+                }));
 
               case 2:
               case "end":
@@ -2588,6 +2700,28 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             }
           }
         }, _callee3);
+      }))();
+    },
+    // If 401 Error 
+    clearAuth: function clearAuth(_ref4) {
+      var _this3 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
+        var commit;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                commit = _ref4.commit;
+
+                _this3.commit("clearUser");
+
+              case 2:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4);
       }))();
     }
   }
@@ -24863,7 +24997,7 @@ var render = function() {
         "h-16 w-full bg-white shadow mb-8 flex justify-end items-center px-8"
     },
     [
-      _c("div", [_vm._v(_vm._s(_vm.user.username))]),
+      _c("div", [_vm._v(_vm._s(_vm.user.name))]),
       _vm._v(" "),
       _c("img", {
         staticClass: "h-10 w-10 rounded-full mx-2",
@@ -24899,16 +25033,74 @@ var render = function() {
     "div",
     {
       staticClass:
-        "md:right-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:flex-row md:flex-no-wrap md:overflow-hidden shadow bg-white flex flex-wrap items-center justify-between relative md:w-64 z-10 py-4"
+        "md:right-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:flex-row md:flex-no-wrap md:overflow-hidden shadow bg-white flex flex-wrap items-center justify-between relative md:w-64 z-10"
     },
     [
       _c(
         "div",
         {
           staticClass:
-            "h-24 w-full flex items-center justify-center text-2xl border-b"
+            "h-20 items-center w-full flex justify-center text-xl border-b font-medium"
         },
         [_vm._v("\n        لوحة التحكم\n    ")]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass:
+            "h-32 w-full flex items-center px-3 justify-between border-b mb-4"
+        },
+        [
+          _c("div", { staticClass: "h-24 w-16" }, [
+            _c("img", {
+              staticClass: "rounded-full h-16",
+              attrs: { src: _vm.user.photo }
+            }),
+            _vm._v(" "),
+            _vm._m(0),
+            _vm._v(" "),
+            _vm._m(1)
+          ]),
+          _vm._v(" "),
+          _c("div", [
+            _c("div", { staticClass: "text-lg w-40 font-medium" }, [
+              _vm._v(_vm._s(_vm.user.name))
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass:
+                  "flex items-center justify-center py-3 text-gray-700"
+              },
+              [
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "bg-white h-10 w-10 rounded-full shadow-1 mx-2 flex items-center justify-center cursor-pointer hover:text-red-400",
+                    on: { click: _vm.logout }
+                  },
+                  [_c("i", { staticClass: "fas fa-sign-out-alt" })]
+                ),
+                _vm._v(" "),
+                _c(
+                  "router-link",
+                  {
+                    staticClass:
+                      "bg-white h-10 w-10 rounded-full shadow-1 mx-2 flex items-center justify-center cursor-pointer hover:text-red-400",
+                    attrs: { to: "/admin/profile" }
+                  },
+                  [_c("i", { staticClass: "fas fa-user-cog" })]
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "h-10 w-6" })
+              ],
+              1
+            )
+          ])
+        ]
       ),
       _vm._v(" "),
       _vm._l(_vm.pageList, function(item) {
@@ -24917,17 +25109,69 @@ var render = function() {
           {
             key: item.id,
             staticClass:
-              "w-full border-b h-12 flex items-center justify-center",
+              "w-auto px-6 flex items-center justify-start text-gray-500 cairo hover:bg-gray-100 hover:text-red-400",
             attrs: { to: item.path }
           },
-          [_vm._v(_vm._s(item.name))]
+          [
+            item.active
+              ? _c(
+                  "div",
+                  {
+                    staticClass:
+                      "h-12 my-1 text-lg flex items-center text-red-400"
+                  },
+                  [
+                    _c("i", { class: item.icon + " ml-5 text-lg" }),
+                    _vm._v("\n        " + _vm._s(item.name) + "\n        ")
+                  ]
+                )
+              : _c(
+                  "div",
+                  { staticClass: "h-12 my-1 text-lg flex items-center" },
+                  [
+                    _c("i", { class: item.icon + " ml-5 text-lg" }),
+                    _vm._v("\n        " + _vm._s(item.name) + "\n        ")
+                  ]
+                )
+          ]
         )
       })
     ],
     2
   )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticClass:
+          "rounded-full h-5 w-5 bg-white shadow-xl animate-ping  -mt-5 mr-12 flex items-center justify-center"
+      },
+      [
+        _c("div", {
+          staticClass: "bg-green-500 h-4 w-4 rounded-full animate-ping"
+        })
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticClass:
+          "rounded-full h-5 w-5 bg-white shadow-xl relative z-10 -mt-5 mr-12 flex items-center justify-center"
+      },
+      [_c("div", { staticClass: "bg-green-500 h-4 w-4 rounded-full" })]
+    )
+  }
+]
 render._withStripped = true
 
 
@@ -25211,7 +25455,9 @@ var staticRenderFns = [
             _vm._v(
               "\n                    من خلال هذه اللوحة يمكنك التحكم في الموقع بشكل كامل,\n                    كذلك يمكنك اضافة مستخدمين للموقع ومتابعة رسائل العملاء\n                "
             )
-          ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "w-full md:h-24" })
         ])
       ]
     )

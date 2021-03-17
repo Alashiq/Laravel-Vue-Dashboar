@@ -34,10 +34,12 @@ export default {
             return this.$store.state.auth;
         }
     },
-    mounted() {
-        if(this.auth){
+    methods: {
 
-        }else if (localStorage.getItem("token") && !this.auth) {
+    },
+    mounted() {
+        if (this.auth) {
+        } else if (localStorage.getItem("token") && !this.auth) {
             Swal.showLoading();
             this.$store.dispatch("checkAuth").then(
                 response => {

@@ -13,22 +13,25 @@ export default {
             {
                 id: 1,
                 name: "الرئيسية",
-                active: false,
-                path: "/admin"
+                active: true,
+                path: "/admin",
+                icon:'fas fa-home'
             },
 
             {
                 id: 2,
-                name: "حسابي",
+                name: "الرسائل",
                 active: false,
-                path: "/admin/profile"
+                path: "/admin/message",
+                icon:'fas fa-comment-dots'
             },
 
             {
                 id: 3,
-                name: "تسجيل الدخول",
+                name: "المشرفين",
                 active: false,
-                path: "/admin/login"
+                path: "/admin/admin",
+                icon:'fas fa-users'
             }
         ]
     }),
@@ -50,7 +53,15 @@ export default {
             };
             state.auth=false;
             state.loadAuth=false;
-        }
+        },
+        activePage(state,pageNumber){
+            for(var i=0;i<state.pageList.length;i++){
+              if(state.pageList[i].id==pageNumber)
+              state.pageList[i].active=true;
+              else
+              state.pageList[i].active=false;
+            }
+          },
     },
 
     actions: {
@@ -98,14 +109,10 @@ export default {
                 axios.get("/api/admin/auth").then(
                     response => {
                         this.commit("setUser", response.data.user);
-                        setTimeout(
-                            () =>
-                                resolve({
-                                    message: "مرحبا بالمستخدم",
-                                    status: response.status
-                                }),
-                            2000
-                        );
+                        resolve({
+                            message: "مرحبا بالمستخدم",
+                            status: response.status
+                        });
                     },
                     error => {
                         console.log(error.response);
@@ -127,6 +134,36 @@ export default {
                 );
             });
         },
+              //  Logout
+              async logout({ commit }) {
+                return new Promise((resolve, reject) => {
+                    axios.get("/api/admin/logout").then(
+                        response => {
+                            resolve({
+                                message: "تم تسجيل الخروج بنجاح",
+                                status: response.status
+                            });
+                        },
+                        error => {
+                            console.log(error.response);
+                            if (error.response.status == 401)
+                                reject({
+                                    message: error.response.data.message,
+                                    status: error.response.status
+                                });
+                            if (error.response.status == 400)
+                                reject({
+                                    message: error.response.data.message,
+                                    status: error.response.status
+                                });
+                            reject({
+                                message: "حدث خطأ ما",
+                                status: error.response.status
+                            });
+                        }
+                    );
+                });
+            },
         // If 401 Error 
         async clearAuth({ commit }) {
             this.commit("clearUser");

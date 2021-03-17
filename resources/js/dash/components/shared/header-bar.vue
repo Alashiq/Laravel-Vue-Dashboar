@@ -1,6 +1,6 @@
 <template>
     <div class="h-16 w-full bg-white shadow mb-8 flex justify-end items-center px-8">
-        <div>{{user.username}}</div>
+        <div>{{user.name}}</div>
         <img :src="user.photo" class="h-10 w-10 rounded-full mx-2" />
     </div>
 </template>

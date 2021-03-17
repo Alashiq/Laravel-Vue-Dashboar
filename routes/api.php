@@ -1,7 +1,6 @@
 <?php
 
-use App\Http\Controllers\API\Auth\AdminAuthController;
-use App\Models\User;
+use App\Http\Controllers\API\Dash\AdminDashController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Hash;
@@ -17,11 +16,11 @@ Route::get('/notAuth', function (Request $request) {
 
 
 
-Route::post('/admin', [AdminAuthController::class, 'new']);
-Route::post('/admin/login', [AdminAuthController::class, 'login']);
+Route::post('/admin', [AdminDashController::class, 'new']);
+Route::post('/admin/login', [AdminDashController::class, 'login']);
 
 Route::prefix('admin')->middleware(['auth:sanctum', 'type.admin'])->group(function () {
-    Route::get('/auth', [AdminAuthController::class, 'profile']);
-    Route::get('/logout', [AdminAuthController::class, 'logout']);
-    Route::put('/', [AdminAuthController::class, 'update']);
+    Route::get('/auth', [AdminDashController::class, 'profile']);
+    Route::get('/logout', [AdminDashController::class, 'logout']);
+    Route::put('/', [AdminDashController::class, 'update']);
 });

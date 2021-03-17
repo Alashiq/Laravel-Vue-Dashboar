@@ -1,15 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\API\Auth;
+namespace App\Http\Controllers\API\Dash;
 
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\ValidationException;
 
 
-class AdminAuthController extends Controller
+class AdminDashController extends Controller
 {
 
     public function new(Request $request)
@@ -24,8 +23,6 @@ class AdminAuthController extends Controller
 
     public function login(Request $request)
     {
-
-
         $customer = Admin::where('username', $request->username)->first();
 
         if (!$customer || !Hash::check($request->password, $customer->password)) {
