@@ -23,4 +23,7 @@ Route::prefix('admin')->middleware(['auth:sanctum', 'type.admin'])->group(functi
     Route::get('/auth', [AdminDashController::class, 'profile']);
     Route::get('/logout', [AdminDashController::class, 'logout']);
     Route::put('/', [AdminDashController::class, 'update']);
+    Route::post('/photo', [AdminDashController::class, 'updatePhoto']);
 });
+
+

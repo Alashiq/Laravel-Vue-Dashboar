@@ -2450,11 +2450,70 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       formData: {
+        file: "",
+        name: "",
+        oldPassword: "",
+        newPassword: "",
+        confirmPassword: ""
+      },
+      formValidate: {
         name: "",
         oldPassword: "",
         newPassword: "",
@@ -2463,25 +2522,148 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
-    changeName: function changeName() {
+    onChange: function onChange(e) {
+      this.formData.file = e.target.files[0];
+    },
+    changePhoto: function changePhoto() {
       var _this = this;
 
+      sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().showLoading();
+      var config = {
+        headers: {
+          "content-type": "multipart/form-data"
+        }
+      };
+      var data = new FormData();
+      data.append("file", this.formData.file);
+      axios.post("/api/admin/photo", data, config).then(function (response) {
+        _this.$store.commit("updatePhoto", response.data.photo);
+
+        sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire("نجاح", response.data.message, "success");
+      }, function (error) {
+        if (error.response.status == 401) {
+          sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire("فشل", "انتهت الجلسة الخاصة بك قم بعمل تسجيل دخول مجددا", "warning");
+          localStorage.removeItem("token");
+
+          _this.$store.commit("clearUser");
+
+          _this.$router.push("/admin/login");
+        } else sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire("فشل", error.response.data.message, "warning");
+      });
+    },
+    changeName: function changeName() {
+      var _this2 = this;
+
+      if (this.user.name == this.formData.name.trim()) {
+        this.formValidate.name = "لم تقم بإدخال اي اسم جديد";
+        return 0;
+      }
+
+      this.validateName();
+      if (this.formValidate.name != "") return 0;
       sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().showLoading();
       axios.put("/api/admin", {
         name: this.formData.name
       }).then(function (response) {
         sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire("نجاح", response.data.message, "success");
 
-        _this.$store.commit("updateName", _this.formData.name);
+        _this2.$store.commit("updateName", _this2.formData.name);
       }, function (error) {
         if (error.response.status == 401) {
           sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire("فشل", "انتهت الجلسة الخاصة بك قم بعمل تسجيل دخول مجددا", "warning");
-
-          _this.$router.push("/admin/login");
-
           localStorage.removeItem("token");
+
+          _this2.$store.commit("clearUser");
+
+          _this2.$router.push("/admin/login");
         } else sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire("فشل", "حدث خطأ ما", "warning");
       });
+    },
+    changePassword: function changePassword() {
+      var _this3 = this;
+
+      this.validateOldPassword();
+      this.validateNewPassword();
+      this.validateConfirmPassword();
+      if (this.formValidate.oldPassword != "") return 0;
+      if (this.formValidate.newPassword != "") return 0;
+      if (this.formValidate.confirmPassword != "") return 0;
+      sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().showLoading();
+      axios.put("/api/admin", {
+        oldPassword: this.formData.oldPassword,
+        newPassword: this.formData.newPassword
+      }).then(function (response) {
+        sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire("نجاح", response.data.message, "success");
+        _this3.formData.oldPassword = "";
+        _this3.formData.newPassword = "";
+        _this3.formData.confirmPassword = "";
+      }, function (error) {
+        if (error.response.status == 401) {
+          sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire("فشل", "انتهت الجلسة الخاصة بك قم بعمل تسجيل دخول مجددا", "warning");
+          localStorage.removeItem("token");
+
+          _this3.$store.commit("clearUser");
+
+          _this3.$router.push("/admin/login");
+        } else sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire("فشل", error.response.data.message, "warning");
+      });
+    },
+    validateName: function validateName() {
+      this.formValidate.name = "";
+
+      if (this.formData.name.trim() == "") {
+        this.formValidate.name = "لا يمكن ترك هذا الحقل فارغ";
+        return 1;
+      }
+
+      if (this.formData.name.trim().length < 5) {
+        this.formValidate.name = "يجب ان يكون الإسم اكثر 5 أحرف أو اكثر";
+        return 1;
+      }
+
+      if (this.formData.name.trim().length > 16) {
+        this.formValidate.name = "يجب ان يكون الإسم أقل من 16";
+        return 1;
+      }
+    },
+    validateOldPassword: function validateOldPassword() {
+      this.formValidate.oldPassword = "";
+
+      if (this.formData.oldPassword.trim() == "") {
+        this.formValidate.oldPassword = "لا يمكن ترك هذا الحقل فارغ";
+        return 1;
+      }
+
+      if (this.formData.oldPassword.trim().length < 6) {
+        this.formValidate.oldPassword = "يجب ان تكون كلمة المرور أكثر من 6 أرقام ورموز";
+        return 1;
+      }
+    },
+    validateNewPassword: function validateNewPassword() {
+      this.formValidate.newPassword = "";
+
+      if (this.formData.newPassword.trim() == "") {
+        this.formValidate.newPassword = "لا يمكن ترك هذا الحقل فارغ";
+        return 1;
+      }
+
+      if (this.formData.newPassword.trim().length < 6) {
+        this.formValidate.newPassword = "يجب ان تكون كلمة المرور أكثر من 6 أرقام ورموز";
+        return 1;
+      }
+    },
+    validateConfirmPassword: function validateConfirmPassword() {
+      this.formValidate.confirmPassword = "";
+
+      if (this.formData.confirmPassword.trim() == "") {
+        this.formValidate.confirmPassword = "لا يمكن ترك هذا الحقل فارغ";
+        return 1;
+      }
+
+      if (this.formData.confirmPassword != this.formData.newPassword) {
+        this.formValidate.confirmPassword = "يجب ان يتطابق كلمة المرور الجديدة مع تأكيد كلمة المرور";
+        return 1;
+      }
     }
   },
   mounted: function mounted() {
@@ -2661,6 +2843,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     updateName: function updateName(state, name) {
       state.user.name = name;
+    },
+    updatePhoto: function updatePhoto(state, photo) {
+      state.user.photo = photo;
     },
     activePage: function activePage(state, pageNumber) {
       for (var i = 0; i < state.pageList.length; i++) {
@@ -25608,7 +25793,35 @@ var render = function() {
             attrs: { src: _vm.user.photo }
           }),
           _vm._v(" "),
-          _vm._m(0)
+          _c(
+            "div",
+            {
+              staticClass:
+                "h-16 w-32 bg-blue-200 md:mr-4 md:ml-0 md:my-0 mx-auto my-4"
+            },
+            [
+              _c("input", {
+                staticClass:
+                  "cursor-pointer absolute block h-16 w-32 opacity-0 pin-r pin-t",
+                attrs: { type: "file" },
+                on: { change: _vm.onChange }
+              }),
+              _vm._v(" "),
+              _vm._m(0)
+            ]
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "flex items-center h-20" }, [
+          _c(
+            "div",
+            {
+              staticClass:
+                "btn-color-one rounded shadow px-12 h-12 w-auto flex items-center justify-center text-white text-lg cursor-pointer",
+              on: { click: _vm.changePhoto }
+            },
+            [_vm._v("\n                تحديث\n            ")]
+          )
         ]),
         _vm._v(" "),
         _c("div", { staticClass: " border-b border-t" }, [
@@ -25623,28 +25836,45 @@ var render = function() {
               _vm._v("\n                    إسم المستخدم\n                ")
             ]),
             _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.formData.name,
-                  expression: "formData.name"
-                }
-              ],
-              staticClass:
-                "border rounded h-12 lg:w-96 w-full px-4 text-lg text-gray-700",
-              attrs: { type: "text" },
-              domProps: { value: _vm.formData.name },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
+            _c("div", { staticClass: "16" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.formData.name,
+                    expression: "formData.name"
                   }
-                  _vm.$set(_vm.formData, "name", $event.target.value)
+                ],
+                staticClass:
+                  "border rounded h-12 lg:w-96 w-full px-4 text-lg text-gray-700",
+                attrs: { type: "text" },
+                domProps: { value: _vm.formData.name },
+                on: {
+                  change: _vm.validateName,
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.formData, "name", $event.target.value)
+                  }
                 }
-              }
-            })
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass: "h-6 text-sm text-red-400 mr-2 flex items-center"
+                },
+                [
+                  _vm._v(
+                    "\n                        " +
+                      _vm._s(_vm.formValidate.name) +
+                      "\n                    "
+                  )
+                ]
+              )
+            ])
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "mt-4 lg:h-16 lg:flex items-center" }, [
@@ -25695,28 +25925,45 @@ var render = function() {
               )
             ]),
             _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.formData.oldPassword,
-                  expression: "formData.oldPassword"
-                }
-              ],
-              staticClass:
-                "border rounded h-12 lg:w-96 w-full px-4 text-lg text-gray-700",
-              attrs: { type: "text" },
-              domProps: { value: _vm.formData.oldPassword },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
+            _c("div", { staticClass: "16" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.formData.oldPassword,
+                    expression: "formData.oldPassword"
                   }
-                  _vm.$set(_vm.formData, "oldPassword", $event.target.value)
+                ],
+                staticClass:
+                  "border rounded h-12 lg:w-96 w-full px-4 text-lg text-gray-700",
+                attrs: { type: "password" },
+                domProps: { value: _vm.formData.oldPassword },
+                on: {
+                  change: _vm.validateOldPassword,
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.formData, "oldPassword", $event.target.value)
+                  }
                 }
-              }
-            })
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass: "h-6 text-sm text-red-400 mr-2 flex items-center"
+                },
+                [
+                  _vm._v(
+                    "\n                        " +
+                      _vm._s(_vm.formValidate.oldPassword) +
+                      "\n                    "
+                  )
+                ]
+              )
+            ])
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "mt-4 lg:h-16 lg:flex items-center" }, [
@@ -25726,28 +25973,45 @@ var render = function() {
               )
             ]),
             _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.formData.newPassword,
-                  expression: "formData.newPassword"
-                }
-              ],
-              staticClass:
-                "border rounded h-12 lg:w-96 w-full px-4 text-lg text-gray-700",
-              attrs: { type: "text" },
-              domProps: { value: _vm.formData.newPassword },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
+            _c("div", { staticClass: "16" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.formData.newPassword,
+                    expression: "formData.newPassword"
                   }
-                  _vm.$set(_vm.formData, "newPassword", $event.target.value)
+                ],
+                staticClass:
+                  "border rounded h-12 lg:w-96 w-full px-4 text-lg text-gray-700",
+                attrs: { type: "password" },
+                domProps: { value: _vm.formData.newPassword },
+                on: {
+                  change: _vm.validateNewPassword,
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.formData, "newPassword", $event.target.value)
+                  }
                 }
-              }
-            })
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass: "h-6 text-sm text-red-400 mr-2 flex items-center"
+                },
+                [
+                  _vm._v(
+                    "\n                        " +
+                      _vm._s(_vm.formValidate.newPassword) +
+                      "\n                    "
+                  )
+                ]
+              )
+            ])
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "mt-4 lg:h-16 lg:flex items-center" }, [
@@ -25757,31 +26021,62 @@ var render = function() {
               )
             ]),
             _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.formData.confirmPassword,
-                  expression: "formData.confirmPassword"
-                }
-              ],
-              staticClass:
-                "border rounded h-12 lg:w-96 w-full px-4 text-lg text-gray-700",
-              attrs: { type: "text" },
-              domProps: { value: _vm.formData.confirmPassword },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
+            _c("div", { staticClass: "16" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.formData.confirmPassword,
+                    expression: "formData.confirmPassword"
                   }
-                  _vm.$set(_vm.formData, "confirmPassword", $event.target.value)
+                ],
+                staticClass:
+                  "border rounded h-12 lg:w-96 w-full px-4 text-lg text-gray-700",
+                attrs: { type: "password" },
+                domProps: { value: _vm.formData.confirmPassword },
+                on: {
+                  change: _vm.validateConfirmPassword,
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(
+                      _vm.formData,
+                      "confirmPassword",
+                      $event.target.value
+                    )
+                  }
                 }
-              }
-            })
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass: "h-6 text-sm text-red-400 mr-2 flex items-center"
+                },
+                [
+                  _vm._v(
+                    "\n                        " +
+                      _vm._s(_vm.formValidate.confirmPassword) +
+                      "\n                    "
+                  )
+                ]
+              )
+            ])
           ]),
           _vm._v(" "),
-          _vm._m(1)
+          _c("div", { staticClass: "flex items-center h-20" }, [
+            _c(
+              "div",
+              {
+                staticClass:
+                  "btn-color-one rounded shadow px-12 h-12 w-auto flex items-center justify-center text-white text-lg cursor-pointer",
+                on: { click: _vm.changePassword }
+              },
+              [_vm._v("\n                    تحديث\n                ")]
+            )
+          ])
         ])
       ]
     )
@@ -25793,31 +26088,16 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c(
-      "div",
+      "span",
       {
         staticClass:
-          "btn-color-one cursor-pointer h-12 w-40 rounded  text-lg shadow-1 md:mr-12 md:ml-0 md:mt-0 mt-4 mx-auto text-white flex items-center justify-center"
+          "ml-2 bg-blue-400 h-16 w-32 text-white flex items-center justify-center rounded shadow cursor-pointer hover:bg-blue-500 text-lg"
       },
       [
-        _c("i", { staticClass: "fas fa-upload ml-4" }),
-        _vm._v("\n                إختر صورة\n            ")
+        _c("i", { staticClass: "fas fa-folder-plus ml-2" }),
+        _vm._v("\n                    إختر الصورة")
       ]
     )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "flex items-center h-20" }, [
-      _c(
-        "div",
-        {
-          staticClass:
-            "btn-color-one rounded shadow px-12 h-12 w-auto flex items-center justify-center text-white text-lg cursor-pointer"
-        },
-        [_vm._v("\n                    تحديث\n                ")]
-      )
-    ])
   }
 ]
 render._withStripped = true

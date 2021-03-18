@@ -57,6 +57,9 @@ export default {
         updateName(state,name){
             state.user.name=name;
         },
+        updatePhoto(state,photo){
+            state.user.photo=photo;
+        },
         activePage(state,pageNumber){
             for(var i=0;i<state.pageList.length;i++){
               if(state.pageList[i].id==pageNumber)

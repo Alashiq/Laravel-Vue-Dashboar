@@ -7,7 +7,8 @@ use App\Models\Admin;
 use GrahamCampbell\ResultType\Success;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class AdminDashController extends Controller
 {
@@ -88,13 +89,37 @@ class AdminDashController extends Controller
     }
 
 
-
-    //  Change Password Name
-    public function changePassword(Request $request)
+    //  Change Admin Photo
+    public function updatePhoto(Request $request)
     {
-        $user = $request->user()->update($request->only(
-            "name"
-        ));
-        return response()->json(["success" => true, "message" => "تم تحديث الإسم بنجاح", "user" => $request->user()]);
+
+
+
+        if (Validator::make($request->all(), [
+            'file' => 'required',
+        ])->fails()) {
+            return response()->json(["success" => false, "message" => "يجب عليك إختيار صورة ليتم رفعها"], 400);
+        }
+
+        
+        if (Validator::make($request->all(), [
+            'file' => 'mimes:jpg,jpeg,png',
+        ])->fails()) {
+            return response()->json(["success" => false, "message" => "الملف الذي اخترته ليس صورة"], 400);
+        }
+
+        $file_name = time() . '_' . $request->file->getClientOriginalName();
+        $file_path = $request->file('file')->storeAs('user_images', $file_name, 'public');
+
+
+
+        $request->user()->photo = '/storage/' . $file_path;
+        $request->user()->save();
+
+        return response()->json([
+            "success" => true,
+            "message" => "تم تحديث صورة المستخدم بنجاح",
+            "photo"=>'/storage/' . $file_path
+        ]);
     }
 }
