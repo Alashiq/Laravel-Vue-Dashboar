@@ -1,6 +1,8 @@
 import Home from "./pages/Home.vue";
 import Profile from "./pages/Profile.vue";
 import Login from "./pages/Login.vue";
+import Messages from "./pages/Messages.vue";
+import Message from "./pages/Message.vue";
 import Layout from "./pages/Layout.vue";
 
 import store from "./store/admin";
@@ -32,14 +34,22 @@ export const routes = [
                 component: Home
             },
             {
-                path: "admin/profile",
-                component: Profile,
+                path: "admin/message",
+                component: Messages
             },
+            {
+                path: "admin/message/:id",
+                component: Message
+            },
+            {
+                path: "admin/profile",
+                component: Profile
+            }
         ]
     },
     {
         path: "/admin/login",
-        component: Login,
+        component: Login
         //beforeEnter: ifNotAuth
     }
 ];

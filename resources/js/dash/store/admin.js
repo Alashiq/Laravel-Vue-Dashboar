@@ -121,7 +121,6 @@ export default {
                         });
                     },
                     error => {
-                        console.log(error.response);
                         if (error.response.status == 401)
                             reject({
                                 message: error.response.data.message,

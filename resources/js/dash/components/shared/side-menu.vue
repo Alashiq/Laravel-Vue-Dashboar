@@ -1,70 +1,87 @@
 <template>
     <div
-        class="md:right-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:flex-row md:flex-no-wrap md:overflow-hidden shadow bg-white flex flex-wrap items-center justify-between relative md:w-64 z-10"
+        class="md:right-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:flex-row md:flex-no-wrap md:overflow-hidden shadow bg-white flex flex-wrap items-center justify-between relative md:w-64 z-10 bg-cover bg-center"
+        style=" abackground-image:url(https://demos.creative-tim.com/material-dashboard/assets/img/sidebar-1.jpg);"
     >
-        <!-- Title Side Menu -->
-        <div
-            class="h-20 items-center w-full flex justify-center text-xl border-b font-medium"
-        >
-            لوحة التحكم
-        </div>
-        <!-- End Title Side Menu -->
+        <div class="h-full w-full" style=" background: #fff; aopacity: .93;">
+            <!-- Title Side Menu -->
+            <div
+                class="h-20 items-center w-full flex justify-center text-xl border-b font-medium"
+            >
+                لوحة التحكم
+            </div>
+            <!-- End Title Side Menu -->
 
-        <!-- User Info -->
-        <div
-            class="h-32 w-full flex items-center px-3 justify-between border-b mb-4"
-        >
-            <div class="h-24 w-16">
-                <img :src="user.photo" class="rounded-full h-16" />
-                <div
-                    class="rounded-full h-5 w-5 bg-white shadow-xl animate-ping  -mt-5 mr-12 flex items-center justify-center"
-                >
+            <!-- User Info -->
+            <div
+                class="h-32 w-full flex items-center px-3 justify-between border-b mb-4"
+            >
+                <div class="h-24 w-16">
+                    <img :src="user.photo" class="rounded-full h-16" />
                     <div
-                        class="bg-green-500 h-4 w-4 rounded-full animate-ping"
-                    ></div>
-                </div>
-                <div
-                    class="rounded-full h-5 w-5 bg-white shadow-xl relative z-10 -mt-5 mr-12 flex items-center justify-center"
-                >
-                    <div class="bg-green-500 h-4 w-4 rounded-full"></div>
-                </div>
-            </div>
-            <div>
-                <div class="text-lg w-40 font-medium">{{ user.name }}</div>
-                <div
-                    class="flex items-center justify-center py-3 text-gray-700"
-                >
-                    <div @click="logout"
-                        class="bg-white h-10 w-10 rounded-full shadow-1 mx-2 flex items-center justify-center cursor-pointer hover:text-red-400"
+                        class="rounded-full h-5 w-5 bg-white shadow-xl animate-ping  -mt-5 mr-12 flex items-center justify-center"
                     >
-                        <i class="fas fa-sign-out-alt"></i>
+                        <div
+                            class="bg-green-500 h-4 w-4 rounded-full animate-ping"
+                        ></div>
                     </div>
-                    <router-link to="/admin/profile"
-                        class="bg-white h-10 w-10 rounded-full shadow-1 mx-2 flex items-center justify-center cursor-pointer hover:text-red-400"
+                    <div
+                        class="rounded-full h-5 w-5 bg-white shadow-xl relative z-10 -mt-5 mr-12 flex items-center justify-center"
                     >
-                        <i class="fas fa-user-cog"></i>
-                    </router-link>
-                    <div class="h-10 w-6"></div>
+                        <div class="bg-green-500 h-4 w-4 rounded-full"></div>
+                    </div>
+                </div>
+                <div>
+                    <div class="text-lg w-40 font-medium">{{ user.name }}</div>
+                    <div
+                        class="flex items-center justify-center py-3 text-gray-700"
+                    >
+                        <div
+                            @click="logout"
+                            class="bg-white h-10 w-10 rounded-full shadow-1 mx-2 flex items-center justify-center cursor-pointer hover:text-red-400"
+                        >
+                            <i class="fas fa-sign-out-alt"></i>
+                        </div>
+                        <router-link
+                            to="/admin/profile"
+                            class="bg-white h-10 w-10 rounded-full shadow-1 mx-2 flex items-center justify-center cursor-pointer hover:text-red-400"
+                        >
+                            <i class="fas fa-user-cog"></i>
+                        </router-link>
+                        <div class="h-10 w-6"></div>
+                    </div>
                 </div>
             </div>
-        </div>
-        <!-- User Info -->
+            <!-- User Info -->
 
-        <router-link
-            v-for="item in pageList"
-            :key="item.id"
-            :to="item.path"
-            class="w-auto px-6 flex items-center justify-start text-gray-500 cairo hover:bg-gray-100 hover:text-red-400">
-            <div v-if="item.active" class="h-12 my-1 text-lg flex items-center text-red-400">
-                <i :class="item.icon+' ml-5 text-lg'"></i>
-            {{ item.name }}
-            </div>
-            <div v-else class="h-12 my-1 text-lg flex items-center">
-                <i :class="item.icon+' ml-5 text-lg'"></i>
-            {{ item.name }}
-            </div>
-            </router-link
-        >
+            <router-link
+                v-for="item in pageList"
+                :key="item.id"
+                :to="item.path"
+                class="w-auto px-4 flex items-center justify-start text-gray-500 cairo"
+            >
+                <div
+                    v-if="item.active"
+                    class="my-1 text-white btn-color-one w-full rounded px-4"
+                    style="box-shadow: 0 4px 20px 0 rgb(0 0 0 / 14%), 0 7px 10px -5px rgb(156 39 176 / 40%);"
+                >
+                    <div class="flex items-center h-12 my-1">
+                        <i :class="item.icon + ' ml-6 text-lg'"></i>
+                        {{ item.name }}
+                    </div>
+                </div>
+
+                <div
+                    v-else
+                    class="my-1  w-full px-4"
+                >
+                    <div class="flex items-center h-12 my-1">
+                        <i :class="item.icon + ' ml-6 text-lg'"></i>
+                        {{ item.name }}
+                    </div>
+                </div>
+            </router-link>
+        </div>
     </div>
 </template>
 
@@ -75,7 +92,7 @@ export default {
         return {};
     },
     methods: {
-                logout: function() {
+        logout: function() {
             Swal.showLoading();
 
             this.$store.dispatch("logout").then(

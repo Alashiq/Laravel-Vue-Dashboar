@@ -10,7 +10,7 @@
     <title>إسم الموقع - لوحة التحكم</title>
 </head>
 
-<body style="background-color:#eee;">
+<body style="background-color:#f5f6fa;">
 
     <div id="app" dir="rtl">
         <router-view></router-view>
