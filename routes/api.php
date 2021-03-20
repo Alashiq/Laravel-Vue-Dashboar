@@ -37,4 +37,7 @@ Route::prefix('admin')->middleware(['auth:sanctum', 'type.admin'])->group(functi
     Route::put('/admin/{admin}/active', [AdminDashApiController::class, 'active']);
     Route::put('/admin/{admin}/disActive', [AdminDashApiController::class, 'disActive']);
     Route::put('/admin/{admin}/banned', [AdminDashApiController::class, 'banned']);
+    Route::put('/admin/{admin}/reset', [AdminDashApiController::class, 'resetPassword']);
+    Route::get('/admin/{admin}', [AdminDashApiController::class, 'show']);
+
 });

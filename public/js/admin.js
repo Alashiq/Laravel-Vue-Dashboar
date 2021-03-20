@@ -2049,6 +2049,333 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/dash/pages/Admin.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/dash/pages/Admin.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _logout_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../logout.js */ "./resources/js/dash/logout.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_1__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      admin: [],
+      loaded: false
+    };
+  },
+  methods: {
+    activeAdmin: function activeAdmin() {
+      var _this = this;
+
+      sweetalert2__WEBPACK_IMPORTED_MODULE_1___default().fire({
+        title: "هل أنت متأكد",
+        text: "هل أنت متأكد من أنك تريد تفعيل هذا الحساب !",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#16a085",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "نعم تفعيل",
+        cancelButtonText: "إلغاء"
+      }).then(function (result) {
+        if (result.isConfirmed) {
+          sweetalert2__WEBPACK_IMPORTED_MODULE_1___default().mixin({
+            allowOutsideClick: false
+          }).showLoading();
+          axios.put("/api/admin/admin/" + _this.$route.params.id + "/active").then(function (response) {
+            if (response.status == 200) {
+              _this.admin.state = 1;
+              sweetalert2__WEBPACK_IMPORTED_MODULE_1___default().fire("نجاح", response.data.message, "success");
+            } else if (response.status == 204) {
+              sweetalert2__WEBPACK_IMPORTED_MODULE_1___default().fire("فشل", "لم يعد هذا الحساب متوفرة, قد يكون شخص أخر قام بحذفه", "warning");
+            }
+          }, function (error) {
+            (0,_logout_js__WEBPACK_IMPORTED_MODULE_0__.clearLogout)(_this.$store, _this.$router, error.response);
+          });
+        }
+      });
+    },
+    disActiveAdmin: function disActiveAdmin() {
+      var _this2 = this;
+
+      sweetalert2__WEBPACK_IMPORTED_MODULE_1___default().fire({
+        title: "هل أنت متأكد",
+        text: "هل أنت متأكد من أنك تريد الغاء تفعيل هذا الحساب !",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#16a085",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "نعم إلغاء التفعيل",
+        cancelButtonText: "إلغاء"
+      }).then(function (result) {
+        if (result.isConfirmed) {
+          sweetalert2__WEBPACK_IMPORTED_MODULE_1___default().mixin({
+            allowOutsideClick: false
+          }).showLoading();
+          axios.put("/api/admin/admin/" + _this2.$route.params.id + "/disActive").then(function (response) {
+            if (response.status == 200) {
+              _this2.admin.state = 0;
+              sweetalert2__WEBPACK_IMPORTED_MODULE_1___default().fire("نجاح", response.data.message, "success");
+            } else if (response.status == 204) {
+              sweetalert2__WEBPACK_IMPORTED_MODULE_1___default().fire("فشل", "لم يعد هذا الحساب متوفرة, قد يكون شخص أخر قام بحذفه", "warning");
+            }
+          }, function (error) {
+            (0,_logout_js__WEBPACK_IMPORTED_MODULE_0__.clearLogout)(_this2.$store, _this2.$router, error.response);
+          });
+        }
+      });
+    },
+    bannedAdmin: function bannedAdmin() {
+      var _this3 = this;
+
+      sweetalert2__WEBPACK_IMPORTED_MODULE_1___default().fire({
+        title: "هل أنت متأكد",
+        text: "هل أنت متأكد من أنك تريد حظر هذا الحساب ؟ إذا قمت بحظر الحساب فلا يمكنك استخدامه مجددا",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#16a085",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "نعم حظر الحساب",
+        cancelButtonText: "إلغاء"
+      }).then(function (result) {
+        if (result.isConfirmed) {
+          sweetalert2__WEBPACK_IMPORTED_MODULE_1___default().mixin({
+            allowOutsideClick: false
+          }).showLoading();
+          axios.put("/api/admin/admin/" + _this3.$route.params.id + "/banned").then(function (response) {
+            if (response.status == 200) {
+              _this3.admin.state = 2;
+              sweetalert2__WEBPACK_IMPORTED_MODULE_1___default().fire("نجاح", response.data.message, "success");
+            } else if (response.status == 204) {
+              sweetalert2__WEBPACK_IMPORTED_MODULE_1___default().fire("فشل", "لم يعد هذا الحساب متوفرة, قد يكون شخص أخر قام بحذفه", "warning");
+            }
+          }, function (error) {
+            (0,_logout_js__WEBPACK_IMPORTED_MODULE_0__.clearLogout)(_this3.$store, _this3.$router, error.response);
+          });
+        }
+      });
+    },
+    resetPassword: function resetPassword() {
+      var _this4 = this;
+
+      sweetalert2__WEBPACK_IMPORTED_MODULE_1___default().fire({
+        title: "هل أنت متأكد",
+        text: "سيتم تغيير كلمة المرور لتصبح 123456",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#16a085",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "نعم تغيير",
+        cancelButtonText: "إلغاء"
+      }).then(function (result) {
+        if (result.isConfirmed) {
+          sweetalert2__WEBPACK_IMPORTED_MODULE_1___default().mixin({
+            allowOutsideClick: false
+          }).showLoading();
+          axios.put("/api/admin/admin/" + _this4.$route.params.id + "/reset").then(function (response) {
+            if (response.status == 200) {
+              sweetalert2__WEBPACK_IMPORTED_MODULE_1___default().fire("نجاح", response.data.message, "success");
+            } else if (response.status == 204) {
+              sweetalert2__WEBPACK_IMPORTED_MODULE_1___default().fire("فشل", "لم يعد هذا الحساب متوفرة, قد يكون شخص أخر قام بحذفه", "warning");
+            }
+          }, function (error) {
+            (0,_logout_js__WEBPACK_IMPORTED_MODULE_0__.clearLogout)(_this4.$store, _this4.$router, error.response);
+          });
+        }
+      });
+    }
+  },
+  mounted: function mounted() {
+    var _this5 = this;
+
+    this.$store.commit("activePage", 3);
+    sweetalert2__WEBPACK_IMPORTED_MODULE_1___default().mixin({
+      allowOutsideClick: false
+    }).showLoading();
+    axios.get("/api/admin/admin/" + this.$route.params.id).then(function (response) {
+      _this5.loaded = true;
+
+      if (response.status == 200) {
+        _this5.admin = response.data.data;
+        sweetalert2__WEBPACK_IMPORTED_MODULE_1___default().mixin({
+          position: "bottom-start",
+          timer: 3000,
+          toast: true,
+          showConfirmButton: false
+        }).fire("نجاح", response.data.message, "success");
+      } else if (response.status == 204) {
+        sweetalert2__WEBPACK_IMPORTED_MODULE_1___default().mixin({
+          position: "bottom-start",
+          timer: 3000,
+          toast: true,
+          showConfirmButton: false
+        }).fire("تنبيه", "هذه الرسالة غير متوفرة", "warning");
+      }
+    }, function (error) {
+      _this5.loaded = true;
+      (0,_logout_js__WEBPACK_IMPORTED_MODULE_0__.clearLogout)(_this5.$store, _this5.$router, error.response);
+    });
+  },
+  computed: {},
+  created: function created() {}
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/dash/pages/Admins.vue?vue&type=script&lang=js&":
 /*!*************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/dash/pages/Admins.vue?vue&type=script&lang=js& ***!
@@ -3135,7 +3462,7 @@ __webpack_require__.r(__webpack_exports__);
               sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire("فشل", "لم تعد هذه الرسالة متوفرة, قد يكون شخص أخر قام بحذفها", "warning");
             }
           }, function (error) {
-            (0,_logout_js__WEBPACK_IMPORTED_MODULE_1__.clearLogout)(_this.$store, _this.$router, error.response.status);
+            (0,_logout_js__WEBPACK_IMPORTED_MODULE_1__.clearLogout)(_this.$store, _this.$router, error.response);
           });
         }
       });
@@ -3159,7 +3486,7 @@ __webpack_require__.r(__webpack_exports__);
           }).fire("فشل", "هذه الرسالة لم تعد موجودة", "warning");
         }
       }, function (error) {
-        (0,_logout_js__WEBPACK_IMPORTED_MODULE_1__.clearLogout)(_this2.$store, _this2.$router, error.response.status);
+        (0,_logout_js__WEBPACK_IMPORTED_MODULE_1__.clearLogout)(_this2.$store, _this2.$router, error.response);
       });
     },
     changeFilter: function changeFilter(filterName) {
@@ -3194,7 +3521,7 @@ __webpack_require__.r(__webpack_exports__);
       }
     }, function (error) {
       _this3.loaded = true;
-      (0,_logout_js__WEBPACK_IMPORTED_MODULE_1__.clearLogout)(_this3.$store, _this3.$router, error.response.status);
+      (0,_logout_js__WEBPACK_IMPORTED_MODULE_1__.clearLogout)(_this3.$store, _this3.$router, error.response);
     });
   },
   computed: {
@@ -3445,7 +3772,7 @@ __webpack_require__.r(__webpack_exports__);
 
         sweetalert2__WEBPACK_IMPORTED_MODULE_1___default().fire("نجاح", response.data.message, "success");
       }, function (error) {
-        (0,_logout_js__WEBPACK_IMPORTED_MODULE_0__.clearLogout)(_this.$store, _this.$router, error.response.status);
+        (0,_logout_js__WEBPACK_IMPORTED_MODULE_0__.clearLogout)(_this.$store, _this.$router, error.response);
       });
     },
     changeName: function changeName() {
@@ -3466,7 +3793,7 @@ __webpack_require__.r(__webpack_exports__);
 
         _this2.$store.commit("updateName", _this2.formData.name);
       }, function (error) {
-        (0,_logout_js__WEBPACK_IMPORTED_MODULE_0__.clearLogout)(_this2.$store, _this2.$router, error.response.status);
+        (0,_logout_js__WEBPACK_IMPORTED_MODULE_0__.clearLogout)(_this2.$store, _this2.$router, error.response);
       });
     },
     changePassword: function changePassword() {
@@ -3488,7 +3815,7 @@ __webpack_require__.r(__webpack_exports__);
         _this3.formData.newPassword = "";
         _this3.formData.confirmPassword = "";
       }, function (error) {
-        (0,_logout_js__WEBPACK_IMPORTED_MODULE_0__.clearLogout)(_this3.$store, _this3.$router, error.response.status);
+        (0,_logout_js__WEBPACK_IMPORTED_MODULE_0__.clearLogout)(_this3.$store, _this3.$router, error.response);
       });
     },
     validateName: function validateName() {
@@ -3640,7 +3967,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pages_Message_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./pages/Message.vue */ "./resources/js/dash/pages/Message.vue");
 /* harmony import */ var _pages_Layout_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./pages/Layout.vue */ "./resources/js/dash/pages/Layout.vue");
 /* harmony import */ var _pages_Admins_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./pages/Admins.vue */ "./resources/js/dash/pages/Admins.vue");
-/* harmony import */ var _store_index__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./store/index */ "./resources/js/dash/store/index.js");
+/* harmony import */ var _pages_Admin_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./pages/Admin.vue */ "./resources/js/dash/pages/Admin.vue");
+/* harmony import */ var _store_index__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./store/index */ "./resources/js/dash/store/index.js");
+
 
 
 
@@ -3651,7 +3980,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var ifAuth = function ifAuth(to, from, next) {
-  if (_store_index__WEBPACK_IMPORTED_MODULE_7__.default.state.auth == true) {
+  if (_store_index__WEBPACK_IMPORTED_MODULE_8__.default.state.auth == true) {
     next();
     return;
   }
@@ -3660,7 +3989,7 @@ var ifAuth = function ifAuth(to, from, next) {
 };
 
 var ifNotAuth = function ifNotAuth(to, from, next) {
-  if (_store_index__WEBPACK_IMPORTED_MODULE_7__.default.state.auth != true) {
+  if (_store_index__WEBPACK_IMPORTED_MODULE_8__.default.state.auth != true) {
     next();
     return;
   }
@@ -3687,6 +4016,9 @@ var routes = [{
   }, {
     path: "admin/admin",
     component: _pages_Admins_vue__WEBPACK_IMPORTED_MODULE_6__.default
+  }, {
+    path: "admin/admin/:id",
+    component: _pages_Admin_vue__WEBPACK_IMPORTED_MODULE_7__.default
   }]
 }, {
   path: "/admin/login",
@@ -3937,6 +4269,30 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }
   }
 });
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/dash/pages/Admin.vue?vue&type=style&index=0&id=60db6f25&scoped=true&lang=css&":
+/*!********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/dash/pages/Admin.vue?vue&type=style&index=0&id=60db6f25&scoped=true&lang=css& ***!
+  \********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, "\ntable[data-v-60db6f25] {\r\n    border-collapse: separate;\r\n    border-spacing: 0 1em;\n}\r\n", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
 
 /***/ }),
 
@@ -22252,6 +22608,36 @@ try {
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/dash/pages/Admin.vue?vue&type=style&index=0&id=60db6f25&scoped=true&lang=css&":
+/*!************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/dash/pages/Admin.vue?vue&type=style&index=0&id=60db6f25&scoped=true&lang=css& ***!
+  \************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Admin_vue_vue_type_style_index_0_id_60db6f25_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Admin.vue?vue&type=style&index=0&id=60db6f25&scoped=true&lang=css& */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/dash/pages/Admin.vue?vue&type=style&index=0&id=60db6f25&scoped=true&lang=css&");
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Admin_vue_vue_type_style_index_0_id_60db6f25_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__.default, options);
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Admin_vue_vue_type_style_index_0_id_60db6f25_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__.default.locals || {});
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/dash/pages/Admins.vue?vue&type=style&index=0&id=8383d2c4&scoped=true&lang=css&":
 /*!*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/dash/pages/Admins.vue?vue&type=style&index=0&id=8383d2c4&scoped=true&lang=css& ***!
@@ -26387,6 +26773,47 @@ component.options.__file = "resources/js/dash/components/shared/side-menu.vue"
 
 /***/ }),
 
+/***/ "./resources/js/dash/pages/Admin.vue":
+/*!*******************************************!*\
+  !*** ./resources/js/dash/pages/Admin.vue ***!
+  \*******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _Admin_vue_vue_type_template_id_60db6f25_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Admin.vue?vue&type=template&id=60db6f25&scoped=true& */ "./resources/js/dash/pages/Admin.vue?vue&type=template&id=60db6f25&scoped=true&");
+/* harmony import */ var _Admin_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Admin.vue?vue&type=script&lang=js& */ "./resources/js/dash/pages/Admin.vue?vue&type=script&lang=js&");
+/* harmony import */ var _Admin_vue_vue_type_style_index_0_id_60db6f25_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Admin.vue?vue&type=style&index=0&id=60db6f25&scoped=true&lang=css& */ "./resources/js/dash/pages/Admin.vue?vue&type=style&index=0&id=60db6f25&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+;
+
+
+/* normalize component */
+
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__.default)(
+  _Admin_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _Admin_vue_vue_type_template_id_60db6f25_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
+  _Admin_vue_vue_type_template_id_60db6f25_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  "60db6f25",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/dash/pages/Admin.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/dash/pages/Admins.vue":
 /*!********************************************!*\
   !*** ./resources/js/dash/pages/Admins.vue ***!
@@ -26714,6 +27141,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/dash/pages/Admin.vue?vue&type=script&lang=js&":
+/*!********************************************************************!*\
+  !*** ./resources/js/dash/pages/Admin.vue?vue&type=script&lang=js& ***!
+  \********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Admin_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Admin.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/dash/pages/Admin.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Admin_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
 /***/ "./resources/js/dash/pages/Admins.vue?vue&type=script&lang=js&":
 /*!*********************************************************************!*\
   !*** ./resources/js/dash/pages/Admins.vue?vue&type=script&lang=js& ***!
@@ -26826,6 +27269,19 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/dash/pages/Admin.vue?vue&type=style&index=0&id=60db6f25&scoped=true&lang=css&":
+/*!****************************************************************************************************!*\
+  !*** ./resources/js/dash/pages/Admin.vue?vue&type=style&index=0&id=60db6f25&scoped=true&lang=css& ***!
+  \****************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Admin_vue_vue_type_style_index_0_id_60db6f25_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader/dist/cjs.js!../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Admin.vue?vue&type=style&index=0&id=60db6f25&scoped=true&lang=css& */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/dash/pages/Admin.vue?vue&type=style&index=0&id=60db6f25&scoped=true&lang=css&");
+
+
+/***/ }),
+
 /***/ "./resources/js/dash/pages/Admins.vue?vue&type=style&index=0&id=8383d2c4&scoped=true&lang=css&":
 /*!*****************************************************************************************************!*\
   !*** ./resources/js/dash/pages/Admins.vue?vue&type=style&index=0&id=8383d2c4&scoped=true&lang=css& ***!
@@ -26912,6 +27368,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_side_menu_vue_vue_type_template_id_51a9e4c5___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_side_menu_vue_vue_type_template_id_51a9e4c5___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./side-menu.vue?vue&type=template&id=51a9e4c5& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/dash/components/shared/side-menu.vue?vue&type=template&id=51a9e4c5&");
+
+
+/***/ }),
+
+/***/ "./resources/js/dash/pages/Admin.vue?vue&type=template&id=60db6f25&scoped=true&":
+/*!**************************************************************************************!*\
+  !*** ./resources/js/dash/pages/Admin.vue?vue&type=template&id=60db6f25&scoped=true& ***!
+  \**************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Admin_vue_vue_type_template_id_60db6f25_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Admin_vue_vue_type_template_id_60db6f25_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Admin_vue_vue_type_template_id_60db6f25_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Admin.vue?vue&type=template&id=60db6f25&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/dash/pages/Admin.vue?vue&type=template&id=60db6f25&scoped=true&");
 
 
 /***/ }),
@@ -27313,6 +27786,282 @@ var staticRenderFns = [
     )
   }
 ]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/dash/pages/Admin.vue?vue&type=template&id=60db6f25&scoped=true&":
+/*!*****************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/dash/pages/Admin.vue?vue&type=template&id=60db6f25&scoped=true& ***!
+  \*****************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "w-auto md:p-8 p-4" },
+    [
+      _vm.loaded && _vm.admin.length != 0
+        ? _c(
+            "div",
+            {
+              staticClass:
+                "w-full md:px-4 px-0 pb-8 pt-2 bg-white shadow-2 rounded-lg text-lg text-gray-600 font-medium"
+            },
+            [
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "h-16 w-full border-b mb-2 px-4 flex items-center text-lg justify-between"
+                },
+                [
+                  _vm._v("\n            الرسائل الواردة\n\n            "),
+                  _c(
+                    "router-link",
+                    {
+                      staticClass:
+                        "btn-color-one text-white w-36 h-12 rounded shadow-1 font-normal flex items-center justify-center cursor-pointer",
+                      attrs: { to: "/admin/admin/" }
+                    },
+                    [_vm._v("\n                قائمة المشرفين\n            ")]
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "w-full px-4 py-4" }, [
+                _c("img", {
+                  staticClass: "h-48 w-48 mx-auto rounded-full",
+                  attrs: { src: _vm.admin.photo }
+                })
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass: "bg-blue-600a grid lg:grid-cols-2 md:grid-cols-2"
+                },
+                [
+                  _c("div", { staticClass: "w-full px-4 py-4" }, [
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "h-9 flex items-center text-gray-500 mr-2 text-sm"
+                      },
+                      [
+                        _vm._v(
+                          "\n                    إسم المشرف\n                "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "h-12 rounded border border-gray-200 bg-gray-50 flex items-center px-4 text-lg"
+                      },
+                      [
+                        _vm._v(
+                          "\n                    " +
+                            _vm._s(_vm.admin.name) +
+                            "\n                "
+                        )
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "w-full px-4 py-4" }, [
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "h-9 flex items-center text-gray-500 mr-2 text-sm"
+                      },
+                      [
+                        _vm._v(
+                          "\n                    إسم الدخول\n                "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "h-12 rounded border border-gray-200 bg-gray-50 flex items-center px-4 text-lg"
+                      },
+                      [
+                        _vm._v(
+                          "\n                    " +
+                            _vm._s(_vm.admin.username) +
+                            "\n                "
+                        )
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "w-full px-4 py-4" }, [
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "h-9 flex items-center text-gray-500 mr-2 text-sm"
+                      },
+                      [
+                        _vm._v(
+                          "\n                    تاريخ الإنشاء\n                "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "h-12 rounded border border-gray-200 bg-gray-50 flex items-center px-4 text-lg"
+                      },
+                      [
+                        _vm._v(
+                          "\n                    " +
+                            _vm._s(_vm.admin.created_at.substring(0, 10)) +
+                            "\n                "
+                        )
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "w-full px-4 py-4" }, [
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "h-9 flex items-center text-gray-500 mr-2 text-sm"
+                      },
+                      [
+                        _vm._v(
+                          "\n                    حالة الحساب\n                "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "h-12 rounded border border-gray-200 bg-gray-50 flex items-center px-4 text-lg"
+                      },
+                      [
+                        _vm._v(
+                          "\n                    " +
+                            _vm._s(
+                              _vm.admin.state == 0
+                                ? "غير مفعل"
+                                : _vm.admin.state == 1
+                                ? "حساب نشط"
+                                : "محظور"
+                            ) +
+                            "\n                "
+                        )
+                      ]
+                    )
+                  ])
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "w-full h-16 mt-12 flex items-center justify-start"
+                },
+                [
+                  _vm.admin.state != 2
+                    ? _c(
+                        "div",
+                        {
+                          staticClass:
+                            "h-12 px-6 mx-4 bg-blue-400 hover:bg-blue-500 flex items-center justify-center text-white shadow-lg rounded cursor-pointer",
+                          on: { click: _vm.resetPassword }
+                        },
+                        [
+                          _c("i", { staticClass: "fas fa-fingerprint ml-2" }),
+                          _vm._v(
+                            "\n                تهيئة كلمة المرور\n            "
+                          )
+                        ]
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.admin.state == 0
+                    ? _c(
+                        "div",
+                        {
+                          staticClass:
+                            "h-12 px-6 bg-green-400 hover:bg-green-500 flex items-center justify-center text-white shadow-lg rounded cursor-pointer",
+                          on: { click: _vm.activeAdmin }
+                        },
+                        [
+                          _c("i", { staticClass: "fas fa-lock-open ml-2" }),
+                          _vm._v("\n                تفعيل الحساب\n            ")
+                        ]
+                      )
+                    : _vm.admin.state == 1
+                    ? _c(
+                        "div",
+                        {
+                          staticClass:
+                            "h-12 px-6 bg-yellow-400 hover:bg-yellow-500 flex items-center justify-center text-white shadow-lg rounded cursor-pointer",
+                          on: { click: _vm.disActiveAdmin }
+                        },
+                        [
+                          _c("i", { staticClass: "fas fa-lock ml-2" }),
+                          _vm._v(
+                            "\n                إلغاء تفعيل الحساب\n            "
+                          )
+                        ]
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.admin.state != 2
+                    ? _c(
+                        "div",
+                        {
+                          staticClass:
+                            "h-12 px-6 mx-4 bg-red-400 hover:bg-red-500 flex items-center justify-center text-white shadow-lg rounded cursor-pointer",
+                          on: { click: _vm.bannedAdmin }
+                        },
+                        [
+                          _c("i", { staticClass: "fas fa-user-slash ml-2" }),
+                          _vm._v("\n                حظر الحساب\n            ")
+                        ]
+                      )
+                    : _vm._e()
+                ]
+              )
+            ]
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.loaded && _vm.admin.length == 0 ? _c("empty-box") : _vm._e()
+    ],
+    1
+  )
+}
+var staticRenderFns = []
 render._withStripped = true
 
 

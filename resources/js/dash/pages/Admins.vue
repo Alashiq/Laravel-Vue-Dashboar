@@ -241,10 +241,11 @@ export default {
                 }
             });
         },
-                bannedAdmin: function(id, index) {
+        bannedAdmin: function(id, index) {
             Swal.fire({
                 title: "هل أنت متأكد",
-                text: "هل أنت متأكد من أنك تريد حظر هذا الحساب ؟ إذا قمت بحظر الحساب فلا يمكنك استخدامه مجددا",
+                text:
+                    "هل أنت متأكد من أنك تريد حظر هذا الحساب ؟ إذا قمت بحظر الحساب فلا يمكنك استخدامه مجددا",
                 icon: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#16a085",

@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Validator;
 class AdminDashApiController extends Controller
 {
 
-  
+
     // GET All Admins
     public function index()
     {
@@ -21,6 +21,17 @@ class AdminDashApiController extends Controller
         if ($admins->isEmpty())
             return response()->json(['success' => false, 'message' => 'لا يوجد اي مشرفين في الموقع', 'data' => $admins], 204);
         return response()->json(['success' => true, 'message' => 'تم جلب  المشرفين بنجاح', 'data' => $admins], 200);
+    }
+
+
+    // GET One Admin API =>Auth
+    public function show($admin)
+    {
+        $admin = Admin::Find($admin);
+        if ($admin == [])
+            return response()->json([], 204);
+
+        return response()->json(['success' => true, 'message' => 'تم جلب المشرف بنجاح', 'data' => $admin], 200);
     }
 
 
@@ -81,6 +92,25 @@ class AdminDashApiController extends Controller
         $edit = $admin->save();
         if ($edit)
             return response()->json(['success' => true, 'message' => 'تم حظر هذا الحساب ولا يمكنم استخدامه مجددا'], 200);
+        return response()->json(['success' => true, 'message' => 'حدث خطأ ما'], 400);
+    }
+
+
+    
+    // Banned Admin
+    public function resetPassword($admin)
+    {
+        $admin = Admin::Find($admin);
+        if (!$admin)
+            return response()->json(['success' => false, 'message' => 'هذه الحساب غير موجود'], 204);
+
+        if ($admin->state == 2)
+            return response()->json(['success' => false, 'message' => 'هذا الحساب محظور'], 400);
+
+        $admin->password =  Hash::make("123456");
+        $edit = $admin->save();
+        if ($edit)
+            return response()->json(['success' => true, 'message' => 'تم تغيير كلمة المرور إلى 123456 , يجب عليك تغيير كلمة المرور بمجرد تسجيل دخول إلى الحساب'], 200);
         return response()->json(['success' => true, 'message' => 'حدث خطأ ما'], 400);
     }
 }

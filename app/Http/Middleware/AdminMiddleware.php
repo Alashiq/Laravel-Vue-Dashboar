@@ -21,6 +21,9 @@ class AdminMiddleware
             return $next($request);
         }
 
-        return response()->json('Not Authorized', 401);
+        return response()->json([
+            "success"=>false,
+            "message"=>"انتهت الجلسة ا لخاصة بك, يجب عليك إعادة تسجيل الدخول مجددا"
+        ], 401);
     }
 }

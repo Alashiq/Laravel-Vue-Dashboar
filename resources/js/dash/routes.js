@@ -5,6 +5,7 @@ import Messages from "./pages/Messages.vue";
 import Message from "./pages/Message.vue";
 import Layout from "./pages/Layout.vue";
 import Admins from "./pages/Admins.vue";
+import Admin from "./pages/Admin.vue";
 
 
 import store from "./store/index";
@@ -50,6 +51,10 @@ export const routes = [
             {
                 path: "admin/admin",
                 component: Admins
+            },
+            {
+                path: "admin/admin/:id",
+                component: Admin
             },
         ]
     },

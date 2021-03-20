@@ -179,7 +179,7 @@ export default {
                             clearLogout(
                                 this.$store,
                                 this.$router,
-                                error.response.status
+                                error.response
                             );
                         }
                     );
@@ -206,7 +206,7 @@ export default {
                     clearLogout(
                         this.$store,
                         this.$router,
-                        error.response.status
+                        error.response
                     );
                 }
             );
@@ -240,7 +240,7 @@ export default {
             },
             error => {
                 this.loaded = true;
-                clearLogout(this.$store, this.$router, error.response.status);
+                clearLogout(this.$store, this.$router, error.response);
             }
         );
     },

@@ -212,7 +212,7 @@ export default {
                     clearLogout(
                                     this.$store,
                                     this.$router,
-                                    error.response.status
+                                    error.response
                                 );
                 }
             );
@@ -238,7 +238,7 @@ export default {
                         clearLogout(
                                     this.$store,
                                     this.$router,
-                                    error.response.status
+                                    error.response
                                 );
                     }
                 );
@@ -267,7 +267,7 @@ export default {
                         clearLogout(
                                     this.$store,
                                     this.$router,
-                                    error.response.status
+                                    error.response
                                 );
                     }
                 );
