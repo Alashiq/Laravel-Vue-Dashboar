@@ -169,6 +169,7 @@
 </template>
 
 <script>
+import { clearLogout } from "../logout.js";
 import Swal from "sweetalert2";
 export default {
     data() {
@@ -208,21 +209,11 @@ export default {
                     Swal.fire("نجاح", response.data.message, "success");
                 },
                 error => {
-                    if (error.response.status == 401) {
-                        Swal.fire(
-                            "فشل",
-                            "انتهت الجلسة الخاصة بك قم بعمل تسجيل دخول مجددا",
-                            "warning"
-                        );
-                        localStorage.removeItem("token");
-                        this.$store.commit("clearUser");
-                        this.$router.push("/admin/login");
-                    } else
-                        Swal.fire(
-                            "فشل",
-                            error.response.data.message,
-                            "warning"
-                        );
+                    clearLogout(
+                                    this.$store,
+                                    this.$router,
+                                    error.response.status
+                                );
                 }
             );
         },
@@ -244,16 +235,11 @@ export default {
                         this.$store.commit("updateName", this.formData.name);
                     },
                     error => {
-                        if (error.response.status == 401) {
-                            Swal.fire(
-                                "فشل",
-                                "انتهت الجلسة الخاصة بك قم بعمل تسجيل دخول مجددا",
-                                "warning"
-                            );
-                            localStorage.removeItem("token");
-                            this.$store.commit("clearUser");
-                            this.$router.push("/admin/login");
-                        } else Swal.fire("فشل", "حدث خطأ ما", "warning");
+                        clearLogout(
+                                    this.$store,
+                                    this.$router,
+                                    error.response.status
+                                );
                     }
                 );
         },
@@ -278,21 +264,11 @@ export default {
                         this.formData.confirmPassword = "";
                     },
                     error => {
-                        if (error.response.status == 401) {
-                            Swal.fire(
-                                "فشل",
-                                "انتهت الجلسة الخاصة بك قم بعمل تسجيل دخول مجددا",
-                                "warning"
-                            );
-                            localStorage.removeItem("token");
-                            this.$store.commit("clearUser");
-                            this.$router.push("/admin/login");
-                        } else
-                            Swal.fire(
-                                "فشل",
-                                error.response.data.message,
-                                "warning"
-                            );
+                        clearLogout(
+                                    this.$store,
+                                    this.$router,
+                                    error.response.status
+                                );
                     }
                 );
         },

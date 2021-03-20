@@ -42,7 +42,7 @@
         </div>
         <!-- End List Header -->
 
-        <table class="w-full" v-if="loaded && messages.length != 0">
+        <table class="w-full" v-if="loaded && filterMessage.length != 0">
             <tr class="h-12 text-lg font-bold text-gray-600">
                 <td class="w-12 text-center">#</td>
                 <td class="">الإسم</td>
@@ -57,7 +57,7 @@
             <tr
                 v-for="(item, index) in filterMessage"
                 :key="index"
-                class="h-20 bg-white shadow-2 rounded-lg text-lg text-gray-600 font-medium  hover:bg-gray-100"
+                class="h-20 bg-white shadow-2 rounded-lg text-lg text-gray-600 font-medium  hover:bg-gray-50"
             >
                 <td class="w-12 text-center rounded-r-lg">{{ item.id }}</td>
                 <td>{{ item.name.substring(0, 10) }}</td>
@@ -110,7 +110,7 @@
             </tr>
         </table>
 
-        <empty-box v-if="loaded && messages.length == 0"></empty-box>
+        <empty-box v-if="loaded && filterMessage.length == 0"></empty-box>
 
         <!-- End Inside Page -->
     </div>
@@ -118,6 +118,7 @@
 
 <script>
 import Swal from "sweetalert2";
+import { clearLogout } from "../logout.js";
 export default {
     data() {
         return {
@@ -161,23 +162,13 @@ export default {
                         response => {
                             if (response.status == 200) {
                                 this.messages.splice(index, 1);
-                                Swal.mixin({
-                                    position: "bottom-start",
-                                    timer: 3000,
-                                    toast: true,
-                                    showConfirmButton: false
-                                }).fire(
+                                Swal.fire(
                                     "نجاح",
                                     response.data.message,
                                     "success"
                                 );
                             } else if (response.status == 204) {
-                                Swal.mixin({
-                                    position: "bottom-start",
-                                    timer: 3000,
-                                    toast: true,
-                                    showConfirmButton: false
-                                }).fire(
+                                Swal.fire(
                                     "فشل",
                                     "لم تعد هذه الرسالة متوفرة, قد يكون شخص أخر قام بحذفها",
                                     "warning"
@@ -185,27 +176,11 @@ export default {
                             }
                         },
                         error => {
-                            if (error.response.status == 401) {
-                                Swal.mixin({
-                                    position: "bottom-start",
-                                    timer: 3000,
-                                    toast: true,
-                                    showConfirmButton: false
-                                }).fire(
-                                    "فشل",
-                                    "انتهت الجلسة الخاصة بك قم بعمل تسجيل دخول مجددا",
-                                    "warning"
-                                );
-                                localStorage.removeItem("token");
-                                this.$store.commit("clearUser");
-                                this.$router.push("/admin/login");
-                            } else
-                                Swal.mixin({
-                                    position: "bottom-start",
-                                    timer: 3000,
-                                    toast: true,
-                                    showConfirmButton: false
-                                }).fire("فشل", "حدث خطأ ما", "warning");
+                            clearLogout(
+                                this.$store,
+                                this.$router,
+                                error.response.status
+                            );
                         }
                     );
                 }
@@ -217,12 +192,7 @@ export default {
                 response => {
                     if (response.status == 200) {
                         this.messages[index].state = true;
-                        Swal.mixin({
-                            position: "bottom-start",
-                            timer: 3000,
-                            toast: true,
-                            showConfirmButton: false
-                        }).fire("نجاح", response.data.message, "success");
+                        Swal.fire("نجاح", response.data.message, "success");
                     } else if (response.status == 204) {
                         Swal.mixin({
                             position: "bottom-start",
@@ -233,27 +203,11 @@ export default {
                     }
                 },
                 error => {
-                    if (error.response.status == 401) {
-                        Swal.mixin({
-                            position: "bottom-start",
-                            timer: 3000,
-                            toast: true,
-                            showConfirmButton: false
-                        }).fire(
-                            "فشل",
-                            "انتهت الجلسة الخاصة بك قم بعمل تسجيل دخول مجددا",
-                            "warning"
-                        );
-                        localStorage.removeItem("token");
-                        this.$store.commit("clearUser");
-                        this.$router.push("/admin/login");
-                    } else
-                        Swal.mixin({
-                            position: "bottom-start",
-                            timer: 3000,
-                            toast: true,
-                            showConfirmButton: false
-                        }).fire("فشل", "حدث خطأ ما", "warning");
+                    clearLogout(
+                        this.$store,
+                        this.$router,
+                        error.response.status
+                    );
                 }
             );
         },
@@ -263,7 +217,6 @@ export default {
     },
     mounted() {
         this.$store.commit("activePage", 2);
-
         Swal.mixin({ allowOutsideClick: false }).showLoading();
         axios.get("/api/admin/message").then(
             response => {
@@ -287,27 +240,7 @@ export default {
             },
             error => {
                 this.loaded = true;
-                if (error.response.status == 401) {
-                    Swal.mixin({
-                        position: "bottom-start",
-                        timer: 3000,
-                        toast: true,
-                        showConfirmButton: false
-                    }).fire(
-                        "فشل",
-                        "انتهت الجلسة الخاصة بك قم بعمل تسجيل دخول مجددا",
-                        "warning"
-                    );
-                    localStorage.removeItem("token");
-                    this.$store.commit("clearUser");
-                    this.$router.push("/admin/login");
-                } else
-                    Swal.mixin({
-                        position: "bottom-start",
-                        timer: 3000,
-                        toast: true,
-                        showConfirmButton: false
-                    }).fire("فشل", "حدث خطأ ما", "warning");
+                clearLogout(this.$store, this.$router, error.response.status);
             }
         );
     },

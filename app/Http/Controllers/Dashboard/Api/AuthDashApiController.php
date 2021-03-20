@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\API\Dash;
+namespace App\Http\Controllers\Dashboard\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
-class AdminDashController extends Controller
+class AuthDashApiController extends Controller
 {
 
     // Register Admin
@@ -101,7 +101,7 @@ class AdminDashController extends Controller
             return response()->json(["success" => false, "message" => "يجب عليك إختيار صورة ليتم رفعها"], 400);
         }
 
-        
+
         if (Validator::make($request->all(), [
             'file' => 'mimes:jpg,jpeg,png',
         ])->fails()) {
@@ -119,7 +119,9 @@ class AdminDashController extends Controller
         return response()->json([
             "success" => true,
             "message" => "تم تحديث صورة المستخدم بنجاح",
-            "photo"=>'/storage/' . $file_path
+            "photo" => '/storage/' . $file_path
         ]);
     }
+
+
 }

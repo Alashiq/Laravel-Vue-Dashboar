@@ -12,7 +12,7 @@ import { routes } from "./dash/routes";
 
 import Vuex from 'vuex'
 Vue.use(Vuex)
-import storeData from "./dash/store/admin.js"
+import storeData from "./dash/store/index.js"
 const store = new Vuex.Store(
     storeData
  )

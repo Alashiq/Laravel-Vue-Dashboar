@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\API\Dash;
+namespace App\Http\Controllers\Dashboard\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Message;
 use Illuminate\Http\Request;
 
-class MessageApiDashController extends Controller
+class MessageDashApiController extends Controller
 {
 
     // GET Messages API =>Auth

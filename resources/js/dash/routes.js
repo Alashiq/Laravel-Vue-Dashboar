@@ -4,8 +4,10 @@ import Login from "./pages/Login.vue";
 import Messages from "./pages/Messages.vue";
 import Message from "./pages/Message.vue";
 import Layout from "./pages/Layout.vue";
+import Admins from "./pages/Admins.vue";
 
-import store from "./store/admin";
+
+import store from "./store/index";
 
 const ifAuth = (to, from, next) => {
     if (store.state.auth == true) {
@@ -44,7 +46,11 @@ export const routes = [
             {
                 path: "admin/profile",
                 component: Profile
-            }
+            },
+            {
+                path: "admin/admin",
+                component: Admins
+            },
         ]
     },
     {

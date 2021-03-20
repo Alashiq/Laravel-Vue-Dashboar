@@ -1,4 +1,3 @@
-import router from '../routes.js'
 export default {
     state: () => ({
         loadAuth: false,
@@ -173,5 +172,7 @@ export default {
         async clearAuth({ commit }) {
             this.commit("clearUser");
         }
-    }
+    },
+
+    
 };

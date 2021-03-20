@@ -20,6 +20,7 @@ class CreateAdminsTable extends Migration
             $table->string('username')->unique();
             $table->string('password');
             $table->rememberToken();
+            $table->integer('state')->default(0); //1 => Active , 0 =>NAN Active , 2=>Banned
             $table->timestamps();
         });
     }
