@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 // =====> Home Page
-Route::view(uri:'/',view:'web/home');
+Route::view(uri:'/',view:'web/home')->middleware('visitor');
 
 
 // =====> Dashboard
