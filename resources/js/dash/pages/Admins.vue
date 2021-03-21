@@ -8,14 +8,14 @@
             <div class="text-2xl font-semibold cairo text-gray-600">
                 مشرفي الموقع
             </div>
-            <div
+            <router-link to="/admin/admin/new"
                 class="rounded px-4 flex items-center cairo font-medium shadow-3 cursor-pointer btn-color-one text-white"
             >
                 <span class="h-12 flex items-center">
                     <i class="fas fa-plus ml-4 text-lg"></i>
                     أضف مشرف
                 </span>
-            </div>
+            </router-link>
         </div>
 
         <div class="flex justify-between my-8">

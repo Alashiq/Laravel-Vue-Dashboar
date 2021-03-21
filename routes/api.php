@@ -1,4 +1,5 @@
 <?php
+
 use App\Http\Controllers\Dashboard\Api\AdminDashApiController;
 use App\Http\Controllers\Dashboard\Api\AuthDashApiController;
 use App\Http\Controllers\Dashboard\Api\MessageDashApiController;
@@ -15,7 +16,6 @@ Route::get('/notAuth', function (Request $request) {
 
 
 // Login And Register Admin
-Route::post('/admin', [AuthDashApiController::class, 'new']);
 Route::post('/admin/login', [AuthDashApiController::class, 'login']);
 
 
@@ -39,5 +39,5 @@ Route::prefix('admin')->middleware(['auth:sanctum', 'type.admin'])->group(functi
     Route::put('/admin/{admin}/banned', [AdminDashApiController::class, 'banned']);
     Route::put('/admin/{admin}/reset', [AdminDashApiController::class, 'resetPassword']);
     Route::get('/admin/{admin}', [AdminDashApiController::class, 'show']);
-
+    Route::post('/admin', [AdminDashApiController::class, 'create']);
 });

@@ -13,18 +13,6 @@ use Illuminate\Support\Facades\Validator;
 class AuthDashApiController extends Controller
 {
 
-    // Register Admin
-    public function new(Request $request)
-    {
-        $admin = Admin::create([
-            'username' => $request['username'],
-            'name' => $request['name'],
-            'password' => Hash::make($request['password']),
-        ]);
-        return 'success';
-    }
-
-
     // Login Admin
     public function login(Request $request)
     {

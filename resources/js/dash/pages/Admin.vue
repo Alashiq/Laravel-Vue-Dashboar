@@ -10,7 +10,7 @@
             <div
                 class="h-16 w-full border-b mb-2 px-4 flex items-center text-lg justify-between"
             >
-                الرسائل الواردة
+                بيانات المشرف
 
                 <router-link
                     to="/admin/admin/"
