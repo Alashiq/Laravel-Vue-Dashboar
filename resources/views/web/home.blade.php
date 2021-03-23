@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('web.layouts.master')
 
 @section('title', 'شركة برمجة منظومات ومواقع وتطبيقات ليبية')
 

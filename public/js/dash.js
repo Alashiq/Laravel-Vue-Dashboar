@@ -3190,7 +3190,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
-      message: [],
+      message: {},
       loaded: false
     };
   },
@@ -29134,8 +29134,12 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\n                    " +
-                            _vm._s(_vm.message.for) +
+                          "\n                 " +
+                            _vm._s(
+                              !_vm.message.receiver
+                                ? "لم يتم الإدخال"
+                                : _vm.message.receiver.name
+                            ) +
                             "\n                "
                         )
                       ]
@@ -46753,9 +46757,9 @@ var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be in strict mode.
 (() => {
 "use strict";
-/*!*******************************!*\
-  !*** ./resources/js/admin.js ***!
-  \*******************************/
+/*!******************************!*\
+  !*** ./resources/js/dash.js ***!
+  \******************************/
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");

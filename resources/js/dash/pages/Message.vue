@@ -78,7 +78,7 @@
                     <div
                         class="h-12 rounded border border-gray-200 bg-gray-50 flex items-center px-4 text-lg"
                     >
-                        {{ message.for }}
+                     {{ !message.receiver ? "لم يتم الإدخال" : message.receiver.name }}
                     </div>
                 </div>
                 <!-- Item -->
@@ -160,7 +160,8 @@ import Swal from "sweetalert2";
 export default {
     data() {
         return {
-            message: [],
+            message: {
+            },
             loaded: false
         };
     },
