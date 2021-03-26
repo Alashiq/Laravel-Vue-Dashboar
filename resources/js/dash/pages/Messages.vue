@@ -85,7 +85,7 @@
                 </td>
 
                 <td class="xl:table-cell hidden">
-                    {{ item.for }}
+                    {{ !item.receiver ? "لم يتم الإدخال" : item.receiver.name }}
                 </td>
                 <td class="xl:table-cell hidden">
                     {{ item.created_at.substring(0, 10) }}

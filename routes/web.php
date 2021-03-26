@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Receiver;
 use Illuminate\Support\Facades\Route;
 
 // =====> Home Page
@@ -10,7 +11,8 @@ Route::view(uri:'/',view:'web.home');
 
 
 Route::get('/Contact', function () {
-    return view('web.contact');
+    $receivers=Receiver::all();
+    return view('web.contact', ['receivers' => $receivers]);
 });
 
 });

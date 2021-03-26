@@ -29400,7 +29400,11 @@ var render = function() {
                     _c("td", { staticClass: "xl:table-cell hidden" }, [
                       _vm._v(
                         "\n                " +
-                          _vm._s(item.for) +
+                          _vm._s(
+                            !item.receiver
+                              ? "لم يتم الإدخال"
+                              : item.receiver.name
+                          ) +
                           "\n            "
                       )
                     ]),

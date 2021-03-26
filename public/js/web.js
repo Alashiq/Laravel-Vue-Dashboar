@@ -1932,15 +1932,71 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  props: ["receivers"],
   data: function data() {
     return {
       formData: {
         name: "",
         email: "",
         phone: "",
-        "for": "",
+        receiver_id: this.receivers[0].id,
+        content: ""
+      },
+      formValidate: {
+        name: "",
+        email: "",
+        phone: "",
         content: ""
       }
     };
@@ -1948,12 +2004,92 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {},
   methods: {
     send: function send() {
+      var _this = this;
+
+      this.validateName();
+      this.validateContent();
+      this.validatePhone();
+      this.validateEmail();
+      if (this.formValidate.name != "") return 0;
+      if (this.formValidate.content != "") return 0;
+      if (this.formValidate.phone != "") return 0;
+      if (this.formValidate.email != "") return 0;
+
+      if (this.formData.email == "" && this.formData.phone == "") {
+        this.formValidate.email = "قم بإدخال إما رقم الهاتف أو كلمة المرور";
+        this.formValidate.phone = "قم بإدخال إما رقم الهاتف أو كلمة المرور";
+        return 0;
+      }
+
       sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().showLoading();
       axios.post("api/web/message", this.formData).then(function (response) {
-        sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire("تهانينا", response.data.Message, "success");
+        _this.formData.content = "";
+        sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire("تهانينا", response.data.message, "success");
       })["catch"](function (error) {
-        sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire("فشل", error.response.data.Message, "error");
+        sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire("فشل", error.response.data.message, "error");
       });
+    },
+    validateName: function validateName() {
+      this.formValidate.name = "";
+
+      if (this.formData.name.trim() == "") {
+        this.formValidate.name = "لا يمكن ترك هذا الحقل فارغ";
+        return 1;
+      }
+
+      if (this.formData.name.trim().length < 5) {
+        this.formValidate.name = "يجب ان يكون الإسم 5 أحرف أو اكثر";
+        return 1;
+      }
+
+      if (this.formData.name.trim().length > 16) {
+        this.formValidate.name = "يجب ان يكون الإسم أقل من 16 حرف";
+        return 1;
+      }
+    },
+    validateContent: function validateContent() {
+      this.formValidate.content = "";
+
+      if (this.formData.content.trim() == "") {
+        this.formValidate.content = "لا يمكن ترك هذا الحقل فارغ";
+        return 1;
+      }
+
+      if (this.formData.content.trim().length < 10) {
+        this.formValidate.content = "يجب ان تكون الرسالة 10 أحرف أو اكثر";
+        return 1;
+      }
+    },
+    validatePhone: function validatePhone() {
+      this.formValidate.phone = "";
+
+      if (this.formData.phone.trim() == "") {
+        this.formValidate.phone = "";
+        return 1;
+      }
+
+      if (this.formData.phone.trim().length < 7) {
+        this.formValidate.phone = "يجب ان يكون رقم الهاتف اكثر من 7 أرقام";
+        return 1;
+      }
+
+      if (/\D/.test(this.formData.phone)) {
+        this.formValidate.phone = "يمكن فقط ادخال الأرقام في هذا الحقل";
+        return 1;
+      }
+    },
+    validateEmail: function validateEmail() {
+      this.formValidate.email = "";
+
+      if (this.formData.email.trim() == "") {
+        this.formValidate.email = "";
+        return 1;
+      }
+
+      if (!/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,24}))$/.test(this.formData.email)) {
+        this.formValidate.email = "هذا البريد غير صحيح";
+        return 1;
+      }
     }
   }
 });
@@ -23181,178 +23317,271 @@ var render = function() {
     ),
     _vm._v(" "),
     _c("div", { staticClass: "w-full grid xl:grid-cols-4 md:grid-cols-2" }, [
-      _c("input", {
-        directives: [
-          {
-            name: "model",
-            rawName: "v-model",
-            value: _vm.formData.name,
-            expression: "formData.name"
-          }
-        ],
-        staticClass:
-          "rounded bg-gray-50 border mx-3 h-12 px-4 outline-none focus:border-0 text-lg focus:ring-2 focus:ring-red-400 my-4",
-        attrs: {
-          type: "text",
-          "data-aos-delay": "200",
-          "data-aos": "fade-up",
-          "data-aos-duration": "800",
-          placeholder: "الإسم"
-        },
-        domProps: { value: _vm.formData.name },
-        on: {
-          input: function($event) {
-            if ($event.target.composing) {
-              return
-            }
-            _vm.$set(_vm.formData, "name", $event.target.value)
-          }
-        }
-      }),
-      _vm._v(" "),
-      _c("input", {
-        directives: [
-          {
-            name: "model",
-            rawName: "v-model",
-            value: _vm.formData.email,
-            expression: "formData.email"
-          }
-        ],
-        staticClass:
-          "rounded bg-gray-50 border mx-3 h-12 px-4 outline-none focus:border-0 text-lg focus:ring-2 focus:ring-red-400 my-4",
-        attrs: {
-          type: "text",
-          "data-aos-delay": "400",
-          "data-aos": "fade-up",
-          "data-aos-duration": "800",
-          placeholder: "البريد الإلكتروني"
-        },
-        domProps: { value: _vm.formData.email },
-        on: {
-          input: function($event) {
-            if ($event.target.composing) {
-              return
-            }
-            _vm.$set(_vm.formData, "email", $event.target.value)
-          }
-        }
-      }),
-      _vm._v(" "),
-      _c("input", {
-        directives: [
-          {
-            name: "model",
-            rawName: "v-model",
-            value: _vm.formData.phone,
-            expression: "formData.phone"
-          }
-        ],
-        staticClass:
-          "rounded bg-gray-50 border mx-3 h-12 px-4 outline-none focus:border-0 text-lg focus:ring-2 focus:ring-red-400 my-4",
-        attrs: {
-          type: "text",
-          "data-aos-delay": "600",
-          "data-aos": "fade-up",
-          "data-aos-duration": "800",
-          placeholder: "رقم الهاتف"
-        },
-        domProps: { value: _vm.formData.phone },
-        on: {
-          input: function($event) {
-            if ($event.target.composing) {
-              return
-            }
-            _vm.$set(_vm.formData, "phone", $event.target.value)
-          }
-        }
-      }),
-      _vm._v(" "),
       _c(
-        "select",
+        "div",
         {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.formData.for,
-              expression: "formData.for"
-            }
-          ],
-          staticClass:
-            "rounded bg-gray-50 border mx-3 h-12 px-4 outline-none focus:border-0 text-lg focus:ring-2 focus:ring-red-400 my-4",
+          staticClass: "mx-3  my-4",
           attrs: {
-            type: "text",
-            "data-aos-delay": "800",
+            "data-aos-delay": "200",
             "data-aos": "fade-up",
-            "data-aos-duration": "800",
-            placeholder: "موجه إلى"
-          },
-          on: {
-            change: function($event) {
-              var $$selectedVal = Array.prototype.filter
-                .call($event.target.options, function(o) {
-                  return o.selected
-                })
-                .map(function(o) {
-                  var val = "_value" in o ? o._value : o.value
-                  return val
-                })
-              _vm.$set(
-                _vm.formData,
-                "for",
-                $event.target.multiple ? $$selectedVal : $$selectedVal[0]
-              )
-            }
+            "data-aos-duration": "800"
           }
         },
         [
-          _c("option", { attrs: { value: "1" } }, [_vm._v("إدارة الشركة")]),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.formData.name,
+                expression: "formData.name"
+              }
+            ],
+            staticClass:
+              "rounded w-full bg-gray-50 border h-12 px-4 outline-none focus:border-0 text-lg focus:ring-2 focus:ring-red-400 ",
+            attrs: { type: "text", placeholder: "الإسم" },
+            domProps: { value: _vm.formData.name },
+            on: {
+              change: _vm.validateName,
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.formData, "name", $event.target.value)
+              }
+            }
+          }),
           _vm._v(" "),
-          _c("option", { attrs: { value: "2" } }, [_vm._v("فريق المطورين")]),
+          _c(
+            "div",
+            {
+              staticClass: "text-sm w-full h-8 text-red-500 flex items-center"
+            },
+            [
+              _vm._v(
+                "\n                " +
+                  _vm._s(_vm.formValidate.name) +
+                  "\n            "
+              )
+            ]
+          )
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "mx-3  my-4",
+          attrs: {
+            "data-aos-delay": "600",
+            "data-aos": "fade-up",
+            "data-aos-duration": "800"
+          }
+        },
+        [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.formData.phone,
+                expression: "formData.phone"
+              }
+            ],
+            staticClass:
+              "rounded w-full bg-gray-50 border h-12 px-4 outline-none focus:border-0 text-lg focus:ring-2 focus:ring-red-400 ",
+            attrs: { type: "text", placeholder: "رقم الهاتف" },
+            domProps: { value: _vm.formData.phone },
+            on: {
+              change: _vm.validatePhone,
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.formData, "phone", $event.target.value)
+              }
+            }
+          }),
           _vm._v(" "),
-          _c("option", { attrs: { value: "3" } }, [_vm._v("الدعم الفني")]),
+          _c(
+            "div",
+            {
+              staticClass: "text-sm w-full h-8 text-red-500 flex items-center"
+            },
+            [
+              _vm._v(
+                "\n                " +
+                  _vm._s(_vm.formValidate.phone) +
+                  "\n            "
+              )
+            ]
+          )
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "mx-3  my-4",
+          attrs: {
+            "data-aos-delay": "400",
+            "data-aos": "fade-up",
+            "data-aos-duration": "800"
+          }
+        },
+        [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.formData.email,
+                expression: "formData.email"
+              }
+            ],
+            staticClass:
+              "rounded w-full bg-gray-50 border h-12 px-4 outline-none focus:border-0 text-lg focus:ring-2 focus:ring-red-400 ",
+            attrs: { type: "text", placeholder: "البريد الإلكتروني" },
+            domProps: { value: _vm.formData.email },
+            on: {
+              change: _vm.validateEmail,
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.formData, "email", $event.target.value)
+              }
+            }
+          }),
           _vm._v(" "),
-          _c("option", { attrs: { value: "4" } }, [_vm._v("قسم المبيعات")])
+          _c(
+            "div",
+            {
+              staticClass: "text-sm w-full h-8 text-red-500 flex items-center"
+            },
+            [
+              _vm._v(
+                "\n                " +
+                  _vm._s(_vm.formValidate.email) +
+                  "\n            "
+              )
+            ]
+          )
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "mx-3  my-4",
+          attrs: {
+            "data-aos-delay": "800",
+            "data-aos": "fade-up",
+            "data-aos-duration": "800"
+          }
+        },
+        [
+          _c(
+            "select",
+            {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.formData.receiver_id,
+                  expression: "formData.receiver_id"
+                }
+              ],
+              staticClass:
+                "rounded w-full bg-gray-50 border h-12 px-4 outline-none focus:border-0 text-lg focus:ring-2 focus:ring-red-400 ",
+              attrs: { placeholder: "موجه إلى" },
+              on: {
+                change: function($event) {
+                  var $$selectedVal = Array.prototype.filter
+                    .call($event.target.options, function(o) {
+                      return o.selected
+                    })
+                    .map(function(o) {
+                      var val = "_value" in o ? o._value : o.value
+                      return val
+                    })
+                  _vm.$set(
+                    _vm.formData,
+                    "receiver_id",
+                    $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                  )
+                }
+              }
+            },
+            _vm._l(_vm.receivers, function(item, index) {
+              return _c(
+                "option",
+                { key: index, domProps: { value: item.id } },
+                [_vm._v(_vm._s(item.name))]
+              )
+            }),
+            0
+          ),
+          _vm._v(" "),
+          _c("div", {
+            staticClass: "text-sm w-full h-8 text-red-500 flex items-center"
+          })
         ]
       )
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "mx-3" }, [
-      _c("textarea", {
-        directives: [
-          {
-            name: "model",
-            rawName: "v-model",
-            value: _vm.formData.content,
-            expression: "formData.content"
-          }
-        ],
-        staticClass:
-          "rounded bg-gray-50 border text-lg px-3 py-3 w-full focus:ring-red-400 h-32",
-        attrs: {
-          "data-aos-delay": "1000",
-          "data-aos": "fade-up",
-          "data-aos-duration": "800",
-          placeholder: "محتوى الرسالة"
-        },
-        domProps: { value: _vm.formData.content },
-        on: {
-          input: function($event) {
-            if ($event.target.composing) {
-              return
-            }
-            _vm.$set(_vm.formData, "content", $event.target.value)
-          }
-        }
-      })
     ]),
     _vm._v(" "),
     _c(
       "div",
       {
+        staticClass: "mx-3",
+        attrs: {
+          "data-aos-delay": "1000",
+          "data-aos": "fade-up",
+          "data-aos-duration": "800"
+        }
+      },
+      [
+        _c("textarea", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.formData.content,
+              expression: "formData.content"
+            }
+          ],
+          staticClass:
+            "rounded bg-gray-50 border text-lg px-3 py-3 w-full focus:ring-red-400 h-32",
+          attrs: { placeholder: "محتوى الرسالة" },
+          domProps: { value: _vm.formData.content },
+          on: {
+            change: _vm.validateContent,
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.$set(_vm.formData, "content", $event.target.value)
+            }
+          }
+        }),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "text-sm w-full h-8 text-red-500 flex items-center" },
+          [
+            _vm._v(
+              "\n            " + _vm._s(_vm.formValidate.content) + "\n        "
+            )
+          ]
+        )
+      ]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
         staticClass:
-          "px-4 mt-5 mx-3 text-lg text-white bg-secondary hover-bg-primary cursor-pointer rounded-full shadow-lg w-40 h-12 flex items-center justify-center",
+          "px-4 mt-5 mx-3 text-lg text-white bg-blue-400 hover:bg-blue-500 cursor-pointer rounded-full shadow-lg w-40 h-12 flex items-center justify-center",
         attrs: {
           "data-aos-delay": "1200",
           "data-aos": "fade-up",

@@ -8,10 +8,8 @@
 
 
 
-
-
 <!-- Contact Form -->
-<contact-form></contact-form>
+<contact-form :receivers="{{ $receivers }}"></contact-form>
 <!-- End Contact Form -->
 
 

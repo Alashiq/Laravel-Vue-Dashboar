@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Middleware;
+
 use Illuminate\Support\Facades\Auth;
 
 use Closure;
@@ -18,12 +19,22 @@ class AdminMiddleware
     public function handle(Request $request, Closure $next)
     {
         if ($request->user()->tokenCan('role:admin')) {
+            if ($request->user()->state == 0)
+                return response()->json([
+                    "success" => false,
+                    "message" => "حسابك غير مفعل يجب عليك التواصل مع المسؤول لتفعيله"
+                ], 401);
+            if ($request->user()->state == 2)
+                return response()->json([
+                    "success" => false,
+                    "message" => "تم حظر حسابك ولم بعد بإمكانك استخدامه"
+                ], 401);
             return $next($request);
         }
 
         return response()->json([
-            "success"=>false,
-            "message"=>"انتهت الجلسة ا لخاصة بك, يجب عليك إعادة تسجيل الدخول مجددا"
+            "success" => false,
+            "message" => "انتهت الجلسة ا لخاصة بك, يجب عليك إعادة تسجيل الدخول مجددا"
         ], 401);
     }
 }

@@ -20,8 +20,13 @@ class AuthDashApiController extends Controller
 
         if (!$customer || !Hash::check($request->password, $customer->password)) {
 
-            return response()->json(['success' => false, 'message' => 'your email or password wrong'], 400);
+            return response()->json(['success' => false, 'message' => 'إسم المستخدم أو كلمة المرور غير صحيحة'], 400);
         }
+
+        if ($customer->state == 0) {
+            return response()->json(['success' => false, 'message' => 'هذا الحساب غير مفعل قم بالتواصل مع المسؤول لتفعيل حسابك'], 400);
+        } elseif ($customer->state == 2)
+            return response()->json(['success' => false, 'message' => 'هذا الحساب محظور ولا يمكن استخدامه مجددا'], 400);
 
 
         return response()->json([
@@ -110,6 +115,4 @@ class AuthDashApiController extends Controller
             "photo" => '/storage/' . $file_path
         ]);
     }
-
-
 }
