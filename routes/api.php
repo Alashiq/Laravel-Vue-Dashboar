@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Dash\Api\AdminDashApiController;
 use App\Http\Controllers\Dash\Api\AuthDashApiController;
+use App\Http\Controllers\Dash\Api\HomeDashApiController;
 use App\Http\Controllers\Dash\Api\MessageDashApiController;
 use App\Http\Controllers\Web\Api\MessageWebApiController;
 use Illuminate\Http\Request;
@@ -28,6 +29,9 @@ Route::prefix('admin')->middleware(['auth:sanctum', 'type.admin'])->group(functi
     Route::get('/logout', [AuthDashApiController::class, 'logout']);
     Route::put('/', [AuthDashApiController::class, 'update']);
     Route::post('/photo', [AuthDashApiController::class, 'updatePhoto']);
+    //  Home Dash Route 
+    Route::get('/home', [HomeDashApiController::class, 'index']);
+
     // Message Route
     Route::get('/message', [MessageDashApiController::class, 'index']);
     Route::delete('/message/{message}', [MessageDashApiController::class, 'delete']);
@@ -52,7 +56,5 @@ Route::prefix('admin')->middleware(['auth:sanctum', 'type.admin'])->group(functi
 Route::prefix('web')->group(function () {
     // Meessage Route
     Route::post('/message', [MessageWebApiController::class, 'create']);
-
-
 });
 // ====================>End Web API

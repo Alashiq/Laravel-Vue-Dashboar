@@ -2721,14 +2721,172 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
-    return {};
+    return {
+      data: {
+        todayMessage: 0,
+        notSloveMessage: 0,
+        sloveMessage: 0,
+        todayVisitor: 0,
+        weekVisitor: 0,
+        monthVisitor: 0
+      },
+      loaded: false
+    };
   },
   methods: {},
   mounted: function mounted() {
+    var _this = this;
+
     this.$store.commit("activePage", 1);
+    sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().mixin({
+      allowOutsideClick: false
+    }).showLoading();
+    axios.get("/api/admin/home/").then(function (response) {
+      _this.loaded = true;
+
+      if (response.status == 200) {
+        _this.data = response.data.data;
+        sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().mixin({
+          position: "bottom-start",
+          timer: 3000,
+          toast: true,
+          showConfirmButton: false
+        }).fire("نجاح", response.data.message, "success");
+      }
+    }, function (error) {
+      _this.loaded = true;
+      clearLogout(_this.$store, _this.$router, error.response);
+    });
   },
   computed: {},
   created: function created() {}
@@ -28684,22 +28842,337 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "w-auto md:p-8 p-4" }, [
+    _vm.loaded
+      ? _c("div", { staticClass: "w-full grid xl:grid-cols-3" }, [
+          _c(
+            "div",
+            {
+              staticClass:
+                "h-40 bg-white shadow-3 mx-3 mb-8 px-6 rounded-lg flex items-center"
+            },
+            [
+              _vm._m(0),
+              _vm._v(" "),
+              _c("div", { staticClass: "mr-8" }, [
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "text-3xl text-gray-700 font-semibold h-20 flex items-center"
+                  },
+                  [
+                    _vm._v(
+                      "\n                    " +
+                        _vm._s(_vm.data.todayVisitor) +
+                        " زائر\n                "
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "text-gray-500 flex items-center h-4" },
+                  [
+                    _vm._v(
+                      "\n                    الزيارات اليوم\n                "
+                    )
+                  ]
+                )
+              ])
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass:
+                "h-40 bg-white shadow-3 mx-3 mb-8 px-6 rounded-lg flex items-center"
+            },
+            [
+              _vm._m(1),
+              _vm._v(" "),
+              _c("div", { staticClass: "mr-8" }, [
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "text-3xl text-gray-700 font-semibold h-20 flex items-center"
+                  },
+                  [
+                    _vm._v(
+                      "\n                    " +
+                        _vm._s(_vm.data.weekVisitor) +
+                        " زائر\n                "
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "text-gray-500 flex items-center h-4" },
+                  [
+                    _vm._v(
+                      "\n                    زيارات الأسبوع\n                "
+                    )
+                  ]
+                )
+              ])
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass:
+                "h-40 bg-white shadow-3 mx-3 mb-8 px-6 rounded-lg flex items-center"
+            },
+            [
+              _vm._m(2),
+              _vm._v(" "),
+              _c("div", { staticClass: "mr-8" }, [
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "text-3xl text-gray-700 font-semibold h-20 flex items-center"
+                  },
+                  [
+                    _vm._v(
+                      "\n                    " +
+                        _vm._s(_vm.data.monthVisitor) +
+                        " زائر\n                "
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "text-gray-500 flex items-center h-4" },
+                  [
+                    _vm._v(
+                      "\n                    زيارات الشهر\n                "
+                    )
+                  ]
+                )
+              ])
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass:
+                "h-40 bg-white shadow-3 mx-3 mb-8 px-6 rounded-lg flex items-center"
+            },
+            [
+              _vm._m(3),
+              _vm._v(" "),
+              _c("div", { staticClass: "mr-8" }, [
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "text-3xl text-gray-700 font-semibold h-20 flex items-center"
+                  },
+                  [
+                    _vm._v(
+                      "\n                    " +
+                        _vm._s(_vm.data.todayMessage) +
+                        " رسالة\n                "
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "text-gray-500 flex items-center h-4" },
+                  [
+                    _vm._v(
+                      "\n                    رسائل اليوم\n                "
+                    )
+                  ]
+                )
+              ])
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass:
+                "h-40 bg-white shadow-3 mx-3 mb-8 px-6 rounded-lg flex items-center"
+            },
+            [
+              _vm._m(4),
+              _vm._v(" "),
+              _c("div", { staticClass: "mr-8" }, [
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "text-3xl text-gray-700 font-semibold h-20 flex items-center"
+                  },
+                  [
+                    _vm._v(
+                      "\n                    " +
+                        _vm._s(_vm.data.notSloveMessage) +
+                        " رسالة\n                "
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "text-gray-500 flex items-center h-4" },
+                  [
+                    _vm._v(
+                      "\n                    الرسائل الغير محلولة\n                "
+                    )
+                  ]
+                )
+              ])
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass:
+                "h-40 bg-white shadow-3 mx-3 mb-8 px-6 rounded-lg flex items-center"
+            },
+            [
+              _vm._m(5),
+              _vm._v(" "),
+              _c("div", { staticClass: "mr-8" }, [
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "text-3xl text-gray-700 font-semibold h-20 flex items-center"
+                  },
+                  [
+                    _vm._v(
+                      "\n                    " +
+                        _vm._s(_vm.data.sloveMessage) +
+                        " رسالة\n                "
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "text-gray-500 flex items-center h-4" },
+                  [
+                    _vm._v(
+                      "\n                    الرسائل المحلولة\n                "
+                    )
+                  ]
+                )
+              ])
+            ]
+          )
+        ])
+      : _vm._e(),
+    _vm._v(" "),
+    _vm.loaded
+      ? _c(
+          "div",
+          { staticClass: "w-auto mx-4 bg-white shadow-3 mt-8 rounded-lg px-6" },
+          [
+            _c(
+              "div",
+              {
+                staticClass:
+                  "h-20 w-full flex items-center text-2xl bg-blu font-semibold cairo text-gray-600 border-b"
+              },
+              [_vm._v("\n            مخطط الزيارات\n        ")]
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "h-96 w-full" })
+          ]
+        )
+      : _vm._e()
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "bg-blue-100 w-auto md:p-8 p-4" }, [
-      _c("div", { staticClass: "bg-red-400 h-96 w-32" }),
-      _vm._v(" "),
-      _c("div", { staticClass: "bg-green-400 h-96 w-32" }),
-      _vm._v(" "),
-      _c("div", { staticClass: "bg-blue-400 h-96 w-32" }),
-      _vm._v(" "),
-      _c("div", { staticClass: "bg-red-400 h-96 w-32" })
-    ])
+    return _c(
+      "div",
+      {
+        staticClass:
+          "h-16 w-16 bg-blue-400 rounded-full text-2xl items-center justify-center flex text-white"
+      },
+      [_c("i", { staticClass: "fas fa-eye" })]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticClass:
+          "h-16 w-16 bg-green-400 rounded-full text-2xl items-center justify-center flex text-white"
+      },
+      [_c("i", { staticClass: "fas fa-eye" })]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticClass:
+          "h-16 w-16 bg-red-400 rounded-full text-2xl items-center justify-center flex text-white"
+      },
+      [_c("i", { staticClass: "fas fa-eye" })]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticClass:
+          "h-16 w-16 bg-yellow-400 rounded-full text-2xl items-center justify-center flex text-white"
+      },
+      [_c("i", { staticClass: "fas fa-comment-dots" })]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticClass:
+          "h-16 w-16 bg-gray-400 rounded-full text-2xl items-center justify-center flex text-white"
+      },
+      [_c("i", { staticClass: "fas fa-comment-dots" })]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticClass:
+          "h-16 w-16 bg-green-400 rounded-full text-2xl items-center justify-center flex text-white"
+      },
+      [_c("i", { staticClass: "fas fa-comment-dots" })]
+    )
   }
 ]
 render._withStripped = true
