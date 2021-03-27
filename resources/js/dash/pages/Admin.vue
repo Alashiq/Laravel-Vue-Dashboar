@@ -101,11 +101,11 @@
             <!-- Grid -->
 
             <!-- Btn Action -->
-            <div class="w-full h-16 mt-12 flex items-center justify-start">
+            <div class="w-full lg:h-20 mt-12 lg:flex items-center justify-start">
                 <div
                     v-if="admin.state != 2"
                     @click="resetPassword"
-                    class="h-12 px-6 mx-4 bg-blue-400 hover:bg-blue-500 flex items-center justify-center text-white shadow-lg rounded cursor-pointer"
+                    class="h-12 px-6 mx-4 my-2 bg-blue-400 hover:bg-blue-500 flex items-center justify-center text-white shadow-lg rounded cursor-pointer"
                 >
                     <i class="fas fa-fingerprint ml-2"></i>
                     تهيئة كلمة المرور
@@ -113,7 +113,7 @@
                 <div
                     v-if="admin.state == 0"
                     @click="activeAdmin"
-                    class="h-12 px-6 bg-green-400 hover:bg-green-500 flex items-center justify-center text-white shadow-lg rounded cursor-pointer"
+                    class="h-12 px-6  mx-4  md:mx-0 my-2 bg-green-400 hover:bg-green-500 flex items-center justify-center text-white shadow-lg rounded cursor-pointer"
                 >
                     <i class="fas fa-lock-open ml-2"></i>
                     تفعيل الحساب
@@ -121,7 +121,7 @@
                 <div
                     v-else-if="admin.state == 1"
                     @click="disActiveAdmin"
-                    class="h-12 px-6 bg-yellow-400 hover:bg-yellow-500 flex items-center justify-center text-white shadow-lg rounded cursor-pointer"
+                    class="h-12 px-6 mx-4 my-2 bg-yellow-400 hover:bg-yellow-500 flex items-center justify-center text-white shadow-lg rounded cursor-pointer"
                 >
                     <i class="fas fa-lock ml-2"></i>
                     إلغاء تفعيل الحساب
@@ -138,7 +138,8 @@
             <!-- End Btn Action -->
         </div>
 
-        <empty-box v-if="loaded && admin.length == 0"></empty-box>
+        <empty-box v-if="loaded && admin.length == 0" 
+        message="لا يوجد مشرف بهذا الرقم"></empty-box>
 
         <!-- End Inside Page -->
     </div>

@@ -2,6 +2,7 @@ export default {
   namespaced: true,
 
   state: {
+    sidemenu:true,
     loadAuth: false,
     auth: false,
     user: {
@@ -10,7 +11,6 @@ export default {
         username: "",
         photo: ""
     },
-
 },
 
 mutations: {
@@ -37,6 +37,9 @@ mutations: {
     updatePhoto(state, photo) {
         state.user.photo = photo;
     },
+    toggleMenu(state){
+        state.menu=!state.menu;
+    }
   },
 
 

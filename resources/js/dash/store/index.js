@@ -32,7 +32,8 @@ export default {
                 path: "/admin/admin",
                 icon:'fas fa-users'
             }
-        ]
+        ],
+        menu:false,
     }),
 
     mutations: {
@@ -67,6 +68,9 @@ export default {
               state.pageList[i].active=false;
             }
           },
+          toggleMenu(state){
+            state.menu=!state.menu;
+        },
     },
 
     actions: {

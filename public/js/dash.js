@@ -1864,7 +1864,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  props: ['message'],
   data: function data() {
     return {};
   },
@@ -1892,11 +1898,23 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {};
   },
-  methods: {},
+  methods: {
+    toggleMenu: function toggleMenu() {
+      this.$store.commit("toggleMenu");
+    }
+  },
   computed: {
     user: function user() {
       return this.$store.state.user;
@@ -1919,6 +1937,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_0__);
+//
+//
+//
 //
 //
 //
@@ -2043,6 +2064,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     user: function user() {
       return this.$store.state.user;
+    },
+    menu: function menu() {
+      return this.$store.state.menu;
     }
   }
 });
@@ -2063,6 +2087,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _logout_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../logout.js */ "./resources/js/dash/logout.js");
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_1__);
+//
 //
 //
 //
@@ -2848,18 +2873,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
-      data: {
-        todayMessage: 0,
-        notSloveMessage: 0,
-        sloveMessage: 0,
-        todayVisitor: 0,
-        weekVisitor: 0,
-        monthVisitor: 0
-      },
+      data: [],
       loaded: false
     };
   },
@@ -3348,7 +3369,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
-      message: {},
+      message: [],
       loaded: false
     };
   },
@@ -4494,7 +4515,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         active: false,
         path: "/admin/admin",
         icon: 'fas fa-users'
-      }]
+      }],
+      menu: false
     };
   },
   mutations: {
@@ -4525,6 +4547,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       for (var i = 0; i < state.pageList.length; i++) {
         if (state.pageList[i].id == pageNumber) state.pageList[i].active = true;else state.pageList[i].active = false;
       }
+    },
+    toggleMenu: function toggleMenu(state) {
+      state.menu = !state.menu;
     }
   },
   actions: {
@@ -28014,31 +28039,51 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "w-full h-auto" }, [
-      _c(
-        "div",
-        { staticClass: "h-80 bg-white rounded-lg shadow-2 mx-auto my-8" },
-        [
+  return _c("div", { staticClass: "w-full h-auto" }, [
+    _c(
+      "div",
+      {
+        staticClass:
+          "h-80 bg-white rounded-lg shadow-2 mx-auto my-8 flex items-center justify-center"
+      },
+      [
+        _c("div", [
+          _c("img", {
+            staticClass: "h-20 w-20 mx-auto mb-6",
+            attrs: { src: "/storage/assets/alert.jpg", alt: "" }
+          }),
+          _vm._v(" "),
           _c(
             "div",
             {
               staticClass:
-                "h-24 flex items-center justify-center text-3xl font-bold text-gray-500"
+                "flex items-center justify-center text-3xl font-bold text-gray-500 mb-3"
             },
-            [_vm._v("هذه القائمة لا تحتوي على اي عناصر حاليا")]
+            [_vm._v("عذرا")]
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass:
+                "flex items-center justify-center text-lg text-gray-500"
+            },
+            [
+              _vm._v(
+                _vm._s(
+                  !_vm.message
+                    ? "هذه القائمة لا تحتوي على اي عناصر حاليا"
+                    : _vm.message
+                )
+              )
+            ]
           )
-        ]
-      )
-    ])
-  }
-]
+        ])
+      ]
+    )
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -28065,15 +28110,29 @@ var render = function() {
     "div",
     {
       staticClass:
-        "h-16 w-full bg-white shadow mb-8 flex justify-end items-center px-8"
+        "h-16 w-full bg-white shadow mb-8 flex justify-between items-center px-4"
     },
     [
-      _c("div", [_vm._v(_vm._s(_vm.user.name))]),
+      _c(
+        "div",
+        {
+          staticClass:
+            "h-16 w-16 text-gray-600 flex items-center justify-center text-3xl hover:text-red-400 cursor-pointer md:hidden",
+          on: { click: _vm.toggleMenu }
+        },
+        [_c("i", { staticClass: "fas fa-bars" })]
+      ),
       _vm._v(" "),
-      _c("img", {
-        staticClass: "h-10 w-10 rounded-full mx-2",
-        attrs: { src: _vm.user.photo }
-      })
+      _c("div"),
+      _vm._v(" "),
+      _c("div", { staticClass: "h-16 flex items-center" }, [
+        _c("div", [_vm._v(_vm._s(_vm.user.name))]),
+        _vm._v(" "),
+        _c("img", {
+          staticClass: "h-10 w-10 rounded-full mr-2",
+          attrs: { src: _vm.user.photo }
+        })
+      ])
     ]
   )
 }
@@ -28103,8 +28162,11 @@ var render = function() {
   return _c(
     "div",
     {
-      staticClass:
-        "md:right-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:flex-row md:flex-no-wrap md:overflow-hidden shadow bg-white flex flex-wrap items-center justify-between relative md:w-64 z-10 bg-cover bg-center",
+      class: {
+        "md:right-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:flex-row md:flex-no-wrap md:overflow-hidden shadow bg-white flex flex-wrap items-center justify-between relative md:w-64 z-10 bg-cover bg-center":
+          1 == 1,
+        " hidden": _vm.menu == false
+      },
       staticStyle: {
         "abackground-image":
           "url(https://demos.creative-tim.com/material-dashboard/assets/img/sidebar-1.jpg)"
@@ -28476,7 +28538,7 @@ var render = function() {
                 "div",
                 {
                   staticClass:
-                    "w-full h-16 mt-12 flex items-center justify-start"
+                    "w-full lg:h-20 mt-12 lg:flex items-center justify-start"
                 },
                 [
                   _vm.admin.state != 2
@@ -28484,7 +28546,7 @@ var render = function() {
                         "div",
                         {
                           staticClass:
-                            "h-12 px-6 mx-4 bg-blue-400 hover:bg-blue-500 flex items-center justify-center text-white shadow-lg rounded cursor-pointer",
+                            "h-12 px-6 mx-4 my-2 bg-blue-400 hover:bg-blue-500 flex items-center justify-center text-white shadow-lg rounded cursor-pointer",
                           on: { click: _vm.resetPassword }
                         },
                         [
@@ -28501,7 +28563,7 @@ var render = function() {
                         "div",
                         {
                           staticClass:
-                            "h-12 px-6 bg-green-400 hover:bg-green-500 flex items-center justify-center text-white shadow-lg rounded cursor-pointer",
+                            "h-12 px-6  mx-4  md:mx-0 my-2 bg-green-400 hover:bg-green-500 flex items-center justify-center text-white shadow-lg rounded cursor-pointer",
                           on: { click: _vm.activeAdmin }
                         },
                         [
@@ -28514,7 +28576,7 @@ var render = function() {
                         "div",
                         {
                           staticClass:
-                            "h-12 px-6 bg-yellow-400 hover:bg-yellow-500 flex items-center justify-center text-white shadow-lg rounded cursor-pointer",
+                            "h-12 px-6 mx-4 my-2 bg-yellow-400 hover:bg-yellow-500 flex items-center justify-center text-white shadow-lg rounded cursor-pointer",
                           on: { click: _vm.disActiveAdmin }
                         },
                         [
@@ -28546,7 +28608,9 @@ var render = function() {
           )
         : _vm._e(),
       _vm._v(" "),
-      _vm.loaded && _vm.admin.length == 0 ? _c("empty-box") : _vm._e()
+      _vm.loaded && _vm.admin.length == 0
+        ? _c("empty-box", { attrs: { message: "لا يوجد مشرف بهذا الرقم" } })
+        : _vm._e()
     ],
     1
   )
@@ -28842,258 +28906,267 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "w-auto md:p-8 p-4" }, [
-    _vm.loaded
-      ? _c("div", { staticClass: "w-full grid xl:grid-cols-3" }, [
-          _c(
-            "div",
-            {
-              staticClass:
-                "h-40 bg-white shadow-3 mx-3 mb-8 px-6 rounded-lg flex items-center"
-            },
-            [
-              _vm._m(0),
-              _vm._v(" "),
-              _c("div", { staticClass: "mr-8" }, [
-                _c(
-                  "div",
-                  {
-                    staticClass:
-                      "text-3xl text-gray-700 font-semibold h-20 flex items-center"
-                  },
-                  [
-                    _vm._v(
-                      "\n                    " +
-                        _vm._s(_vm.data.todayVisitor) +
-                        " زائر\n                "
-                    )
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "text-gray-500 flex items-center h-4" },
-                  [
-                    _vm._v(
-                      "\n                    الزيارات اليوم\n                "
-                    )
-                  ]
-                )
-              ])
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            {
-              staticClass:
-                "h-40 bg-white shadow-3 mx-3 mb-8 px-6 rounded-lg flex items-center"
-            },
-            [
-              _vm._m(1),
-              _vm._v(" "),
-              _c("div", { staticClass: "mr-8" }, [
-                _c(
-                  "div",
-                  {
-                    staticClass:
-                      "text-3xl text-gray-700 font-semibold h-20 flex items-center"
-                  },
-                  [
-                    _vm._v(
-                      "\n                    " +
-                        _vm._s(_vm.data.weekVisitor) +
-                        " زائر\n                "
-                    )
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "text-gray-500 flex items-center h-4" },
-                  [
-                    _vm._v(
-                      "\n                    زيارات الأسبوع\n                "
-                    )
-                  ]
-                )
-              ])
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            {
-              staticClass:
-                "h-40 bg-white shadow-3 mx-3 mb-8 px-6 rounded-lg flex items-center"
-            },
-            [
-              _vm._m(2),
-              _vm._v(" "),
-              _c("div", { staticClass: "mr-8" }, [
-                _c(
-                  "div",
-                  {
-                    staticClass:
-                      "text-3xl text-gray-700 font-semibold h-20 flex items-center"
-                  },
-                  [
-                    _vm._v(
-                      "\n                    " +
-                        _vm._s(_vm.data.monthVisitor) +
-                        " زائر\n                "
-                    )
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "text-gray-500 flex items-center h-4" },
-                  [
-                    _vm._v(
-                      "\n                    زيارات الشهر\n                "
-                    )
-                  ]
-                )
-              ])
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            {
-              staticClass:
-                "h-40 bg-white shadow-3 mx-3 mb-8 px-6 rounded-lg flex items-center"
-            },
-            [
-              _vm._m(3),
-              _vm._v(" "),
-              _c("div", { staticClass: "mr-8" }, [
-                _c(
-                  "div",
-                  {
-                    staticClass:
-                      "text-3xl text-gray-700 font-semibold h-20 flex items-center"
-                  },
-                  [
-                    _vm._v(
-                      "\n                    " +
-                        _vm._s(_vm.data.todayMessage) +
-                        " رسالة\n                "
-                    )
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "text-gray-500 flex items-center h-4" },
-                  [
-                    _vm._v(
-                      "\n                    رسائل اليوم\n                "
-                    )
-                  ]
-                )
-              ])
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            {
-              staticClass:
-                "h-40 bg-white shadow-3 mx-3 mb-8 px-6 rounded-lg flex items-center"
-            },
-            [
-              _vm._m(4),
-              _vm._v(" "),
-              _c("div", { staticClass: "mr-8" }, [
-                _c(
-                  "div",
-                  {
-                    staticClass:
-                      "text-3xl text-gray-700 font-semibold h-20 flex items-center"
-                  },
-                  [
-                    _vm._v(
-                      "\n                    " +
-                        _vm._s(_vm.data.notSloveMessage) +
-                        " رسالة\n                "
-                    )
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "text-gray-500 flex items-center h-4" },
-                  [
-                    _vm._v(
-                      "\n                    الرسائل الغير محلولة\n                "
-                    )
-                  ]
-                )
-              ])
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            {
-              staticClass:
-                "h-40 bg-white shadow-3 mx-3 mb-8 px-6 rounded-lg flex items-center"
-            },
-            [
-              _vm._m(5),
-              _vm._v(" "),
-              _c("div", { staticClass: "mr-8" }, [
-                _c(
-                  "div",
-                  {
-                    staticClass:
-                      "text-3xl text-gray-700 font-semibold h-20 flex items-center"
-                  },
-                  [
-                    _vm._v(
-                      "\n                    " +
-                        _vm._s(_vm.data.sloveMessage) +
-                        " رسالة\n                "
-                    )
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "text-gray-500 flex items-center h-4" },
-                  [
-                    _vm._v(
-                      "\n                    الرسائل المحلولة\n                "
-                    )
-                  ]
-                )
-              ])
-            ]
-          )
-        ])
-      : _vm._e(),
-    _vm._v(" "),
-    _vm.loaded
-      ? _c(
-          "div",
-          { staticClass: "w-auto mx-4 bg-white shadow-3 mt-8 rounded-lg px-6" },
-          [
+  return _c(
+    "div",
+    { staticClass: "w-auto md:p-8 p-4" },
+    [
+      _vm.loaded && _vm.data.length != 0
+        ? _c("div", { staticClass: "w-full grid xl:grid-cols-3" }, [
             _c(
               "div",
               {
                 staticClass:
-                  "h-20 w-full flex items-center text-2xl bg-blu font-semibold cairo text-gray-600 border-b"
+                  "h-40 bg-white shadow-3 mx-3 mb-8 px-6 rounded-lg flex items-center"
               },
-              [_vm._v("\n            مخطط الزيارات\n        ")]
+              [
+                _vm._m(0),
+                _vm._v(" "),
+                _c("div", { staticClass: "mr-8" }, [
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "text-3xl text-gray-700 font-semibold h-20 flex items-center"
+                    },
+                    [
+                      _vm._v(
+                        "\n                    " +
+                          _vm._s(_vm.data.todayVisitor) +
+                          " زائر\n                "
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "text-gray-500 flex items-center h-4" },
+                    [
+                      _vm._v(
+                        "\n                    الزيارات اليوم\n                "
+                      )
+                    ]
+                  )
+                ])
+              ]
             ),
             _vm._v(" "),
-            _c("div", { staticClass: "h-96 w-full" })
-          ]
-        )
-      : _vm._e()
-  ])
+            _c(
+              "div",
+              {
+                staticClass:
+                  "h-40 bg-white shadow-3 mx-3 mb-8 px-6 rounded-lg flex items-center"
+              },
+              [
+                _vm._m(1),
+                _vm._v(" "),
+                _c("div", { staticClass: "mr-8" }, [
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "text-3xl text-gray-700 font-semibold h-20 flex items-center"
+                    },
+                    [
+                      _vm._v(
+                        "\n                    " +
+                          _vm._s(_vm.data.weekVisitor) +
+                          " زائر\n                "
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "text-gray-500 flex items-center h-4" },
+                    [
+                      _vm._v(
+                        "\n                    زيارات الأسبوع\n                "
+                      )
+                    ]
+                  )
+                ])
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass:
+                  "h-40 bg-white shadow-3 mx-3 mb-8 px-6 rounded-lg flex items-center"
+              },
+              [
+                _vm._m(2),
+                _vm._v(" "),
+                _c("div", { staticClass: "mr-8" }, [
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "text-3xl text-gray-700 font-semibold h-20 flex items-center"
+                    },
+                    [
+                      _vm._v(
+                        "\n                    " +
+                          _vm._s(_vm.data.monthVisitor) +
+                          " زائر\n                "
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "text-gray-500 flex items-center h-4" },
+                    [
+                      _vm._v(
+                        "\n                    زيارات الشهر\n                "
+                      )
+                    ]
+                  )
+                ])
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass:
+                  "h-40 bg-white shadow-3 mx-3 mb-8 px-6 rounded-lg flex items-center"
+              },
+              [
+                _vm._m(3),
+                _vm._v(" "),
+                _c("div", { staticClass: "mr-8" }, [
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "text-3xl text-gray-700 font-semibold h-20 flex items-center"
+                    },
+                    [
+                      _vm._v(
+                        "\n                    " +
+                          _vm._s(_vm.data.todayMessage) +
+                          " رسالة\n                "
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "text-gray-500 flex items-center h-4" },
+                    [
+                      _vm._v(
+                        "\n                    رسائل اليوم\n                "
+                      )
+                    ]
+                  )
+                ])
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass:
+                  "h-40 bg-white shadow-3 mx-3 mb-8 px-6 rounded-lg flex items-center"
+              },
+              [
+                _vm._m(4),
+                _vm._v(" "),
+                _c("div", { staticClass: "mr-8" }, [
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "text-3xl text-gray-700 font-semibold h-20 flex items-center"
+                    },
+                    [
+                      _vm._v(
+                        "\n                    " +
+                          _vm._s(_vm.data.notSloveMessage) +
+                          " رسالة\n                "
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "text-gray-500 flex items-center h-4" },
+                    [
+                      _vm._v(
+                        "\n                    الرسائل الغير محلولة\n                "
+                      )
+                    ]
+                  )
+                ])
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass:
+                  "h-40 bg-white shadow-3 mx-3 mb-8 px-6 rounded-lg flex items-center"
+              },
+              [
+                _vm._m(5),
+                _vm._v(" "),
+                _c("div", { staticClass: "mr-8" }, [
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "text-3xl text-gray-700 font-semibold h-20 flex items-center"
+                    },
+                    [
+                      _vm._v(
+                        "\n                    " +
+                          _vm._s(_vm.data.sloveMessage) +
+                          " رسالة\n                "
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "text-gray-500 flex items-center h-4" },
+                    [
+                      _vm._v(
+                        "\n                    الرسائل المحلولة\n                "
+                      )
+                    ]
+                  )
+                ])
+              ]
+            )
+          ])
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.loaded && _vm.data.length != 0
+        ? _c(
+            "div",
+            {
+              staticClass: "w-auto mx-4 bg-white shadow-3 mt-8 rounded-lg px-6"
+            },
+            [
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "h-20 w-full flex items-center text-2xl bg-blu font-semibold cairo text-gray-600 border-b"
+                },
+                [_vm._v("\n            مخطط الزيارات\n        ")]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "h-96 w-full" })
+            ]
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.loaded && _vm.data.length == 0 ? _c("empty-box") : _vm._e()
+    ],
+    1
+  )
 }
 var staticRenderFns = [
   function() {
@@ -29638,7 +29711,11 @@ var render = function() {
                       [
                         _vm._v(
                           "\n                    " +
-                            _vm._s(_vm.message.created_at.substring(0, 10)) +
+                            _vm._s(
+                              _vm.message.created_at
+                                ? _vm.message.created_at.substring(0, 10)
+                                : "لم يتم الإدخال"
+                            ) +
                             "\n                "
                         )
                       ]
@@ -29738,7 +29815,9 @@ var render = function() {
           )
         : _vm._e(),
       _vm._v(" "),
-      _vm.loaded && _vm.message.length == 0 ? _c("empty-box") : _vm._e()
+      _vm.loaded && _vm.message.length == 0
+        ? _c("empty-box", { attrs: { message: "لا يوجد رسالة بهذا الرقم" } })
+        : _vm._e()
     ],
     1
   )

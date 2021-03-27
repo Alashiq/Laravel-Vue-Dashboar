@@ -1,6 +1,9 @@
 <template>
     <div
-        class="md:right-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:flex-row md:flex-no-wrap md:overflow-hidden shadow bg-white flex flex-wrap items-center justify-between relative md:w-64 z-10 bg-cover bg-center"
+        :class="{
+            'md:right-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:flex-row md:flex-no-wrap md:overflow-hidden shadow bg-white flex flex-wrap items-center justify-between relative md:w-64 z-10 bg-cover bg-center':1==1,
+            ' hidden': menu==false
+        }"
         style=" abackground-image:url(https://demos.creative-tim.com/material-dashboard/assets/img/sidebar-1.jpg);"
     >
         <div class="h-full w-full" style=" background: #fff; aopacity: .93;">
@@ -119,6 +122,9 @@ export default {
         },
         user() {
             return this.$store.state.user;
+        },
+        menu(){
+            return   this.$store.state.menu;
         }
     }
 };

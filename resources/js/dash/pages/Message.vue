@@ -93,7 +93,7 @@
                     <div
                         class="h-12 rounded border border-gray-200 bg-gray-50 flex items-center px-4 text-lg"
                     >
-                        {{ message.created_at.substring(0, 10) }}
+                        {{message.created_at? message.created_at.substring(0, 10):"لم يتم الإدخال" }}
                     </div>
                 </div>
                 <!-- Item -->
@@ -148,7 +148,7 @@
             <!-- End Btn Action -->
         </div>
 
-        <empty-box v-if="loaded && message.length == 0"></empty-box>
+        <empty-box v-if="loaded && message.length == 0" message="لا يوجد رسالة بهذا الرقم"></empty-box>
 
         <!-- End Inside Page -->
     </div>
@@ -160,8 +160,7 @@ import Swal from "sweetalert2";
 export default {
     data() {
         return {
-            message: {
-            },
+            message: [],
             loaded: false
         };
     },

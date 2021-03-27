@@ -16,7 +16,7 @@ class CreateAdminsTable extends Migration
         Schema::create('admins', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('photo')->default('https://cdn.iconscout.com/icon/free/png-512/avatar-370-456322.png');
+            $table->string('photo')->default('/storage/assets/avatar.png');
             $table->string('username')->unique();
             $table->string('password');
             $table->rememberToken();

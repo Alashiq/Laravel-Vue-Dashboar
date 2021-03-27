@@ -1,6 +1,6 @@
 <template>
     <div class="w-auto md:p-8 p-4">
-        <div class="w-full grid xl:grid-cols-3" v-if="loaded">
+        <div class="w-full grid xl:grid-cols-3" v-if="loaded  && data.length != 0">
             <div
                 class="h-40 bg-white shadow-3 mx-3 mb-8 px-6 rounded-lg flex items-center"
             >
@@ -122,7 +122,7 @@
             </div>
         </div>
 
-        <div class="w-auto mx-4 bg-white shadow-3 mt-8 rounded-lg px-6" v-if="loaded">
+        <div class="w-auto mx-4 bg-white shadow-3 mt-8 rounded-lg px-6" v-if="loaded  && data.length != 0">
             <div
                 class="h-20 w-full flex items-center text-2xl bg-blu font-semibold cairo text-gray-600 border-b"
             >
@@ -131,6 +131,9 @@
 
             <div class="h-96 w-full"></div>
         </div>
+
+                <empty-box v-if="loaded && data.length == 0"></empty-box>
+
     </div>
 </template>
 
@@ -140,14 +143,7 @@ import Swal from "sweetalert2";
 export default {
     data() {
         return {
-            data: {
-                todayMessage: 0,
-                notSloveMessage: 0,
-                sloveMessage: 0,
-                todayVisitor: 0,
-                weekVisitor: 0,
-                monthVisitor: 0
-            },
+            data: [],
             loaded: false
         };
     },
