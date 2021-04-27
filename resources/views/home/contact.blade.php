@@ -1,4 +1,4 @@
-@extends('web.layouts.master')
+@extends('home.layouts.master')
 
 @section('title', 'إتصل بنا')
 

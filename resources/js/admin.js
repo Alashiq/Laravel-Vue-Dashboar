@@ -7,12 +7,12 @@ window.Vue = require("vue");
 
 import VueRouter from "vue-router";
 Vue.use(VueRouter);
-import { routes } from "./dash/routes";
+import { routes } from "./admin/routes";
 
 
 import Vuex from 'vuex'
 Vue.use(Vuex)
-import storeData from "./dash/store/index.js"
+import storeData from "./admin/store/index.js"
 const store = new Vuex.Store(
     storeData
  )
@@ -27,9 +27,9 @@ const router = new VueRouter({
 
 
 // Shared Components
-Vue.component('side-menu', require('./dash/components/shared/side-menu.vue').default);
-Vue.component('header-bar', require('./dash/components/shared/header-bar.vue').default);
-Vue.component('empty-box', require('./dash/components/shared/empty-box.vue').default);
+Vue.component('side-menu', require('./admin/components/shared/side-menu.vue').default);
+Vue.component('header-bar', require('./admin/components/shared/header-bar.vue').default);
+Vue.component('empty-box', require('./admin/components/shared/empty-box.vue').default);
 
 
 
