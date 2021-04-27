@@ -12,3 +12,7 @@ use Illuminate\Validation\ValidationException;
 
 
 
+Route::prefix('web')->group(function () {
+    // Meessage Route
+    Route::post('/message', [MessageWebApiController::class, 'create']);
+});
