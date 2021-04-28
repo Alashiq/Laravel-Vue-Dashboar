@@ -2978,7 +2978,7 @@ __webpack_require__.r(__webpack_exports__);
         _this.$store.commit("authLoaded");
       }, function (error) {
         if (error.status == 401) {
-          sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire("فشل", error.message, "warning");
+          sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire("فشل", error.response.data.message, "warning");
           localStorage.removeItem("token");
         } else if (error.status == 400) {
           sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire("فشل", error.message, "warning");
