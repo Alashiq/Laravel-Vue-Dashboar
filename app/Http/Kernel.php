@@ -3,6 +3,7 @@
 namespace App\Http;
 
 use App\Http\Middleware\AdminMiddleware;
+use App\Http\Middleware\CheckRole;
 use App\Http\Middleware\VisitorMiddleware;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
@@ -66,5 +67,6 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'type.admin' => AdminMiddleware::class,
         'visitor' => VisitorMiddleware::class,
+        'check.role'=> CheckRole::class,
     ];
 }

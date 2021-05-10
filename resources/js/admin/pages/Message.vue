@@ -93,7 +93,7 @@
                     <div
                         class="h-12 rounded border border-gray-200 bg-gray-50 flex items-center px-4 text-lg"
                     >
-                        {{message.created_at? message.created_at.substring(0, 10):"لم يتم الإدخال" }}
+                        {{message.created_at? message.created_at:"لم يتم الإدخال" }}
                     </div>
                 </div>
                 <!-- Item -->

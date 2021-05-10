@@ -88,7 +88,7 @@
                     {{ !item.receiver ? "لم يتم الإدخال" : item.receiver.name }}
                 </td>
                 <td class="xl:table-cell hidden">
-                    {{ item.created_at.substring(0, 10) }}
+                    {{ item.created_at}}
                 </td>
                 <td class=" rounded-l-lg h-20">
                     <router-link :to="'/admin/message/' + item.id">

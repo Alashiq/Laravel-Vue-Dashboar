@@ -48,7 +48,7 @@ export default {
                 },
                 error => {
                     if (error.status == 401) {
-                        Swal.fire("فشل", error.response.data.message, "warning");
+                        Swal.fire("فشل", error.message, "warning");
                         localStorage.removeItem("token");
                     } else if (error.status == 400) {
                         Swal.fire("فشل", error.message, "warning");
