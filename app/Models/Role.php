@@ -16,10 +16,13 @@ class Role extends Model
         'permissions',
     ];
 
+    // protected $with=[
+    //     'admins'
+    // ];
 
     public function admins()
     {
-        $this->hasMany(related:Admin::class);
+       return $this->hasMany(related:Admin::class);
     }
 
     public function getPermissionsAttribute($permessions){

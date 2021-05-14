@@ -14,7 +14,7 @@ export default {
                 name: "الرئيسية",
                 active: true,
                 path: "/admin",
-                icon:'fas fa-home'
+                icon: "fas fa-home"
             },
 
             {
@@ -22,7 +22,7 @@ export default {
                 name: "الرسائل",
                 active: false,
                 path: "/admin/message",
-                icon:'fas fa-comment-dots'
+                icon: "fas fa-comment-dots"
             },
 
             {
@@ -30,10 +30,17 @@ export default {
                 name: "المشرفين",
                 active: false,
                 path: "/admin/admin",
-                icon:'fas fa-users'
+                icon: "fas fa-users"
+            },
+            {
+                id: 4,
+                name: "الصلاحيات",
+                active: false,
+                path: "/admin/role",
+                icon: "fas fa-users"
             }
         ],
-        menu:false,
+        menu: false
     }),
 
     mutations: {
@@ -44,33 +51,32 @@ export default {
         authLoaded(state) {
             state.loadAuth = true;
         },
-        clearUser(state){
-            state.user={
+        clearUser(state) {
+            state.user = {
                 id: null,
                 name: "",
                 username: "",
                 photo: ""
             };
-            state.auth=false;
-            state.loadAuth=false;
+            state.auth = false;
+            state.loadAuth = false;
         },
-        updateName(state,name){
-            state.user.name=name;
+        updateName(state, name) {
+            state.user.name = name;
         },
-        updatePhoto(state,photo){
-            state.user.photo=photo;
+        updatePhoto(state, photo) {
+            state.user.photo = photo;
         },
-        activePage(state,pageNumber){
-            for(var i=0;i<state.pageList.length;i++){
-              if(state.pageList[i].id==pageNumber)
-              state.pageList[i].active=true;
-              else
-              state.pageList[i].active=false;
+        activePage(state, pageNumber) {
+            for (var i = 0; i < state.pageList.length; i++) {
+                if (state.pageList[i].id == pageNumber)
+                    state.pageList[i].active = true;
+                else state.pageList[i].active = false;
             }
-          },
-          toggleMenu(state){
-            state.menu=!state.menu;
         },
+        toggleMenu(state) {
+            state.menu = !state.menu;
+        }
     },
 
     actions: {
@@ -142,41 +148,39 @@ export default {
                 );
             });
         },
-              //  Logout
-              async logout({ commit }) {
-                return new Promise((resolve, reject) => {
-                    axios.get("/api/admin/logout").then(
-                        response => {
-                            resolve({
-                                message: "تم تسجيل الخروج بنجاح",
-                                status: response.status
-                            });
-                        },
-                        error => {
-                            console.log(error.response);
-                            if (error.response.status == 401)
-                                reject({
-                                    message: error.response.data.message,
-                                    status: error.response.status
-                                });
-                            if (error.response.status == 400)
-                                reject({
-                                    message: error.response.data.message,
-                                    status: error.response.status
-                                });
+        //  Logout
+        async logout({ commit }) {
+            return new Promise((resolve, reject) => {
+                axios.get("/api/admin/logout").then(
+                    response => {
+                        resolve({
+                            message: "تم تسجيل الخروج بنجاح",
+                            status: response.status
+                        });
+                    },
+                    error => {
+                        console.log(error.response);
+                        if (error.response.status == 401)
                             reject({
-                                message: "حدث خطأ ما",
+                                message: error.response.data.message,
                                 status: error.response.status
                             });
-                        }
-                    );
-                });
-            },
-        // If 401 Error 
+                        if (error.response.status == 400)
+                            reject({
+                                message: error.response.data.message,
+                                status: error.response.status
+                            });
+                        reject({
+                            message: "حدث خطأ ما",
+                            status: error.response.status
+                        });
+                    }
+                );
+            });
+        },
+        // If 401 Error
         async clearAuth({ commit }) {
             this.commit("clearUser");
         }
-    },
-
-    
+    }
 };

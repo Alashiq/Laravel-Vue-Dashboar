@@ -11,8 +11,8 @@ function clearLogout($store, $router, res) {
         localStorage.removeItem("token");
         $store.commit("clearUser");
         $router.push("/admin/login");
-    } else
-        Swal.fire("فشل", res.data.message, "warning");
+    } else if (res.status == 404) Swal.fire("فشل", "لم نتمكن من  الإتصال بالخادم", "warning");
+    else Swal.fire("فشل", res.data.message, "warning");
 }
 
 export { clearLogout };

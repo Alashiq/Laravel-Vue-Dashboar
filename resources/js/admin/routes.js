@@ -7,6 +7,7 @@ import Layout from "./pages/Layout.vue";
 import Admins from "./pages/Admins.vue";
 import Admin from "./pages/Admin.vue";
 import NewAdmin from "./pages/NewAdmin.vue";
+import Roles from "./pages/Roles.vue";
 
 
 import store from "./store/index";
@@ -60,6 +61,10 @@ export const routes = [
             {
                 path: "admin/admin/:id",
                 component: Admin
+            },
+            {
+                path: "admin/role",
+                component: Roles
             },
         ]
     },

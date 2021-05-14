@@ -57,6 +57,7 @@ Route::middleware(['auth:sanctum', 'type.admin'])->group(function () {
     Route::group(['prefix' => 'role','middleware'=>'check.role:ReadMessage'], function () {
         Route::get('/', [RoleController::class, 'index']);
         Route::post('/', [RoleController::class, 'create']);
+        Route::delete('/{role}', [RoleController::class, 'delete']);
         Route::get('/permissions', [RoleController::class, 'permissions']);
     });
     # # # # # # # # # # # # # # # End Roles # # # # # # # # # # # # # # # 
