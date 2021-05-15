@@ -7,16 +7,16 @@ return [
         'DeleteMessage'=>'حذف رسالة',
         'EditMessage'=>'تعديل حالة الرسالة',
         // Admin Permission
-        'ReadAdmin'=>'قرائة كل الرسائل او رسالة واحدة',
-        'CreateAdmin'=>'حذف رسالة',
-        'ActiveAdmin'=>'تعديل حالة الرسالة',
-        'DisActiveAdmin'=>'تعديل حالة الرسالة',
-        'BannedAdmin'=>'تعديل حالة الرسالة',
-        'ResetPasswordAdmin'=>'تعديل حالة الرسالة',
-        'EditRoleAdmin'=>'تعديل حالة الرسالة',
+        'ReadAdmin'=>'قرائة  المشرفين أو مشرف واحد',
+        'CreateAdmin'=>'إضافة مشرف',
+        'ActiveAdmin'=>'تفعيل مشرف',
+        'DisActiveAdmin'=>'إلغاء تفعيل مشرف',
+        'BannedAdmin'=>'حظر مشرف',
+        'ResetPasswordAdmin'=>'تهيئة كلمة مرور المشرف',
+        'EditRoleAdmin'=>'تعديل صلاحية المشرف',
         // Role Permission
-        'CreateRole'=>'تعديل حالة الرسالة',
-        'EditRole'=>'تعديل حالة الرسالة',
-        'DeleteRole'=>'تعديل حالة الرسالة',
+        'CreateRole'=>'إنشاء صلاحية جديدة',
+        'EditRole'=>'تعديل صلاحية',
+        'DeleteRole'=>'حذف صلاحية',
     ]
 ];
