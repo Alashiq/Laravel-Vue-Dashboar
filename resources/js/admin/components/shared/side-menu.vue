@@ -49,7 +49,7 @@
                             to="/admin/profile"
                             class="bg-white h-10 w-10 rounded-full shadow-1 mx-2 flex items-center justify-center cursor-pointer hover:text-red-400"
                         >
-                            <i class="fas fa-user-cog"></i>
+                            <i class="fas fa-user-edit"></i>
                         </router-link>
                         <div class="h-10 w-6"></div>
                     </div>

@@ -9,13 +9,13 @@
             <div
                 class="h-16 w-full border-b mb-2 px-4 flex items-center text-lg justify-between"
             >
-                إضافة صلاحية جديدة
+                إضافة دور جديد
 
                 <router-link
                     to="/admin/role/"
                     class="btn-color-one text-white w-36 h-12 rounded shadow-1 font-normal flex items-center justify-center cursor-pointer"
                 >
-                    قائمة الصلاحيات
+                    أدوار المشرفين
                 </router-link>
             </div>
             <!-- End Table Header -->
@@ -23,7 +23,7 @@
             <!-- Item -->
             <div class="w-full px-4 py-4">
                 <div class="h-9 flex items-center text-gray-500 mr-2 text-sm">
-                    إسم الصلاحية
+                    إسم الدور
                 </div>
                 <input
                     v-model="formData.name"
@@ -35,6 +35,12 @@
                 </div>
             </div>
             <!-- Item -->
+
+
+            <div class=" border-b mx-4 px-2 py-2 mt-6 text-gray-500 text-sm">
+                الصلاحيات
+            </div>
+
 
             <!-- Grid -->
             <div class="bg-blue-600a grid lg:grid-cols-2">
@@ -181,7 +187,7 @@ export default {
                         timer: 3000,
                         toast: true,
                         showConfirmButton: false
-                    }).fire("تنبيه", "هذه الرسالة غير متوفرة", "warning");
+                    }).fire("تنبيه", "لا يتوفر اي صلاحيات", "warning");
                 }
             },
             error => {

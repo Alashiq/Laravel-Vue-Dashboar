@@ -61,10 +61,11 @@ class RoleController extends Controller
     }
 
 
-    // Get All Config Permissions
+
+
+    // Get All Permissions
     public function permissions(Request $request)
     {
-        //$permissions=config('global.permissions');
         $permissions = [];
         foreach (config('global.permissions') as $name => $value) {
             array_push($permissions, ["name" => $name, "description" => $value, "state" => false]);
@@ -90,21 +91,32 @@ class RoleController extends Controller
         return response()->json(['success' => true, 'message' => 'حدث خطأ ما'], 400);
     }
 
-
-        // Delete One Role
-        public function show($role)
-        {
-
-            $role = Role::Find($role);
-            if ($role == [])
-                return response()->json([], 204);
     
-            return response()->json(['success' => true, 'message' => 'تم جلب الرسالة بنجاح', 'data' => $role], 200);
 
+    // Load Single Role
+    public function show($role)
+    {
 
+        $role = Role::withCount('admins')->Find($role);
+        if ($role == [])
+            return response()->json([], 204);
 
+        $permissions = [];
+        foreach (config('global.permissions') as $name => $value) {
+            $boolVal = false;
+            for ($i = 0; $i < count($role->permissions); $i++)
+                if ($name == $role->permissions[$i]) {
+                    $boolVal = true;
+                }
+            array_push($permissions, ["name" => $name, "description" => $value, "state" => $boolVal]);
         }
-    
 
-
+        return response()->json(['success' => true, 'message' => 'تم جلب الصلاحية بنجاح', 'role' => [
+            'id'=>$role->id,
+            'name'=>$role->name,
+            'admins_count'=>$role->admins_count,
+            'permissions'=>$permissions
+        ]
+    ], 200);
+    }
 }

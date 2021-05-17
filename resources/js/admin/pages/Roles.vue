@@ -6,7 +6,7 @@
 
         <div class="flex justify-between w-full h-16 items-center">
             <div class="text-2xl font-semibold cairo text-gray-600">
-                صلاحيات المشرفين
+                أدوار المشرفين
             </div>
             <router-link
                 to="/admin/role/new"
@@ -14,7 +14,7 @@
             >
                 <span class="h-12 flex items-center">
                     <i class="fas fa-plus ml-4 text-lg"></i>
-                    صلاحية جديدة
+                    دور جديد
                 </span>
             </router-link>
         </div>
@@ -25,7 +25,7 @@
         <table class="w-full" v-if="loaded && roles.length != 0">
             <tr class="h-12 text-lg font-bold text-gray-600">
                 <td class="w-12 text-center">#</td>
-                <td class="sm:table-cell">اسم الصلاحية</td>
+                <td class="sm:table-cell">اسم الدور</td>
                 <td class="sm:table-cell">عدد المشرفين</td>
                 <td class="sm:table-cell">الإجراءات</td>
                 <!-- <td class="md:table-cell hidden">إمكانيات الصلاحية</td> -->
@@ -82,7 +82,7 @@ export default {
         deleteRole: function(id, index) {
             Swal.fire({
                 title: "هل أنت متأكد",
-                text: "هل أنت متأكد من أنك تريد حذف هذه الصلاحية !",
+                text: "هل أنت متأكد من أنك تريد حذف هذا الدور !",
                 icon: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#16a085",
@@ -104,7 +104,7 @@ export default {
                             } else if (response.status == 204) {
                                 Swal.fire(
                                     "فشل",
-                                    "لم تعد هذه الصلاحية متوفرة, قد يكون شخص أخر قام بحذفها",
+                                    "لم يعد هذا الدور متوفر, قد يكون شخص أخر قام بحذفه",
                                     "warning"
                                 );
                             }
@@ -141,7 +141,7 @@ export default {
                         timer: 3000,
                         toast: true,
                         showConfirmButton: false
-                    }).fire("تنبيه", "لا يوجد اي مشرفين", "warning");
+                    }).fire("تنبيه", "لا يوجد اي أدوار", "warning");
                 }
             },
             error => {

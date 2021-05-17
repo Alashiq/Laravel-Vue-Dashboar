@@ -52,14 +52,13 @@ Route::middleware(['auth:sanctum', 'type.admin'])->group(function () {
 
 
 
-    // ,'middleware'=>'check.role:redm'
     # # # # # # # # # # # # # # # Roles # # # # # # # # # # # # # # # 
     Route::group(['prefix' => 'role','middleware'=>'check.role:ReadMessage'], function () {
         Route::get('/', [RoleController::class, 'index']);
         Route::post('/', [RoleController::class, 'create']);
         Route::delete('/{role}', [RoleController::class, 'delete']);
-        Route::get('/{role}', [RoleController::class, 'show']);
         Route::get('/permissions', [RoleController::class, 'permissions']);
+        Route::get('/{role}', [RoleController::class, 'show']);
     });
     # # # # # # # # # # # # # # # End Roles # # # # # # # # # # # # # # # 
 

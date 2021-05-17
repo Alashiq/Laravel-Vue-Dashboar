@@ -34,10 +34,10 @@ export default {
             },
             {
                 id: 4,
-                name: "الصلاحيات",
+                name: "أدوار المشرفين",
                 active: false,
                 path: "/admin/role",
-                icon: "fas fa-users"
+                icon: "fas fa-user-shield"
             }
         ],
         menu: false

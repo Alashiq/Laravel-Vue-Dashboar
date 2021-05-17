@@ -134,7 +134,7 @@
                     class="h-12 px-6 mx-4 bg-red-400 hover:bg-red-500 flex items-center justify-center text-white shadow-lg rounded cursor-pointer"
                 >
                     <i class="far fa-trash-alt ml-2"></i>
-                    حدف
+                    حذف
                 </div>
                 <div
                     v-if="!message.state"
