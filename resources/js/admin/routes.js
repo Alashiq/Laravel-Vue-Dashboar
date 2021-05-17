@@ -8,8 +8,9 @@ import Admins from "./pages/Admins.vue";
 import Admin from "./pages/Admin.vue";
 import NewAdmin from "./pages/NewAdmin.vue";
 import Roles from "./pages/Roles.vue";
-import NewRoles from "./pages/NewRole.vue";
+import NewRole from "./pages/NewRole.vue";
 import Role from "./pages/Role.vue";
+import EditRole from "./pages/EditRole.vue";
 
 
 import store from "./store/index";
@@ -70,11 +71,15 @@ export const routes = [
             },
             {
                 path: "admin/role/new",
-                component: NewRoles
+                component: NewRole
             },
             {
                 path: "admin/role/:id",
                 component: Role
+            },
+            {
+                path: "admin/role/:id/edit",
+                component: EditRole
             },
         ]
     },

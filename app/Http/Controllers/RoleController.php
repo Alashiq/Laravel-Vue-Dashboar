@@ -91,7 +91,7 @@ class RoleController extends Controller
         return response()->json(['success' => true, 'message' => 'حدث خطأ ما'], 400);
     }
 
-    
+
 
     // Load Single Role
     public function show($role)
@@ -111,12 +111,60 @@ class RoleController extends Controller
             array_push($permissions, ["name" => $name, "description" => $value, "state" => $boolVal]);
         }
 
-        return response()->json(['success' => true, 'message' => 'تم جلب الصلاحية بنجاح', 'role' => [
-            'id'=>$role->id,
-            'name'=>$role->name,
-            'admins_count'=>$role->admins_count,
-            'permissions'=>$permissions
-        ]
-    ], 200);
+        return response()->json([
+            'success' => true, 'message' => 'تم جلب الصلاحية بنجاح', 'role' => [
+                'id' => $role->id,
+                'name' => $role->name,
+                'admins_count' => $role->admins_count,
+                'permissions' => $permissions
+            ]
+        ], 200);
+    }
+
+
+
+    // Edit Single Role
+    public function edit(Request $request, $role)
+    {
+        // Check If Role Exist Or Not
+        $role = Role::withCount('admins')->Find($role);
+        if ($role == [])
+            return response()->json(["success" => false, "message" => "لم يعد هذا الدور متاحا"], 400);
+
+        // Validate Name
+        if (Validator::make($request->all(), [
+            'name' => 'required',
+        ])->fails()) {
+            return response()->json(["success" => false, "message" => "يجب عليك ادخال اسم الدور"], 400);
+        }
+        if(strtolower($request['name'])!=strtolower($role->name)){
+        if (Validator::make($request->all(), [
+            'name' => 'unique:roles',
+        ])->fails()) {
+            return response()->json(["success" => false, "message" => "يوجد دور بهذا الإسم"], 400);
+        }
+    }
+
+
+
+        // Validate Permissions 
+        if (Validator::make($request->all(), [
+            'permissions' => 'required|min:1',
+        ])->fails()) {
+            return response()->json(["success" => false, "message" => "يجب عليك ادخال صلاحية واحدة على الأقل"], 400);
+        }
+        if (Validator::make($request->all(), [
+            'permissions' => 'array',
+        ])->fails()) {
+            return response()->json(["success" => false, "message" => "نوع الصلاحية غير صحيح"], 400);
+        }
+
+
+        $role->name = $request['name'];
+        $role->permissions = json_encode($request['permissions']);
+        $edit = $role->save();
+        if ($edit)
+            return response()->json(['success' => true, 'message' => 'تم تحديث هذا الدور بنجاح'], 200);
+        return response()->json(['success' => true, 'message' => 'حدث خطأ ما'], 400);
     }
 }

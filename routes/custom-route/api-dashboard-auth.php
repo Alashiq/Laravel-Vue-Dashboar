@@ -57,6 +57,7 @@ Route::middleware(['auth:sanctum', 'type.admin'])->group(function () {
         Route::get('/', [RoleController::class, 'index']);
         Route::post('/', [RoleController::class, 'create']);
         Route::delete('/{role}', [RoleController::class, 'delete']);
+        Route::PUT('/{role}', [RoleController::class, 'edit']);
         Route::get('/permissions', [RoleController::class, 'permissions']);
         Route::get('/{role}', [RoleController::class, 'show']);
     });

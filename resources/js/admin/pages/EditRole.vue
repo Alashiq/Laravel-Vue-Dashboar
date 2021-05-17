@@ -2,14 +2,15 @@
     <div class="w-auto md:p-8 p-4">
         <!-- Inside Page -->
 
-        <div  v-if="loaded && permissions.length != 0"
+        <div
             class="w-full md:px-4 px-0 pb-8 pt-2 bg-white shadow-2 rounded-lg text-lg text-gray-600 font-medium"
+            v-if="loaded && role.length != 0"
         >
             <!-- Table Header -->
             <div
                 class="h-16 w-full border-b mb-2 px-4 flex items-center text-lg justify-between"
             >
-                إضافة دور جديد
+                بيانات الدور
 
                 <router-link
                     to="/admin/role/"
@@ -36,20 +37,18 @@
             </div>
             <!-- Item -->
 
-
             <div class=" border-b mx-4 px-2 py-2 mt-6 text-gray-500 text-sm">
                 الصلاحيات
             </div>
-
 
             <!-- Grid -->
             <div class="bg-blue-600a grid lg:grid-cols-2">
                 <!-- Item -->
                 <div
-                    class="w-full mx-2 my-2 flex items-center cursor-pointer"
-                    v-for="(item, index) in permissions"
-                    :key="index"
+                    class="w-full mx-2 my-2 flex items-center"
+                    v-for="(item, index) in role.permissions"
                     @click="togglePermission(index)"
+                    :key="index"
                 >
                     <div class="py-2 px-2 flex items-center">
                         <div
@@ -72,20 +71,23 @@
             </div>
             <!-- Grid -->
 
-            <!-- Action Part -->
-            <div class="flex items-center h-20 mx-4">
+            <!-- Btn Action -->
+            <div class="w-full h-16 mt-12 flex items-center justify-start">
                 <div
-                    @click="addRole"
-                    class="btn-color-one rounded shadow px-12 h-12 w-auto flex items-center justify-center text-white text-lg cursor-pointer"
+                    @click="editRole"
+                    class="h-12 px-6 mx-4 bg-red-400 hover:bg-red-500 flex items-center justify-center text-white shadow-lg rounded cursor-pointer"
                 >
-                    إضافة
+                    <i class="fas fa-check ml-2"></i>
+                    حفظ
                 </div>
             </div>
-            <!-- End Action Part -->
+            <!-- End Btn Action -->
         </div>
 
-
-        <empty-box v-if="loaded && permissions.length == 0"  message="لم نتمكن من جلب الصلاحيات, قم بإعادة تحميل الصفحة"></empty-box>
+        <empty-box
+            v-if="loaded && role.length == 0"
+            message="لا يوجد دور بهذا الرقم"
+        ></empty-box>
 
         <!-- End Inside Page -->
     </div>
@@ -97,46 +99,48 @@ import Swal from "sweetalert2";
 export default {
     data() {
         return {
-            loaded: false,
+            role: [],
             formData: {
                 name: "",
                 permissions: []
             },
-            permissions: [],
             formValidate: {
                 name: "",
                 permissions: ""
-            }
+            },
+            loaded: false
         };
     },
     methods: {
         togglePermission(index) {
-            this.permissions[index].state = !this.permissions[index].state;
+            this.role.permissions[index].state = !this.role.permissions[index]
+                .state;
         },
-        addRole: function() {
+        editRole: function() {
             this.formData.permissions = [];
-            for (var i = 0; i < this.permissions.length; i++) {
-                if (this.permissions[i].state == true)
-                    this.formData.permissions.push(this.permissions[i].name);
+
+            for (var i = 0; i < this.role.permissions.length; i++) {
+                if (this.role.permissions[i].state == true)
+                    this.formData.permissions.push(
+                        this.role.permissions[i].name
+                    );
             }
+
             this.validateName();
             this.validatePermissions();
             if (this.formValidate.name != "") return 0;
             if (this.formValidate.permissions != "") return 0;
             Swal.showLoading();
-            axios.post("/api/admin/role", this.formData).then(
-                response => {
-                    Swal.fire("نجاح", response.data.message, "success");
-                    this.formData.name = "";
-                    for (var i = 0; i < this.permissions.length; i++) {
-                        if (this.permissions[i].state == true)
-                            this.permissions[i].state = false;
+            axios
+                .put("/api/admin/role/" + this.$route.params.id, this.formData)
+                .then(
+                    response => {
+                        Swal.fire("نجاح", response.data.message, "success");
+                    },
+                    error => {
+                        clearLogout(this.$store, this.$router, error.response);
                     }
-                },
-                error => {
-                    clearLogout(this.$store, this.$router, error.response);
-                }
-            );
+                );
         },
         validateName: function() {
             this.formValidate.name = "";
@@ -166,12 +170,12 @@ export default {
         this.$store.commit("activePage", 4);
 
         Swal.mixin({ allowOutsideClick: false }).showLoading();
-        axios.get("/api/admin/role/permissions").then(
+        axios.get("/api/admin/role/" + this.$route.params.id).then(
             response => {
                 this.loaded = true;
                 if (response.status == 200) {
-                    this.loaded = true;
-                    this.permissions = response.data.permissions;
+                    this.role = response.data.role;
+                    this.formData.name = this.role.name;
                     Swal.mixin({
                         position: "bottom-start",
                         timer: 3000,
@@ -184,7 +188,7 @@ export default {
                         timer: 3000,
                         toast: true,
                         showConfirmButton: false
-                    }).fire("تنبيه", "لا يتوفر اي صلاحيات", "warning");
+                    }).fire("تنبيه", "هذا الدور غير متوفر", "warning");
                 }
             },
             error => {
@@ -198,4 +202,9 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+table {
+    border-collapse: separate;
+    border-spacing: 0 1em;
+}
+</style>
