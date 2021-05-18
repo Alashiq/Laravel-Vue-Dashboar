@@ -2234,6 +2234,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -4078,15 +4093,54 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
+      roleList: [],
       formData: {
         name: "",
         username: "",
         password: "",
+        role_id: null,
         confirmPassword: ""
       },
       formValidate: {
@@ -4094,7 +4148,8 @@ __webpack_require__.r(__webpack_exports__);
         username: "",
         password: "",
         confirmPassword: ""
-      }
+      },
+      loaded: false
     };
   },
   methods: {
@@ -4103,20 +4158,25 @@ __webpack_require__.r(__webpack_exports__);
 
       this.validateName();
       this.validateUsername();
+      this.validateRole();
       this.validatePassword();
       this.validateConfirmPassword();
       if (this.formValidate.name != "") return 0;
       if (this.formValidate.username != "") return 0;
+      if (this.formValidate.role != "") return 0;
       if (this.formValidate.password != "") return 0;
       if (this.formValidate.confirmPassword != "") return 0;
       sweetalert2__WEBPACK_IMPORTED_MODULE_1___default().showLoading();
       axios.post("/api/admin/admin", this.formData).then(function (response) {
+        _this.loaded = true;
         sweetalert2__WEBPACK_IMPORTED_MODULE_1___default().fire("نجاح", response.data.message, "success");
         _this.formData.name = "";
         _this.formData.username = "";
         _this.formData.password = "";
+        _this.formData.role_id = null;
         _this.formData.confirmPassword = "";
       }, function (error) {
+        _this.loaded = true;
         (0,_logout_js__WEBPACK_IMPORTED_MODULE_0__.clearLogout)(_this.$store, _this.$router, error.response);
       });
     },
@@ -4156,6 +4216,14 @@ __webpack_require__.r(__webpack_exports__);
         return 1;
       }
     },
+    validateRole: function validateRole() {
+      this.formValidate.role = "";
+
+      if (this.formData.role_id == null) {
+        this.formValidate.role = "يجب عليك تحديد دور المشرف";
+        return 1;
+      }
+    },
     validatePassword: function validatePassword() {
       this.formValidate.password = "";
 
@@ -4189,7 +4257,36 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   mounted: function mounted() {
+    var _this2 = this;
+
     this.$store.commit("activePage", 3);
+    sweetalert2__WEBPACK_IMPORTED_MODULE_1___default().mixin({
+      allowOutsideClick: false,
+      toast: false
+    }).showLoading();
+    axios.get("/api/admin/admin/role").then(function (response) {
+      _this2.loaded = true;
+
+      if (response.status == 200) {
+        _this2.roleList = response.data.roleList;
+        sweetalert2__WEBPACK_IMPORTED_MODULE_1___default().mixin({
+          position: "bottom-start",
+          timer: 3000,
+          toast: true,
+          showConfirmButton: false
+        }).fire("نجاح", response.data.message, "success");
+      } else if (response.status == 204) {
+        sweetalert2__WEBPACK_IMPORTED_MODULE_1___default().mixin({
+          position: "bottom-start",
+          timer: 3000,
+          toast: true,
+          showConfirmButton: false
+        }).fire("تنبيه", "لا يوجد اي أدوار", "warning");
+      }
+    }, function (error) {
+      _this2.loaded = true;
+      (0,_logout_js__WEBPACK_IMPORTED_MODULE_0__.clearLogout)(_this2.$store, _this2.$router, error.response);
+    });
   },
   computed: {},
   created: function created() {}
@@ -29787,6 +29884,36 @@ var render = function() {
                       },
                       [
                         _vm._v(
+                          "\n                    دور المشرف\n                "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "h-12 rounded border border-gray-200 bg-gray-50 flex items-center px-4 text-lg"
+                      },
+                      [
+                        _vm._v(
+                          "\n                    " +
+                            _vm._s(_vm.admin.role.name) +
+                            "\n                "
+                        )
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "w-full px-4 py-4" }, [
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "h-9 flex items-center text-gray-500 mr-2 text-sm"
+                      },
+                      [
+                        _vm._v(
                           "\n                    تاريخ الإنشاء\n                "
                         )
                       ]
@@ -31621,243 +31748,361 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "w-auto md:p-8 p-4" }, [
-    _c(
-      "div",
-      {
-        staticClass:
-          "w-full md:px-4 px-0 pb-8 pt-2 bg-white shadow-2 rounded-lg text-lg text-gray-600 font-medium"
-      },
-      [
-        _c(
-          "div",
-          {
-            staticClass:
-              "h-16 w-full border-b mb-2 px-4 flex items-center text-lg justify-between"
-          },
-          [
-            _vm._v("\n            إضافة مشرف\n\n            "),
-            _c(
-              "router-link",
-              {
-                staticClass:
-                  "btn-color-one text-white w-36 h-12 rounded shadow-1 font-normal flex items-center justify-center cursor-pointer",
-                attrs: { to: "/admin/admin/" }
-              },
-              [_vm._v("\n                قائمة المشرفين\n            ")]
-            )
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c("div", { staticClass: "bg-blue-600a grid lg:grid-cols-2" }, [
-          _c("div", { staticClass: "w-full px-4 py-4" }, [
-            _c(
-              "div",
-              {
-                staticClass: "h-9 flex items-center text-gray-500 mr-2 text-sm"
-              },
-              [_vm._v("\n                    إسم المشرف\n                ")]
-            ),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.formData.name,
-                  expression: "formData.name"
-                }
-              ],
-              staticClass:
-                "h-12 w-full rounded border border-gray-200 bg-gray-50 flex items-center px-4 text-lg",
-              domProps: { value: _vm.formData.name },
-              on: {
-                change: _vm.validateName,
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.$set(_vm.formData, "name", $event.target.value)
-                }
-              }
-            }),
-            _vm._v(" "),
-            _c(
-              "div",
-              {
-                staticClass: "h-8 text-sm text-red-400 mr-2 flex items-center"
-              },
-              [
-                _vm._v(
-                  "\n                    " +
-                    _vm._s(_vm.formValidate.name) +
-                    "\n                "
-                )
-              ]
-            )
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "w-full px-4 py-4" }, [
-            _c(
-              "div",
-              {
-                staticClass: "h-9 flex items-center text-gray-500 mr-2 text-sm"
-              },
-              [_vm._v("\n                    إسم الدخول\n                ")]
-            ),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.formData.username,
-                  expression: "formData.username"
-                }
-              ],
-              staticClass:
-                "h-12 w-full rounded border border-gray-200 bg-gray-50 flex items-center px-4 text-lg",
-              domProps: { value: _vm.formData.username },
-              on: {
-                change: _vm.validateUsername,
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.$set(_vm.formData, "username", $event.target.value)
-                }
-              }
-            }),
-            _vm._v(" "),
-            _c(
-              "div",
-              {
-                staticClass: "h-8 text-sm text-red-400 mr-2 flex items-center"
-              },
-              [
-                _vm._v(
-                  "\n                    " +
-                    _vm._s(_vm.formValidate.username) +
-                    "\n                "
-                )
-              ]
-            )
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "w-full px-4 py-4" }, [
-            _c(
-              "div",
-              {
-                staticClass: "h-9 flex items-center text-gray-500 mr-2 text-sm"
-              },
-              [_vm._v("\n                    كلمة المرور\n                ")]
-            ),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.formData.password,
-                  expression: "formData.password"
-                }
-              ],
-              staticClass:
-                "h-12 w-full rounded border border-gray-200 bg-gray-50 flex items-center px-4 text-lg",
-              domProps: { value: _vm.formData.password },
-              on: {
-                change: _vm.validatePassword,
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.$set(_vm.formData, "password", $event.target.value)
-                }
-              }
-            }),
-            _vm._v(" "),
-            _c(
-              "div",
-              {
-                staticClass: "h-8 text-sm text-red-400 mr-2 flex items-center"
-              },
-              [
-                _vm._v(
-                  "\n                    " +
-                    _vm._s(_vm.formValidate.password) +
-                    "\n                "
-                )
-              ]
-            )
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "w-full px-4 py-4" }, [
-            _c(
-              "div",
-              {
-                staticClass: "h-9 flex items-center text-gray-500 mr-2 text-sm"
-              },
-              [
-                _vm._v(
-                  "\n                    تأكيد كلمة المرور\n                "
-                )
-              ]
-            ),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.formData.confirmPassword,
-                  expression: "formData.confirmPassword"
-                }
-              ],
-              staticClass:
-                "h-12 w-full rounded border border-gray-200 bg-gray-50 flex items-center px-4 text-lg",
-              domProps: { value: _vm.formData.confirmPassword },
-              on: {
-                change: _vm.validateConfirmPassword,
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.$set(_vm.formData, "confirmPassword", $event.target.value)
-                }
-              }
-            }),
-            _vm._v(" "),
-            _c(
-              "div",
-              {
-                staticClass: "h-8 text-sm text-red-400 mr-2 flex items-center"
-              },
-              [
-                _vm._v(
-                  "\n                    " +
-                    _vm._s(_vm.formValidate.confirmPassword) +
-                    "\n                "
-                )
-              ]
-            )
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "flex items-center h-20 mx-4" }, [
-          _c(
+  return _c(
+    "div",
+    { staticClass: "w-auto md:p-8 p-4" },
+    [
+      _vm.loaded && _vm.roleList.length != 0
+        ? _c(
             "div",
             {
               staticClass:
-                "btn-color-one rounded shadow px-12 h-12 w-auto flex items-center justify-center text-white text-lg cursor-pointer",
-              on: { click: _vm.addAdmin }
+                "w-full md:px-4 px-0 pb-8 pt-2 bg-white shadow-2 rounded-lg text-lg text-gray-600 font-medium"
             },
-            [_vm._v("\n                إضافة\n            ")]
+            [
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "h-16 w-full border-b mb-2 px-4 flex items-center text-lg justify-between"
+                },
+                [
+                  _vm._v("\n            إضافة مشرف\n\n            "),
+                  _c(
+                    "router-link",
+                    {
+                      staticClass:
+                        "btn-color-one text-white w-36 h-12 rounded shadow-1 font-normal flex items-center justify-center cursor-pointer",
+                      attrs: { to: "/admin/admin/" }
+                    },
+                    [_vm._v("\n                قائمة المشرفين\n            ")]
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "bg-blue-600a grid lg:grid-cols-2" }, [
+                _c("div", { staticClass: "w-full px-4 py-4" }, [
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "h-9 flex items-center text-gray-500 mr-2 text-sm"
+                    },
+                    [
+                      _vm._v(
+                        "\n                    إسم المشرف\n                "
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.formData.name,
+                        expression: "formData.name"
+                      }
+                    ],
+                    staticClass:
+                      "h-12 w-full rounded border border-gray-200 bg-gray-50 flex items-center px-4 text-lg",
+                    domProps: { value: _vm.formData.name },
+                    on: {
+                      change: _vm.validateName,
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.formData, "name", $event.target.value)
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "h-8 text-sm text-red-400 mr-2 flex items-center"
+                    },
+                    [
+                      _vm._v(
+                        "\n                    " +
+                          _vm._s(_vm.formValidate.name) +
+                          "\n                "
+                      )
+                    ]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "w-full px-4 py-4" }, [
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "h-9 flex items-center text-gray-500 mr-2 text-sm"
+                    },
+                    [
+                      _vm._v(
+                        "\n                    إسم الدخول\n                "
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.formData.username,
+                        expression: "formData.username"
+                      }
+                    ],
+                    staticClass:
+                      "h-12 w-full rounded border border-gray-200 bg-gray-50 flex items-center px-4 text-lg",
+                    domProps: { value: _vm.formData.username },
+                    on: {
+                      change: _vm.validateUsername,
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.formData, "username", $event.target.value)
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "h-8 text-sm text-red-400 mr-2 flex items-center"
+                    },
+                    [
+                      _vm._v(
+                        "\n                    " +
+                          _vm._s(_vm.formValidate.username) +
+                          "\n                "
+                      )
+                    ]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "w-full px-4 py-4" }, [
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "h-9 flex items-center text-gray-500 mr-2 text-sm"
+                    },
+                    [
+                      _vm._v(
+                        "\n                    دور المشرف\n                "
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "select",
+                    {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.formData.role_id,
+                          expression: "formData.role_id"
+                        }
+                      ],
+                      staticClass:
+                        "h-12 w-full rounded border border-gray-200 bg-gray-50 flex items-center px-4 text-lg",
+                      on: {
+                        change: [
+                          function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.$set(
+                              _vm.formData,
+                              "role_id",
+                              $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            )
+                          },
+                          _vm.validateRole
+                        ]
+                      }
+                    },
+                    _vm._l(_vm.roleList, function(item, index) {
+                      return _c(
+                        "option",
+                        { key: index, domProps: { value: item.id } },
+                        [_vm._v(_vm._s(item.name))]
+                      )
+                    }),
+                    0
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "h-8 text-sm text-red-400 mr-2 flex items-center"
+                    },
+                    [
+                      _vm._v(
+                        "\n                    " +
+                          _vm._s(_vm.formValidate.role) +
+                          "\n                "
+                      )
+                    ]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "w-full px-4" }),
+                _vm._v(" "),
+                _c("div", { staticClass: "w-full px-4 py-4" }, [
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "h-9 flex items-center text-gray-500 mr-2 text-sm"
+                    },
+                    [
+                      _vm._v(
+                        "\n                    كلمة المرور\n                "
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.formData.password,
+                        expression: "formData.password"
+                      }
+                    ],
+                    staticClass:
+                      "h-12 w-full rounded border border-gray-200 bg-gray-50 flex items-center px-4 text-lg",
+                    domProps: { value: _vm.formData.password },
+                    on: {
+                      change: _vm.validatePassword,
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.formData, "password", $event.target.value)
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "h-8 text-sm text-red-400 mr-2 flex items-center"
+                    },
+                    [
+                      _vm._v(
+                        "\n                    " +
+                          _vm._s(_vm.formValidate.password) +
+                          "\n                "
+                      )
+                    ]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "w-full px-4 py-4" }, [
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "h-9 flex items-center text-gray-500 mr-2 text-sm"
+                    },
+                    [
+                      _vm._v(
+                        "\n                    تأكيد كلمة المرور\n                "
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.formData.confirmPassword,
+                        expression: "formData.confirmPassword"
+                      }
+                    ],
+                    staticClass:
+                      "h-12 w-full rounded border border-gray-200 bg-gray-50 flex items-center px-4 text-lg",
+                    domProps: { value: _vm.formData.confirmPassword },
+                    on: {
+                      change: _vm.validateConfirmPassword,
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(
+                          _vm.formData,
+                          "confirmPassword",
+                          $event.target.value
+                        )
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "h-8 text-sm text-red-400 mr-2 flex items-center"
+                    },
+                    [
+                      _vm._v(
+                        "\n                    " +
+                          _vm._s(_vm.formValidate.confirmPassword) +
+                          "\n                "
+                      )
+                    ]
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "flex items-center h-20 mx-4" }, [
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "btn-color-one rounded shadow px-12 h-12 w-auto flex items-center justify-center text-white text-lg cursor-pointer",
+                    on: { click: _vm.addAdmin }
+                  },
+                  [_vm._v("\n                إضافة\n            ")]
+                )
+              ])
+            ]
           )
-        ])
-      ]
-    )
-  ])
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.loaded && _vm.roleList.length == 0
+        ? _c("empty-box", {
+            attrs: {
+              message:
+                "لم نتمكن من جلب بيانات الأدوار, تأكد من أنك تمتلك صلاحية مشاهدة أدوار الصفحة"
+            }
+          })
+        : _vm._e()
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true

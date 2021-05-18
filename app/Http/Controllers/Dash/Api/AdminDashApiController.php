@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dash\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
+use App\Models\Role;
 use GrahamCampbell\ResultType\Success;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -27,7 +28,7 @@ class AdminDashApiController extends Controller
     // GET One Admin API =>Auth
     public function show($admin)
     {
-        $admin = Admin::Find($admin);
+        $admin = Admin::with('role:id,name')->Find($admin);
         if ($admin == [])
             return response()->json([], 204);
 
@@ -114,6 +115,18 @@ class AdminDashApiController extends Controller
         return response()->json(['success' => true, 'message' => 'حدث خطأ ما'], 400);
     }
 
+
+
+        // Get Role Short List For New Admin
+        public function role(Request $request)
+        {
+            $roles = Role::select('id','name')->get();
+            if ($roles->isEmpty())
+                return response()->json(["success" => false, "message" => "لا يوجد اي رتب للمستخدمين حتى الان"], 204);
+            return response()->json(["success" => true, "message" => "تم جلب جميع الرتب بنجاح", "roleList" => $roles]);
+        }
+
+
     // Add New Admin
     public function create(Request $request)
     {
@@ -128,6 +141,11 @@ class AdminDashApiController extends Controller
         ])->fails()) {
             return response()->json(["success" => false, "message" => "اسم الدخول غير مقبول, يجب ان يبدأ بحرف ويحتوي على حروف انجليزية وأرقام فقط, وأن لا يحتوي على أي مسافات"], 400);
         }
+
+        $role = Role::Find($request['role_id']);
+        if (!$role)
+            return response()->json(['success' => false, 'message' => 'دور المشرف غير متاح'], 400);
+
 
         $admin = Admin::create([
             'name' => $request['name'],

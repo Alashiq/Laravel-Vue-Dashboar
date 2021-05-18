@@ -3,6 +3,7 @@
         <!-- Inside Page -->
 
         <div
+            v-if="loaded && roleList.length != 0"
             class="w-full md:px-4 px-0 pb-8 pt-2 bg-white shadow-2 rounded-lg text-lg text-gray-600 font-medium"
         >
             <!-- Table Header -->
@@ -67,6 +68,37 @@
                     <div
                         class="h-9 flex items-center text-gray-500 mr-2 text-sm"
                     >
+                        دور المشرف
+                    </div>
+                    <select
+                        v-model="formData.role_id"
+                        v-on:change="validateRole"
+                        class="h-12 w-full rounded border border-gray-200 bg-gray-50 flex items-center px-4 text-lg"
+                    >
+                        <option
+                            v-for="(item, index) in roleList"
+                            :key="index"
+                            :value="item.id"
+                            >{{ item.name }}</option
+                        >
+                    </select>
+                    <div
+                        class="h-8 text-sm text-red-400 mr-2 flex items-center"
+                    >
+                        {{ formValidate.role }}
+                    </div>
+                </div>
+                <!-- Item -->
+
+                <!-- Item -->
+                <div class="w-full px-4"></div>
+                <!-- Item -->
+
+                <!-- Item -->
+                <div class="w-full px-4 py-4">
+                    <div
+                        class="h-9 flex items-center text-gray-500 mr-2 text-sm"
+                    >
                         كلمة المرور
                     </div>
                     <input
@@ -116,6 +148,11 @@
             <!-- End Action Part -->
         </div>
 
+        <empty-box
+            v-if="loaded && roleList.length == 0"
+            message="لم نتمكن من جلب بيانات الأدوار, تأكد من أنك تمتلك صلاحية مشاهدة أدوار الصفحة"
+        ></empty-box>
+
         <!-- End Inside Page -->
     </div>
 </template>
@@ -126,10 +163,12 @@ import Swal from "sweetalert2";
 export default {
     data() {
         return {
+            roleList: [],
             formData: {
                 name: "",
                 username: "",
                 password: "",
+                role_id: null,
                 confirmPassword: ""
             },
             formValidate: {
@@ -137,34 +176,39 @@ export default {
                 username: "",
                 password: "",
                 confirmPassword: ""
-            }
+            },
+            loaded: false
         };
     },
     methods: {
         addAdmin: function() {
             this.validateName();
             this.validateUsername();
+            this.validateRole();
             this.validatePassword();
             this.validateConfirmPassword();
             if (this.formValidate.name != "") return 0;
             if (this.formValidate.username != "") return 0;
+            if (this.formValidate.role != "") return 0;
             if (this.formValidate.password != "") return 0;
             if (this.formValidate.confirmPassword != "") return 0;
             Swal.showLoading();
-            axios
-                .post("/api/admin/admin",this.formData)
-                .then(
-                    response => {
-                        Swal.fire("نجاح", response.data.message, "success");
-                        this.formData.name = "";
-                        this.formData.username = "";
-                        this.formData.password = "";
-                        this.formData.confirmPassword = "";
-                    },
-                    error => {
-                        clearLogout(this.$store, this.$router, error.response);
-                    }
-                );
+            axios.post("/api/admin/admin", this.formData).then(
+                response => {
+                    this.loaded = true;
+                    Swal.fire("نجاح", response.data.message, "success");
+                    this.formData.name = "";
+                    this.formData.username = "";
+                    this.formData.password = "";
+                    this.formData.role_id = null;
+                    this.formData.confirmPassword = "";
+                },
+                error => {
+                    this.loaded = true;
+
+                    clearLogout(this.$store, this.$router, error.response);
+                }
+            );
         },
         validateName: function() {
             this.formValidate.name = "";
@@ -195,6 +239,13 @@ export default {
             if (this.formData.username.trim().length > 16) {
                 this.formValidate.username =
                     "يجب ان يكون إسم الدخول أقل من 16 حرف";
+                return 1;
+            }
+        },
+        validateRole: function() {
+            this.formValidate.role = "";
+            if (this.formData.role_id == null) {
+                this.formValidate.role = "يجب عليك تحديد دور المشرف";
                 return 1;
             }
         },
@@ -231,6 +282,32 @@ export default {
     },
     mounted() {
         this.$store.commit("activePage", 3);
+        Swal.mixin({ allowOutsideClick: false, toast: false }).showLoading();
+        axios.get("/api/admin/admin/role").then(
+            response => {
+                this.loaded = true;
+                if (response.status == 200) {
+                    this.roleList = response.data.roleList;
+                    Swal.mixin({
+                        position: "bottom-start",
+                        timer: 3000,
+                        toast: true,
+                        showConfirmButton: false
+                    }).fire("نجاح", response.data.message, "success");
+                } else if (response.status == 204) {
+                    Swal.mixin({
+                        position: "bottom-start",
+                        timer: 3000,
+                        toast: true,
+                        showConfirmButton: false
+                    }).fire("تنبيه", "لا يوجد اي أدوار", "warning");
+                }
+            },
+            error => {
+                this.loaded = true;
+                clearLogout(this.$store, this.$router, error.response);
+            }
+        );
     },
     computed: {},
     created() {}

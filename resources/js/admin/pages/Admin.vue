@@ -62,6 +62,21 @@
                 </div>
                 <!-- Item -->
 
+                                <!-- Item -->
+                <div class="w-full px-4 py-4">
+                    <div
+                        class="h-9 flex items-center text-gray-500 mr-2 text-sm"
+                    >
+                        دور المشرف
+                    </div>
+                    <div
+                        class="h-12 rounded border border-gray-200 bg-gray-50 flex items-center px-4 text-lg"
+                    >
+                        {{ admin.role.name }}
+                    </div>
+                </div>
+                <!-- Item -->
+
                 <!-- Item -->
                 <div class="w-full px-4 py-4">
                     <div
