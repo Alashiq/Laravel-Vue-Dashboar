@@ -6,7 +6,8 @@ export default {
             id: null,
             name: "",
             username: "",
-            photo: ""
+            photo: "",
+            role:""
         },
         pageList: [
             {

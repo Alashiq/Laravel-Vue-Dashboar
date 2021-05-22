@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
+use function PHPUnit\Framework\isEmpty;
+
 class AdminDashApiController extends Controller
 {
 
@@ -18,7 +20,7 @@ class AdminDashApiController extends Controller
     // GET All Admins
     public function index(Request $request)
     {
-        $admins = Admin::latest()->where('id','<>',$request->user()->id)->get();
+        $admins = Admin::latest()->where('id', '<>', $request->user()->id)->get();
         if ($admins->isEmpty())
             return response()->json(['success' => false, 'message' => 'لا يوجد اي مشرفين في الموقع', 'data' => $admins], 204);
         return response()->json(['success' => true, 'message' => 'تم جلب  المشرفين بنجاح', 'data' => $admins], 200);
@@ -32,7 +34,12 @@ class AdminDashApiController extends Controller
         if ($admin == [])
             return response()->json([], 204);
 
-        return response()->json(['success' => true, 'message' => 'تم جلب المشرف بنجاح', 'data' => $admin], 200);
+        $roles = Role::select('id', 'name')->get();
+        if (count($roles) == 0)
+            return response()->json([], 204);
+
+
+        return response()->json(['success' => true, 'message' => 'تم جلب المشرف بنجاح', 'data' => $admin, "roles" => $roles], 200);
     }
 
 
@@ -117,15 +124,39 @@ class AdminDashApiController extends Controller
 
 
 
-        // Get Role Short List For New Admin
-        public function role(Request $request)
-        {
-            $roles = Role::select('id','name')->get();
-            if ($roles->isEmpty())
-                return response()->json(["success" => false, "message" => "لا يوجد اي رتب للمستخدمين حتى الان"], 204);
-            return response()->json(["success" => true, "message" => "تم جلب جميع الرتب بنجاح", "roleList" => $roles]);
+    // Get Role Short List For New Admin
+    public function role(Request $request)
+    {
+        $roles = Role::select('id', 'name')->get();
+        if ($roles->isEmpty())
+            return response()->json(["success" => false, "message" => "لا يوجد اي رتب للمستخدمين حتى الان"], 204);
+        return response()->json(["success" => true, "message" => "تم جلب جميع الرتب بنجاح", "roleList" => $roles]);
+    }
+
+
+    //  Change Admin Role
+    public function changeAdminRole($admin, Request $request)
+    {
+        $admin = Admin::Find($admin);
+        if (!$admin)
+            return response()->json(['success' => false, 'message' => 'هذه المشرف غير موجود'], 400);
+
+        if (Validator::make($request->all(), [
+            'role_id' => 'required',
+        ])->fails()) {
+            return response()->json(["success" => false, "message" => "يجب عليك إرسال رقم الدور"], 400);
         }
 
+        $role = Role::Find($request['role_id']);
+        if (!$role)
+            return response()->json(['success' => false, 'message' => 'هذا الدور لم يعد متاح قم بإختيار دور اخر'], 400);
+
+        $admin->role_id = $request['role_id'];
+        $edit = $admin->save();
+        if ($edit)
+            return response()->json(['success' => true, 'message' => 'تم تحديث دور الحساب بنجاح'], 200);
+        return response()->json(['success' => true, 'message' => 'حدث خطأ ما'], 400);
+    }
 
     // Add New Admin
     public function create(Request $request)

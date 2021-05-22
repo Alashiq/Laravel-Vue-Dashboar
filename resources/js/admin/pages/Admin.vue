@@ -149,6 +149,14 @@
                     <i class="fas fa-user-slash ml-2"></i>
                     حظر الحساب
                 </div>
+
+                                <router-link :to="'/admin/admin/' + $route.params.id + '/edit'"
+                    class="h-12 px-6 mx-4 bg-green-400 hover:bg-green-500 flex items-center justify-center text-white shadow-lg rounded cursor-pointer"
+                >
+                    <i class="fas fa-user-slash ml-2"></i>
+                    تعديل الحساب
+                                </router-link>
+
             </div>
             <!-- End Btn Action -->
         </div>

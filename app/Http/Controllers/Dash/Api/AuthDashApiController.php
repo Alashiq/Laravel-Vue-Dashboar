@@ -4,11 +4,14 @@ namespace App\Http\Controllers\Dash\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
+use App\Models\Role;
 use GrahamCampbell\ResultType\Success;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+
+use function PHPUnit\Framework\isEmpty;
 
 class AuthDashApiController extends Controller
 {
@@ -36,6 +39,7 @@ class AuthDashApiController extends Controller
                 'id' => $customer->id,
                 'name' => $customer->name,
                 'username' => $customer->username,
+                'role' => $customer->role->name,
                 'photo' => $customer->photo,
                 'token' => $customer->createToken('website', ['role:admin'])->plainTextToken
 
@@ -46,6 +50,10 @@ class AuthDashApiController extends Controller
     //  Get Admin Info
     public function profile(Request $request)
     {
+        $role=Role::find($request->user()->role_id);
+        if(!$role)
+        return response()->json(["success"=>false,"message"=>"هذا الحساب غير مرتبط بأي دور, قم بالتواصل مع المسؤول لإصلاح الخلل"],400);
+        $request->user()->role=$role->name;
         return response()->json(["success" => true, "message" => "مرحبا بالمستخدم", "user" => $request->user()]);
     }
 

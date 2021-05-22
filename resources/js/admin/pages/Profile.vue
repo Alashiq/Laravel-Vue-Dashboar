@@ -79,6 +79,17 @@
                     </div>
                 </div>
 
+                                <div class="mt-4 lg:h-16 lg:flex items-center">
+                    <div class="md:w-48 h-8 text-lg text-gray-600">
+                        دور الحساب
+                    </div>
+                    <div
+                        class="border rounded h-12 lg:w-96 w-full px-4 text-lg text-gray-700 flex items-center bg-gray-100"
+                    >
+                        {{ user.role }}
+                    </div>
+                </div>
+
                 <div class="flex items-center h-20">
                     <div
                         @click="changeName"

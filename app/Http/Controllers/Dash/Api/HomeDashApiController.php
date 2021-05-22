@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 class HomeDashApiController extends Controller
 {
 
-    // GET Messages API =>Auth
+    // GET Home Charts
     public function index()
     {
 

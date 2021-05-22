@@ -8,7 +8,8 @@
             <div class="text-2xl font-semibold cairo text-gray-600">
                 مشرفي الموقع
             </div>
-            <router-link to="/admin/admin/new"
+            <router-link
+                to="/admin/admin/new"
                 class="rounded px-4 flex items-center cairo font-medium shadow-3 cursor-pointer btn-color-one text-white"
             >
                 <span class="h-12 flex items-center">
@@ -107,14 +108,21 @@
                         title="تفعيل المشرف"
                         @click="activeAdmin(item.id, index)"
                         v-if="item.state == 0"
-                        class="fas fa-lock-open px-4 py-2 cursor-pointer bg-green-400 hover:bg-green-500 shadow-one text-white rounded"
+                        class="fas fa-lock-open px-4 py-2 cursor-pointer bg-green-400 hover:bg-green-500 shadow-one text-white rounded ml-2"
                     ></i>
                     <i
                         title="إلغاء تفعيل المشرف"
                         @click="disActiveAdmin(item.id, index)"
                         v-else-if="item.state == 1"
-                        class="fas fa-lock px-4 py-2 cursor-pointer bg-yellow-400 hover:bg-yellow-500 shadow-one text-white rounded"
+                        class="fas fa-lock px-4 py-2 cursor-pointer bg-yellow-400 hover:bg-yellow-500 shadow-one text-white rounded ml-2"
                     ></i>
+
+                    <router-link :to="'/admin/admin/' + item.id + '/edit'">
+                        <i
+                            title="تعديل دور ا لمشرف"
+                            class="fas fa-user-shield  px-4 py-2 cursor-pointer bg-green-400 hover:bg-green-500 shadow-one text-white rounded"
+                        ></i>
+                    </router-link>
                 </td>
             </tr>
         </table>

@@ -11,6 +11,7 @@ import Roles from "./pages/Roles.vue";
 import NewRole from "./pages/NewRole.vue";
 import Role from "./pages/Role.vue";
 import EditRole from "./pages/EditRole.vue";
+import EditAdminRole from "./pages/EditAdminRole.vue";
 
 
 import store from "./store/index";
@@ -64,6 +65,10 @@ export const routes = [
             {
                 path: "admin/admin/:id",
                 component: Admin
+            },
+            {
+                path: "admin/admin/:id/edit",
+                component: EditAdminRole
             },
             {
                 path: "admin/role",
