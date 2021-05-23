@@ -9,8 +9,9 @@
                 أدوار المشرفين
             </div>
             <router-link
+                    v-show="$parent.checkPermission('CreateRole') == true"
                 to="/admin/role/new"
-                class="rounded px-4 flex items-center cairo font-medium shadow-3 cursor-pointer btn-color-one text-white"
+                class="rounded px-4 flex items-center cairo font-medium add-btn"
             >
                 <span class="h-12 flex items-center">
                     <i class="fas fa-plus ml-4 text-lg"></i>
@@ -44,16 +45,19 @@
                 <td class=" rounded-l-lg h-20">
                     <router-link :to="'/admin/role/' + item.id">
                         <i
-                            class="fas fa-eye px-4 py-2 cursor-pointer bg-blue-400 hover:bg-blue-500 shadow-one text-white rounded ml-2"
+                            class="fas fa-eye px-4 py-2 see-btn rounded ml-2"
                         ></i>
                     </router-link>
 
-                    <router-link :to="'/admin/role/' + item.id + '/edit'">
+                    <router-link 
+                    v-show="$parent.checkPermission('EditRole') == true"
+                    :to="'/admin/role/' + item.id + '/edit'">
                         <i
                             class="far fa-edit px-4 py-2 cursor-pointer bg-green-400 hover:bg-green-500 shadow-one text-white rounded ml-2"
                         ></i>
                     </router-link>
                     <i
+                    v-show="$parent.checkPermission('DeleteRole') == true"
                         v-if="item.admins_count == 0"
                         @click="deleteRole(item.id, index)"
                         class="far fa-trash-alt px-4 py-2 cursor-pointer bg-red-400 hover:bg-red-500 shadow-one text-white rounded ml-2"

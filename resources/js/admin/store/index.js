@@ -9,10 +9,12 @@ export default {
             photo: "",
             role:""
         },
+        permissions: [],
         pageList: [
             {
                 id: 1,
                 name: "الرئيسية",
+                role: "HomeChart",
                 active: true,
                 path: "/admin",
                 icon: "fas fa-home"
@@ -21,6 +23,7 @@ export default {
             {
                 id: 2,
                 name: "الرسائل",
+                role: "ReadMessage",
                 active: false,
                 path: "/admin/message",
                 icon: "fas fa-comment-dots"
@@ -29,6 +32,7 @@ export default {
             {
                 id: 3,
                 name: "المشرفين",
+                role: "ReadAdmin",
                 active: false,
                 path: "/admin/admin",
                 icon: "fas fa-users"
@@ -36,6 +40,7 @@ export default {
             {
                 id: 4,
                 name: "أدوار المشرفين",
+                role: "ReadRole",
                 active: false,
                 path: "/admin/role",
                 icon: "fas fa-user-shield"
@@ -48,6 +53,9 @@ export default {
         setUser(state, data) {
             state.user = data;
             state.auth = true;
+        },
+        setPermissions(state, data) {
+            state.permissions = data;
         },
         authLoaded(state) {
             state.loadAuth = true;
@@ -90,6 +98,7 @@ export default {
                         axios.defaults.headers.common["Authorization"] =
                             "Bearer " + response.data.user.token;
                         this.commit("setUser", response.data.user);
+                        this.commit("setPermissions", response.data.permissions);
                         this.commit("authLoaded");
                         resolve({
                             message: "تم تسجيل الدخول بنجاح",
@@ -125,6 +134,7 @@ export default {
                 axios.get("/api/admin/auth").then(
                     response => {
                         this.commit("setUser", response.data.user);
+                        this.commit("setPermissions", response.data.permissions);
                         resolve({
                             message: "مرحبا بالمستخدم",
                             status: response.status
@@ -182,6 +192,7 @@ export default {
         // If 401 Error
         async clearAuth({ commit }) {
             this.commit("clearUser");
-        }
+        },
+
     }
 };

@@ -1,6 +1,6 @@
 <template>
     <div
-        class="h-16 w-full bg-white shadow mb-8 flex justify-between items-center px-4"
+        class="h-16 w-full bg-white mb-8 flex justify-between items-center px-4 layout-shadow"
     >
         <div @click="toggleMenu" class="h-16 w-16 text-gray-600 flex items-center justify-center text-3xl hover:text-red-400 cursor-pointer md:hidden">
             <i class="fas fa-bars"></i>

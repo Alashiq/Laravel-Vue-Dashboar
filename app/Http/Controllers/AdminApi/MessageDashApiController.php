@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Dash\Api;
+namespace App\Http\Controllers\AdminApi;
 
 use App\Http\Controllers\Controller;
 use App\Models\Message;

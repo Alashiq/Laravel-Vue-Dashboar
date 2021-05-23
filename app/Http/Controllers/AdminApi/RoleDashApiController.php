@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\AdminApi;
+
+use App\Http\Controllers\Controller;
 
 use App\Models\Admin;
 use App\Models\Receiver;
@@ -10,7 +12,7 @@ use Illuminate\Support\Facades\Validator;
 
 use function PHPUnit\Framework\isEmpty;
 
-class RoleController extends Controller
+class RoleDashApiController extends Controller
 {
 
 

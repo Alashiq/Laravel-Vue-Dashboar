@@ -8,14 +8,6 @@
             <div class="text-2xl font-semibold cairo text-gray-600">
                 صندوق الرسائل
             </div>
-            <div
-                class="rounded px-4 flex items-center cairo font-medium shadow-3 cursor-pointer btn-color-one text-white"
-            >
-                <span class="h-12 flex items-center">
-                    <i class="fas fa-plus ml-4 text-lg"></i>
-                    أضف رسالة
-                </span>
-            </div>
         </div>
 
         <div class="flex justify-between my-8">
@@ -93,15 +85,17 @@
                 <td class=" rounded-l-lg h-20">
                     <router-link :to="'/admin/message/' + item.id">
                         <i
-                            class="fas fa-eye px-4 py-2 cursor-pointer bg-blue-400 hover:bg-blue-500 shadow-one text-white rounded ml-2"
+                            class="fas fa-eye px-4 py-2 see-btn rounded ml-2"
                         ></i>
                     </router-link>
 
                     <i
+                    v-show="$parent.checkPermission('DeleteMessage') == true"
                         @click="deleteMessage(item.id, index)"
-                        class="far fa-trash-alt px-4 py-2 cursor-pointer bg-red-400 hover:bg-red-500 shadow-one text-white rounded ml-2"
+                        class="far fa-trash-alt px-4 py-2 delete-btn rounded ml-2"
                     ></i>
                     <i
+                                        v-show="$parent.checkPermission('EditMessage') == true"
                         @click="sloveMessage(item.id, index)"
                         v-if="!item.state"
                         class="fas fa-check px-4 py-2 cursor-pointer bg-green-400 hover:bg-green-500 shadow-one text-white rounded"

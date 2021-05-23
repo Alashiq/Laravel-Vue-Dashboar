@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Dash\Api;
+namespace App\Http\Controllers\AdminApi;
 
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
@@ -31,6 +31,15 @@ class AuthDashApiController extends Controller
         } elseif ($customer->state == 2)
             return response()->json(['success' => false, 'message' => 'هذا الحساب محظور ولا يمكن استخدامه مجددا'], 400);
 
+            $permissions = [];
+            foreach (config('global.permissions') as $name => $value) {
+                $boolVal = false;
+                for ($i = 0; $i < count($customer->role->permissions); $i++)
+                    if ($name == $customer->role->permissions[$i]) {
+                        $boolVal = true;
+                    }
+                array_push($permissions, ["name" => $name, "description" => $value, "state" => $boolVal]);
+            }
 
         return response()->json([
             'success' => true,
@@ -43,7 +52,8 @@ class AuthDashApiController extends Controller
                 'photo' => $customer->photo,
                 'token' => $customer->createToken('website', ['role:admin'])->plainTextToken
 
-            ]
+            ],
+            "permissions"=>$permissions
         ]);
     }
 
@@ -53,8 +63,19 @@ class AuthDashApiController extends Controller
         $role=Role::find($request->user()->role_id);
         if(!$role)
         return response()->json(["success"=>false,"message"=>"هذا الحساب غير مرتبط بأي دور, قم بالتواصل مع المسؤول لإصلاح الخلل"],400);
+
+        $permissions = [];
+        foreach (config('global.permissions') as $name => $value) {
+            $boolVal = false;
+            for ($i = 0; $i < count($role->permissions); $i++)
+                if ($name == $role->permissions[$i]) {
+                    $boolVal = true;
+                }
+            array_push($permissions, ["name" => $name, "description" => $value, "state" => $boolVal]);
+        }
+
         $request->user()->role=$role->name;
-        return response()->json(["success" => true, "message" => "مرحبا بالمستخدم", "user" => $request->user()]);
+        return response()->json(["success" => true, "message" => "مرحبا بالمستخدم", "user" => $request->user(),"permissions"=>$permissions]);
     }
 
 

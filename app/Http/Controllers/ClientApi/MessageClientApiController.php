@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Web\Api;
+namespace App\Http\Controllers\ClientApi;
 
 use Illuminate\Support\Facades\Validator;
 
@@ -9,7 +9,7 @@ use App\Models\Message;
 use App\Models\Receiver;
 use Illuminate\Http\Request;
 
-class MessageWebApiController extends Controller
+class MessageClientApiController extends Controller
 {
     // Add New Admin
     public function create(Request $request)

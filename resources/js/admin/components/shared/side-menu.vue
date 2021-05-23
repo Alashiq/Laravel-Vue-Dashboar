@@ -1,20 +1,20 @@
 <template>
     <div
         :class="{
-            'md:right-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:flex-row md:flex-no-wrap md:overflow-hidden shadow bg-white flex flex-wrap items-center justify-between relative md:w-64 z-10 bg-cover bg-center':1==1,
-            ' hidden': menu==false
+            'md:right-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:flex-row md:flex-no-wrap md:overflow-hidden bg-white flex flex-wrap items-center justify-between relative md:w-64 z-10 bg-cover bg-center layout-shadow':
+                1 == 1,
+            ' hidden': menu == false
         }"
         style=" abackground-image:url(https://demos.creative-tim.com/material-dashboard/assets/img/sidebar-1.jpg);"
     >
         <div class="h-full w-full" style=" background: #fff; aopacity: .93;">
             <!-- Title Side Menu -->
             <div
-                class="h-20 items-center w-full flex justify-center text-xl border-b font-medium"
+                class="h-20 items-center w-full flex justify-center text-xl border-b font-medium orange-color"
             >
                 لوحة التحكم
             </div>
             <!-- End Title Side Menu -->
-
             <!-- User Info -->
             <div
                 class="h-32 w-full flex items-center px-3 justify-between border-b mb-4"
@@ -61,12 +61,12 @@
                 v-for="item in pageList"
                 :key="item.id"
                 :to="item.path"
+                v-show="$parent.checkPermission(item.role) == true"
                 class="w-auto px-4 flex items-center justify-start text-gray-500 cairo"
             >
                 <div
                     v-if="item.active"
-                    class="my-1 text-white btn-color-one w-full rounded px-4"
-                    style="box-shadow: 0 4px 20px 0 rgb(0 0 0 / 14%), 0 7px 10px -5px rgb(156 39 176 / 40%);"
+                    class="my-1 layout-btn w-full rounded px-4"
                 >
                     <div class="flex items-center h-12 my-1">
                         <i :class="item.icon + ' ml-6 text-lg'"></i>
@@ -74,10 +74,7 @@
                     </div>
                 </div>
 
-                <div
-                    v-else
-                    class="my-1  w-full px-4"
-                >
+                <div v-else class="my-1  w-full px-4">
                     <div class="flex items-center h-12 my-1">
                         <i :class="item.icon + ' ml-6 text-lg'"></i>
                         {{ item.name }}
@@ -114,7 +111,7 @@ export default {
                     axios.defaults.headers.common["Authorization"] = null;
                 }
             );
-        }
+        },
     },
     computed: {
         pageList() {
@@ -123,9 +120,9 @@ export default {
         user() {
             return this.$store.state.user;
         },
-        menu(){
-            return   this.$store.state.menu;
-        }
+        menu() {
+            return this.$store.state.menu;
+        },
     }
 };
 </script>

@@ -1,11 +1,10 @@
 <?php
 
-use App\Http\Controllers\Dash\Api\AdminDashApiController;
-use App\Http\Controllers\Dash\Api\AuthDashApiController;
-use App\Http\Controllers\Dash\Api\HomeDashApiController;
-use App\Http\Controllers\Dash\Api\MessageDashApiController;
-use App\Http\Controllers\RoleController;
-use App\Http\Controllers\Web\Api\MessageWebApiController;
+use App\Http\Controllers\AdminApi\AdminDashApiController;
+use App\Http\Controllers\AdminApi\AuthDashApiController;
+use App\Http\Controllers\AdminApi\HomeDashApiController;
+use App\Http\Controllers\AdminApi\MessageDashApiController;
+use App\Http\Controllers\AdminApi\RoleDashApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Hash;
@@ -56,12 +55,12 @@ Route::middleware(['auth:sanctum', 'type.admin'])->group(function () {
 
     # # # # # # # # # # # # # # # Roles # # # # # # # # # # # # # # # 
     Route::group(['prefix' => 'role'], function () {
-        Route::get('/', [RoleController::class, 'index'])->middleware('check.role:ReadRole');
-        Route::post('/', [RoleController::class, 'create'])->middleware('check.role:CreateRole');
-        Route::delete('/{role}', [RoleController::class, 'delete'])->middleware('check.role:DeleteRole');
-        Route::PUT('/{role}', [RoleController::class, 'edit'])->middleware('check.role:EditRole');
-        Route::get('/permissions', [RoleController::class, 'permissions'])->middleware('check.role:CreateRole');
-        Route::get('/{role}', [RoleController::class, 'show'])->middleware('check.role:ReadRole');
+        Route::get('/', [RoleDashApiController::class, 'index'])->middleware('check.role:ReadRole');
+        Route::post('/', [RoleDashApiController::class, 'create'])->middleware('check.role:CreateRole');
+        Route::delete('/{role}', [RoleDashApiController::class, 'delete'])->middleware('check.role:DeleteRole');
+        Route::PUT('/{role}', [RoleDashApiController::class, 'edit'])->middleware('check.role:EditRole');
+        Route::get('/permissions', [RoleDashApiController::class, 'permissions'])->middleware('check.role:CreateRole');
+        Route::get('/{role}', [RoleDashApiController::class, 'show'])->middleware('check.role:ReadRole');
     });
     # # # # # # # # # # # # # # # End Roles # # # # # # # # # # # # # # # 
 

@@ -32,10 +32,20 @@ export default {
         },
         auth() {
             return this.$store.state.auth;
+        },
+        permissions() {
+            return this.$store.state.permissions;
         }
     },
     methods: {
-
+        checkPermission: function(perName) {
+            var item = this.permissions.filter(project => {
+                return project.name==perName;
+                //return project.name.match(perName);
+            });
+            if (item[0] != null) return item[0].state;
+            return false;
+        }
     },
     mounted() {
         if (this.auth) {

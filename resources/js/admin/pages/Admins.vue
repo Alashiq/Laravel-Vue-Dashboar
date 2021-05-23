@@ -9,8 +9,9 @@
                 مشرفي الموقع
             </div>
             <router-link
+            v-show="$parent.checkPermission('CreateAdmin') == true"
                 to="/admin/admin/new"
-                class="rounded px-4 flex items-center cairo font-medium shadow-3 cursor-pointer btn-color-one text-white"
+                class="rounded px-4 flex items-center cairo font-medium add-btn"
             >
                 <span class="h-12 flex items-center">
                     <i class="fas fa-plus ml-4 text-lg"></i>
@@ -94,23 +95,26 @@
                     <router-link :to="'/admin/admin/' + item.id">
                         <i
                             title="عرض بيانات المشرف"
-                            class="fas fa-eye px-4 py-2 cursor-pointer bg-blue-400 hover:bg-blue-500 shadow-one text-white rounded ml-2"
+                            class="fas fa-eye px-4 py-2 see-btn rounded ml-2"
                         ></i>
                     </router-link>
 
                     <i
+                    v-show="$parent.checkPermission('BannedAdmin') == true"
                         title="حظر المشرف"
                         v-if="item.state != 2"
                         @click="bannedAdmin(item.id, index)"
-                        class="fas fa-user-slash px-4 py-2 cursor-pointer bg-red-400 hover:bg-red-500 shadow-one text-white rounded ml-2"
+                        class="fas fa-user-slash px-4 py-2 delete-btn rounded ml-2"
                     ></i>
                     <i
+                    v-show="$parent.checkPermission('ActiveAdmin') == true"
                         title="تفعيل المشرف"
                         @click="activeAdmin(item.id, index)"
                         v-if="item.state == 0"
                         class="fas fa-lock-open px-4 py-2 cursor-pointer bg-green-400 hover:bg-green-500 shadow-one text-white rounded ml-2"
                     ></i>
                     <i
+                    v-show="$parent.checkPermission('DisActiveAdmin') == true"
                         title="إلغاء تفعيل المشرف"
                         @click="disActiveAdmin(item.id, index)"
                         v-else-if="item.state == 1"
@@ -119,6 +123,7 @@
 
                     <router-link :to="'/admin/admin/' + item.id + '/edit'">
                         <i
+                    v-show="$parent.checkPermission('EditRoleAdmin') == true"
                             title="تعديل دور ا لمشرف"
                             class="fas fa-user-shield  px-4 py-2 cursor-pointer bg-green-400 hover:bg-green-500 shadow-one text-white rounded"
                         ></i>

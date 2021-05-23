@@ -2024,9 +2024,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
@@ -2087,6 +2084,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _logout_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../logout.js */ "./resources/js/admin/logout.js");
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_1__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2438,6 +2446,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _logout_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../logout.js */ "./resources/js/admin/logout.js");
+//
+//
+//
+//
+//
 //
 //
 //
@@ -3388,9 +3401,20 @@ __webpack_require__.r(__webpack_exports__);
     },
     auth: function auth() {
       return this.$store.state.auth;
+    },
+    permissions: function permissions() {
+      return this.$store.state.permissions;
     }
   },
-  methods: {},
+  methods: {
+    checkPermission: function checkPermission(perName) {
+      var item = this.permissions.filter(function (project) {
+        return project.name == perName; //return project.name.match(perName);
+      });
+      if (item[0] != null) return item[0].state;
+      return false;
+    }
+  },
   mounted: function mounted() {
     var _this = this;
 
@@ -3897,12 +3921,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _logout_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../logout.js */ "./resources/js/admin/logout.js");
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -5176,6 +5194,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -5268,6 +5287,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _logout_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../logout.js */ "./resources/js/admin/logout.js");
+//
+//
+//
+//
 //
 //
 //
@@ -5585,27 +5608,32 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         photo: "",
         role: ""
       },
+      permissions: [],
       pageList: [{
         id: 1,
         name: "الرئيسية",
+        role: "HomeChart",
         active: true,
         path: "/admin",
         icon: "fas fa-home"
       }, {
         id: 2,
         name: "الرسائل",
+        role: "ReadMessage",
         active: false,
         path: "/admin/message",
         icon: "fas fa-comment-dots"
       }, {
         id: 3,
         name: "المشرفين",
+        role: "ReadAdmin",
         active: false,
         path: "/admin/admin",
         icon: "fas fa-users"
       }, {
         id: 4,
         name: "أدوار المشرفين",
+        role: "ReadRole",
         active: false,
         path: "/admin/role",
         icon: "fas fa-user-shield"
@@ -5617,6 +5645,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     setUser: function setUser(state, data) {
       state.user = data;
       state.auth = true;
+    },
+    setPermissions: function setPermissions(state, data) {
+      state.permissions = data;
     },
     authLoaded: function authLoaded(state) {
       state.loadAuth = true;
@@ -5664,6 +5695,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     axios.defaults.headers.common["Authorization"] = "Bearer " + response.data.user.token;
 
                     _this.commit("setUser", response.data.user);
+
+                    _this.commit("setPermissions", response.data.permissions);
 
                     _this.commit("authLoaded");
 
@@ -5713,6 +5746,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 return _context2.abrupt("return", new Promise(function (resolve, reject) {
                   axios.get("/api/admin/auth").then(function (response) {
                     _this2.commit("setUser", response.data.user);
+
+                    _this2.commit("setPermissions", response.data.permissions);
 
                     resolve({
                       message: "مرحبا بالمستخدم",
@@ -29871,7 +29906,7 @@ var render = function() {
     "div",
     {
       staticClass:
-        "h-16 w-full bg-white shadow mb-8 flex justify-between items-center px-4"
+        "h-16 w-full bg-white mb-8 flex justify-between items-center px-4 layout-shadow"
     },
     [
       _c(
@@ -29924,7 +29959,7 @@ var render = function() {
     "div",
     {
       class: {
-        "md:right-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:flex-row md:flex-no-wrap md:overflow-hidden shadow bg-white flex flex-wrap items-center justify-between relative md:w-64 z-10 bg-cover bg-center":
+        "md:right-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:flex-row md:flex-no-wrap md:overflow-hidden bg-white flex flex-wrap items-center justify-between relative md:w-64 z-10 bg-cover bg-center layout-shadow":
           1 == 1,
         " hidden": _vm.menu == false
       },
@@ -29945,7 +29980,7 @@ var render = function() {
             "div",
             {
               staticClass:
-                "h-20 items-center w-full flex justify-center text-xl border-b font-medium"
+                "h-20 items-center w-full flex justify-center text-xl border-b font-medium orange-color"
             },
             [_vm._v("\n            لوحة التحكم\n        ")]
           ),
@@ -30012,6 +30047,14 @@ var render = function() {
             return _c(
               "router-link",
               {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.$parent.checkPermission(item.role) == true,
+                    expression: "$parent.checkPermission(item.role) == true"
+                  }
+                ],
                 key: item.id,
                 staticClass:
                   "w-auto px-4 flex items-center justify-start text-gray-500 cairo",
@@ -30021,14 +30064,7 @@ var render = function() {
                 item.active
                   ? _c(
                       "div",
-                      {
-                        staticClass:
-                          "my-1 text-white btn-color-one w-full rounded px-4",
-                        staticStyle: {
-                          "box-shadow":
-                            "0 4px 20px 0 rgb(0 0 0 / 14%), 0 7px 10px -5px rgb(156 39 176 / 40%)"
-                        }
-                      },
+                      { staticClass: "my-1 layout-btn w-full rounded px-4" },
                       [
                         _c(
                           "div",
@@ -30336,6 +30372,18 @@ var render = function() {
                     ? _c(
                         "div",
                         {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value:
+                                _vm.$parent.checkPermission(
+                                  "ResetPasswordAdmin"
+                                ) == true,
+                              expression:
+                                "\n                    $parent.checkPermission('ResetPasswordAdmin') == true\n                "
+                            }
+                          ],
                           staticClass:
                             "h-12 px-6 mx-4 my-2 bg-blue-400 hover:bg-blue-500 flex items-center justify-center text-white shadow-lg rounded cursor-pointer",
                           on: { click: _vm.resetPassword }
@@ -30353,8 +30401,19 @@ var render = function() {
                     ? _c(
                         "div",
                         {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value:
+                                _vm.$parent.checkPermission("ActiveAdmin") ==
+                                true,
+                              expression:
+                                "$parent.checkPermission('ActiveAdmin') == true"
+                            }
+                          ],
                           staticClass:
-                            "h-12 px-6  mx-4  md:mx-0 my-2 bg-green-400 hover:bg-green-500 flex items-center justify-center text-white shadow-lg rounded cursor-pointer",
+                            "h-12 px-6 mx-4  md:mx-0 my-2 bg-green-400 hover:bg-green-500 flex items-center justify-center text-white shadow-lg rounded cursor-pointer",
                           on: { click: _vm.activeAdmin }
                         },
                         [
@@ -30366,6 +30425,17 @@ var render = function() {
                     ? _c(
                         "div",
                         {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value:
+                                _vm.$parent.checkPermission("DisActiveAdmin") ==
+                                true,
+                              expression:
+                                "$parent.checkPermission('DisActiveAdmin') == true"
+                            }
+                          ],
                           staticClass:
                             "h-12 px-6 mx-4 my-2 bg-yellow-400 hover:bg-yellow-500 flex items-center justify-center text-white shadow-lg rounded cursor-pointer",
                           on: { click: _vm.disActiveAdmin }
@@ -30383,8 +30453,19 @@ var render = function() {
                     ? _c(
                         "div",
                         {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value:
+                                _vm.$parent.checkPermission("BannedAdmin") ==
+                                true,
+                              expression:
+                                "$parent.checkPermission('BannedAdmin') == true"
+                            }
+                          ],
                           staticClass:
-                            "h-12 px-6 mx-4 bg-red-400 hover:bg-red-500 flex items-center justify-center text-white shadow-lg rounded cursor-pointer",
+                            "h-12 px-6 mx-4 my-2 bg-red-400 hover:bg-red-500 flex items-center justify-center text-white shadow-lg rounded cursor-pointer",
                           on: { click: _vm.bannedAdmin }
                         },
                         [
@@ -30397,6 +30478,17 @@ var render = function() {
                   _c(
                     "router-link",
                     {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value:
+                            _vm.$parent.checkPermission("EditRoleAdmin") ==
+                            true,
+                          expression:
+                            "$parent.checkPermission('EditRoleAdmin') == true"
+                        }
+                      ],
                       staticClass:
                         "h-12 px-6 mx-4 bg-green-400 hover:bg-green-500 flex items-center justify-center text-white shadow-lg rounded cursor-pointer",
                       attrs: {
@@ -30405,9 +30497,7 @@ var render = function() {
                     },
                     [
                       _c("i", { staticClass: "fas fa-user-slash ml-2" }),
-                      _vm._v(
-                        "\n                تعديل الحساب\n                            "
-                      )
+                      _vm._v("\n                تعديل دور المشرف\n            ")
                     ]
                   )
                 ],
@@ -30464,8 +30554,16 @@ var render = function() {
           _c(
             "router-link",
             {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.$parent.checkPermission("CreateAdmin") == true,
+                  expression: "$parent.checkPermission('CreateAdmin') == true"
+                }
+              ],
               staticClass:
-                "rounded px-4 flex items-center cairo font-medium shadow-3 cursor-pointer btn-color-one text-white",
+                "rounded px-4 flex items-center cairo font-medium add-btn",
               attrs: { to: "/admin/admin/new" }
             },
             [
@@ -30611,7 +30709,7 @@ var render = function() {
                           [
                             _c("i", {
                               staticClass:
-                                "fas fa-eye px-4 py-2 cursor-pointer bg-blue-400 hover:bg-blue-500 shadow-one text-white rounded ml-2",
+                                "fas fa-eye px-4 py-2 see-btn rounded ml-2",
                               attrs: { title: "عرض بيانات المشرف" }
                             })
                           ]
@@ -30619,8 +30717,20 @@ var render = function() {
                         _vm._v(" "),
                         item.state != 2
                           ? _c("i", {
+                              directives: [
+                                {
+                                  name: "show",
+                                  rawName: "v-show",
+                                  value:
+                                    _vm.$parent.checkPermission(
+                                      "BannedAdmin"
+                                    ) == true,
+                                  expression:
+                                    "$parent.checkPermission('BannedAdmin') == true"
+                                }
+                              ],
                               staticClass:
-                                "fas fa-user-slash px-4 py-2 cursor-pointer bg-red-400 hover:bg-red-500 shadow-one text-white rounded ml-2",
+                                "fas fa-user-slash px-4 py-2 delete-btn rounded ml-2",
                               attrs: { title: "حظر المشرف" },
                               on: {
                                 click: function($event) {
@@ -30632,6 +30742,18 @@ var render = function() {
                         _vm._v(" "),
                         item.state == 0
                           ? _c("i", {
+                              directives: [
+                                {
+                                  name: "show",
+                                  rawName: "v-show",
+                                  value:
+                                    _vm.$parent.checkPermission(
+                                      "ActiveAdmin"
+                                    ) == true,
+                                  expression:
+                                    "$parent.checkPermission('ActiveAdmin') == true"
+                                }
+                              ],
                               staticClass:
                                 "fas fa-lock-open px-4 py-2 cursor-pointer bg-green-400 hover:bg-green-500 shadow-one text-white rounded ml-2",
                               attrs: { title: "تفعيل المشرف" },
@@ -30643,6 +30765,18 @@ var render = function() {
                             })
                           : item.state == 1
                           ? _c("i", {
+                              directives: [
+                                {
+                                  name: "show",
+                                  rawName: "v-show",
+                                  value:
+                                    _vm.$parent.checkPermission(
+                                      "DisActiveAdmin"
+                                    ) == true,
+                                  expression:
+                                    "$parent.checkPermission('DisActiveAdmin') == true"
+                                }
+                              ],
                               staticClass:
                                 "fas fa-lock px-4 py-2 cursor-pointer bg-yellow-400 hover:bg-yellow-500 shadow-one text-white rounded ml-2",
                               attrs: { title: "إلغاء تفعيل المشرف" },
@@ -30661,6 +30795,18 @@ var render = function() {
                           },
                           [
                             _c("i", {
+                              directives: [
+                                {
+                                  name: "show",
+                                  rawName: "v-show",
+                                  value:
+                                    _vm.$parent.checkPermission(
+                                      "EditRoleAdmin"
+                                    ) == true,
+                                  expression:
+                                    "$parent.checkPermission('EditRoleAdmin') == true"
+                                }
+                              ],
                               staticClass:
                                 "fas fa-user-shield  px-4 py-2 cursor-pointer bg-green-400 hover:bg-green-500 shadow-one text-white rounded",
                               attrs: { title: "تعديل دور ا لمشرف" }
@@ -32205,14 +32351,25 @@ var render = function() {
                           [
                             _c("i", {
                               staticClass:
-                                "fas fa-eye px-4 py-2 cursor-pointer bg-blue-400 hover:bg-blue-500 shadow-one text-white rounded ml-2"
+                                "fas fa-eye px-4 py-2 see-btn rounded ml-2"
                             })
                           ]
                         ),
                         _vm._v(" "),
                         _c("i", {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value:
+                                _vm.$parent.checkPermission("DeleteMessage") ==
+                                true,
+                              expression:
+                                "$parent.checkPermission('DeleteMessage') == true"
+                            }
+                          ],
                           staticClass:
-                            "far fa-trash-alt px-4 py-2 cursor-pointer bg-red-400 hover:bg-red-500 shadow-one text-white rounded ml-2",
+                            "far fa-trash-alt px-4 py-2 delete-btn rounded ml-2",
                           on: {
                             click: function($event) {
                               return _vm.deleteMessage(item.id, index)
@@ -32222,6 +32379,18 @@ var render = function() {
                         _vm._v(" "),
                         !item.state
                           ? _c("i", {
+                              directives: [
+                                {
+                                  name: "show",
+                                  rawName: "v-show",
+                                  value:
+                                    _vm.$parent.checkPermission(
+                                      "EditMessage"
+                                    ) == true,
+                                  expression:
+                                    "$parent.checkPermission('EditMessage') == true"
+                                }
+                              ],
                               staticClass:
                                 "fas fa-check px-4 py-2 cursor-pointer bg-green-400 hover:bg-green-500 shadow-one text-white rounded",
                               on: {
@@ -32260,20 +32429,6 @@ var staticRenderFns = [
           "div",
           { staticClass: "text-2xl font-semibold cairo text-gray-600" },
           [_vm._v("\n            صندوق الرسائل\n        ")]
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          {
-            staticClass:
-              "rounded px-4 flex items-center cairo font-medium shadow-3 cursor-pointer btn-color-one text-white"
-          },
-          [
-            _c("span", { staticClass: "h-12 flex items-center" }, [
-              _c("i", { staticClass: "fas fa-plus ml-4 text-lg" }),
-              _vm._v("\n                أضف رسالة\n            ")
-            ])
-          ]
         )
       ]
     )
@@ -33411,6 +33566,17 @@ var render = function() {
                     ? _c(
                         "div",
                         {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value:
+                                _vm.$parent.checkPermission("DeleteRole") ==
+                                true,
+                              expression:
+                                "$parent.checkPermission('DeleteRole') == true"
+                            }
+                          ],
                           staticClass:
                             "h-12 px-6 mx-4 bg-red-400 hover:bg-red-500 flex items-center justify-center text-white shadow-lg rounded cursor-pointer",
                           on: { click: _vm.deleteRole }
@@ -33425,6 +33591,16 @@ var render = function() {
                   _c(
                     "router-link",
                     {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value:
+                            _vm.$parent.checkPermission("EditRole") == true,
+                          expression:
+                            "$parent.checkPermission('EditRole') == true"
+                        }
+                      ],
                       staticClass:
                         "h-12 px-6 bg-green-400 hover:bg-green-500 flex items-center justify-center text-white shadow-lg rounded cursor-pointer",
                       attrs: {
@@ -33490,8 +33666,16 @@ var render = function() {
           _c(
             "router-link",
             {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.$parent.checkPermission("CreateRole") == true,
+                  expression: "$parent.checkPermission('CreateRole') == true"
+                }
+              ],
               staticClass:
-                "rounded px-4 flex items-center cairo font-medium shadow-3 cursor-pointer btn-color-one text-white",
+                "rounded px-4 flex items-center cairo font-medium add-btn",
               attrs: { to: "/admin/role/new" }
             },
             [
@@ -33545,14 +33729,27 @@ var render = function() {
                           [
                             _c("i", {
                               staticClass:
-                                "fas fa-eye px-4 py-2 cursor-pointer bg-blue-400 hover:bg-blue-500 shadow-one text-white rounded ml-2"
+                                "fas fa-eye px-4 py-2 see-btn rounded ml-2"
                             })
                           ]
                         ),
                         _vm._v(" "),
                         _c(
                           "router-link",
-                          { attrs: { to: "/admin/role/" + item.id + "/edit" } },
+                          {
+                            directives: [
+                              {
+                                name: "show",
+                                rawName: "v-show",
+                                value:
+                                  _vm.$parent.checkPermission("EditRole") ==
+                                  true,
+                                expression:
+                                  "$parent.checkPermission('EditRole') == true"
+                              }
+                            ],
+                            attrs: { to: "/admin/role/" + item.id + "/edit" }
+                          },
                           [
                             _c("i", {
                               staticClass:
@@ -33563,6 +33760,17 @@ var render = function() {
                         _vm._v(" "),
                         item.admins_count == 0
                           ? _c("i", {
+                              directives: [
+                                {
+                                  name: "show",
+                                  rawName: "v-show",
+                                  value:
+                                    _vm.$parent.checkPermission("DeleteRole") ==
+                                    true,
+                                  expression:
+                                    "$parent.checkPermission('DeleteRole') == true"
+                                }
+                              ],
                               staticClass:
                                 "far fa-trash-alt px-4 py-2 cursor-pointer bg-red-400 hover:bg-red-500 shadow-one text-white rounded ml-2",
                               on: {
@@ -50267,7 +50475,8 @@ var app = new vue__WEBPACK_IMPORTED_MODULE_1__.default({
   el: "#app",
   router: router,
   store: store,
-  beforeCreate: function beforeCreate() {}
+  beforeCreate: function beforeCreate() {},
+  methods: {}
 });
 })();
 

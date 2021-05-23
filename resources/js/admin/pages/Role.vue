@@ -18,8 +18,6 @@
                 >
                     أدوار المشرفين
                 </router-link>
-
-                
             </div>
             <!-- End Table Header -->
 
@@ -75,14 +73,17 @@
             <!-- Btn Action -->
             <div class="w-full h-16 mt-12 flex items-center justify-start">
                 <div
-                    @click="deleteRole" v-if="role.admins_count==0"
+                    v-show="$parent.checkPermission('DeleteRole') == true"
+                    @click="deleteRole"
+                    v-if="role.admins_count == 0"
                     class="h-12 px-6 mx-4 bg-red-400 hover:bg-red-500 flex items-center justify-center text-white shadow-lg rounded cursor-pointer"
                 >
                     <i class="far fa-trash-alt ml-2"></i>
                     حذف
                 </div>
                 <router-link
-                                    :to="'/admin/role/'+ this.$route.params.id + '/edit'"
+                    v-show="$parent.checkPermission('EditRole') == true"
+                    :to="'/admin/role/' + this.$route.params.id + '/edit'"
                     class="h-12 px-6 bg-green-400 hover:bg-green-500 flex items-center justify-center text-white shadow-lg rounded cursor-pointer"
                 >
                     <i class="far fa-edit ml-2"></i>

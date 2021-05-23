@@ -4,5 +4,5 @@ use App\Models\Receiver;
 use Illuminate\Support\Facades\Route;
 
 
-Route::view(uri:'/',view:'admin.admin');
-Route::view(uri:'/{a?}/{b?}/{c?}/{d?}/{e?}',view:'admin.admin');
+Route::view('/','admin.admin');
+Route::view('/{a?}/{b?}/{c?}/{d?}/{e?}','admin.admin');

@@ -62,7 +62,7 @@
                 </div>
                 <!-- Item -->
 
-                                <!-- Item -->
+                <!-- Item -->
                 <div class="w-full px-4 py-4">
                     <div
                         class="h-9 flex items-center text-gray-500 mr-2 text-sm"
@@ -116,8 +116,13 @@
             <!-- Grid -->
 
             <!-- Btn Action -->
-            <div class="w-full lg:h-20 mt-12 lg:flex items-center justify-start">
+            <div
+                class="w-full lg:h-20 mt-12 lg:flex items-center justify-start"
+            >
                 <div
+                    v-show="
+                        $parent.checkPermission('ResetPasswordAdmin') == true
+                    "
                     v-if="admin.state != 2"
                     @click="resetPassword"
                     class="h-12 px-6 mx-4 my-2 bg-blue-400 hover:bg-blue-500 flex items-center justify-center text-white shadow-lg rounded cursor-pointer"
@@ -126,14 +131,16 @@
                     تهيئة كلمة المرور
                 </div>
                 <div
+                    v-show="$parent.checkPermission('ActiveAdmin') == true"
                     v-if="admin.state == 0"
                     @click="activeAdmin"
-                    class="h-12 px-6  mx-4  md:mx-0 my-2 bg-green-400 hover:bg-green-500 flex items-center justify-center text-white shadow-lg rounded cursor-pointer"
+                    class="h-12 px-6 mx-4  md:mx-0 my-2 bg-green-400 hover:bg-green-500 flex items-center justify-center text-white shadow-lg rounded cursor-pointer"
                 >
                     <i class="fas fa-lock-open ml-2"></i>
                     تفعيل الحساب
                 </div>
                 <div
+                    v-show="$parent.checkPermission('DisActiveAdmin') == true"
                     v-else-if="admin.state == 1"
                     @click="disActiveAdmin"
                     class="h-12 px-6 mx-4 my-2 bg-yellow-400 hover:bg-yellow-500 flex items-center justify-center text-white shadow-lg rounded cursor-pointer"
@@ -142,27 +149,31 @@
                     إلغاء تفعيل الحساب
                 </div>
                 <div
+                    v-show="$parent.checkPermission('BannedAdmin') == true"
                     v-if="admin.state != 2"
                     @click="bannedAdmin"
-                    class="h-12 px-6 mx-4 bg-red-400 hover:bg-red-500 flex items-center justify-center text-white shadow-lg rounded cursor-pointer"
+                    class="h-12 px-6 mx-4 my-2 bg-red-400 hover:bg-red-500 flex items-center justify-center text-white shadow-lg rounded cursor-pointer"
                 >
                     <i class="fas fa-user-slash ml-2"></i>
                     حظر الحساب
                 </div>
 
-                                <router-link :to="'/admin/admin/' + $route.params.id + '/edit'"
+                <router-link
+                    v-show="$parent.checkPermission('EditRoleAdmin') == true"
+                    :to="'/admin/admin/' + $route.params.id + '/edit'"
                     class="h-12 px-6 mx-4 bg-green-400 hover:bg-green-500 flex items-center justify-center text-white shadow-lg rounded cursor-pointer"
                 >
                     <i class="fas fa-user-slash ml-2"></i>
-                    تعديل الحساب
-                                </router-link>
-
+                    تعديل دور المشرف
+                </router-link>
             </div>
             <!-- End Btn Action -->
         </div>
 
-        <empty-box v-if="loaded && admin.length == 0" 
-        message="لا يوجد مشرف بهذا الرقم"></empty-box>
+        <empty-box
+            v-if="loaded && admin.length == 0"
+            message="لا يوجد مشرف بهذا الرقم"
+        ></empty-box>
 
         <!-- End Inside Page -->
     </div>
@@ -324,8 +335,7 @@ export default {
         resetPassword: function() {
             Swal.fire({
                 title: "هل أنت متأكد",
-                text:
-                    "سيتم تغيير كلمة المرور لتصبح 123456",
+                text: "سيتم تغيير كلمة المرور لتصبح 123456",
                 icon: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#16a085",
