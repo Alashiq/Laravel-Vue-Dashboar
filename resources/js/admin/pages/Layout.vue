@@ -14,13 +14,14 @@
             <router-view></router-view>
         </div>
         <!-- End Left Part -->
+            <loading-box v-if="loading==true"></loading-box>
     </div>
     <div v-else></div>
 </template>
 
 <script>
 import Swal from "sweetalert2";
-import sideMenu from "../components/shared/side-menu.vue";
+import sideMenu from "../components/Layout/side-menu.vue";
 export default {
     components: { sideMenu },
     computed: {
@@ -35,6 +36,9 @@ export default {
         },
         permissions() {
             return this.$store.state.permissions;
+        },
+        loading(){
+            return this.$store.state.loading;
         }
     },
     methods: {

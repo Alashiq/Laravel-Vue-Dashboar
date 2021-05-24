@@ -177,87 +177,69 @@ export default {
                 cancelButtonText: "إلغاء"
             }).then(result => {
                 if (result.isConfirmed) {
-                    Swal.mixin({ allowOutsideClick: false }).showLoading();
-                    axios
-                        .delete("/api/admin/message/" + this.$route.params.id)
-                        .then(
-                            response => {
-                                if (response.status == 200) {
-                                    Swal.fire(
-                                        "نجاح",
-                                        response.data.message,
-                                        "success"
-                                    );
-                                    this.message = [];
-                                } else if (response.status == 204) {
-                                    Swal.fire(
-                                        "فشل",
-                                        "لم تعد هذه الرسالة متوفرة, قد يكون شخص أخر قام بحذفها",
-                                        "warning"
-                                    );
-                                }
-                            },
-                            error => {
-                                clearLogout(
-                                    this.$store,
-                                    this.$router,
-                                    error.response
-                                );
+                    this.$loading.Start(this.$store);
+                    this.$http
+                        .DeleteMessage(this.$route.params.id)
+                        .then(response => {
+                            this.$loading.Stop(this.$store);
+                            if (response.status == 200) {
+                                this.message = [];
+                                this.$alert.Success(response.data.message);
+                            } else if (response.status == 204) {
+                                this.message = [];
+                                this.$alert.Empty("لم تعد هذه الرسالة متوفرة, قد يكون شخص أخر قام بحذفها");
                             }
-                        );
+                        })
+                        .catch(error => {
+                            this.$loading.Stop(this.$store);
+                            this.$alert.BadRequest(error.response,this.$router,this.$store);
+                        });
+                        
                 }
             });
         },
         sloveMessage: function() {
-            Swal.mixin({ allowOutsideClick: false }).showLoading();
-            axios.put("/api/admin/message/" + this.$route.params.id).then(
-                response => {
+            this.$loading.Start(this.$store);
+            this.$http.SloveMessage(this.$route.params.id)
+            .then(response => {
+                    this.$loading.Stop(this.$store);
                     if (response.status == 200) {
                         this.message.state = true;
-                        Swal.fire("نجاح", response.data.message, "success");
+                        this.$alert.Success(response.data.message);
                     } else if (response.status == 204) {
-                        Swal.fire("فشل", "هذه الرسالة لم تعد موجودة", "warning");
+                        this.message = [];
+                        this.$alert.Empty(
+                            "لم تعد هذه الرسالة متوفرة, قد يكون شخص أخر قام بحذفها"
+                        );
                     }
-                },
-                error => {
-                    clearLogout(
-                        this.$store,
-                        this.$router,
-                        error.response
-                    );
-                }
-            );
+                })
+                .catch(error => {
+                    this.$loading.Stop(this.$store);
+                    this.$alert.BadRequest(error.response,this.$router,this.$store);
+                });
         }
     },
     mounted() {
         this.$store.commit("activePage", 2);
-
-        Swal.mixin({ allowOutsideClick: false }).showLoading();
-        axios.get("/api/admin/message/" + this.$route.params.id).then(
-            response => {
+        this.$loading.Start(this.$store);
+        this.$http
+            .GetMessageById(this.$route.params.id)
+            .then(response => {
+                this.$loading.Stop(this.$store);
                 this.loaded = true;
                 if (response.status == 200) {
                     this.message = response.data.data;
-                    Swal.mixin({
-                        position: "bottom-start",
-                        timer: 3000,
-                        toast: true,
-                        showConfirmButton: false
-                    }).fire("نجاح", response.data.message, "success");
+                    this.$alert.Success(response.data.message);
                 } else if (response.status == 204) {
-                    Swal.mixin({
-                        position: "bottom-start",
-                        timer: 3000,
-                        toast: true,
-                        showConfirmButton: false
-                    }).fire("تنبيه", "هذه الرسالة غير متوفرة", "warning");
+                    this.$alert.Empty("هذه الرسالة غير متوفرة");
                 }
-            },
-            error => {
+            })
+            .catch(error => {
+                this.$loading.Stop(this.$store);
                 this.loaded = true;
-                clearLogout(this.$store, this.$router, error.response);
-            }
-        );
+                this.$alert.BadRequest(error.response,this.$router,this.$store);
+            });
+
     },
     computed: {},
     created() {}

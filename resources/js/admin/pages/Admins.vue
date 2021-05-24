@@ -9,7 +9,7 @@
                 مشرفي الموقع
             </div>
             <router-link
-            v-show="$parent.checkPermission('CreateAdmin') == true"
+                v-show="$parent.checkPermission('CreateAdmin') == true"
                 to="/admin/admin/new"
                 class="rounded px-4 flex items-center cairo font-medium add-btn"
             >
@@ -58,10 +58,10 @@
             <tr
                 v-for="(item, index) in filterAdmin"
                 :key="index"
-                class="h-24 bg-white shadow-2 rounded-lg text-lg text-gray-600 font-medium  hover:bg-gray-50"
+                class="h-24 bg-white shadow-2 rounded-lg text-lg text-gray-600 font-medium hover:bg-gray-50"
             >
                 <td class="w-12 text-center rounded-r-lg">{{ item.id }}</td>
-                <td class=" sm:table-cell hidden">
+                <td class="sm:table-cell hidden">
                     <img :src="item.photo" class="h-16 w-16" alt="" />
                 </td>
                 <td class="lg:table-cell hidden">
@@ -91,7 +91,7 @@
                 <td class="xl:table-cell hidden">
                     {{ item.created_at.substring(0, 10) }}
                 </td>
-                <td class=" rounded-l-lg h-20">
+                <td class="rounded-l-lg h-20">
                     <router-link :to="'/admin/admin/' + item.id">
                         <i
                             title="عرض بيانات المشرف"
@@ -100,21 +100,23 @@
                     </router-link>
 
                     <i
-                    v-show="$parent.checkPermission('BannedAdmin') == true"
+                        v-show="$parent.checkPermission('BannedAdmin') == true"
                         title="حظر المشرف"
                         v-if="item.state != 2"
                         @click="bannedAdmin(item.id, index)"
                         class="fas fa-user-slash px-4 py-2 delete-btn rounded ml-2"
                     ></i>
                     <i
-                    v-show="$parent.checkPermission('ActiveAdmin') == true"
+                        v-show="$parent.checkPermission('ActiveAdmin') == true"
                         title="تفعيل المشرف"
                         @click="activeAdmin(item.id, index)"
                         v-if="item.state == 0"
                         class="fas fa-lock-open px-4 py-2 cursor-pointer bg-green-400 hover:bg-green-500 shadow-one text-white rounded ml-2"
                     ></i>
                     <i
-                    v-show="$parent.checkPermission('DisActiveAdmin') == true"
+                        v-show="
+                            $parent.checkPermission('DisActiveAdmin') == true
+                        "
                         title="إلغاء تفعيل المشرف"
                         @click="disActiveAdmin(item.id, index)"
                         v-else-if="item.state == 1"
@@ -123,9 +125,11 @@
 
                     <router-link :to="'/admin/admin/' + item.id + '/edit'">
                         <i
-                    v-show="$parent.checkPermission('EditRoleAdmin') == true"
+                            v-show="
+                                $parent.checkPermission('EditRoleAdmin') == true
+                            "
                             title="تعديل دور ا لمشرف"
-                            class="fas fa-user-shield  px-4 py-2 cursor-pointer bg-green-400 hover:bg-green-500 shadow-one text-white rounded"
+                            class="fas fa-user-shield px-4 py-2 cursor-pointer bg-gray-400 hover:bg-gray-500 shadow-one text-white rounded"
                         ></i>
                     </router-link>
                 </td>
@@ -184,32 +188,28 @@ export default {
                 cancelButtonText: "إلغاء"
             }).then(result => {
                 if (result.isConfirmed) {
-                    Swal.mixin({ allowOutsideClick: false }).showLoading();
-                    axios.put("/api/admin/admin/" + id + "/active").then(
-                        response => {
+                    this.$loading.Start(this.$store);
+                    this.$http
+                        .ActiveAdmin(id)
+                        .then(response => {
+                            this.$loading.Stop(this.$store);
                             if (response.status == 200) {
                                 this.admins[index].state = 1;
-                                Swal.fire(
-                                    "نجاح",
-                                    response.data.message,
-                                    "success"
-                                );
+                                this.$alert.Success(response.data.message);
                             } else if (response.status == 204) {
-                                Swal.fire(
-                                    "فشل",
-                                    "لم يعد هذا الحساب متوفرة, قد يكون شخص أخر قام بحذفه",
-                                    "warning"
+                                this.$alert.Empty(
+                                    "لم يعد هذا الحساب متوفرة, قد يكون شخص أخر قام بحذفه"
                                 );
                             }
-                        },
-                        error => {
-                            clearLogout(
-                                this.$store,
+                        })
+                        .catch(error => {
+                            this.$loading.Stop(this.$store);
+                            this.$alert.BadRequest(
+                                error.response,
                                 this.$router,
-                                error.response
+                                this.$store
                             );
-                        }
-                    );
+                        });
                 }
             });
         },
@@ -225,32 +225,28 @@ export default {
                 cancelButtonText: "إلغاء"
             }).then(result => {
                 if (result.isConfirmed) {
-                    Swal.mixin({ allowOutsideClick: false }).showLoading();
-                    axios.put("/api/admin/admin/" + id + "/disActive").then(
-                        response => {
+                    this.$loading.Start(this.$store);
+                    this.$http
+                        .DisActiveAdmin(id)
+                        .then(response => {
+                            this.$loading.Stop(this.$store);
                             if (response.status == 200) {
                                 this.admins[index].state = 0;
-                                Swal.fire(
-                                    "نجاح",
-                                    response.data.message,
-                                    "success"
-                                );
+                                this.$alert.Success(response.data.message);
                             } else if (response.status == 204) {
-                                Swal.fire(
-                                    "فشل",
-                                    "لم يعد هذا الحساب متوفرة, قد يكون شخص أخر قام بحذفه",
-                                    "warning"
+                                this.$alert.Empty(
+                                    "لم يعد هذا الحساب متوفرة, قد يكون شخص أخر قام بحذفه"
                                 );
                             }
-                        },
-                        error => {
-                            clearLogout(
-                                this.$store,
+                        })
+                        .catch(error => {
+                            this.$loading.Stop(this.$store);
+                            this.$alert.BadRequest(
+                                error.response,
                                 this.$router,
-                                error.response
+                                this.$store
                             );
-                        }
-                    );
+                        });
                 }
             });
         },
@@ -267,32 +263,25 @@ export default {
                 cancelButtonText: "إلغاء"
             }).then(result => {
                 if (result.isConfirmed) {
-                    Swal.mixin({ allowOutsideClick: false }).showLoading();
-                    axios.put("/api/admin/admin/" + id + "/banned").then(
-                        response => {
+
+                    this.$loading.Start(this.$store);
+                    this.$http
+                        .BannedAdmin(id)
+                        .then(response => {
+                            this.$loading.Stop(this.$store);
                             if (response.status == 200) {
                                 this.admins[index].state = 2;
-                                Swal.fire(
-                                    "نجاح",
-                                    response.data.message,
-                                    "success"
-                                );
+                                this.$alert.Success(response.data.message);
                             } else if (response.status == 204) {
-                                Swal.fire(
-                                    "فشل",
-                                    "لم يعد هذا الحساب متوفرة, قد يكون شخص أخر قام بحذفه",
-                                    "warning"
+                                this.$alert.Empty(
+                                    "لم يعد هذا الحساب متوفرة, قد يكون شخص أخر قام بحذفه"
                                 );
                             }
-                        },
-                        error => {
-                            clearLogout(
-                                this.$store,
-                                this.$router,
-                                error.response
-                            );
-                        }
-                    );
+                        })
+                        .catch(error => {
+                            this.$loading.Stop(this.$store);
+                            this.$alert.BadRequest(error.response,this.$router,this.$store);
+                        });
                 }
             });
         },
@@ -302,32 +291,27 @@ export default {
     },
     mounted() {
         this.$store.commit("activePage", 3);
-        Swal.mixin({ allowOutsideClick: false, toast: false }).showLoading();
-        axios.get("/api/admin/admin").then(
-            response => {
+        this.$loading.Start(this.$store);
+        this.$http
+            .GetAdmins()
+            .then(response => {
+                this.$loading.Stop(this.$store);
                 this.loaded = true;
                 if (response.status == 200) {
                     this.admins = response.data.data;
-                    Swal.mixin({
-                        position: "bottom-start",
-                        timer: 3000,
-                        toast: true,
-                        showConfirmButton: false
-                    }).fire("نجاح", response.data.message, "success");
+                    this.$alert.Success(response.data.message);
                 } else if (response.status == 204) {
-                    Swal.mixin({
-                        position: "bottom-start",
-                        timer: 3000,
-                        toast: true,
-                        showConfirmButton: false
-                    }).fire("تنبيه", "لا يوجد اي مشرفين", "warning");
+                    this.$alert.Empty("تنبيه لا يوجد اي مشرفين");
                 }
-            },
-            error => {
-                this.loaded = true;
-                clearLogout(this.$store, this.$router, error.response);
-            }
-        );
+            })
+            .catch(error => {
+                this.$loading.Stop(this.$store);
+                this.$alert.BadRequest(
+                    error.response,
+                    this.$router,
+                    this.$store
+                );
+            });
     },
     computed: {
         filterAdmin() {

@@ -1,6 +1,9 @@
 <template>
     <div class="w-auto md:p-8 p-4">
-        <div class="w-full grid xl:grid-cols-3" v-if="loaded  && data.length != 0">
+        <div
+            class="w-full grid xl:grid-cols-3"
+            v-if="loaded && data.length != 0"
+        >
             <div
                 class="h-40 bg-white shadow-3 mx-3 mb-8 px-6 rounded-lg flex items-center"
             >
@@ -122,7 +125,10 @@
             </div>
         </div>
 
-        <div class="w-auto mx-4 bg-white shadow-3 mt-8 rounded-lg px-6" v-if="loaded  && data.length != 0">
+        <div
+            class="w-auto mx-4 bg-white shadow-3 mt-8 rounded-lg px-6"
+            v-if="loaded && data.length != 0"
+        >
             <div
                 class="h-20 w-full flex items-center text-2xl bg-blu font-semibold cairo text-gray-600 border-b"
             >
@@ -132,8 +138,7 @@
             <div class="h-96 w-full"></div>
         </div>
 
-                <empty-box v-if="loaded && data.length == 0"></empty-box>
-
+        <empty-box v-if="loaded && data.length == 0"></empty-box>
     </div>
 </template>
 
@@ -150,25 +155,28 @@ export default {
     methods: {},
     mounted() {
         this.$store.commit("activePage", 1);
-        Swal.mixin({ allowOutsideClick: false }).showLoading();
-        axios.get("/api/admin/home/").then(
-            response => {
+        this.$loading.Start(this.$store);
+        this.$http
+            .GetHome()
+            .then(response => {
+                this.$loading.Stop(this.$store);
                 this.loaded = true;
                 if (response.status == 200) {
                     this.data = response.data.data;
-                    Swal.mixin({
-                        position: "bottom-start",
-                        timer: 3000,
-                        toast: true,
-                        showConfirmButton: false
-                    }).fire("نجاح", response.data.message, "success");
+                    this.$alert.Success(response.data.message);
+                } else if (response.status == 204) {
+                    this.$alert.Empty("لم نتمكن من جلب البيانات");
                 }
-            },
-            error => {
+            })
+            .catch(error => {
+                this.$loading.Stop(this.$store);
                 this.loaded = true;
-                clearLogout(this.$store, this.$router, error.response);
-            }
-        );
+                this.$alert.BadRequest(
+                    error.response,
+                    this.$router,
+                    this.$store
+                );
+            });
     },
     computed: {},
     created() {}

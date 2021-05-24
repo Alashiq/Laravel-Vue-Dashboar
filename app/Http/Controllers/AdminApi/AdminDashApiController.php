@@ -20,6 +20,8 @@ class AdminDashApiController extends Controller
     // GET All Admins
     public function index(Request $request)
     {
+        //return response()->json(['success' => false, 'message' => 'حدث خطأ فادح'], 204);
+
         $admins = Admin::latest()->where('id', '<>', $request->user()->id)->get();
         if ($admins->isEmpty())
             return response()->json(['success' => false, 'message' => 'لا يوجد اي مشرفين في الموقع', 'data' => $admins], 204);

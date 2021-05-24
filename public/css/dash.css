@@ -51,17 +51,16 @@
 /* Btn Add */
 
 .add-btn {
-    background-color: #ffb65c;
+    background-color: #89c053;
     color: #fff;
     cursor: pointer;
-    box-shadow: rgba(0, 0, 0, 0.14) 0px 4px 20px 0px,
-        rgba(156, 39, 176, 0.4) 0px 7px 10px -5px;
+    box-shadow: 0 1px 2px rgb(0 0 0 / 20%);
 }
 .add-btn:hover {
-    background-color: #f7aa4c;
+    background-color: #7dbd3d;
 }
 .add-btn:active {
-    background-color: #f3a341;
+    background-color: #68a72a;
 }
 
 /* Btn See */
@@ -70,8 +69,8 @@
     background-color: #5d9cec;
     color: #fff;
     cursor: pointer;
-    box-shadow: rgba(0, 0, 0, 0.14) 0px 4px 20px 0px,
-        rgba(156, 39, 176, 0.4) 0px 7px 10px -5px;
+    box-shadow: 0 1px 2px rgb(0 0 0 / 20%);
+
 }
 .see-btn:hover {
     background-color: #4c8de2;
@@ -89,8 +88,8 @@
     background-color: #fc6e51;
     color: #fff;
     cursor: pointer;
-    box-shadow: rgba(0, 0, 0, 0.14) 0px 4px 20px 0px,
-        rgba(156, 39, 176, 0.4) 0px 7px 10px -5px;
+    box-shadow: 0 1px 2px rgb(0 0 0 / 20%);
+
 }
 .delete-btn:hover {
     background-color: #e9573f;

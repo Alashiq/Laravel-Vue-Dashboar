@@ -46,7 +46,8 @@ export default {
                 icon: "fas fa-user-shield"
             }
         ],
-        menu: false
+        menu: false,
+        loading:false
     }),
 
     mutations: {
@@ -85,7 +86,13 @@ export default {
         },
         toggleMenu(state) {
             state.menu = !state.menu;
-        }
+        },
+        loadingStart(state) {
+            state.loading = true;
+        },
+        loadingStop(state) {
+            state.loading = false;
+        },
     },
 
     actions: {

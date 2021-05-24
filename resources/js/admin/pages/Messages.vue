@@ -80,7 +80,7 @@
                     {{ !item.receiver ? "لم يتم الإدخال" : item.receiver.name }}
                 </td>
                 <td class="xl:table-cell hidden">
-                    {{ item.created_at}}
+                    {{ item.created_at }}
                 </td>
                 <td class=" rounded-l-lg h-20">
                     <router-link :to="'/admin/message/' + item.id">
@@ -90,12 +90,14 @@
                     </router-link>
 
                     <i
-                    v-show="$parent.checkPermission('DeleteMessage') == true"
+                        v-show="
+                            $parent.checkPermission('DeleteMessage') == true
+                        "
                         @click="deleteMessage(item.id, index)"
                         class="far fa-trash-alt px-4 py-2 delete-btn rounded ml-2"
                     ></i>
                     <i
-                                        v-show="$parent.checkPermission('EditMessage') == true"
+                        v-show="$parent.checkPermission('EditMessage') == true"
                         @click="sloveMessage(item.id, index)"
                         v-if="!item.state"
                         class="fas fa-check px-4 py-2 cursor-pointer bg-green-400 hover:bg-green-500 shadow-one text-white rounded"
@@ -151,59 +153,54 @@ export default {
                 cancelButtonText: "إلغاء"
             }).then(result => {
                 if (result.isConfirmed) {
-                    Swal.mixin({ allowOutsideClick: false }).showLoading();
-                    axios.delete("/api/admin/message/" + id).then(
-                        response => {
+                    this.$loading.Start(this.$store);
+                    this.$http
+                        .DeleteMessage(id)
+                        .then(response => {
+                            this.$loading.Stop(this.$store);
                             if (response.status == 200) {
                                 this.messages.splice(index, 1);
-                                Swal.fire(
-                                    "نجاح",
-                                    response.data.message,
-                                    "success"
-                                );
+                                this.$alert.Success(response.data.message);
                             } else if (response.status == 204) {
-                                Swal.fire(
-                                    "فشل",
-                                    "لم تعد هذه الرسالة متوفرة, قد يكون شخص أخر قام بحذفها",
-                                    "warning"
+                                this.$alert.Empty(
+                                    "لم تعد هذه الرسالة متوفرة, قد يكون شخص أخر قام بحذفها"
                                 );
                             }
-                        },
-                        error => {
-                            clearLogout(
-                                this.$store,
+                        })
+                        .catch(error => {
+                            this.$loading.Stop(this.$store);
+                            this.$alert.BadRequest(
+                                error.response,
                                 this.$router,
-                                error.response
+                                this.$store
                             );
-                        }
-                    );
+                        });
                 }
             });
         },
         sloveMessage: function(id, index) {
-            Swal.mixin({ allowOutsideClick: false }).showLoading();
-            axios.put("/api/admin/message/" + id).then(
-                response => {
+            this.$loading.Start(this.$store);
+            this.$http
+                .SloveMessage(id)
+                .then(response => {
+                    this.$loading.Stop(this.$store);
                     if (response.status == 200) {
                         this.messages[index].state = true;
-                        Swal.fire("نجاح", response.data.message, "success");
+                        this.$alert.Success(response.data.message);
                     } else if (response.status == 204) {
-                        Swal.mixin({
-                            position: "bottom-start",
-                            timer: 3000,
-                            toast: true,
-                            showConfirmButton: false
-                        }).fire("فشل", "هذه الرسالة لم تعد موجودة", "warning");
+                        this.$alert.Empty(
+                            "لم تعد هذه الرسالة متوفرة, قد يكون شخص أخر قام بحذفها"
+                        );
                     }
-                },
-                error => {
-                    clearLogout(
-                        this.$store,
+                })
+                .catch(error => {
+                    this.$loading.Stop(this.$store);
+                    this.$alert.BadRequest(
+                        error.response,
                         this.$router,
-                        error.response
+                        this.$store
                     );
-                }
-            );
+                });
         },
         changeFilter(filterName) {
             this.activeFilter = filterName;
@@ -211,32 +208,24 @@ export default {
     },
     mounted() {
         this.$store.commit("activePage", 2);
-        Swal.mixin({ allowOutsideClick: false }).showLoading();
-        axios.get("/api/admin/message").then(
-            response => {
+        this.$loading.Start(this.$store);
+        this.$http
+            .GetAllMessages()
+            .then(response => {
+                this.$loading.Stop(this.$store);
                 this.loaded = true;
                 if (response.status == 200) {
                     this.messages = response.data.messages;
-                    Swal.mixin({
-                        position: "bottom-start",
-                        timer: 3000,
-                        toast: true,
-                        showConfirmButton: false
-                    }).fire("نجاح", response.data.message, "success");
+                    this.$alert.Success(response.data.message);
                 } else if (response.status == 204) {
-                    Swal.mixin({
-                        position: "bottom-start",
-                        timer: 3000,
-                        toast: true,
-                        showConfirmButton: false
-                    }).fire("تنبيه", "لا يوجد اي رسائل", "warning");
+                    this.$alert.Empty("تنبيه لا يوجد اي رسائل");
                 }
-            },
-            error => {
+            })
+            .catch(error => {
+                this.$loading.Stop(this.$store);
                 this.loaded = true;
-                clearLogout(this.$store, this.$router, error.response);
-            }
-        );
+                this.$alert.BadRequest(error.response,this.$router,this.$store);
+            });
     },
     computed: {
         filterMessage() {
