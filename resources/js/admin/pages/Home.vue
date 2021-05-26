@@ -155,11 +155,11 @@ export default {
     methods: {},
     mounted() {
         this.$store.commit("activePage", 1);
-        this.$loading.Start(this.$store);
+        this.$loading.Start();
         this.$http
             .GetHome()
             .then(response => {
-                this.$loading.Stop(this.$store);
+                this.$loading.Stop();
                 this.loaded = true;
                 if (response.status == 200) {
                     this.data = response.data.data;
@@ -169,13 +169,9 @@ export default {
                 }
             })
             .catch(error => {
-                this.$loading.Stop(this.$store);
+                this.$loading.Stop();
                 this.loaded = true;
-                this.$alert.BadRequest(
-                    error.response,
-                    this.$router,
-                    this.$store
-                );
+                this.$alert.BadRequest(error.response);
             });
     },
     computed: {},

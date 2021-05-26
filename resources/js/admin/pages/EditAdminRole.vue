@@ -108,63 +108,45 @@ export default {
     },
     methods: {
         updateAdminRole: function() {
-            Swal.mixin({ allowOutsideClick: false }).showLoading();
-            axios
-                .put("/api/admin/admin/" + this.$route.params.id + "/role", {
+            this.$loading.Start();
+            this.$http
+                .UpdateAdminRole(this.$route.params.id, {
                     role_id: this.admin.role_id
                 })
-                .then(
-                    response => {
-                        if (response.status == 200) {
-                            this.admin.state = 1;
-                            Swal.fire("نجاح", response.data.message, "success");
-                        }
-                    },
-                    error => {
-                        clearLogout(this.$store, this.$router, error.response);
-                    }
-                );
+                .then(response => {
+                    this.$loading.Stop();
+                    this.$alert.Success(response.data.message);
+                })
+                .catch(error => {
+                    this.$loading.Stop();
+                    this.$alert.BadRequest(error.response);
+                });
         }
     },
     mounted() {
         this.$store.commit("activePage", 3);
-
-        Swal.mixin({ allowOutsideClick: false }).showLoading();
-        axios.get("/api/admin/admin/" + this.$route.params.id).then(
-            response => {
+        this.$loading.Start();
+        this.$http
+            .GetAdminById(this.$route.params.id)
+            .then(response => {
+                this.$loading.Stop();
                 this.loaded = true;
                 if (response.status == 200) {
                     this.admin = response.data.data;
                     this.roles = response.data.roles;
-                    Swal.mixin({
-                        position: "bottom-start",
-                        timer: 3000,
-                        toast: true,
-                        showConfirmButton: false
-                    }).fire("نجاح", response.data.message, "success");
+                    this.$alert.Success(response.data.message);
                 } else if (response.status == 204) {
-                    Swal.mixin({
-                        position: "bottom-start",
-                        timer: 3000,
-                        toast: true,
-                        showConfirmButton: false
-                    }).fire("تنبيه", "هذه الرسالة غير متوفرة", "warning");
+                    this.$alert.Empty("هذا المشرف غير موجود");
                 }
-            },
-            error => {
-                this.loaded = true;
-                clearLogout(this.$store, this.$router, error.response);
-            }
-        );
+            })
+            .catch(error => {
+                this.$loading.Stop();
+                this.$alert.BadRequest(error.response);
+            });
     },
     computed: {},
     created() {}
 };
 </script>
 
-<style scoped>
-table {
-    border-collapse: separate;
-    border-spacing: 0 1em;
-}
-</style>
+<style scoped></style>

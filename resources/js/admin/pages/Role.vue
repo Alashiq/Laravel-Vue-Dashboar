@@ -125,34 +125,25 @@ export default {
                 cancelButtonText: "إلغاء"
             }).then(result => {
                 if (result.isConfirmed) {
-                    Swal.mixin({ allowOutsideClick: false }).showLoading();
-                    axios
-                        .delete("/api/admin/role/" + this.$route.params.id)
-                        .then(
-                            response => {
-                                if (response.status == 200) {
-                                    Swal.fire(
-                                        "نجاح",
-                                        response.data.message,
-                                        "success"
-                                    );
-                                    this.role = [];
-                                } else if (response.status == 204) {
-                                    Swal.fire(
-                                        "فشل",
+                    this.$loading.Start();
+                    this.$http
+                        .DeleteRole(this.$route.params.id)
+                        .then(response => {
+                            this.$loading.Stop();
+                            if (response.status == 200) {
+                                this.role = [];
+                                this.$alert.Success(response.data.message);
+                            } else if (response.status == 204) {
+                                this.role = [];
+                                this.$alert.Empty(
                                         "لم يعد هذا الدور متوفر, قد يكون شخص أخر قام بحذفه",
-                                        "warning"
-                                    );
-                                }
-                            },
-                            error => {
-                                clearLogout(
-                                    this.$store,
-                                    this.$router,
-                                    error.response
                                 );
                             }
-                        );
+                        })
+                        .catch(error => {
+                            this.$loading.Stop();
+                            this.$alert.BadRequest(error.response);
+                        });
                 }
             });
         }
@@ -160,41 +151,26 @@ export default {
     mounted() {
         this.$store.commit("activePage", 4);
 
-        Swal.mixin({ allowOutsideClick: false }).showLoading();
-        axios.get("/api/admin/role/" + this.$route.params.id).then(
-            response => {
+        this.$loading.Start();
+        this.$http
+            .GetRoleById(this.$route.params.id)
+            .then(response => {
+                this.$loading.Stop();
                 this.loaded = true;
                 if (response.status == 200) {
                     this.role = response.data.role;
-                    Swal.mixin({
-                        position: "bottom-start",
-                        timer: 3000,
-                        toast: true,
-                        showConfirmButton: false
-                    }).fire("نجاح", response.data.message, "success");
+                    this.$alert.Success(response.data.message);
                 } else if (response.status == 204) {
-                    Swal.mixin({
-                        position: "bottom-start",
-                        timer: 3000,
-                        toast: true,
-                        showConfirmButton: false
-                    }).fire("تنبيه", "هذا الدور غير متوفر", "warning");
+                    this.$alert.Empty("هذا الدور غير موجود");
                 }
-            },
-            error => {
+            })
+            .catch(error => {
+                this.$loading.Stop();
                 this.loaded = true;
-                clearLogout(this.$store, this.$router, error.response);
-            }
-        );
+                this.$alert.BadRequest(error.response);
+            });
     },
     computed: {},
     created() {}
 };
 </script>
-
-<style scoped>
-table {
-    border-collapse: separate;
-    border-spacing: 0 1em;
-}
-</style>

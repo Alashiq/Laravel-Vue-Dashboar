@@ -2,7 +2,8 @@
     <div class="w-auto md:p-8 p-4">
         <!-- Inside Page -->
 
-        <div  v-if="loaded && permissions.length != 0"
+        <div
+            v-if="loaded && permissions.length != 0"
             class="w-full md:px-4 px-0 pb-8 pt-2 bg-white shadow-2 rounded-lg text-lg text-gray-600 font-medium"
         >
             <!-- Table Header -->
@@ -36,11 +37,9 @@
             </div>
             <!-- Item -->
 
-
             <div class=" border-b mx-4 px-2 py-2 mt-6 text-gray-500 text-sm">
                 الصلاحيات
             </div>
-
 
             <!-- Grid -->
             <div class="bg-blue-600a grid lg:grid-cols-2">
@@ -84,16 +83,16 @@
             <!-- End Action Part -->
         </div>
 
-
-        <empty-box v-if="loaded && permissions.length == 0"  message="لم نتمكن من جلب الصلاحيات, قم بإعادة تحميل الصفحة"></empty-box>
+        <empty-box
+            v-if="loaded && permissions.length == 0"
+            message="لم نتمكن من جلب الصلاحيات, قم بإعادة تحميل الصفحة"
+        ></empty-box>
 
         <!-- End Inside Page -->
     </div>
 </template>
 
 <script>
-import { clearLogout } from "../logout.js";
-import Swal from "sweetalert2";
 export default {
     data() {
         return {
@@ -123,20 +122,23 @@ export default {
             this.validatePermissions();
             if (this.formValidate.name != "") return 0;
             if (this.formValidate.permissions != "") return 0;
-            Swal.showLoading();
-            axios.post("/api/admin/role", this.formData).then(
-                response => {
-                    Swal.fire("نجاح", response.data.message, "success");
+
+            this.$loading.Start();
+            this.$http
+                .PostNewRole(this.formData)
+                .then(response => {
+                    this.$loading.Stop();
+                    this.$alert.Success(response.data.message);
                     this.formData.name = "";
                     for (var i = 0; i < this.permissions.length; i++) {
                         if (this.permissions[i].state == true)
                             this.permissions[i].state = false;
                     }
-                },
-                error => {
-                    clearLogout(this.$store, this.$router, error.response);
-                }
-            );
+                })
+                .catch(error => {
+                    this.$loading.Stop();
+                    this.$alert.BadRequest(error.response);
+                });
         },
         validateName: function() {
             this.formValidate.name = "";
@@ -164,34 +166,24 @@ export default {
     },
     mounted() {
         this.$store.commit("activePage", 4);
-
-        Swal.mixin({ allowOutsideClick: false }).showLoading();
-        axios.get("/api/admin/role/permissions").then(
-            response => {
+        this.$loading.Start();
+        this.$http
+            .GetAllPermissionsForNewRole()
+            .then(response => {
+                this.$loading.Stop();
                 this.loaded = true;
                 if (response.status == 200) {
-                    this.loaded = true;
                     this.permissions = response.data.permissions;
-                    Swal.mixin({
-                        position: "bottom-start",
-                        timer: 3000,
-                        toast: true,
-                        showConfirmButton: false
-                    }).fire("نجاح", response.data.message, "success");
+                    this.$alert.Success(response.data.message);
                 } else if (response.status == 204) {
-                    Swal.mixin({
-                        position: "bottom-start",
-                        timer: 3000,
-                        toast: true,
-                        showConfirmButton: false
-                    }).fire("تنبيه", "لا يتوفر اي صلاحيات", "warning");
+                    this.$alert.Empty("لا يتوفر اي صلاحية حاليا");
                 }
-            },
-            error => {
+            })
+            .catch(error => {
+                this.$loading.Stop();
                 this.loaded = true;
-                clearLogout(this.$store, this.$router, error.response);
-            }
-        );
+                this.$alert.BadRequest(error.response);
+            });
     },
     computed: {},
     created() {}

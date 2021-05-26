@@ -75,7 +75,7 @@
                 </div>
 
                 <div v-else class="my-1  w-full px-4">
-                    <div class="flex items-center h-12 my-1">
+                    <div class="flex items-center h-12 my-1 hover:text-red-400">
                         <i :class="item.icon + ' ml-6 text-lg'"></i>
                         {{ item.name }}
                     </div>

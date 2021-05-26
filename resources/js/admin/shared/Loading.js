@@ -1,8 +1,8 @@
 export default {
-    Start($store) {
-        $store.commit("loadingStart");
+    Start() {
+        root.$store.commit("loadingStart");
     },
-    Stop($store) {
-        $store.commit("loadingStop");
+    Stop() {
+        root.$store.commit("loadingStop");
     },
 }

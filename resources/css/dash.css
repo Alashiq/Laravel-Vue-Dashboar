@@ -97,3 +97,10 @@
 .delete-btn:active {
     background-color: #e44e37;
 }
+
+
+/* Table */
+table {
+    border-collapse: separate;
+    border-spacing: 0 1em;
+}

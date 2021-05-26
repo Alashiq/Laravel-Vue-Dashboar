@@ -1,4 +1,5 @@
 import Swal from "sweetalert2";
+import store from '../store/index'
 export default {
     Success(message) {
         Swal.mixin({
@@ -24,7 +25,10 @@ export default {
             showConfirmButton: false
         }).fire("تنبيه", message, "warning");
     },
-    BadRequest(response,$router,$store) {
+
+
+
+    BadRequest(response) {
         if (response.status == 401) {
             Swal.fire(
                 "فشل",
@@ -32,9 +36,12 @@ export default {
                 "warning"
             );
             localStorage.removeItem("token");
-            $store.commit("clearUser");
-             $router.push("/admin/login");
+            root.$store.commit("clearUser");
+            root.$router.push("/admin/login");
         } else if (response.status == 404) Swal.fire("فشل", "لم نتمكن من  الإتصال بالخادم", "warning");
         else Swal.fire("فشل", response.data.message, "warning");
     },
+
+
+
 }

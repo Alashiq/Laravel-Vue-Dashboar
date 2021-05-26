@@ -202,26 +202,25 @@ export default {
                 cancelButtonText: "إلغاء"
             }).then(result => {
                 if (result.isConfirmed) {
-
-                this.$loading.Start(this.$store);
-                this.$http.ActiveAdmin(this.$route.params.id)
-                .then(response => {
-                        this.$loading.Stop(this.$store);
-                        if (response.status == 200) {
-                            this.admin.state = 1;
-                            this.$alert.Success(response.data.message);
-                        } else if (response.status == 204) {
-                            this.admin = [];
-                            this.$alert.Empty(
-                                "لم يعد هذا الحساب متوفرة, قد يكون شخص أخر قام بحذفه"
-                            );
-                        }
-                    })
-                    .catch(error => {
-                        this.$loading.Stop(this.$store);
-                        this.$alert.BadRequest(error.response,this.$router,this.$store);
-                    });
-
+                    this.$loading.Start();
+                    this.$http
+                        .ActiveAdmin(this.$route.params.id)
+                        .then(response => {
+                            this.$loading.Stop();
+                            if (response.status == 200) {
+                                this.admin.state = 1;
+                                this.$alert.Success(response.data.message);
+                            } else if (response.status == 204) {
+                                this.admin = [];
+                                this.$alert.Empty(
+                                    "لم يعد هذا الحساب متوفرة, قد يكون شخص أخر قام بحذفه"
+                                );
+                            }
+                        })
+                        .catch(error => {
+                            this.$loading.Stop();
+                            this.$alert.BadRequest(error.response);
+                        });
                 }
             });
         },
@@ -237,27 +236,25 @@ export default {
                 cancelButtonText: "إلغاء"
             }).then(result => {
                 if (result.isConfirmed) {
-
-
-                this.$loading.Start(this.$store);
-                this.$http.DisActiveAdmin(this.$route.params.id)
-                .then(response => {
-                        this.$loading.Stop(this.$store);
-                        if (response.status == 200) {
-                            this.admin.state = 0;
-                            this.$alert.Success(response.data.message);
-                        } else if (response.status == 204) {
-                            this.admin = [];
-                            this.$alert.Empty(
-                                "لم يعد هذا الحساب متوفرة, قد يكون شخص أخر قام بحذفه"
-                            );
-                        }
-                    })
-                    .catch(error => {
-                        this.$loading.Stop(this.$store);
-                        this.$alert.BadRequest(error.response,this.$router,this.$store);
-                    });
-
+                    this.$loading.Start();
+                    this.$http
+                        .DisActiveAdmin(this.$route.params.id)
+                        .then(response => {
+                            this.$loading.Stop();
+                            if (response.status == 200) {
+                                this.admin.state = 0;
+                                this.$alert.Success(response.data.message);
+                            } else if (response.status == 204) {
+                                this.admin = [];
+                                this.$alert.Empty(
+                                    "لم يعد هذا الحساب متوفرة, قد يكون شخص أخر قام بحذفه"
+                                );
+                            }
+                        })
+                        .catch(error => {
+                            this.$loading.Stop();
+                            this.$alert.BadRequest(error.response);
+                        });
                 }
             });
         },
@@ -274,25 +271,25 @@ export default {
                 cancelButtonText: "إلغاء"
             }).then(result => {
                 if (result.isConfirmed) {
-
-                this.$loading.Start(this.$store);
-                this.$http.BannedAdmin(this.$route.params.id)
-                .then(response => {
-                        this.$loading.Stop(this.$store);
-                        if (response.status == 200) {
-                            this.admin.state = 2;
-                            this.$alert.Success(response.data.message);
-                        } else if (response.status == 204) {
-                            this.admin = [];
-                            this.$alert.Empty(
-                                "لم يعد هذا الحساب متوفرة, قد يكون شخص أخر قام بحذفه"
-                            );
-                        }
-                    })
-                    .catch(error => {
-                        this.$loading.Stop(this.$store);
-                        this.$alert.BadRequest(error.response,this.$router,this.$store);
-                    });
+                    this.$loading.Start();
+                    this.$http
+                        .BannedAdmin(this.$route.params.id)
+                        .then(response => {
+                            this.$loading.Stop();
+                            if (response.status == 200) {
+                                this.admin.state = 2;
+                                this.$alert.Success(response.data.message);
+                            } else if (response.status == 204) {
+                                this.admin = [];
+                                this.$alert.Empty(
+                                    "لم يعد هذا الحساب متوفرة, قد يكون شخص أخر قام بحذفه"
+                                );
+                            }
+                        })
+                        .catch(error => {
+                            this.$loading.Stop();
+                            this.$alert.BadRequest(error.response);
+                        });
                 }
             });
         },
@@ -308,24 +305,24 @@ export default {
                 cancelButtonText: "إلغاء"
             }).then(result => {
                 if (result.isConfirmed) {
-
-                this.$loading.Start(this.$store);
-                this.$http.ResetAdminPassword(this.$route.params.id)
-                .then(response => {
-                        this.$loading.Stop(this.$store);
-                        if (response.status == 200) {
-                            this.$alert.Success(response.data.message);
-                        } else if (response.status == 204) {
-                            this.admin = [];
-                            this.$alert.Empty(
-                                "لم يعد هذا الحساب متوفرة, قد يكون شخص أخر قام بحذفه"
-                            );
-                        }
-                    })
-                    .catch(error => {
-                        this.$loading.Stop(this.$store);
-                        this.$alert.BadRequest(error.response,this.$router,this.$store);
-                    });
+                    this.$loading.Start();
+                    this.$http
+                        .ResetAdminPassword(this.$route.params.id)
+                        .then(response => {
+                            this.$loading.Stop();
+                            if (response.status == 200) {
+                                this.$alert.Success(response.data.message);
+                            } else if (response.status == 204) {
+                                this.admin = [];
+                                this.$alert.Empty(
+                                    "لم يعد هذا الحساب متوفرة, قد يكون شخص أخر قام بحذفه"
+                                );
+                            }
+                        })
+                        .catch(error => {
+                            this.$loading.Stop();
+                            this.$alert.BadRequest(error.response);
+                        });
                 }
             });
         }
@@ -333,10 +330,11 @@ export default {
     mounted() {
         this.$store.commit("activePage", 3);
 
-        this.$loading.Start(this.$store);
-        this.$http.GetAdminById(this.$route.params.id)
+        this.$loading.Start();
+        this.$http
+            .GetAdminById(this.$route.params.id)
             .then(response => {
-                this.$loading.Stop(this.$store);
+                this.$loading.Stop();
                 this.loaded = true;
                 if (response.status == 200) {
                     this.admin = response.data.data;
@@ -346,11 +344,10 @@ export default {
                 }
             })
             .catch(error => {
-                this.$loading.Stop(this.$store);
+                this.$loading.Stop();
                 this.loaded = true;
-                this.$alert.BadRequest(error.response,this.$router,this.$store);
+                this.$alert.BadRequest(error.response);
             });
-
     },
     computed: {},
     created() {}

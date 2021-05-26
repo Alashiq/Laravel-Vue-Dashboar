@@ -9,7 +9,7 @@
                 أدوار المشرفين
             </div>
             <router-link
-                    v-show="$parent.checkPermission('CreateRole') == true"
+                v-show="$parent.checkPermission('CreateRole') == true"
                 to="/admin/role/new"
                 class="rounded px-4 flex items-center cairo font-medium add-btn"
             >
@@ -49,15 +49,16 @@
                         ></i>
                     </router-link>
 
-                    <router-link 
-                    v-show="$parent.checkPermission('EditRole') == true"
-                    :to="'/admin/role/' + item.id + '/edit'">
+                    <router-link
+                        v-show="$parent.checkPermission('EditRole') == true"
+                        :to="'/admin/role/' + item.id + '/edit'"
+                    >
                         <i
                             class="far fa-edit px-4 py-2 cursor-pointer bg-green-400 hover:bg-green-500 shadow-one text-white rounded ml-2"
                         ></i>
                     </router-link>
                     <i
-                    v-show="$parent.checkPermission('DeleteRole') == true"
+                        v-show="$parent.checkPermission('DeleteRole') == true"
                         v-if="item.admins_count == 0"
                         @click="deleteRole(item.id, index)"
                         class="far fa-trash-alt px-4 py-2 cursor-pointer bg-red-400 hover:bg-red-500 shadow-one text-white rounded ml-2"
@@ -95,72 +96,51 @@ export default {
                 cancelButtonText: "إلغاء"
             }).then(result => {
                 if (result.isConfirmed) {
-                    Swal.mixin({ allowOutsideClick: false }).showLoading();
-                    axios.delete("/api/admin/role/" + id).then(
-                        response => {
+                    this.$loading.Start();
+                    this.$http
+                        .DeleteRole(id)
+                        .then(response => {
+                            this.$loading.Stop();
                             if (response.status == 200) {
                                 this.roles.splice(index, 1);
-                                Swal.fire(
-                                    "نجاح",
-                                    response.data.message,
-                                    "success"
-                                );
+                                this.$alert.Success(response.data.message);
                             } else if (response.status == 204) {
-                                Swal.fire(
-                                    "فشل",
+                                this.$alert.Empty(
                                     "لم يعد هذا الدور متوفر, قد يكون شخص أخر قام بحذفه",
-                                    "warning"
                                 );
                             }
-                        },
-                        error => {
-                            clearLogout(
-                                this.$store,
-                                this.$router,
-                                error.response
-                            );
-                        }
-                    );
+                        })
+                        .catch(error => {
+                            this.$loading.Stop();
+                            this.$alert.BadRequest(error.response);
+                        });
                 }
             });
         }
     },
     mounted() {
         this.$store.commit("activePage", 4);
-        Swal.mixin({ allowOutsideClick: false, toast: false }).showLoading();
-        axios.get("/api/admin/role").then(
-            response => {
+        this.$loading.Start();
+        this.$http
+            .GetAllRoles()
+            .then(response => {
+                this.$loading.Stop();
                 this.loaded = true;
                 if (response.status == 200) {
                     this.roles = response.data.roleList;
-                    Swal.mixin({
-                        position: "bottom-start",
-                        timer: 3000,
-                        toast: true,
-                        showConfirmButton: false
-                    }).fire("نجاح", response.data.message, "success");
+                    this.$alert.Success(response.data.message);
                 } else if (response.status == 204) {
-                    Swal.mixin({
-                        position: "bottom-start",
-                        timer: 3000,
-                        toast: true,
-                        showConfirmButton: false
-                    }).fire("تنبيه", "لا يوجد اي أدوار", "warning");
+                    this.$alert.Empty("تنبيه لا يوجد اي أدوار");
                 }
-            },
-            error => {
+            })
+            .catch(error => {
                 this.loaded = true;
-                clearLogout(this.$store, this.$router, error.response);
-            }
-        );
+                this.$loading.Stop();
+                this.$alert.BadRequest(error.response);
+            });
     },
     computed: {}
 };
 </script>
 
-<style scoped>
-table {
-    border-collapse: separate;
-    border-spacing: 0 1em;
-}
-</style>
+<style scoped></style>

@@ -188,11 +188,11 @@ export default {
                 cancelButtonText: "إلغاء"
             }).then(result => {
                 if (result.isConfirmed) {
-                    this.$loading.Start(this.$store);
+                    this.$loading.Start();
                     this.$http
                         .ActiveAdmin(id)
                         .then(response => {
-                            this.$loading.Stop(this.$store);
+                            this.$loading.Stop();
                             if (response.status == 200) {
                                 this.admins[index].state = 1;
                                 this.$alert.Success(response.data.message);
@@ -203,12 +203,8 @@ export default {
                             }
                         })
                         .catch(error => {
-                            this.$loading.Stop(this.$store);
-                            this.$alert.BadRequest(
-                                error.response,
-                                this.$router,
-                                this.$store
-                            );
+                            this.$loading.Stop();
+                            this.$alert.BadRequest(error.response);
                         });
                 }
             });
@@ -225,11 +221,11 @@ export default {
                 cancelButtonText: "إلغاء"
             }).then(result => {
                 if (result.isConfirmed) {
-                    this.$loading.Start(this.$store);
+                    this.$loading.Start();
                     this.$http
                         .DisActiveAdmin(id)
                         .then(response => {
-                            this.$loading.Stop(this.$store);
+                            this.$loading.Stop();
                             if (response.status == 200) {
                                 this.admins[index].state = 0;
                                 this.$alert.Success(response.data.message);
@@ -240,12 +236,8 @@ export default {
                             }
                         })
                         .catch(error => {
-                            this.$loading.Stop(this.$store);
-                            this.$alert.BadRequest(
-                                error.response,
-                                this.$router,
-                                this.$store
-                            );
+                            this.$loading.Stop();
+                            this.$alert.BadRequest(error.response);
                         });
                 }
             });
@@ -263,12 +255,11 @@ export default {
                 cancelButtonText: "إلغاء"
             }).then(result => {
                 if (result.isConfirmed) {
-
-                    this.$loading.Start(this.$store);
+                    this.$loading.Start();
                     this.$http
                         .BannedAdmin(id)
                         .then(response => {
-                            this.$loading.Stop(this.$store);
+                            this.$loading.Stop();
                             if (response.status == 200) {
                                 this.admins[index].state = 2;
                                 this.$alert.Success(response.data.message);
@@ -279,8 +270,8 @@ export default {
                             }
                         })
                         .catch(error => {
-                            this.$loading.Stop(this.$store);
-                            this.$alert.BadRequest(error.response,this.$router,this.$store);
+                            this.$loading.Stop();
+                            this.$alert.BadRequest(error.response);
                         });
                 }
             });
@@ -291,11 +282,11 @@ export default {
     },
     mounted() {
         this.$store.commit("activePage", 3);
-        this.$loading.Start(this.$store);
+        this.$loading.Start();
         this.$http
-            .GetAdmins()
+            .GetAllAdmins()
             .then(response => {
-                this.$loading.Stop(this.$store);
+                this.$loading.Stop();
                 this.loaded = true;
                 if (response.status == 200) {
                     this.admins = response.data.data;
@@ -305,12 +296,9 @@ export default {
                 }
             })
             .catch(error => {
-                this.$loading.Stop(this.$store);
-                this.$alert.BadRequest(
-                    error.response,
-                    this.$router,
-                    this.$store
-                );
+                this.loaded = true;
+                this.$loading.Stop();
+                this.$alert.BadRequest(error.response);
             });
     },
     computed: {
@@ -335,9 +323,4 @@ export default {
 };
 </script>
 
-<style scoped>
-table {
-    border-collapse: separate;
-    border-spacing: 0 1em;
-}
-</style>
+<style scoped></style>

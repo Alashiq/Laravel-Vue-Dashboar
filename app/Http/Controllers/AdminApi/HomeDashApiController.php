@@ -14,7 +14,6 @@ class HomeDashApiController extends Controller
     // GET Home Charts
     public function index()
     {
-
         $todayMessage = count(Message::where('created_at', '>', Carbon::now()->format('Y-m-d'))->get());
         $notSloveMessage = count(Message::where('state', '=', 0)->get());
         $sloveMessage = count(Message::where('state', '=', 1)->get());

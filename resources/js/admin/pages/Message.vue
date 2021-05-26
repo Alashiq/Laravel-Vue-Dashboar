@@ -78,7 +78,11 @@
                     <div
                         class="h-12 rounded border border-gray-200 bg-gray-50 flex items-center px-4 text-lg"
                     >
-                     {{ !message.receiver ? "لم يتم الإدخال" : message.receiver.name }}
+                        {{
+                            !message.receiver
+                                ? "لم يتم الإدخال"
+                                : message.receiver.name
+                        }}
                     </div>
                 </div>
                 <!-- Item -->
@@ -93,7 +97,11 @@
                     <div
                         class="h-12 rounded border border-gray-200 bg-gray-50 flex items-center px-4 text-lg"
                     >
-                        {{message.created_at? message.created_at:"لم يتم الإدخال" }}
+                        {{
+                            message.created_at
+                                ? message.created_at
+                                : "لم يتم الإدخال"
+                        }}
                     </div>
                 </div>
                 <!-- Item -->
@@ -148,7 +156,10 @@
             <!-- End Btn Action -->
         </div>
 
-        <empty-box v-if="loaded && message.length == 0" message="لا يوجد رسالة بهذا الرقم"></empty-box>
+        <empty-box
+            v-if="loaded && message.length == 0"
+            message="لا يوجد رسالة بهذا الرقم"
+        ></empty-box>
 
         <!-- End Inside Page -->
     </div>
@@ -177,32 +188,34 @@ export default {
                 cancelButtonText: "إلغاء"
             }).then(result => {
                 if (result.isConfirmed) {
-                    this.$loading.Start(this.$store);
+                    this.$loading.Start();
                     this.$http
                         .DeleteMessage(this.$route.params.id)
                         .then(response => {
-                            this.$loading.Stop(this.$store);
+                            this.$loading.Stop();
                             if (response.status == 200) {
                                 this.message = [];
                                 this.$alert.Success(response.data.message);
                             } else if (response.status == 204) {
                                 this.message = [];
-                                this.$alert.Empty("لم تعد هذه الرسالة متوفرة, قد يكون شخص أخر قام بحذفها");
+                                this.$alert.Empty(
+                                    "لم تعد هذه الرسالة متوفرة, قد يكون شخص أخر قام بحذفها"
+                                );
                             }
                         })
                         .catch(error => {
-                            this.$loading.Stop(this.$store);
-                            this.$alert.BadRequest(error.response,this.$router,this.$store);
+                            this.$loading.Stop();
+                            this.$alert.BadRequest(error.response);
                         });
-                        
                 }
             });
         },
         sloveMessage: function() {
-            this.$loading.Start(this.$store);
-            this.$http.SloveMessage(this.$route.params.id)
-            .then(response => {
-                    this.$loading.Stop(this.$store);
+            this.$loading.Start();
+            this.$http
+                .SloveMessage(this.$route.params.id)
+                .then(response => {
+                    this.$loading.Stop();
                     if (response.status == 200) {
                         this.message.state = true;
                         this.$alert.Success(response.data.message);
@@ -214,18 +227,18 @@ export default {
                     }
                 })
                 .catch(error => {
-                    this.$loading.Stop(this.$store);
-                    this.$alert.BadRequest(error.response,this.$router,this.$store);
+                    this.$loading.Stop();
+                    this.$alert.BadRequest(error.response);
                 });
         }
     },
     mounted() {
         this.$store.commit("activePage", 2);
-        this.$loading.Start(this.$store);
+        this.$loading.Start();
         this.$http
             .GetMessageById(this.$route.params.id)
             .then(response => {
-                this.$loading.Stop(this.$store);
+                this.$loading.Stop();
                 this.loaded = true;
                 if (response.status == 200) {
                     this.message = response.data.data;
@@ -235,20 +248,12 @@ export default {
                 }
             })
             .catch(error => {
-                this.$loading.Stop(this.$store);
+                this.$loading.Stop();
                 this.loaded = true;
-                this.$alert.BadRequest(error.response,this.$router,this.$store);
+                this.$alert.BadRequest(error.response);
             });
-
     },
     computed: {},
     created() {}
 };
 </script>
-
-<style scoped>
-table {
-    border-collapse: separate;
-    border-spacing: 0 1em;
-}
-</style>

@@ -21,7 +21,7 @@ export default {
         return axios.get("/api/admin/message/"+ message);
     },
     // ============== Admin Part =======================
-    GetAdmins() {
+    GetAllAdmins() {
         return axios.get("/api/admin/admin");
     },
     ActiveAdmin(admin) {
@@ -37,9 +37,37 @@ export default {
         return axios.put("/api/admin/admin/" + admin + "/reset");
     },
     GetAdminById(admin) {
-        return axios.get("/api/admin/admin/"+ admin);
+        return axios.get("/api/admin/admin/" + admin);
+    },
+    GetAdminRolesForNewAdmin() {
+        return axios.get("/api/admin/admin/role");
+    },
+    PostNewAdmin(admin) {
+        return axios.post("/api/admin/admin/", admin);
+    },
+    UpdateAdminRole(admin,formData) {
+        return axios.put("/api/admin/admin/" + admin + "/role",formData);
     },
     
 
     // ============== Role Part =======================
+    GetAllRoles() {
+        return axios.get("/api/admin/role");
+    },
+    GetRoleById(role) {
+        return axios.get("/api/admin/role/"+ role);
+    },
+    DeleteRole(role) {
+        return axios.delete("/api/admin/role/" + role);
+    },
+    GetAllPermissionsForNewRole() {
+        return axios.get("/api/admin/role/permissions");
+    },
+    PostNewRole(role) {
+        return axios.post("/api/admin/role", role);
+    },
+    UpdateRole(role,formData) {
+        return axios.put("/api/admin/role/" + role,formData);
+    },
+
 };

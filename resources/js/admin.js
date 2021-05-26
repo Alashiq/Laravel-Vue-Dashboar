@@ -44,7 +44,7 @@ Vue.component('loading-box', require('./admin/components/Layout/loading-box.vue'
 
 
 
-const app = new Vue({
+window.root = new Vue({
     el: "#app",
     router,
     store,

@@ -192,23 +192,24 @@ export default {
             if (this.formValidate.role != "") return 0;
             if (this.formValidate.password != "") return 0;
             if (this.formValidate.confirmPassword != "") return 0;
-            Swal.showLoading();
-            axios.post("/api/admin/admin", this.formData).then(
-                response => {
-                    this.loaded = true;
-                    Swal.fire("نجاح", response.data.message, "success");
+
+        this.$loading.Start();
+        this.$http
+            .PostNewRole(this.formData)
+            .then(response => {
+                this.$loading.Stop();
+                this.loaded = true;
+                    this.$alert.Success(response.data.message);
                     this.formData.name = "";
                     this.formData.username = "";
                     this.formData.password = "";
                     this.formData.role_id = null;
                     this.formData.confirmPassword = "";
-                },
-                error => {
-                    this.loaded = true;
-
-                    clearLogout(this.$store, this.$router, error.response);
-                }
-            );
+            })
+            .catch(error => {
+                this.$loading.Stop();
+                this.$alert.BadRequest(error.response);
+            });
         },
         validateName: function() {
             this.formValidate.name = "";
@@ -282,32 +283,24 @@ export default {
     },
     mounted() {
         this.$store.commit("activePage", 3);
-        Swal.mixin({ allowOutsideClick: false, toast: false }).showLoading();
-        axios.get("/api/admin/admin/role").then(
-            response => {
+
+        this.$loading.Start();
+        this.$http
+            .GetAdminRolesForNewAdmin()
+            .then(response => {
+                this.$loading.Stop();
                 this.loaded = true;
                 if (response.status == 200) {
                     this.roleList = response.data.roleList;
-                    Swal.mixin({
-                        position: "bottom-start",
-                        timer: 3000,
-                        toast: true,
-                        showConfirmButton: false
-                    }).fire("نجاح", response.data.message, "success");
+                    this.$alert.Success(response.data.message);
                 } else if (response.status == 204) {
-                    Swal.mixin({
-                        position: "bottom-start",
-                        timer: 3000,
-                        toast: true,
-                        showConfirmButton: false
-                    }).fire("تنبيه", "لا يوجد اي أدوار", "warning");
+                    this.$alert.Empty("تنبيه لا يوجد اي أدوار");
                 }
-            },
-            error => {
-                this.loaded = true;
-                clearLogout(this.$store, this.$router, error.response);
-            }
-        );
+            })
+            .catch(error => {
+                this.$loading.Stop();
+                this.$alert.BadRequest(error.response);
+            });
     },
     computed: {},
     created() {}

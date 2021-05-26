@@ -153,11 +153,11 @@ export default {
                 cancelButtonText: "إلغاء"
             }).then(result => {
                 if (result.isConfirmed) {
-                    this.$loading.Start(this.$store);
+                    this.$loading.Start();
                     this.$http
                         .DeleteMessage(id)
                         .then(response => {
-                            this.$loading.Stop(this.$store);
+                            this.$loading.Stop();
                             if (response.status == 200) {
                                 this.messages.splice(index, 1);
                                 this.$alert.Success(response.data.message);
@@ -168,22 +168,18 @@ export default {
                             }
                         })
                         .catch(error => {
-                            this.$loading.Stop(this.$store);
-                            this.$alert.BadRequest(
-                                error.response,
-                                this.$router,
-                                this.$store
-                            );
+                            this.$loading.Stop();
+                            this.$alert.BadRequest(error.response);
                         });
                 }
             });
         },
         sloveMessage: function(id, index) {
-            this.$loading.Start(this.$store);
+            this.$loading.Start();
             this.$http
                 .SloveMessage(id)
                 .then(response => {
-                    this.$loading.Stop(this.$store);
+                    this.$loading.Stop();
                     if (response.status == 200) {
                         this.messages[index].state = true;
                         this.$alert.Success(response.data.message);
@@ -194,12 +190,8 @@ export default {
                     }
                 })
                 .catch(error => {
-                    this.$loading.Stop(this.$store);
-                    this.$alert.BadRequest(
-                        error.response,
-                        this.$router,
-                        this.$store
-                    );
+                    this.$loading.Stop();
+                    this.$alert.BadRequest(error.response);
                 });
         },
         changeFilter(filterName) {
@@ -208,11 +200,11 @@ export default {
     },
     mounted() {
         this.$store.commit("activePage", 2);
-        this.$loading.Start(this.$store);
+        this.$loading.Start();
         this.$http
             .GetAllMessages()
             .then(response => {
-                this.$loading.Stop(this.$store);
+                this.$loading.Stop();
                 this.loaded = true;
                 if (response.status == 200) {
                     this.messages = response.data.messages;
@@ -222,9 +214,9 @@ export default {
                 }
             })
             .catch(error => {
-                this.$loading.Stop(this.$store);
+                this.$loading.Stop();
                 this.loaded = true;
-                this.$alert.BadRequest(error.response,this.$router,this.$store);
+                this.$alert.BadRequest(error.response);
             });
     },
     computed: {

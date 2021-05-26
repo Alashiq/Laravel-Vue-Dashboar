@@ -130,17 +130,22 @@ export default {
             this.validatePermissions();
             if (this.formValidate.name != "") return 0;
             if (this.formValidate.permissions != "") return 0;
-            Swal.showLoading();
-            axios
-                .put("/api/admin/role/" + this.$route.params.id, this.formData)
-                .then(
-                    response => {
-                        Swal.fire("نجاح", response.data.message, "success");
-                    },
-                    error => {
-                        clearLogout(this.$store, this.$router, error.response);
-                    }
-                );
+
+        this.$loading.Start();
+        this.$http
+            .UpdateRole(this.$route.params.id, this.formData)
+            .then(response => {
+                this.$loading.Stop();
+                if (response.status == 200) {
+                    this.$alert.Success(response.data.message);
+                } else if (response.status == 204) {
+                    this.$alert.Empty("هذا الدور غير موجود");
+                }
+            })
+            .catch(error => {
+                this.$loading.Stop();
+                this.$alert.BadRequest(error.response);
+            });
         },
         validateName: function() {
             this.formValidate.name = "";
@@ -169,33 +174,25 @@ export default {
     mounted() {
         this.$store.commit("activePage", 4);
 
-        Swal.mixin({ allowOutsideClick: false }).showLoading();
-        axios.get("/api/admin/role/" + this.$route.params.id).then(
-            response => {
+        this.$loading.Start();
+        this.$http
+            .GetRoleById(this.$route.params.id)
+            .then(response => {
+                this.$loading.Stop();
                 this.loaded = true;
                 if (response.status == 200) {
                     this.role = response.data.role;
                     this.formData.name = this.role.name;
-                    Swal.mixin({
-                        position: "bottom-start",
-                        timer: 3000,
-                        toast: true,
-                        showConfirmButton: false
-                    }).fire("نجاح", response.data.message, "success");
+                    this.$alert.Success(response.data.message);
                 } else if (response.status == 204) {
-                    Swal.mixin({
-                        position: "bottom-start",
-                        timer: 3000,
-                        toast: true,
-                        showConfirmButton: false
-                    }).fire("تنبيه", "هذا الدور غير متوفر", "warning");
+                    this.$alert.Empty("هذا الدور غير موجود");
                 }
-            },
-            error => {
+            })
+            .catch(error => {
+                this.$loading.Stop();
                 this.loaded = true;
-                clearLogout(this.$store, this.$router, error.response);
-            }
-        );
+                this.$alert.BadRequest(error.response);
+            });
     },
     computed: {},
     created() {}
