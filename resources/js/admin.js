@@ -1,7 +1,6 @@
 require("./bootstrap");
 
 import Vue from "vue";
-import Swal from "sweetalert2";
 
 import DataServices from "./admin/shared/DataServices";
 import Alert from "./admin/shared/Alert";
@@ -10,7 +9,7 @@ window.Vue = require("vue");
 
 import VueRouter from "vue-router";
 Vue.use(VueRouter);
-import { routes } from "./admin/routes";
+import { routes } from "./admin/routes/routes";
 
 
 import Vuex from 'vuex'
@@ -36,10 +35,10 @@ const router = new VueRouter({
 
 
 // Shared Components
-Vue.component('side-menu', require('./admin/components/Layout/side-menu.vue').default);
-Vue.component('header-bar', require('./admin/components/Layout/header-bar.vue').default);
-Vue.component('empty-box', require('./admin/components/Layout/empty-box.vue').default);
-Vue.component('loading-box', require('./admin/components/Layout/loading-box.vue').default);
+Vue.component('App-Side', require('./admin/pages/Layout/AppSide/AppSide.vue').default);
+Vue.component('App-Header', require('./admin/pages/Layout/AppHeader/AppHeader.vue').default);
+Vue.component('Empty-Box', require('./admin/pages/Layout/EmptyBox/EmptyBox.vue').default);
+Vue.component('Loading-Box', require('./admin/pages/Layout/LoadingBox/LoadingBox.vue').default);
 
 
 
