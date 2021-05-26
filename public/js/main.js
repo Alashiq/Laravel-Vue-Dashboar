@@ -48432,21 +48432,21 @@ var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be in strict mode.
 (() => {
 "use strict";
-/*!*******************************!*\
-  !*** ./resources/js/admin.js ***!
-  \*******************************/
+/*!************************************!*\
+  !*** ./resources/js/admin/main.js ***!
+  \************************************/
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
-/* harmony import */ var _admin_shared_DataServices__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./admin/shared/DataServices */ "./resources/js/admin/shared/DataServices.js");
-/* harmony import */ var _admin_shared_Alert__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./admin/shared/Alert */ "./resources/js/admin/shared/Alert.js");
-/* harmony import */ var _admin_shared_Loading__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./admin/shared/Loading */ "./resources/js/admin/shared/Loading.js");
+/* harmony import */ var _shared_DataServices__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./shared/DataServices */ "./resources/js/admin/shared/DataServices.js");
+/* harmony import */ var _shared_Alert__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./shared/Alert */ "./resources/js/admin/shared/Alert.js");
+/* harmony import */ var _shared_Loading__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./shared/Loading */ "./resources/js/admin/shared/Loading.js");
 /* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
-/* harmony import */ var _admin_routes_routes__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./admin/routes/routes */ "./resources/js/admin/routes/routes.js");
+/* harmony import */ var _routes_routes__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./routes/routes */ "./resources/js/admin/routes/routes.js");
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var _admin_store_index_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./admin/store/index.js */ "./resources/js/admin/store/index.js");
+/* harmony import */ var _store_index_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./store/index.js */ "./resources/js/admin/store/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_8__);
-__webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
+__webpack_require__(/*! ../bootstrap */ "./resources/js/bootstrap.js");
 
 
 
@@ -48460,19 +48460,19 @@ vue__WEBPACK_IMPORTED_MODULE_3__.default.use(vue_router__WEBPACK_IMPORTED_MODULE
 vue__WEBPACK_IMPORTED_MODULE_3__.default.use(vuex__WEBPACK_IMPORTED_MODULE_6__.default);
 
 
-vue__WEBPACK_IMPORTED_MODULE_3__.default.prototype.$http = _admin_shared_DataServices__WEBPACK_IMPORTED_MODULE_0__.default;
-vue__WEBPACK_IMPORTED_MODULE_3__.default.prototype.$alert = _admin_shared_Alert__WEBPACK_IMPORTED_MODULE_1__.default;
-vue__WEBPACK_IMPORTED_MODULE_3__.default.prototype.$loading = _admin_shared_Loading__WEBPACK_IMPORTED_MODULE_2__.default;
-var store = new vuex__WEBPACK_IMPORTED_MODULE_6__.default.Store(_admin_store_index_js__WEBPACK_IMPORTED_MODULE_7__.default);
+vue__WEBPACK_IMPORTED_MODULE_3__.default.prototype.$http = _shared_DataServices__WEBPACK_IMPORTED_MODULE_0__.default;
+vue__WEBPACK_IMPORTED_MODULE_3__.default.prototype.$alert = _shared_Alert__WEBPACK_IMPORTED_MODULE_1__.default;
+vue__WEBPACK_IMPORTED_MODULE_3__.default.prototype.$loading = _shared_Loading__WEBPACK_IMPORTED_MODULE_2__.default;
+var store = new vuex__WEBPACK_IMPORTED_MODULE_6__.default.Store(_store_index_js__WEBPACK_IMPORTED_MODULE_7__.default);
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_4__.default({
-  routes: _admin_routes_routes__WEBPACK_IMPORTED_MODULE_5__.routes,
+  routes: _routes_routes__WEBPACK_IMPORTED_MODULE_5__.routes,
   mode: "history"
 }); // Shared Components
 
-vue__WEBPACK_IMPORTED_MODULE_3__.default.component('App-Side', __webpack_require__(/*! ./admin/pages/Layout/AppSide/AppSide.vue */ "./resources/js/admin/pages/Layout/AppSide/AppSide.vue").default);
-vue__WEBPACK_IMPORTED_MODULE_3__.default.component('App-Header', __webpack_require__(/*! ./admin/pages/Layout/AppHeader/AppHeader.vue */ "./resources/js/admin/pages/Layout/AppHeader/AppHeader.vue").default);
-vue__WEBPACK_IMPORTED_MODULE_3__.default.component('Empty-Box', __webpack_require__(/*! ./admin/pages/Layout/EmptyBox/EmptyBox.vue */ "./resources/js/admin/pages/Layout/EmptyBox/EmptyBox.vue").default);
-vue__WEBPACK_IMPORTED_MODULE_3__.default.component('Loading-Box', __webpack_require__(/*! ./admin/pages/Layout/LoadingBox/LoadingBox.vue */ "./resources/js/admin/pages/Layout/LoadingBox/LoadingBox.vue").default);
+vue__WEBPACK_IMPORTED_MODULE_3__.default.component('App-Side', __webpack_require__(/*! ../admin/pages/Layout/AppSide/AppSide.vue */ "./resources/js/admin/pages/Layout/AppSide/AppSide.vue").default);
+vue__WEBPACK_IMPORTED_MODULE_3__.default.component('App-Header', __webpack_require__(/*! ../admin/pages/Layout/AppHeader/AppHeader.vue */ "./resources/js/admin/pages/Layout/AppHeader/AppHeader.vue").default);
+vue__WEBPACK_IMPORTED_MODULE_3__.default.component('Empty-Box', __webpack_require__(/*! ../admin/pages/Layout/EmptyBox/EmptyBox.vue */ "./resources/js/admin/pages/Layout/EmptyBox/EmptyBox.vue").default);
+vue__WEBPACK_IMPORTED_MODULE_3__.default.component('Loading-Box', __webpack_require__(/*! ../admin/pages/Layout/LoadingBox/LoadingBox.vue */ "./resources/js/admin/pages/Layout/LoadingBox/LoadingBox.vue").default);
 window.root = new vue__WEBPACK_IMPORTED_MODULE_3__.default({
   el: "#app",
   router: router,
