@@ -84,11 +84,13 @@
             <td class=" rounded-l-lg h-20">
                 <router-link :to="'/admin/message/' + item.id">
                     <i
+                    title="عرض بيانات الرسالة"
                         class="fas fa-eye px-4 py-2 see-btn rounded ml-2"
                     ></i>
                 </router-link>
 
                 <i
+                title="حذف الرسالة"
                     v-show="
                         $parent.checkPermission('DeleteMessage') == true
                     "
@@ -96,10 +98,11 @@
                     class="far fa-trash-alt px-4 py-2 delete-btn rounded ml-2"
                 ></i>
                 <i
+                title="حل الرسالة"
                     v-show="$parent.checkPermission('EditMessage') == true"
                     @click="sloveMessage(item.id, index)"
                     v-if="!item.state"
-                    class="fas fa-check px-4 py-2 cursor-pointer bg-green-400 hover:bg-green-500 shadow-one text-white rounded"
+                    class="fas fa-check px-4 py-2 green-btn rounded"
                 ></i>
             </td>
         </tr>

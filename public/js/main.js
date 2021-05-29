@@ -27781,7 +27781,7 @@ var render = function() {
                     "router-link",
                     {
                       staticClass:
-                        "btn-color-one text-white w-36 h-12 rounded shadow-1 font-normal flex items-center justify-center cursor-pointer",
+                        "back-btn w-36 h-12 rounded font-normal flex items-center justify-center cursor-pointer",
                       attrs: { to: "/admin/admin/" }
                     },
                     [
@@ -28268,7 +28268,7 @@ var render = function() {
                             "div",
                             {
                               staticClass:
-                                "bg-green-400 flex items-center justify-center rounded shadow h-10 w-24 text-white text-base"
+                                "bg-green-100 flex items-center justify-center rounded shadowa h-10 w-24 text-green-700 text-base"
                             },
                             [
                               _vm._v(
@@ -28281,7 +28281,7 @@ var render = function() {
                             "div",
                             {
                               staticClass:
-                                "bg-yellow-400 flex items-center justify-center rounded shadow h-10 w-24 text-white text-base"
+                                "bg-yellow-100 flex items-center justify-center rounded shadows h-10 w-24 text-yellow-700 text-base"
                             },
                             [
                               _vm._v(
@@ -28293,7 +28293,7 @@ var render = function() {
                             "div",
                             {
                               staticClass:
-                                "bg-red-500 flex items-center justify-center rounded shadow h-10 w-24 text-white text-base"
+                                "bg-red-100 flex items-center justify-center rounded shadow1d h-10 w-24 text-red-700 text-base"
                             },
                             [
                               _vm._v(
@@ -28342,7 +28342,7 @@ var render = function() {
                                 }
                               ],
                               staticClass:
-                                "fas fa-user-slash px-4 py-2 delete-btn rounded ml-2",
+                                "fas fa-ban px-4 py-2 delete-btn rounded ml-2",
                               attrs: { title: "حظر المشرف" },
                               on: {
                                 click: function($event) {
@@ -28367,7 +28367,7 @@ var render = function() {
                                 }
                               ],
                               staticClass:
-                                "fas fa-lock-open px-4 py-2 cursor-pointer bg-green-400 hover:bg-green-500 shadow-one text-white rounded ml-2",
+                                "fas fa-lock-open px-4 py-2 green-btn rounded ml-2",
                               attrs: { title: "تفعيل المشرف" },
                               on: {
                                 click: function($event) {
@@ -28390,7 +28390,7 @@ var render = function() {
                                 }
                               ],
                               staticClass:
-                                "fas fa-lock px-4 py-2 cursor-pointer bg-yellow-400 hover:bg-yellow-500 shadow-one text-white rounded ml-2",
+                                "fas fa-lock px-4 py-2 yellow-btn rounded ml-2",
                               attrs: { title: "إلغاء تفعيل المشرف" },
                               on: {
                                 click: function($event) {
@@ -28420,7 +28420,7 @@ var render = function() {
                                 }
                               ],
                               staticClass:
-                                "fas fa-user-shield px-4 py-2 cursor-pointer bg-gray-400 hover:bg-gray-500 shadow-one text-white rounded",
+                                "fas fa-user-shield px-4 py-2 pink-btn rounded",
                               attrs: { title: "تعديل دور ا لمشرف" }
                             })
                           ]
@@ -28513,7 +28513,7 @@ var render = function() {
                     "router-link",
                     {
                       staticClass:
-                        "btn-color-one text-white w-36 h-12 rounded shadow-1 font-normal flex items-center justify-center cursor-pointer",
+                        "back-btn w-36 h-12 rounded font-normal flex items-center justify-center cursor-pointer",
                       attrs: { to: "/admin/admin/" }
                     },
                     [
@@ -28710,7 +28710,7 @@ var render = function() {
                     "router-link",
                     {
                       staticClass:
-                        "btn-color-one text-white w-36 h-12 rounded shadow-1 font-normal flex items-center justify-center cursor-pointer",
+                        "back-btn w-36 h-12 rounded font-normal flex items-center justify-center cursor-pointer",
                       attrs: { to: "/admin/admin/" }
                     },
                     [
@@ -30014,10 +30014,10 @@ var render = function() {
                     "router-link",
                     {
                       staticClass:
-                        "bg-green-400 hover:bg-green-500 text-white w-32 h-12 rounded-lg shadow flex items-center justify-center cursor-pointer",
+                        "back-btn w-36 h-12 rounded font-normal flex items-center justify-center cursor-pointer",
                       attrs: { to: "/admin/message/" }
                     },
-                    [_vm._v("\r\n                كل الرسائل\r\n            ")]
+                    [_vm._v("\r\n            قائمة الرسائل\r\n            ")]
                   )
                 ],
                 1
@@ -30454,7 +30454,8 @@ var render = function() {
                           [
                             _c("i", {
                               staticClass:
-                                "fas fa-eye px-4 py-2 see-btn rounded ml-2"
+                                "fas fa-eye px-4 py-2 see-btn rounded ml-2",
+                              attrs: { title: "عرض بيانات الرسالة" }
                             })
                           ]
                         ),
@@ -30473,6 +30474,7 @@ var render = function() {
                           ],
                           staticClass:
                             "far fa-trash-alt px-4 py-2 delete-btn rounded ml-2",
+                          attrs: { title: "حذف الرسالة" },
                           on: {
                             click: function($event) {
                               return _vm.deleteMessage(item.id, index)
@@ -30495,7 +30497,8 @@ var render = function() {
                                 }
                               ],
                               staticClass:
-                                "fas fa-check px-4 py-2 cursor-pointer bg-green-400 hover:bg-green-500 shadow-one text-white rounded",
+                                "fas fa-check px-4 py-2 green-btn rounded",
+                              attrs: { title: "حل الرسالة" },
                               on: {
                                 click: function($event) {
                                   return _vm.sloveMessage(item.id, index)
@@ -30999,7 +31002,7 @@ var render = function() {
                     "router-link",
                     {
                       staticClass:
-                        "btn-color-one text-white w-36 h-12 rounded shadow-1 font-normal flex items-center justify-center cursor-pointer",
+                        "back-btn text-white w-36 h-12 rounded font-normal flex items-center justify-center cursor-pointer",
                       attrs: { to: "/admin/role/" }
                     },
                     [
@@ -31221,7 +31224,7 @@ var render = function() {
                     "router-link",
                     {
                       staticClass:
-                        "btn-color-one text-white w-36 h-12 rounded shadow-1 font-normal flex items-center justify-center cursor-pointer",
+                        "back-btn w-36 h-12 rounded font-normal flex items-center justify-center cursor-pointer",
                       attrs: { to: "/admin/role/" }
                     },
                     [
@@ -31438,7 +31441,7 @@ var render = function() {
                     "router-link",
                     {
                       staticClass:
-                        "btn-color-one text-white w-36 h-12 rounded shadow-1 font-normal flex items-center justify-center cursor-pointer",
+                        "back-btn w-36 h-12 rounded font-normal flex items-center justify-center cursor-pointer",
                       attrs: { to: "/admin/role/" }
                     },
                     [
@@ -31721,7 +31724,8 @@ var render = function() {
                           [
                             _c("i", {
                               staticClass:
-                                "fas fa-eye px-4 py-2 see-btn rounded ml-2"
+                                "fas fa-eye px-4 py-2 see-btn rounded ml-2",
+                              attrs: { title: "عرض الدور" }
                             })
                           ]
                         ),
@@ -31745,7 +31749,8 @@ var render = function() {
                           [
                             _c("i", {
                               staticClass:
-                                "far fa-edit px-4 py-2 cursor-pointer bg-green-400 hover:bg-green-500 shadow-one text-white rounded ml-2"
+                                "far fa-edit px-4 py-2 pink-btn rounded ml-2",
+                              attrs: { title: "تعديل الدور" }
                             })
                           ]
                         ),
@@ -31764,7 +31769,8 @@ var render = function() {
                                 }
                               ],
                               staticClass:
-                                "far fa-trash-alt px-4 py-2 cursor-pointer bg-red-400 hover:bg-red-500 shadow-one text-white rounded ml-2",
+                                "far fa-trash-alt px-4 py-2 delete-btn rounded ml-2",
+                              attrs: { title: "حذف الدور" },
                               on: {
                                 click: function($event) {
                                   return _vm.deleteRole(item.id, index)

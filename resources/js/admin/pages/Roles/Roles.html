@@ -45,6 +45,7 @@
                 <td class=" rounded-l-lg h-20">
                     <router-link :to="'/admin/role/' + item.id">
                         <i
+                        title="عرض الدور"
                             class="fas fa-eye px-4 py-2 see-btn rounded ml-2"
                         ></i>
                     </router-link>
@@ -54,14 +55,16 @@
                         :to="'/admin/role/' + item.id + '/edit'"
                     >
                         <i
-                            class="far fa-edit px-4 py-2 cursor-pointer bg-green-400 hover:bg-green-500 shadow-one text-white rounded ml-2"
+                        title="تعديل الدور"
+                            class="far fa-edit px-4 py-2 pink-btn rounded ml-2"
                         ></i>
                     </router-link>
                     <i
+                    title="حذف الدور"
                         v-show="$parent.checkPermission('DeleteRole') == true"
                         v-if="item.admins_count == 0"
                         @click="deleteRole(item.id, index)"
-                        class="far fa-trash-alt px-4 py-2 cursor-pointer bg-red-400 hover:bg-red-500 shadow-one text-white rounded ml-2"
+                        class="far fa-trash-alt px-4 py-2 delete-btn rounded ml-2"
                     ></i>
                 </td>
             </tr>
