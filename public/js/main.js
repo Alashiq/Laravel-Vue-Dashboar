@@ -2145,7 +2145,9 @@ __webpack_require__.r(__webpack_exports__);
             _this.$loading.Stop();
 
             if (response.status == 200) {
-              _this.admins[index].state = 1;
+              _this.admins[_this.admins.findIndex(function (m) {
+                return m.id === id;
+              })].state = 1;
 
               _this.$alert.Success(response.data.message);
             } else if (response.status == 204) {
@@ -2179,7 +2181,9 @@ __webpack_require__.r(__webpack_exports__);
             _this2.$loading.Stop();
 
             if (response.status == 200) {
-              _this2.admins[index].state = 0;
+              _this2.admins[_this2.admins.findIndex(function (m) {
+                return m.id === id;
+              })].state = 0;
 
               _this2.$alert.Success(response.data.message);
             } else if (response.status == 204) {
@@ -2213,7 +2217,9 @@ __webpack_require__.r(__webpack_exports__);
             _this3.$loading.Stop();
 
             if (response.status == 200) {
-              _this3.admins[index].state = 2;
+              _this3.admins[_this3.admins.findIndex(function (m) {
+                return m.id === id;
+              })].state = 2;
 
               _this3.$alert.Success(response.data.message);
             } else if (response.status == 204) {
@@ -2397,7 +2403,7 @@ __webpack_require__.r(__webpack_exports__);
       if (this.formValidate.password != "") return 0;
       if (this.formValidate.confirmPassword != "") return 0;
       this.$loading.Start();
-      this.$http.PostNewRole(this.formData).then(function (response) {
+      this.$http.PostNewAdmin(this.formData).then(function (response) {
         _this.$loading.Stop();
 
         _this.loaded = true;
@@ -3007,7 +3013,9 @@ __webpack_require__.r(__webpack_exports__);
             _this.$loading.Stop();
 
             if (response.status == 200) {
-              _this.messages.splice(index, 1);
+              _this.messages.splice(_this.messages.findIndex(function (m) {
+                return m.id === id;
+              }), 1);
 
               _this.$alert.Success(response.data.message);
             } else if (response.status == 204) {
@@ -3029,7 +3037,9 @@ __webpack_require__.r(__webpack_exports__);
         _this2.$loading.Stop();
 
         if (response.status == 200) {
-          _this2.messages[index].state = true;
+          _this2.messages[_this2.messages.findIndex(function (m) {
+            return m.id === id;
+          })].state = true;
 
           _this2.$alert.Success(response.data.message);
         } else if (response.status == 204) {
@@ -30390,7 +30400,7 @@ var render = function() {
                             "div",
                             {
                               staticClass:
-                                "bg-green-400 flex items-center justify-center rounded shadow h-10 w-24 text-white text-base"
+                                "bg-green-100 flex items-center justify-center rounded shadowa h-10 w-24 text-green-700 text-base"
                             },
                             [
                               _vm._v(
@@ -30402,7 +30412,7 @@ var render = function() {
                             "div",
                             {
                               staticClass:
-                                "bg-gray-400 flex items-center justify-center rounded shadow h-10 w-24 text-white text-base"
+                                "bg-yellow-100 flex items-center justify-center rounded shadows h-10 w-24 text-yellow-700 text-base"
                             },
                             [
                               _vm._v(

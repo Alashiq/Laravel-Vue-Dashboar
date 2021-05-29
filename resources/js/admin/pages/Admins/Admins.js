@@ -49,7 +49,7 @@ export default {
                         .then(response => {
                             this.$loading.Stop();
                             if (response.status == 200) {
-                                this.admins[index].state = 1;
+                                this.admins[this.admins.findIndex(m => m.id === id)].state = 1;
                                 this.$alert.Success(response.data.message);
                             } else if (response.status == 204) {
                                 this.$alert.Empty(
@@ -82,7 +82,7 @@ export default {
                         .then(response => {
                             this.$loading.Stop();
                             if (response.status == 200) {
-                                this.admins[index].state = 0;
+                                this.admins[this.admins.findIndex(m => m.id === id)].state = 0;
                                 this.$alert.Success(response.data.message);
                             } else if (response.status == 204) {
                                 this.$alert.Empty(
@@ -116,7 +116,7 @@ export default {
                         .then(response => {
                             this.$loading.Stop();
                             if (response.status == 200) {
-                                this.admins[index].state = 2;
+                                this.admins[this.admins.findIndex(m => m.id === id)].state = 2;
                                 this.$alert.Success(response.data.message);
                             } else if (response.status == 204) {
                                 this.$alert.Empty(

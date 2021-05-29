@@ -33,7 +33,7 @@ export default {
 
         this.$loading.Start();
         this.$http
-            .PostNewRole(this.formData)
+            .PostNewAdmin(this.formData)
             .then(response => {
                 this.$loading.Stop();
                 this.loaded = true;

@@ -43,7 +43,7 @@ export default {
                         .then(response => {
                             this.$loading.Stop();
                             if (response.status == 200) {
-                                this.messages.splice(index, 1);
+                                this.messages.splice(this.messages.findIndex(m => m.id === id), 1);
                                 this.$alert.Success(response.data.message);
                             } else if (response.status == 204) {
                                 this.$alert.Empty(
@@ -65,7 +65,7 @@ export default {
                 .then(response => {
                     this.$loading.Stop();
                     if (response.status == 200) {
-                        this.messages[index].state = true;
+                        this.messages[this.messages.findIndex(m => m.id === id)].state = true;
                         this.$alert.Success(response.data.message);
                     } else if (response.status == 204) {
                         this.$alert.Empty(
