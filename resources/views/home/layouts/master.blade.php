@@ -13,6 +13,21 @@
 
 <body>
     <div id="web" dir="rtl">
+
+        <!-- Header -->
+        @foreach (config('pages.pages') as $item)
+
+        @if ($item['id'] === $page)
+        <a href="{{$item['path']}}" class="text-red-500">{{$item['name']}}</a>
+        @else
+        <a href="{{$item['path']}}">{{$item['name']}}</a>
+        @endif
+
+
+        @endforeach
+        <!-- En Header -->
+
+
         @yield('content')
     </div>
     <!-- Js Part -->

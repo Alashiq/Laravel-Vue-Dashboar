@@ -7,13 +7,8 @@
 
 @section('content')
 
-<div class="container mx-auto my-12">Hello</div>
 
-<section class="header relative pt-16 items-center flex h-screen max-h-860-px">
-    <div class="container mx-auto items-center flex flex-wrap">
-Home Page
-    </div>
-</section>
+<div class="container mx-auto text-8xl text-red-400 text-center my-32">الصفحة الرئيسية</div>
 
 
 @endsection('content')

@@ -7,7 +7,6 @@
 @section('content')
 
 
-
 <!-- Contact Form -->
 <contact-form :receivers="{{ $receivers }}"></contact-form>
 <!-- End Contact Form -->

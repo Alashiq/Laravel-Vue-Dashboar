@@ -19,6 +19,7 @@
         "vue-template-compiler": "^2.6.12"
     },
     "dependencies": {
+        "alpinejs": "^2.8.2",
         "sweetalert2": "^10.15.5",
         "tailwindcss": "^2.0.3",
         "vue-router": "^3.5.1",
