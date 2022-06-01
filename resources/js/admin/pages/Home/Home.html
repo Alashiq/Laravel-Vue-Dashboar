@@ -15,10 +15,10 @@
                 <div
                     class="text-3xl text-gray-700 font-semibold h-20 flex items-center"
                 >
-                    {{ data.todayVisitor }} زائر
+                    {{ data.todayVisitor }} مادة
                 </div>
                 <div class="text-gray-500 flex items-center h-4">
-                    الزيارات اليوم
+                    المواذ الدراسية
                 </div>
             </div>
         </div>
@@ -35,10 +35,10 @@
                 <div
                     class="text-3xl text-gray-700 font-semibold h-20 flex items-center"
                 >
-                    {{ data.weekVisitor }} زائر
+                    {{ data.weekVisitor }} الاختبارات
                 </div>
                 <div class="text-gray-500 flex items-center h-4">
-                    زيارات الأسبوع
+                    الاختبارات
                 </div>
             </div>
         </div>
@@ -55,10 +55,10 @@
                 <div
                     class="text-3xl text-gray-700 font-semibold h-20 flex items-center"
                 >
-                    {{ data.monthVisitor }} زائر
+                    {{ data.monthVisitor }} طالب
                 </div>
                 <div class="text-gray-500 flex items-center h-4">
-                    زيارات الشهر
+                    التلاميذ
                 </div>
             </div>
         </div>
@@ -75,15 +75,15 @@
                 <div
                     class="text-3xl text-gray-700 font-semibold h-20 flex items-center"
                 >
-                    {{ data.todayMessage }} رسالة
+                    {{ data.todayMessage }} أستاذ
                 </div>
                 <div class="text-gray-500 flex items-center h-4">
-                    رسائل اليوم
+                    الأساتذة
                 </div>
             </div>
         </div>
 
-        <div
+        <!-- <div
             class="h-40 bg-white shadow-3 mx-3 mb-8 px-6 rounded-lg flex items-center"
         >
             <div
@@ -101,9 +101,9 @@
                     الرسائل الغير محلولة
                 </div>
             </div>
-        </div>
+        </div> -->
 
-        <div
+        <!-- <div
             class="h-40 bg-white shadow-3 mx-3 mb-8 px-6 rounded-lg flex items-center"
         >
             <div
@@ -121,21 +121,10 @@
                     الرسائل المحلولة
                 </div>
             </div>
-        </div>
+        </div> -->
     </div>
 
-    <div
-        class="w-auto mx-4 bg-white shadow-3 mt-8 rounded-lg px-6"
-        v-if="loaded && data.length != 0"
-    >
-        <div
-            class="h-20 w-full flex items-center text-2xl bg-blu font-semibold cairo text-gray-600 border-b"
-        >
-            مخطط الزيارات
-        </div>
 
-        <div class="h-96 w-full"></div>
-    </div>
 
     <Empty-Box v-if="loaded && data.length == 0"></Empty-Box>
 </div>

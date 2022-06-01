@@ -20,14 +20,14 @@ export default {
                 icon: "fas fa-home"
             },
 
-            {
-                id: 2,
-                name: "الرسائل",
-                role: "ReadMessage",
-                active: false,
-                path: "/admin/message",
-                icon: "fas fa-comment-dots"
-            },
+            // {
+            //     id: 2,
+            //     name: "الرسائل",
+            //     role: "ReadMessage",
+            //     active: false,
+            //     path: "/admin/message",
+            //     icon: "fas fa-comment-dots"
+            // },
 
             {
                 id: 3,
@@ -39,12 +39,44 @@ export default {
             },
             {
                 id: 4,
-                name: "أدوار المشرفين",
-                role: "ReadRole",
+                name: "المواد الدراسية",
+                role: "ReadAdmin",
                 active: false,
-                path: "/admin/role",
-                icon: "fas fa-user-shield"
-            }
+                path: "/admin/admin",
+                icon: "fas fa-users"
+            },
+            {
+                id: 5,
+                name: "السنوات الدراسية",
+                role: "ReadAdmin",
+                active: false,
+                path: "/admin/admin",
+                icon: "fas fa-users"
+            },
+            {
+                id: 6,
+                name: "الأساتذة",
+                role: "ReadAdmin",
+                active: false,
+                path: "/admin/admin",
+                icon: "fas fa-users"
+            },
+            {
+                id: 7,
+                name: "التلاميذ",
+                role: "ReadAdmin",
+                active: false,
+                path: "/admin/admin",
+                icon: "fas fa-users"
+            },
+            // {
+            //     id: 8,
+            //     name: "أدوار المشرفين",
+            //     role: "ReadRole",
+            //     active: false,
+            //     path: "/admin/role",
+            //     icon: "fas fa-user-shield"
+            // }
         ],
         menu: false,
         loading:false

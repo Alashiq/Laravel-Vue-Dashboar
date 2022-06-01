@@ -22,11 +22,12 @@ class Role extends Model
 
     public function admins()
     {
-       return $this->hasMany(related:Admin::class);
+       return $this->hasMany(Admin::class);
+
     }
 
     public function getPermissionsAttribute($permessions){
-        return json_decode($permessions,associative:true);
+        return json_decode($permessions,true);
     }
 
 

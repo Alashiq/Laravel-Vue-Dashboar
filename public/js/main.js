@@ -4015,14 +4015,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         active: true,
         path: "/admin",
         icon: "fas fa-home"
-      }, {
-        id: 2,
-        name: "الرسائل",
-        role: "ReadMessage",
-        active: false,
-        path: "/admin/message",
-        icon: "fas fa-comment-dots"
-      }, {
+      }, // {
+      //     id: 2,
+      //     name: "الرسائل",
+      //     role: "ReadMessage",
+      //     active: false,
+      //     path: "/admin/message",
+      //     icon: "fas fa-comment-dots"
+      // },
+      {
         id: 3,
         name: "المشرفين",
         role: "ReadAdmin",
@@ -4031,12 +4032,41 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         icon: "fas fa-users"
       }, {
         id: 4,
-        name: "أدوار المشرفين",
-        role: "ReadRole",
+        name: "المواد الدراسية",
+        role: "ReadAdmin",
         active: false,
-        path: "/admin/role",
-        icon: "fas fa-user-shield"
-      }],
+        path: "/admin/admin",
+        icon: "fas fa-users"
+      }, {
+        id: 5,
+        name: "السنوات الدراسية",
+        role: "ReadAdmin",
+        active: false,
+        path: "/admin/admin",
+        icon: "fas fa-users"
+      }, {
+        id: 6,
+        name: "الأساتذة",
+        role: "ReadAdmin",
+        active: false,
+        path: "/admin/admin",
+        icon: "fas fa-users"
+      }, {
+        id: 7,
+        name: "التلاميذ",
+        role: "ReadAdmin",
+        active: false,
+        path: "/admin/admin",
+        icon: "fas fa-users"
+      } // {
+      //     id: 8,
+      //     name: "أدوار المشرفين",
+      //     role: "ReadRole",
+      //     active: false,
+      //     path: "/admin/role",
+      //     icon: "fas fa-user-shield"
+      // }
+      ],
       menu: false,
       loading: false
     };
@@ -4159,7 +4189,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.loading-box {\r\n  float: right;\r\n  height: 100vh;\r\n  width: 100%;\r\n  position: fixed;\r\n  z-index: 100;\r\n  top: 0px;\r\n  right: 0px;\r\n  left: 0px;\r\n  bottom: 0px;\r\n  background-color: hsla(0, 0%, 100%, 0.9);\n}\n.loading-box   img {\r\n    height: 100px;\r\n    width: 100px;\r\n    float: right;\r\n    margin: calc(50vh - 50px) calc(50% - 50px);\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.loading-box {\n  float: right;\n  height: 100vh;\n  width: 100%;\n  position: fixed;\n  z-index: 100;\n  top: 0px;\n  right: 0px;\n  left: 0px;\n  bottom: 0px;\n  background-color: hsla(0, 0%, 100%, 0.9);\n}\n.loading-box   img {\n    height: 100px;\n    width: 100px;\n    float: right;\n    margin: calc(50vh - 50px) calc(50% - 50px);\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -27784,9 +27814,7 @@ var render = function() {
                     "h-16 w-full border-b mb-2 px-4 flex items-center text-lg justify-between"
                 },
                 [
-                  _vm._v(
-                    "\r\n                بيانات المشرف\r\n\r\n                "
-                  ),
+                  _vm._v("\n                بيانات المشرف\n\n                "),
                   _c(
                     "router-link",
                     {
@@ -27796,7 +27824,7 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\r\n                    قائمة المشرفين\r\n                "
+                        "\n                    قائمة المشرفين\n                "
                       )
                     ]
                   )
@@ -27826,7 +27854,7 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\r\n                        إسم المشرف\r\n                    "
+                          "\n                        إسم المشرف\n                    "
                         )
                       ]
                     ),
@@ -27839,9 +27867,9 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\r\n                        " +
+                          "\n                        " +
                             _vm._s(_vm.admin.name) +
-                            "\r\n                    "
+                            "\n                    "
                         )
                       ]
                     )
@@ -27856,7 +27884,7 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\r\n                        إسم الدخول\r\n                    "
+                          "\n                        إسم الدخول\n                    "
                         )
                       ]
                     ),
@@ -27869,9 +27897,9 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\r\n                        " +
+                          "\n                        " +
                             _vm._s(_vm.admin.username) +
-                            "\r\n                    "
+                            "\n                    "
                         )
                       ]
                     )
@@ -27886,7 +27914,7 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\r\n                        دور المشرف\r\n                    "
+                          "\n                        دور المشرف\n                    "
                         )
                       ]
                     ),
@@ -27899,9 +27927,9 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\r\n                        " +
+                          "\n                        " +
                             _vm._s(_vm.admin.role.name) +
-                            "\r\n                    "
+                            "\n                    "
                         )
                       ]
                     )
@@ -27916,7 +27944,7 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\r\n                        تاريخ الإنشاء\r\n                    "
+                          "\n                        تاريخ الإنشاء\n                    "
                         )
                       ]
                     ),
@@ -27929,9 +27957,9 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\r\n                        " +
+                          "\n                        " +
                             _vm._s(_vm.admin.created_at.substring(0, 10)) +
-                            "\r\n                    "
+                            "\n                    "
                         )
                       ]
                     )
@@ -27946,7 +27974,7 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\r\n                        حالة الحساب\r\n                    "
+                          "\n                        حالة الحساب\n                    "
                         )
                       ]
                     ),
@@ -27959,7 +27987,7 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\r\n                        " +
+                          "\n                        " +
                             _vm._s(
                               _vm.admin.state == 0
                                 ? "غير مفعل"
@@ -27967,7 +27995,7 @@ var render = function() {
                                 ? "حساب نشط"
                                 : "محظور"
                             ) +
-                            "\r\n                    "
+                            "\n                    "
                         )
                       ]
                     )
@@ -27995,7 +28023,7 @@ var render = function() {
                                   "ResetPasswordAdmin"
                                 ) == true,
                               expression:
-                                "\r\n                        $parent.checkPermission('ResetPasswordAdmin') == true\r\n                    "
+                                "\n                        $parent.checkPermission('ResetPasswordAdmin') == true\n                    "
                             }
                           ],
                           staticClass:
@@ -28005,7 +28033,7 @@ var render = function() {
                         [
                           _c("i", { staticClass: "fas fa-fingerprint ml-2" }),
                           _vm._v(
-                            "\r\n                    تهيئة كلمة المرور\r\n                "
+                            "\n                    تهيئة كلمة المرور\n                "
                           )
                         ]
                       )
@@ -28033,7 +28061,7 @@ var render = function() {
                         [
                           _c("i", { staticClass: "fas fa-lock-open ml-2" }),
                           _vm._v(
-                            "\r\n                    تفعيل الحساب\r\n                "
+                            "\n                    تفعيل الحساب\n                "
                           )
                         ]
                       )
@@ -28059,7 +28087,7 @@ var render = function() {
                         [
                           _c("i", { staticClass: "fas fa-lock ml-2" }),
                           _vm._v(
-                            "\r\n                    إلغاء تفعيل الحساب\r\n                "
+                            "\n                    إلغاء تفعيل الحساب\n                "
                           )
                         ]
                       )
@@ -28087,7 +28115,7 @@ var render = function() {
                         [
                           _c("i", { staticClass: "fas fa-user-slash ml-2" }),
                           _vm._v(
-                            "\r\n                    حظر الحساب\r\n                "
+                            "\n                    حظر الحساب\n                "
                           )
                         ]
                       )
@@ -28116,7 +28144,7 @@ var render = function() {
                     [
                       _c("i", { staticClass: "fas fa-user-shield ml-2" }),
                       _vm._v(
-                        "\r\n                    تعديل دور المشرف\r\n                "
+                        "\n                    تعديل دور المشرف\n                "
                       )
                     ]
                   )
@@ -28168,7 +28196,7 @@ var render = function() {
           _c(
             "div",
             { staticClass: "text-2xl font-semibold cairo text-gray-600" },
-            [_vm._v("\r\n                مشرفي الموقع\r\n            ")]
+            [_vm._v("\n                مشرفي الموقع\n            ")]
           ),
           _vm._v(" "),
           _c(
@@ -28189,7 +28217,7 @@ var render = function() {
             [
               _c("span", { staticClass: "h-12 flex items-center" }, [
                 _c("i", { staticClass: "fas fa-plus ml-4 text-lg" }),
-                _vm._v("\r\n                    أضف مشرف\r\n                ")
+                _vm._v("\n                    أضف مشرف\n                ")
               ])
             ]
           )
@@ -28224,9 +28252,9 @@ var render = function() {
               },
               [
                 _vm._v(
-                  "\r\n                    " +
+                  "\n                    " +
                     _vm._s(item.name) +
-                    "\r\n                "
+                    "\n                "
                 )
               ]
             )
@@ -28264,9 +28292,9 @@ var render = function() {
                     _vm._v(" "),
                     _c("td", { staticClass: "lg:table-cell hidden" }, [
                       _vm._v(
-                        "\r\n                    " +
+                        "\n                    " +
                           _vm._s(item.name.substring(0, 10)) +
-                          "\r\n                "
+                          "\n                "
                       )
                     ]),
                     _vm._v(" "),
@@ -28282,7 +28310,7 @@ var render = function() {
                             },
                             [
                               _vm._v(
-                                "\r\n                        نشط\r\n                    "
+                                "\n                        نشط\n                    "
                               )
                             ]
                           )
@@ -28295,7 +28323,7 @@ var render = function() {
                             },
                             [
                               _vm._v(
-                                "\r\n                        غير نشط\r\n                    "
+                                "\n                        غير نشط\n                    "
                               )
                             ]
                           )
@@ -28307,7 +28335,7 @@ var render = function() {
                             },
                             [
                               _vm._v(
-                                "\r\n                        محظور\r\n                    "
+                                "\n                        محظور\n                    "
                               )
                             ]
                           )
@@ -28315,9 +28343,9 @@ var render = function() {
                     _vm._v(" "),
                     _c("td", { staticClass: "xl:table-cell hidden" }, [
                       _vm._v(
-                        "\r\n                    " +
+                        "\n                    " +
                           _vm._s(item.created_at.substring(0, 10)) +
-                          "\r\n                "
+                          "\n                "
                       )
                     ]),
                     _vm._v(" "),
@@ -28396,7 +28424,7 @@ var render = function() {
                                       "DisActiveAdmin"
                                     ) == true,
                                   expression:
-                                    "\r\n                            $parent.checkPermission('DisActiveAdmin') == true\r\n                        "
+                                    "\n                            $parent.checkPermission('DisActiveAdmin') == true\n                        "
                                 }
                               ],
                               staticClass:
@@ -28426,7 +28454,7 @@ var render = function() {
                                       "EditRoleAdmin"
                                     ) == true,
                                   expression:
-                                    "\r\n                                $parent.checkPermission('EditRoleAdmin') == true\r\n                            "
+                                    "\n                                $parent.checkPermission('EditRoleAdmin') == true\n                            "
                                 }
                               ],
                               staticClass:
@@ -28517,7 +28545,7 @@ var render = function() {
                 },
                 [
                   _vm._v(
-                    "\r\n                تعديل دور المشرف\r\n\r\n                "
+                    "\n                تعديل دور المشرف\n\n                "
                   ),
                   _c(
                     "router-link",
@@ -28528,7 +28556,7 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\r\n                    قائمة المشرفين\r\n                "
+                        "\n                    قائمة المشرفين\n                "
                       )
                     ]
                   )
@@ -28558,7 +28586,7 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\r\n                        إسم المشرف\r\n                    "
+                          "\n                        إسم المشرف\n                    "
                         )
                       ]
                     ),
@@ -28571,9 +28599,9 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\r\n                        " +
+                          "\n                        " +
                             _vm._s(_vm.admin.name) +
-                            "\r\n                    "
+                            "\n                    "
                         )
                       ]
                     )
@@ -28588,7 +28616,7 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\r\n                        دور المشرف\r\n                    "
+                          "\n                        دور المشرف\n                    "
                         )
                       ]
                     ),
@@ -28655,7 +28683,7 @@ var render = function() {
                     },
                     [
                       _c("i", { staticClass: "fas fa-check ml-2" }),
-                      _vm._v("\r\n                    حفظ\r\n                ")
+                      _vm._v("\n                    حفظ\n                ")
                     ]
                   )
                 ]
@@ -28713,9 +28741,7 @@ var render = function() {
                     "h-16 w-full border-b mb-2 px-4 flex items-center text-lg justify-between"
                 },
                 [
-                  _vm._v(
-                    "\r\n                إضافة مشرف\r\n\r\n                "
-                  ),
+                  _vm._v("\n                إضافة مشرف\n\n                "),
                   _c(
                     "router-link",
                     {
@@ -28725,7 +28751,7 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\r\n                    قائمة المشرفين\r\n                "
+                        "\n                    قائمة المشرفين\n                "
                       )
                     ]
                   )
@@ -28743,7 +28769,7 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\r\n                        إسم المشرف\r\n                    "
+                        "\n                        إسم المشرف\n                    "
                       )
                     ]
                   ),
@@ -28779,9 +28805,9 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\r\n                        " +
+                        "\n                        " +
                           _vm._s(_vm.formValidate.name) +
-                          "\r\n                    "
+                          "\n                    "
                       )
                     ]
                   )
@@ -28796,7 +28822,7 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\r\n                        إسم الدخول\r\n                    "
+                        "\n                        إسم الدخول\n                    "
                       )
                     ]
                   ),
@@ -28832,9 +28858,9 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\r\n                        " +
+                        "\n                        " +
                           _vm._s(_vm.formValidate.username) +
-                          "\r\n                    "
+                          "\n                    "
                       )
                     ]
                   )
@@ -28849,7 +28875,7 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\r\n                        دور المشرف\r\n                    "
+                        "\n                        دور المشرف\n                    "
                       )
                     ]
                   ),
@@ -28908,9 +28934,9 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\r\n                        " +
+                        "\n                        " +
                           _vm._s(_vm.formValidate.role) +
-                          "\r\n                    "
+                          "\n                    "
                       )
                     ]
                   )
@@ -28927,7 +28953,7 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\r\n                        كلمة المرور\r\n                    "
+                        "\n                        كلمة المرور\n                    "
                       )
                     ]
                   ),
@@ -28963,9 +28989,9 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\r\n                        " +
+                        "\n                        " +
                           _vm._s(_vm.formValidate.password) +
-                          "\r\n                    "
+                          "\n                    "
                       )
                     ]
                   )
@@ -28980,7 +29006,7 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\r\n                        تأكيد كلمة المرور\r\n                    "
+                        "\n                        تأكيد كلمة المرور\n                    "
                       )
                     ]
                   ),
@@ -29020,9 +29046,9 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\r\n                        " +
+                        "\n                        " +
                           _vm._s(_vm.formValidate.confirmPassword) +
-                          "\r\n                    "
+                          "\n                    "
                       )
                     ]
                   )
@@ -29037,7 +29063,7 @@ var render = function() {
                       "btn-color-one rounded shadow px-12 h-12 w-auto flex items-center justify-center text-white text-lg cursor-pointer",
                     on: { click: _vm.addAdmin }
                   },
-                  [_vm._v("\r\n                    إضافة\r\n                ")]
+                  [_vm._v("\n                    إضافة\n                ")]
                 )
               ])
             ]
@@ -29103,9 +29129,9 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\r\n                    " +
+                        "\n                    " +
                           _vm._s(_vm.data.todayVisitor) +
-                          " زائر\r\n                "
+                          " مادة\n                "
                       )
                     ]
                   ),
@@ -29115,7 +29141,7 @@ var render = function() {
                     { staticClass: "text-gray-500 flex items-center h-4" },
                     [
                       _vm._v(
-                        "\r\n                    الزيارات اليوم\r\n                "
+                        "\n                    المواذ الدراسية\n                "
                       )
                     ]
                   )
@@ -29141,9 +29167,9 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\r\n                    " +
+                        "\n                    " +
                           _vm._s(_vm.data.weekVisitor) +
-                          " زائر\r\n                "
+                          " الاختبارات\n                "
                       )
                     ]
                   ),
@@ -29153,7 +29179,7 @@ var render = function() {
                     { staticClass: "text-gray-500 flex items-center h-4" },
                     [
                       _vm._v(
-                        "\r\n                    زيارات الأسبوع\r\n                "
+                        "\n                    الاختبارات\n                "
                       )
                     ]
                   )
@@ -29179,9 +29205,9 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\r\n                    " +
+                        "\n                    " +
                           _vm._s(_vm.data.monthVisitor) +
-                          " زائر\r\n                "
+                          " طالب\n                "
                       )
                     ]
                   ),
@@ -29189,11 +29215,7 @@ var render = function() {
                   _c(
                     "div",
                     { staticClass: "text-gray-500 flex items-center h-4" },
-                    [
-                      _vm._v(
-                        "\r\n                    زيارات الشهر\r\n                "
-                      )
-                    ]
+                    [_vm._v("\n                    التلاميذ\n                ")]
                   )
                 ])
               ]
@@ -29217,9 +29239,9 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\r\n                    " +
+                        "\n                    " +
                           _vm._s(_vm.data.todayMessage) +
-                          " رسالة\r\n                "
+                          " أستاذ\n                "
                       )
                     ]
                   ),
@@ -29227,113 +29249,12 @@ var render = function() {
                   _c(
                     "div",
                     { staticClass: "text-gray-500 flex items-center h-4" },
-                    [
-                      _vm._v(
-                        "\r\n                    رسائل اليوم\r\n                "
-                      )
-                    ]
-                  )
-                ])
-              ]
-            ),
-            _vm._v(" "),
-            _c(
-              "div",
-              {
-                staticClass:
-                  "h-40 bg-white shadow-3 mx-3 mb-8 px-6 rounded-lg flex items-center"
-              },
-              [
-                _vm._m(4),
-                _vm._v(" "),
-                _c("div", { staticClass: "mr-8" }, [
-                  _c(
-                    "div",
-                    {
-                      staticClass:
-                        "text-3xl text-gray-700 font-semibold h-20 flex items-center"
-                    },
-                    [
-                      _vm._v(
-                        "\r\n                    " +
-                          _vm._s(_vm.data.notSloveMessage) +
-                          " رسالة\r\n                "
-                      )
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    { staticClass: "text-gray-500 flex items-center h-4" },
-                    [
-                      _vm._v(
-                        "\r\n                    الرسائل الغير محلولة\r\n                "
-                      )
-                    ]
-                  )
-                ])
-              ]
-            ),
-            _vm._v(" "),
-            _c(
-              "div",
-              {
-                staticClass:
-                  "h-40 bg-white shadow-3 mx-3 mb-8 px-6 rounded-lg flex items-center"
-              },
-              [
-                _vm._m(5),
-                _vm._v(" "),
-                _c("div", { staticClass: "mr-8" }, [
-                  _c(
-                    "div",
-                    {
-                      staticClass:
-                        "text-3xl text-gray-700 font-semibold h-20 flex items-center"
-                    },
-                    [
-                      _vm._v(
-                        "\r\n                    " +
-                          _vm._s(_vm.data.sloveMessage) +
-                          " رسالة\r\n                "
-                      )
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    { staticClass: "text-gray-500 flex items-center h-4" },
-                    [
-                      _vm._v(
-                        "\r\n                    الرسائل المحلولة\r\n                "
-                      )
-                    ]
+                    [_vm._v("\n                    الأساتذة\n                ")]
                   )
                 ])
               ]
             )
           ])
-        : _vm._e(),
-      _vm._v(" "),
-      _vm.loaded && _vm.data.length != 0
-        ? _c(
-            "div",
-            {
-              staticClass: "w-auto mx-4 bg-white shadow-3 mt-8 rounded-lg px-6"
-            },
-            [
-              _c(
-                "div",
-                {
-                  staticClass:
-                    "h-20 w-full flex items-center text-2xl bg-blu font-semibold cairo text-gray-600 border-b"
-                },
-                [_vm._v("\r\n            مخطط الزيارات\r\n        ")]
-              ),
-              _vm._v(" "),
-              _c("div", { staticClass: "h-96 w-full" })
-            ]
-          )
         : _vm._e(),
       _vm._v(" "),
       _vm.loaded && _vm.data.length == 0 ? _c("Empty-Box") : _vm._e()
@@ -29393,32 +29314,6 @@ var staticRenderFns = [
       },
       [_c("i", { staticClass: "fas fa-comment-dots" })]
     )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      {
-        staticClass:
-          "h-16 w-16 bg-gray-400 rounded-full text-2xl items-center justify-center flex text-white"
-      },
-      [_c("i", { staticClass: "fas fa-comment-dots" })]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      {
-        staticClass:
-          "h-16 w-16 bg-green-400 rounded-full text-2xl items-center justify-center flex text-white"
-      },
-      [_c("i", { staticClass: "fas fa-comment-dots" })]
-    )
   }
 ]
 render._withStripped = true
@@ -29463,7 +29358,7 @@ var render = function() {
               staticClass:
                 "h-20 items-center w-full flex justify-center text-xl border-b font-medium orange-color"
             },
-            [_vm._v("\r\n                لوحة التحكم\r\n            ")]
+            [_vm._v("\n                 نظام الاختبارات \n            ")]
           ),
           _vm._v(" "),
           _c(
@@ -29553,9 +29448,9 @@ var render = function() {
                           [
                             _c("i", { class: item.icon + " ml-6 text-lg" }),
                             _vm._v(
-                              "\r\n                        " +
+                              "\n                        " +
                                 _vm._s(item.name) +
-                                "\r\n                    "
+                                "\n                    "
                             )
                           ]
                         )
@@ -29571,9 +29466,9 @@ var render = function() {
                         [
                           _c("i", { class: item.icon + " ml-6 text-lg" }),
                           _vm._v(
-                            "\r\n                        " +
+                            "\n                        " +
                               _vm._s(item.name) +
-                              "\r\n                    "
+                              "\n                    "
                           )
                         ]
                       )
@@ -29770,11 +29665,7 @@ var render = function() {
                   staticClass:
                     "h-48 flex items-center justify-center text-4xl font-medium"
                 },
-                [
-                  _vm._v(
-                    "\r\n                    تسجيل الدخول\r\n                "
-                  )
-                ]
+                [_vm._v("\n                    تسجيل الدخول\n                ")]
               ),
               _vm._v(" "),
               _c(
@@ -29817,9 +29708,9 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\r\n                            " +
+                          "\n                            " +
                             _vm._s(_vm.formValidate.username) +
-                            "\r\n                        "
+                            "\n                        "
                         )
                       ]
                     )
@@ -29882,9 +29773,9 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\r\n                            " +
+                          "\n                            " +
                             _vm._s(_vm.formValidate.password) +
-                            "\r\n                        "
+                            "\n                        "
                         )
                       ]
                     )
@@ -29905,7 +29796,7 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\r\n                        تسجيل الدخول\r\n                    "
+                        "\n                        تسجيل الدخول\n                    "
                       )
                     ]
                   )
@@ -29921,7 +29812,7 @@ var render = function() {
                 },
                 [
                   _vm._v(
-                    "\r\n                    الذهاب للموقع\r\n                "
+                    "\n                    الذهاب للموقع\n                "
                   )
                 ]
               )
@@ -29959,7 +29850,7 @@ var staticRenderFns = [
             { staticClass: "text-2xl font-bold text-white text-center" },
             [
               _vm._v(
-                "\r\n                        لوحة التحكم\r\n                    "
+                "\n                        لوحة التحكم\n                    "
               )
             ]
           ),
@@ -29968,7 +29859,7 @@ var staticRenderFns = [
           _vm._v(" "),
           _c("div", { staticClass: " text-justify font-light text-gray-200" }, [
             _vm._v(
-              "\r\n                        من خلال هذه اللوحة يمكنك التحكم في الموقع بشكل كامل,\r\n                        كذلك يمكنك اضافة مستخدمين للموقع ومتابعة رسائل\r\n                        العملاء\r\n                    "
+              "\n                        من خلال هذه اللوحة يمكنك التحكم في الموقع بشكل كامل,\n                        كذلك يمكنك اضافة مستخدمين للموقع ومتابعة رسائل\n                        العملاء\n                    "
             )
           ]),
           _vm._v(" "),
@@ -30019,7 +29910,7 @@ var render = function() {
                     "h-16 w-full border-b mb-2 px-4 flex items-center text-lg justify-between"
                 },
                 [
-                  _vm._v("\r\n            الرسائل الواردة\r\n\r\n            "),
+                  _vm._v("\n            الرسائل الواردة\n\n            "),
                   _c(
                     "router-link",
                     {
@@ -30027,7 +29918,7 @@ var render = function() {
                         "back-btn w-36 h-12 rounded font-normal flex items-center justify-center cursor-pointer",
                       attrs: { to: "/admin/message/" }
                     },
-                    [_vm._v("\r\n            قائمة الرسائل\r\n            ")]
+                    [_vm._v("\n            قائمة الرسائل\n            ")]
                   )
                 ],
                 1
@@ -30048,7 +29939,7 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\r\n                    إسم المرسل\r\n                "
+                          "\n                    إسم المرسل\n                "
                         )
                       ]
                     ),
@@ -30061,9 +29952,9 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\r\n                    " +
+                          "\n                    " +
                             _vm._s(_vm.message.name) +
-                            "\r\n                "
+                            "\n                "
                         )
                       ]
                     )
@@ -30078,7 +29969,7 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\r\n                    رقم الهاتف\r\n                "
+                          "\n                    رقم الهاتف\n                "
                         )
                       ]
                     ),
@@ -30091,13 +29982,13 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\r\n                    " +
+                          "\n                    " +
                             _vm._s(
                               !_vm.message.phone
                                 ? "لم يتم الإدخال"
                                 : _vm.message.phone
                             ) +
-                            "\r\n                "
+                            "\n                "
                         )
                       ]
                     )
@@ -30112,7 +30003,7 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\r\n                    البريد الإلكتروني\r\n                "
+                          "\n                    البريد الإلكتروني\n                "
                         )
                       ]
                     ),
@@ -30125,13 +30016,13 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\r\n                    " +
+                          "\n                    " +
                             _vm._s(
                               !_vm.message.email
                                 ? "لم يتم الإدخال"
                                 : _vm.message.email
                             ) +
-                            "\r\n                "
+                            "\n                "
                         )
                       ]
                     )
@@ -30146,7 +30037,7 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\r\n                    موجهة إلى\r\n                "
+                          "\n                    موجهة إلى\n                "
                         )
                       ]
                     ),
@@ -30159,13 +30050,13 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\r\n                    " +
+                          "\n                    " +
                             _vm._s(
                               !_vm.message.receiver
                                 ? "لم يتم الإدخال"
                                 : _vm.message.receiver.name
                             ) +
-                            "\r\n                "
+                            "\n                "
                         )
                       ]
                     )
@@ -30178,11 +30069,7 @@ var render = function() {
                         staticClass:
                           "h-9 flex items-center text-gray-500 mr-2 text-sm"
                       },
-                      [
-                        _vm._v(
-                          "\r\n                    بتاريخ\r\n                "
-                        )
-                      ]
+                      [_vm._v("\n                    بتاريخ\n                ")]
                     ),
                     _vm._v(" "),
                     _c(
@@ -30193,13 +30080,13 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\r\n                    " +
+                          "\n                    " +
                             _vm._s(
                               _vm.message.created_at
                                 ? _vm.message.created_at
                                 : "لم يتم الإدخال"
                             ) +
-                            "\r\n                "
+                            "\n                "
                         )
                       ]
                     )
@@ -30214,7 +30101,7 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\r\n                    حالة الرسالة\r\n                "
+                          "\n                    حالة الرسالة\n                "
                         )
                       ]
                     ),
@@ -30227,13 +30114,13 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\r\n                    " +
+                          "\n                    " +
                             _vm._s(
                               _vm.message.state == 1
                                 ? "تم التعامل"
                                 : "لم يتم الحل"
                             ) +
-                            "\r\n                "
+                            "\n                "
                         )
                       ]
                     )
@@ -30248,7 +30135,7 @@ var render = function() {
                     staticClass:
                       "h-9 flex items-center text-gray-500 mr-2 text-sm"
                   },
-                  [_vm._v("\r\n                محتوى الرسالة\r\n            ")]
+                  [_vm._v("\n                محتوى الرسالة\n            ")]
                 ),
                 _vm._v(" "),
                 _c("div", {
@@ -30274,7 +30161,7 @@ var render = function() {
                     },
                     [
                       _c("i", { staticClass: "far fa-trash-alt ml-2" }),
-                      _vm._v("\r\n                حذف\r\n            ")
+                      _vm._v("\n                حذف\n            ")
                     ]
                   ),
                   _vm._v(" "),
@@ -30288,7 +30175,7 @@ var render = function() {
                         },
                         [
                           _c("i", { staticClass: "fas fa-check ml-2" }),
-                          _vm._v("\r\n                تم الحل\r\n            ")
+                          _vm._v("\n                تم الحل\n            ")
                         ]
                       )
                     : _vm._e()
@@ -30361,9 +30248,7 @@ var render = function() {
               },
               [
                 _vm._v(
-                  "\r\n                " +
-                    _vm._s(item.name) +
-                    "\r\n            "
+                  "\n                " + _vm._s(item.name) + "\n            "
                 )
               ]
             )
@@ -30404,7 +30289,7 @@ var render = function() {
                             },
                             [
                               _vm._v(
-                                "\r\n                    محلولة\r\n                "
+                                "\n                    محلولة\n                "
                               )
                             ]
                           )
@@ -30416,7 +30301,7 @@ var render = function() {
                             },
                             [
                               _vm._v(
-                                "\r\n                    غير محلولة\r\n                "
+                                "\n                    غير محلولة\n                "
                               )
                             ]
                           )
@@ -30436,21 +30321,21 @@ var render = function() {
                     _vm._v(" "),
                     _c("td", { staticClass: "xl:table-cell hidden" }, [
                       _vm._v(
-                        "\r\n                " +
+                        "\n                " +
                           _vm._s(
                             !item.receiver
                               ? "لم يتم الإدخال"
                               : item.receiver.name
                           ) +
-                          "\r\n            "
+                          "\n            "
                       )
                     ]),
                     _vm._v(" "),
                     _c("td", { staticClass: "xl:table-cell hidden" }, [
                       _vm._v(
-                        "\r\n                " +
+                        "\n                " +
                           _vm._s(item.created_at) +
-                          "\r\n            "
+                          "\n            "
                       )
                     ]),
                     _vm._v(" "),
@@ -30479,7 +30364,7 @@ var render = function() {
                                 _vm.$parent.checkPermission("DeleteMessage") ==
                                 true,
                               expression:
-                                "\r\n                        $parent.checkPermission('DeleteMessage') == true\r\n                    "
+                                "\n                        $parent.checkPermission('DeleteMessage') == true\n                    "
                             }
                           ],
                           staticClass:
@@ -30544,7 +30429,7 @@ var staticRenderFns = [
         _c(
           "div",
           { staticClass: "text-2xl font-semibold cairo text-gray-600" },
-          [_vm._v("\r\n            صندوق الرسائل\r\n        ")]
+          [_vm._v("\n            صندوق الرسائل\n        ")]
         )
       ]
     )
@@ -30605,7 +30490,7 @@ var render = function() {
             staticClass:
               "text-2xl font-bold h-20 flex items-center justify-start border-b"
           },
-          [_vm._v("\r\n                الملف الشخصي\r\n            ")]
+          [_vm._v("\n                الملف الشخصي\n            ")]
         ),
         _vm._v(" "),
         _c("div", { staticClass: "md:flex items-center my-8" }, [
@@ -30641,7 +30526,7 @@ var render = function() {
                 "btn-color-one rounded shadow px-12 h-12 w-auto flex items-center justify-center text-white text-lg cursor-pointer",
               on: { click: _vm.changePhoto }
             },
-            [_vm._v("\r\n                    تحديث\r\n                ")]
+            [_vm._v("\n                    تحديث\n                ")]
           )
         ]),
         _vm._v(" "),
@@ -30649,17 +30534,13 @@ var render = function() {
           _c(
             "div",
             { staticClass: "text-2xl text-gray-600 font-medium mt-12" },
-            [
-              _vm._v(
-                "\r\n                    البيانات الشخصية\r\n                "
-              )
-            ]
+            [_vm._v("\n                    البيانات الشخصية\n                ")]
           ),
           _vm._v(" "),
           _c("div", { staticClass: "mt-4 lg:h-16 lg:flex items-center" }, [
             _c("div", { staticClass: "md:w-48 h-8 text-lg text-gray-600" }, [
               _vm._v(
-                "\r\n                        إسم المستخدم\r\n                    "
+                "\n                        إسم المستخدم\n                    "
               )
             ]),
             _vm._v(" "),
@@ -30695,9 +30576,9 @@ var render = function() {
                 },
                 [
                   _vm._v(
-                    "\r\n                            " +
+                    "\n                            " +
                       _vm._s(_vm.formValidate.name) +
-                      "\r\n                        "
+                      "\n                        "
                   )
                 ]
               )
@@ -30707,7 +30588,7 @@ var render = function() {
           _c("div", { staticClass: "mt-4 lg:h-16 lg:flex items-center" }, [
             _c("div", { staticClass: "md:w-48 h-8 text-lg text-gray-600" }, [
               _vm._v(
-                "\r\n                        إسم الدخول\r\n                    "
+                "\n                        إسم الدخول\n                    "
               )
             ]),
             _vm._v(" "),
@@ -30719,9 +30600,9 @@ var render = function() {
               },
               [
                 _vm._v(
-                  "\r\n                        " +
+                  "\n                        " +
                     _vm._s(_vm.user.username) +
-                    "\r\n                    "
+                    "\n                    "
                 )
               ]
             )
@@ -30730,7 +30611,7 @@ var render = function() {
           _c("div", { staticClass: "mt-4 lg:h-16 lg:flex items-center" }, [
             _c("div", { staticClass: "md:w-48 h-8 text-lg text-gray-600" }, [
               _vm._v(
-                "\r\n                        دور الحساب\r\n                    "
+                "\n                        دور الحساب\n                    "
               )
             ]),
             _vm._v(" "),
@@ -30742,9 +30623,9 @@ var render = function() {
               },
               [
                 _vm._v(
-                  "\r\n                        " +
+                  "\n                        " +
                     _vm._s(_vm.user.role) +
-                    "\r\n                    "
+                    "\n                    "
                 )
               ]
             )
@@ -30758,11 +30639,7 @@ var render = function() {
                   "btn-color-one rounded shadow px-12 h-12 w-auto flex items-center justify-center text-white text-lg cursor-pointer",
                 on: { click: _vm.changeName }
               },
-              [
-                _vm._v(
-                  "\r\n                        تحديث\r\n                    "
-                )
-              ]
+              [_vm._v("\n                        تحديث\n                    ")]
             )
           ])
         ]),
@@ -30773,7 +30650,7 @@ var render = function() {
             { staticClass: "text-2xl text-gray-600 font-medium mt-12" },
             [
               _vm._v(
-                "\r\n                    تغيير كلمة المرور\r\n                "
+                "\n                    تغيير كلمة المرور\n                "
               )
             ]
           ),
@@ -30781,7 +30658,7 @@ var render = function() {
           _c("div", { staticClass: "mt-4 lg:h-16 lg:flex items-center" }, [
             _c("div", { staticClass: "md:w-48 h-8 text-lg text-gray-600" }, [
               _vm._v(
-                "\r\n                        كلمة المرور الحالية\r\n                    "
+                "\n                        كلمة المرور الحالية\n                    "
               )
             ]),
             _vm._v(" "),
@@ -30817,9 +30694,9 @@ var render = function() {
                 },
                 [
                   _vm._v(
-                    "\r\n                            " +
+                    "\n                            " +
                       _vm._s(_vm.formValidate.oldPassword) +
-                      "\r\n                        "
+                      "\n                        "
                   )
                 ]
               )
@@ -30829,7 +30706,7 @@ var render = function() {
           _c("div", { staticClass: "mt-4 lg:h-16 lg:flex items-center" }, [
             _c("div", { staticClass: "md:w-48 h-8 text-lg text-gray-600" }, [
               _vm._v(
-                "\r\n                        كلمة المرور الجديدة\r\n                    "
+                "\n                        كلمة المرور الجديدة\n                    "
               )
             ]),
             _vm._v(" "),
@@ -30865,9 +30742,9 @@ var render = function() {
                 },
                 [
                   _vm._v(
-                    "\r\n                            " +
+                    "\n                            " +
                       _vm._s(_vm.formValidate.newPassword) +
-                      "\r\n                        "
+                      "\n                        "
                   )
                 ]
               )
@@ -30877,7 +30754,7 @@ var render = function() {
           _c("div", { staticClass: "mt-4 lg:h-16 lg:flex items-center" }, [
             _c("div", { staticClass: "md:w-48 h-8 text-lg text-gray-600" }, [
               _vm._v(
-                "\r\n                        تأكيد كلمة المرور\r\n                    "
+                "\n                        تأكيد كلمة المرور\n                    "
               )
             ]),
             _vm._v(" "),
@@ -30917,9 +30794,9 @@ var render = function() {
                 },
                 [
                   _vm._v(
-                    "\r\n                            " +
+                    "\n                            " +
                       _vm._s(_vm.formValidate.confirmPassword) +
-                      "\r\n                        "
+                      "\n                        "
                   )
                 ]
               )
@@ -30934,11 +30811,7 @@ var render = function() {
                   "btn-color-one rounded shadow px-12 h-12 w-auto flex items-center justify-center text-white text-lg cursor-pointer",
                 on: { click: _vm.changePassword }
               },
-              [
-                _vm._v(
-                  "\r\n                        تحديث\r\n                    "
-                )
-              ]
+              [_vm._v("\n                        تحديث\n                    ")]
             )
           ])
         ])
@@ -30959,7 +30832,7 @@ var staticRenderFns = [
       },
       [
         _c("i", { staticClass: "fas fa-folder-plus ml-2" }),
-        _vm._v("\r\n                        إختر الصورة")
+        _vm._v("\n                        إختر الصورة")
       ]
     )
   }
@@ -31005,9 +30878,7 @@ var render = function() {
                     "h-16 w-full border-b mb-2 px-4 flex items-center text-lg justify-between"
                 },
                 [
-                  _vm._v(
-                    "\r\n                بيانات الدور\r\n\r\n                "
-                  ),
+                  _vm._v("\n                بيانات الدور\n\n                "),
                   _c(
                     "router-link",
                     {
@@ -31017,7 +30888,7 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\r\n                    أدوار المشرفين\r\n                "
+                        "\n                    أدوار المشرفين\n                "
                       )
                     ]
                   )
@@ -31032,11 +30903,7 @@ var render = function() {
                     staticClass:
                       "h-9 flex items-center text-gray-500 mr-2 text-sm"
                   },
-                  [
-                    _vm._v(
-                      "\r\n                    إسم الدور\r\n                "
-                    )
-                  ]
+                  [_vm._v("\n                    إسم الدور\n                ")]
                 ),
                 _vm._v(" "),
                 _c("input", {
@@ -31070,9 +30937,9 @@ var render = function() {
                   },
                   [
                     _vm._v(
-                      "\r\n                    " +
+                      "\n                    " +
                         _vm._s(_vm.formValidate.name) +
-                        "\r\n                "
+                        "\n                "
                     )
                   ]
                 )
@@ -31084,7 +30951,7 @@ var render = function() {
                   staticClass:
                     " border-b mx-4 px-2 py-2 mt-6 text-gray-500 text-sm"
                 },
-                [_vm._v("\r\n                الصلاحيات\r\n            ")]
+                [_vm._v("\n                الصلاحيات\n            ")]
               ),
               _vm._v(" "),
               _c(
@@ -31146,9 +31013,9 @@ var render = function() {
                 },
                 [
                   _vm._v(
-                    "\r\n                " +
+                    "\n                " +
                       _vm._s(_vm.formValidate.permissions) +
-                      "\r\n            "
+                      "\n            "
                   )
                 ]
               ),
@@ -31169,7 +31036,7 @@ var render = function() {
                     },
                     [
                       _c("i", { staticClass: "fas fa-check ml-2" }),
-                      _vm._v("\r\n                    حفظ\r\n                ")
+                      _vm._v("\n                    حفظ\n                ")
                     ]
                   )
                 ]
@@ -31228,7 +31095,7 @@ var render = function() {
                 },
                 [
                   _vm._v(
-                    "\r\n                إضافة دور جديد\r\n\r\n                "
+                    "\n                إضافة دور جديد\n\n                "
                   ),
                   _c(
                     "router-link",
@@ -31239,7 +31106,7 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\r\n                    أدوار المشرفين\r\n                "
+                        "\n                    أدوار المشرفين\n                "
                       )
                     ]
                   )
@@ -31254,11 +31121,7 @@ var render = function() {
                     staticClass:
                       "h-9 flex items-center text-gray-500 mr-2 text-sm"
                   },
-                  [
-                    _vm._v(
-                      "\r\n                    إسم الدور\r\n                "
-                    )
-                  ]
+                  [_vm._v("\n                    إسم الدور\n                ")]
                 ),
                 _vm._v(" "),
                 _c("input", {
@@ -31292,9 +31155,9 @@ var render = function() {
                   },
                   [
                     _vm._v(
-                      "\r\n                    " +
+                      "\n                    " +
                         _vm._s(_vm.formValidate.name) +
-                        "\r\n                "
+                        "\n                "
                     )
                   ]
                 )
@@ -31306,7 +31169,7 @@ var render = function() {
                   staticClass:
                     " border-b mx-4 px-2 py-2 mt-6 text-gray-500 text-sm"
                 },
-                [_vm._v("\r\n                الصلاحيات\r\n            ")]
+                [_vm._v("\n                الصلاحيات\n            ")]
               ),
               _vm._v(" "),
               _c(
@@ -31369,9 +31232,9 @@ var render = function() {
                 },
                 [
                   _vm._v(
-                    "\r\n                " +
+                    "\n                " +
                       _vm._s(_vm.formValidate.permissions) +
-                      "\r\n            "
+                      "\n            "
                   )
                 ]
               ),
@@ -31384,7 +31247,7 @@ var render = function() {
                       "btn-color-one rounded shadow px-12 h-12 w-auto flex items-center justify-center text-white text-lg cursor-pointer",
                     on: { click: _vm.addRole }
                   },
-                  [_vm._v("\r\n                    إضافة\r\n                ")]
+                  [_vm._v("\n                    إضافة\n                ")]
                 )
               ])
             ]
@@ -31444,9 +31307,7 @@ var render = function() {
                     "h-16 w-full border-b mb-2 px-4 flex items-center text-lg justify-between"
                 },
                 [
-                  _vm._v(
-                    "\r\n                بيانات الدور\r\n\r\n                "
-                  ),
+                  _vm._v("\n                بيانات الدور\n\n                "),
                   _c(
                     "router-link",
                     {
@@ -31456,7 +31317,7 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\r\n                    أدوار المشرفين\r\n                "
+                        "\n                    أدوار المشرفين\n                "
                       )
                     ]
                   )
@@ -31471,11 +31332,7 @@ var render = function() {
                     staticClass:
                       "h-9 flex items-center text-gray-500 mr-2 text-sm"
                   },
-                  [
-                    _vm._v(
-                      "\r\n                    إسم الدور\r\n                "
-                    )
-                  ]
+                  [_vm._v("\n                    إسم الدور\n                ")]
                 ),
                 _vm._v(" "),
                 _c(
@@ -31486,9 +31343,9 @@ var render = function() {
                   },
                   [
                     _vm._v(
-                      "\r\n                    " +
+                      "\n                    " +
                         _vm._s(_vm.role.name) +
-                        "\r\n                "
+                        "\n                "
                     )
                   ]
                 )
@@ -31500,7 +31357,7 @@ var render = function() {
                   staticClass:
                     " border-b mx-4 px-2 py-2 mt-6 text-gray-500 text-sm"
                 },
-                [_vm._v("\r\n                الصلاحيات\r\n            ")]
+                [_vm._v("\n                الصلاحيات\n            ")]
               ),
               _vm._v(" "),
               _c(
@@ -31584,9 +31441,7 @@ var render = function() {
                         },
                         [
                           _c("i", { staticClass: "far fa-trash-alt ml-2" }),
-                          _vm._v(
-                            "\r\n                    حذف\r\n                "
-                          )
+                          _vm._v("\n                    حذف\n                ")
                         ]
                       )
                     : _vm._e(),
@@ -31612,9 +31467,7 @@ var render = function() {
                     },
                     [
                       _c("i", { staticClass: "far fa-edit ml-2" }),
-                      _vm._v(
-                        "\r\n                    تعديل\r\n                "
-                      )
+                      _vm._v("\n                    تعديل\n                ")
                     ]
                   )
                 ],
@@ -31665,7 +31518,7 @@ var render = function() {
           _c(
             "div",
             { staticClass: "text-2xl font-semibold cairo text-gray-600" },
-            [_vm._v("\r\n                أدوار المشرفين\r\n            ")]
+            [_vm._v("\n                أدوار المشرفين\n            ")]
           ),
           _vm._v(" "),
           _c(
@@ -31686,7 +31539,7 @@ var render = function() {
             [
               _c("span", { staticClass: "h-12 flex items-center" }, [
                 _c("i", { staticClass: "fas fa-plus ml-4 text-lg" }),
-                _vm._v("\r\n                    دور جديد\r\n                ")
+                _vm._v("\n                    دور جديد\n                ")
               ])
             ]
           )
