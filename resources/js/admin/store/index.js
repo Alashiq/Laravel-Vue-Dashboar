@@ -42,8 +42,8 @@ export default {
                 name: "المواد الدراسية",
                 role: "ReadAdmin",
                 active: false,
-                path: "/admin/admin",
-                icon: "fas fa-users"
+                path: "/admin/material",
+                icon: "fas fa-book"
             },
             {
                 id: 5,

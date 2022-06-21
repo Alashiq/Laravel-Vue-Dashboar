@@ -4,12 +4,14 @@ use App\Http\Controllers\AdminApi\AdminDashApiController;
 use App\Http\Controllers\AdminApi\AuthDashApiController;
 use App\Http\Controllers\AdminApi\HomeDashApiController;
 use App\Http\Controllers\AdminApi\MessageDashApiController;
+use App\Http\Controllers\AdminApi\MaterialDashApiController;
 use App\Http\Controllers\AdminApi\RoleDashApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 
+Route::post('/aa', [AdminDashApiController::class, 'create']);
 
 Route::middleware(['auth:sanctum', 'type.admin'])->group(function () {
 
@@ -63,6 +65,15 @@ Route::middleware(['auth:sanctum', 'type.admin'])->group(function () {
         Route::get('/{role}', [RoleDashApiController::class, 'show'])->middleware('check.role:ReadRole');
     });
     # # # # # # # # # # # # # # # End Roles # # # # # # # # # # # # # # # 
+
+    
+    # # # # # # # # # # # # # # # Message # # # # # # # # # # # # # # # 
+    Route::group(['prefix' => 'material'], function () {
+        Route::get('/', [MaterialDashApiController::class, 'index'])->middleware('check.role:ReadMessage');
+        Route::post('/', [MaterialDashApiController::class, 'create'])->middleware('check.role:ReadMessage');
+
+    });
+    # # # # # # # # # # # # # # # End Message # # # # # # # # # # # # # # # 
 
 
 });

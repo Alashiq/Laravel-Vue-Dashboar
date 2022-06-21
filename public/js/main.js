@@ -2845,6 +2845,189 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./resources/js/admin/pages/Materials/Materials.js?vue&type=script&lang=js&":
+/*!***************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./resources/js/admin/pages/Materials/Materials.js?vue&type=script&lang=js& ***!
+  \***************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_0__);
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      materials: [],
+      loaded: false,
+      filter: [],
+      activeFilter: "all"
+    };
+  },
+  methods: {
+    changeFilter: function changeFilter(filterName) {
+      this.activeFilter = filterName;
+    }
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    this.$store.commit("activePage", 4);
+    this.$loading.Start();
+    this.$http.GetAllMaterials().then(function (response) {
+      _this.$loading.Stop();
+
+      _this.loaded = true;
+
+      if (response.status == 200) {
+        _this.materials = response.data.data;
+
+        _this.$alert.Success(response.data.message);
+      } else if (response.status == 204) {
+        _this.$alert.Empty("تنبيه لا يوجد اي مواد");
+      }
+    })["catch"](function (error) {
+      _this.loaded = true;
+
+      _this.$loading.Stop();
+
+      _this.$alert.BadRequest(error.response);
+    });
+  },
+  computed: {
+    filterAdmin: function filterAdmin() {
+      var list = [];
+      list = this.materials;
+      return list;
+    }
+  },
+  created: function created() {}
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./resources/js/admin/pages/Materials/NewMaterial/NewMaterial.js?vue&type=script&lang=js&":
+/*!*****************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./resources/js/admin/pages/Materials/NewMaterial/NewMaterial.js?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      roleList: [],
+      formData: {
+        name: "",
+        description: "",
+        admin_id: 1,
+        year_id: 1
+      },
+      formValidate: {
+        name: "",
+        description: ""
+      },
+      loaded: false
+    };
+  },
+  methods: {
+    addAdmin: function addAdmin() {
+      var _this = this;
+
+      this.validateName();
+      this.validateDescription();
+      if (this.formValidate.name != "") return 0;
+      if (this.formValidate.description != "") return 0;
+      this.$loading.Start();
+      this.$http.PostNewMaterial(this.formData).then(function (response) {
+        _this.$loading.Stop();
+
+        _this.loaded = true;
+
+        _this.$alert.Success(response.data.message);
+
+        _this.formData.name = "";
+        _this.formData.description = "";
+      })["catch"](function (error) {
+        _this.$loading.Stop();
+
+        _this.$alert.BadRequest(error.response);
+      });
+    },
+    validateName: function validateName() {
+      this.formValidate.name = "";
+
+      if (this.formData.name.trim() == "") {
+        this.formValidate.name = "لا يمكن ترك هذا الحقل فارغ";
+        return 1;
+      }
+
+      if (this.formData.name.trim().length < 5) {
+        this.formValidate.name = "يجب ان يكون الإسم 5 أحرف أو اكثر";
+        return 1;
+      }
+
+      if (this.formData.name.trim().length > 16) {
+        this.formValidate.name = "يجب ان يكون الإسم أقل من 16 حرف";
+        return 1;
+      }
+    },
+    validateDescription: function validateDescription() {
+      this.formValidate.description = "";
+
+      if (this.formData.description.trim() == "") {
+        this.formValidate.description = "لا يمكن ترك هذا الحقل فارغ";
+        return 1;
+      }
+
+      if (this.formData.description.trim().length < 5) {
+        this.formValidate.description = "يجب ان وصف المادة 5 أحرف أو اكثر";
+        return 1;
+      }
+
+      if (this.formData.description.trim().length > 16) {
+        this.formValidate.description = "يجب ان يكون وصف المادة أقل من 16 حرف";
+        return 1;
+      }
+    }
+  },
+  mounted: function mounted() {
+    var _this2 = this;
+
+    this.$store.commit("activePage", 4);
+    this.$loading.Start();
+    this.$http.GetAdminRolesForNewAdmin().then(function (response) {
+      _this2.$loading.Stop();
+
+      _this2.loaded = true;
+
+      if (response.status == 200) {
+        _this2.roleList = response.data.roleList;
+
+        _this2.$alert.Success(response.data.message);
+      } else if (response.status == 204) {
+        _this2.$alert.Empty("تنبيه لا يوجد اي أدوار");
+      }
+    })["catch"](function (error) {
+      _this2.$loading.Stop();
+
+      _this2.$alert.BadRequest(error.response);
+    });
+  },
+  computed: {},
+  created: function created() {}
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./resources/js/admin/pages/Messages/Message/Message.js?vue&type=script&lang=js&":
 /*!********************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./resources/js/admin/pages/Messages/Message/Message.js?vue&type=script&lang=js& ***!
@@ -3721,7 +3904,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pages_Roles_Role_Role_vue__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../pages/Roles/Role/Role.vue */ "./resources/js/admin/pages/Roles/Role/Role.vue");
 /* harmony import */ var _pages_Roles_EditRole_EditRole_vue__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../pages/Roles/EditRole/EditRole.vue */ "./resources/js/admin/pages/Roles/EditRole/EditRole.vue");
 /* harmony import */ var _pages_Admins_EditAdminRole_EditAdminRole_vue__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../pages/Admins/EditAdminRole/EditAdminRole.vue */ "./resources/js/admin/pages/Admins/EditAdminRole/EditAdminRole.vue");
-/* harmony import */ var _store_index__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../store/index */ "./resources/js/admin/store/index.js");
+/* harmony import */ var _pages_Materials_Materials_vue__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../pages/Materials/Materials.vue */ "./resources/js/admin/pages/Materials/Materials.vue");
+/* harmony import */ var _pages_Materials_NewMaterial_NewMaterial_vue__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../pages/Materials/NewMaterial/NewMaterial.vue */ "./resources/js/admin/pages/Materials/NewMaterial/NewMaterial.vue");
+/* harmony import */ var _store_index__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ../store/index */ "./resources/js/admin/store/index.js");
+
+
 
 
 
@@ -3739,7 +3926,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var ifAuth = function ifAuth(to, from, next) {
-  if (_store_index__WEBPACK_IMPORTED_MODULE_14__.default.state.auth == true) {
+  if (_store_index__WEBPACK_IMPORTED_MODULE_16__.default.state.auth == true) {
     next();
     return;
   }
@@ -3748,7 +3935,7 @@ var ifAuth = function ifAuth(to, from, next) {
 };
 
 var ifNotAuth = function ifNotAuth(to, from, next) {
-  if (_store_index__WEBPACK_IMPORTED_MODULE_14__.default.state.auth != true) {
+  if (_store_index__WEBPACK_IMPORTED_MODULE_16__.default.state.auth != true) {
     next();
     return;
   }
@@ -3796,6 +3983,12 @@ var routes = [{
   }, {
     path: "admin/role/:id/edit",
     component: _pages_Roles_EditRole_EditRole_vue__WEBPACK_IMPORTED_MODULE_12__.default
+  }, {
+    path: "admin/material",
+    component: _pages_Materials_Materials_vue__WEBPACK_IMPORTED_MODULE_14__.default
+  }, {
+    path: "admin/material/new",
+    component: _pages_Materials_NewMaterial_NewMaterial_vue__WEBPACK_IMPORTED_MODULE_15__.default
   }]
 }, {
   path: "/admin/login",
@@ -3949,6 +4142,13 @@ __webpack_require__.r(__webpack_exports__);
   },
   UpdateRole: function UpdateRole(role, formData) {
     return axios__WEBPACK_IMPORTED_MODULE_0___default().put("/api/admin/role/" + role, formData);
+  },
+  // ============== Material Part =======================
+  GetAllMaterials: function GetAllMaterials() {
+    return axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/admin/material");
+  },
+  PostNewMaterial: function PostNewMaterial(role) {
+    return axios__WEBPACK_IMPORTED_MODULE_0___default().post("/api/admin/material", role);
   }
 });
 
@@ -4035,8 +4235,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         name: "المواد الدراسية",
         role: "ReadAdmin",
         active: false,
-        path: "/admin/admin",
-        icon: "fas fa-users"
+        path: "/admin/material",
+        icon: "fas fa-book"
       }, {
         id: 5,
         name: "السنوات الدراسية",
@@ -4189,7 +4389,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.loading-box {\n  float: right;\n  height: 100vh;\n  width: 100%;\n  position: fixed;\n  z-index: 100;\n  top: 0px;\n  right: 0px;\n  left: 0px;\n  bottom: 0px;\n  background-color: hsla(0, 0%, 100%, 0.9);\n}\n.loading-box   img {\n    height: 100px;\n    width: 100px;\n    float: right;\n    margin: calc(50vh - 50px) calc(50% - 50px);\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.loading-box {\r\n  float: right;\r\n  height: 100vh;\r\n  width: 100%;\r\n  position: fixed;\r\n  z-index: 100;\r\n  top: 0px;\r\n  right: 0px;\r\n  left: 0px;\r\n  bottom: 0px;\r\n  background-color: hsla(0, 0%, 100%, 0.9);\n}\n.loading-box   img {\r\n    height: 100px;\r\n    width: 100px;\r\n    float: right;\r\n    margin: calc(50vh - 50px) calc(50% - 50px);\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -26823,6 +27023,84 @@ component.options.__file = "resources/js/admin/pages/Login/Login.vue"
 
 /***/ }),
 
+/***/ "./resources/js/admin/pages/Materials/Materials.vue":
+/*!**********************************************************!*\
+  !*** ./resources/js/admin/pages/Materials/Materials.vue ***!
+  \**********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _Materials_html_vue_type_template_id_e2579da0_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Materials.html?vue&type=template&id=e2579da0&scoped=true& */ "./resources/js/admin/pages/Materials/Materials.html?vue&type=template&id=e2579da0&scoped=true&");
+/* harmony import */ var _Materials_js_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Materials.js?vue&type=script&lang=js& */ "./resources/js/admin/pages/Materials/Materials.js?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
+  _Materials_js_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _Materials_html_vue_type_template_id_e2579da0_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
+  _Materials_html_vue_type_template_id_e2579da0_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  "e2579da0",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/admin/pages/Materials/Materials.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/admin/pages/Materials/NewMaterial/NewMaterial.vue":
+/*!************************************************************************!*\
+  !*** ./resources/js/admin/pages/Materials/NewMaterial/NewMaterial.vue ***!
+  \************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _NewMaterial_html_vue_type_template_id_4c485a23_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./NewMaterial.html?vue&type=template&id=4c485a23&scoped=true& */ "./resources/js/admin/pages/Materials/NewMaterial/NewMaterial.html?vue&type=template&id=4c485a23&scoped=true&");
+/* harmony import */ var _NewMaterial_js_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./NewMaterial.js?vue&type=script&lang=js& */ "./resources/js/admin/pages/Materials/NewMaterial/NewMaterial.js?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
+  _NewMaterial_js_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _NewMaterial_html_vue_type_template_id_4c485a23_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
+  _NewMaterial_html_vue_type_template_id_4c485a23_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  "4c485a23",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/admin/pages/Materials/NewMaterial/NewMaterial.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/admin/pages/Messages/Message/Message.vue":
 /*!***************************************************************!*\
   !*** ./resources/js/admin/pages/Messages/Message/Message.vue ***!
@@ -27240,6 +27518,38 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/admin/pages/Materials/Materials.js?vue&type=script&lang=js&":
+/*!**********************************************************************************!*\
+  !*** ./resources/js/admin/pages/Materials/Materials.js?vue&type=script&lang=js& ***!
+  \**********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_Materials_js_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./Materials.js?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./resources/js/admin/pages/Materials/Materials.js?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_Materials_js_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
+/***/ "./resources/js/admin/pages/Materials/NewMaterial/NewMaterial.js?vue&type=script&lang=js&":
+/*!************************************************************************************************!*\
+  !*** ./resources/js/admin/pages/Materials/NewMaterial/NewMaterial.js?vue&type=script&lang=js& ***!
+  \************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_NewMaterial_js_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./NewMaterial.js?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./resources/js/admin/pages/Materials/NewMaterial/NewMaterial.js?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_NewMaterial_js_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
 /***/ "./resources/js/admin/pages/Messages/Message/Message.js?vue&type=script&lang=js&":
 /*!***************************************************************************************!*\
   !*** ./resources/js/admin/pages/Messages/Message/Message.js?vue&type=script&lang=js& ***!
@@ -27568,6 +27878,40 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/admin/pages/Materials/Materials.html?vue&type=template&id=e2579da0&scoped=true&":
+/*!******************************************************************************************************!*\
+  !*** ./resources/js/admin/pages/Materials/Materials.html?vue&type=template&id=e2579da0&scoped=true& ***!
+  \******************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_Materials_html_vue_type_template_id_e2579da0_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_Materials_html_vue_type_template_id_e2579da0_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_Materials_html_vue_type_template_id_e2579da0_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./Materials.html?vue&type=template&id=e2579da0&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./resources/js/admin/pages/Materials/Materials.html?vue&type=template&id=e2579da0&scoped=true&");
+
+
+/***/ }),
+
+/***/ "./resources/js/admin/pages/Materials/NewMaterial/NewMaterial.html?vue&type=template&id=4c485a23&scoped=true&":
+/*!********************************************************************************************************************!*\
+  !*** ./resources/js/admin/pages/Materials/NewMaterial/NewMaterial.html?vue&type=template&id=4c485a23&scoped=true& ***!
+  \********************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_NewMaterial_html_vue_type_template_id_4c485a23_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_NewMaterial_html_vue_type_template_id_4c485a23_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_NewMaterial_html_vue_type_template_id_4c485a23_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./NewMaterial.html?vue&type=template&id=4c485a23&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./resources/js/admin/pages/Materials/NewMaterial/NewMaterial.html?vue&type=template&id=4c485a23&scoped=true&");
+
+
+/***/ }),
+
 /***/ "./resources/js/admin/pages/Messages/Message/Message.html?vue&type=template&id=7b6177c5&":
 /*!***********************************************************************************************!*\
   !*** ./resources/js/admin/pages/Messages/Message/Message.html?vue&type=template&id=7b6177c5& ***!
@@ -27814,7 +28158,9 @@ var render = function() {
                     "h-16 w-full border-b mb-2 px-4 flex items-center text-lg justify-between"
                 },
                 [
-                  _vm._v("\n                بيانات المشرف\n\n                "),
+                  _vm._v(
+                    "\r\n                بيانات المشرف\r\n\r\n                "
+                  ),
                   _c(
                     "router-link",
                     {
@@ -27824,7 +28170,7 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\n                    قائمة المشرفين\n                "
+                        "\r\n                    قائمة المشرفين\r\n                "
                       )
                     ]
                   )
@@ -27854,7 +28200,7 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\n                        إسم المشرف\n                    "
+                          "\r\n                        إسم المشرف\r\n                    "
                         )
                       ]
                     ),
@@ -27867,9 +28213,9 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\n                        " +
+                          "\r\n                        " +
                             _vm._s(_vm.admin.name) +
-                            "\n                    "
+                            "\r\n                    "
                         )
                       ]
                     )
@@ -27884,7 +28230,7 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\n                        إسم الدخول\n                    "
+                          "\r\n                        إسم الدخول\r\n                    "
                         )
                       ]
                     ),
@@ -27897,9 +28243,9 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\n                        " +
+                          "\r\n                        " +
                             _vm._s(_vm.admin.username) +
-                            "\n                    "
+                            "\r\n                    "
                         )
                       ]
                     )
@@ -27914,7 +28260,7 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\n                        دور المشرف\n                    "
+                          "\r\n                        دور المشرف\r\n                    "
                         )
                       ]
                     ),
@@ -27927,9 +28273,9 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\n                        " +
+                          "\r\n                        " +
                             _vm._s(_vm.admin.role.name) +
-                            "\n                    "
+                            "\r\n                    "
                         )
                       ]
                     )
@@ -27944,7 +28290,7 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\n                        تاريخ الإنشاء\n                    "
+                          "\r\n                        تاريخ الإنشاء\r\n                    "
                         )
                       ]
                     ),
@@ -27957,9 +28303,9 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\n                        " +
+                          "\r\n                        " +
                             _vm._s(_vm.admin.created_at.substring(0, 10)) +
-                            "\n                    "
+                            "\r\n                    "
                         )
                       ]
                     )
@@ -27974,7 +28320,7 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\n                        حالة الحساب\n                    "
+                          "\r\n                        حالة الحساب\r\n                    "
                         )
                       ]
                     ),
@@ -27987,7 +28333,7 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\n                        " +
+                          "\r\n                        " +
                             _vm._s(
                               _vm.admin.state == 0
                                 ? "غير مفعل"
@@ -27995,7 +28341,7 @@ var render = function() {
                                 ? "حساب نشط"
                                 : "محظور"
                             ) +
-                            "\n                    "
+                            "\r\n                    "
                         )
                       ]
                     )
@@ -28023,7 +28369,7 @@ var render = function() {
                                   "ResetPasswordAdmin"
                                 ) == true,
                               expression:
-                                "\n                        $parent.checkPermission('ResetPasswordAdmin') == true\n                    "
+                                "\r\n                        $parent.checkPermission('ResetPasswordAdmin') == true\r\n                    "
                             }
                           ],
                           staticClass:
@@ -28033,7 +28379,7 @@ var render = function() {
                         [
                           _c("i", { staticClass: "fas fa-fingerprint ml-2" }),
                           _vm._v(
-                            "\n                    تهيئة كلمة المرور\n                "
+                            "\r\n                    تهيئة كلمة المرور\r\n                "
                           )
                         ]
                       )
@@ -28061,7 +28407,7 @@ var render = function() {
                         [
                           _c("i", { staticClass: "fas fa-lock-open ml-2" }),
                           _vm._v(
-                            "\n                    تفعيل الحساب\n                "
+                            "\r\n                    تفعيل الحساب\r\n                "
                           )
                         ]
                       )
@@ -28087,7 +28433,7 @@ var render = function() {
                         [
                           _c("i", { staticClass: "fas fa-lock ml-2" }),
                           _vm._v(
-                            "\n                    إلغاء تفعيل الحساب\n                "
+                            "\r\n                    إلغاء تفعيل الحساب\r\n                "
                           )
                         ]
                       )
@@ -28115,7 +28461,7 @@ var render = function() {
                         [
                           _c("i", { staticClass: "fas fa-user-slash ml-2" }),
                           _vm._v(
-                            "\n                    حظر الحساب\n                "
+                            "\r\n                    حظر الحساب\r\n                "
                           )
                         ]
                       )
@@ -28144,7 +28490,7 @@ var render = function() {
                     [
                       _c("i", { staticClass: "fas fa-user-shield ml-2" }),
                       _vm._v(
-                        "\n                    تعديل دور المشرف\n                "
+                        "\r\n                    تعديل دور المشرف\r\n                "
                       )
                     ]
                   )
@@ -28196,7 +28542,7 @@ var render = function() {
           _c(
             "div",
             { staticClass: "text-2xl font-semibold cairo text-gray-600" },
-            [_vm._v("\n                مشرفي الموقع\n            ")]
+            [_vm._v("\r\n                مشرفي الموقع\r\n            ")]
           ),
           _vm._v(" "),
           _c(
@@ -28217,7 +28563,7 @@ var render = function() {
             [
               _c("span", { staticClass: "h-12 flex items-center" }, [
                 _c("i", { staticClass: "fas fa-plus ml-4 text-lg" }),
-                _vm._v("\n                    أضف مشرف\n                ")
+                _vm._v("\r\n                    أضف مشرف\r\n                ")
               ])
             ]
           )
@@ -28252,9 +28598,9 @@ var render = function() {
               },
               [
                 _vm._v(
-                  "\n                    " +
+                  "\r\n                    " +
                     _vm._s(item.name) +
-                    "\n                "
+                    "\r\n                "
                 )
               ]
             )
@@ -28292,9 +28638,9 @@ var render = function() {
                     _vm._v(" "),
                     _c("td", { staticClass: "lg:table-cell hidden" }, [
                       _vm._v(
-                        "\n                    " +
+                        "\r\n                    " +
                           _vm._s(item.name.substring(0, 10)) +
-                          "\n                "
+                          "\r\n                "
                       )
                     ]),
                     _vm._v(" "),
@@ -28310,7 +28656,7 @@ var render = function() {
                             },
                             [
                               _vm._v(
-                                "\n                        نشط\n                    "
+                                "\r\n                        نشط\r\n                    "
                               )
                             ]
                           )
@@ -28323,7 +28669,7 @@ var render = function() {
                             },
                             [
                               _vm._v(
-                                "\n                        غير نشط\n                    "
+                                "\r\n                        غير نشط\r\n                    "
                               )
                             ]
                           )
@@ -28335,7 +28681,7 @@ var render = function() {
                             },
                             [
                               _vm._v(
-                                "\n                        محظور\n                    "
+                                "\r\n                        محظور\r\n                    "
                               )
                             ]
                           )
@@ -28343,9 +28689,9 @@ var render = function() {
                     _vm._v(" "),
                     _c("td", { staticClass: "xl:table-cell hidden" }, [
                       _vm._v(
-                        "\n                    " +
+                        "\r\n                    " +
                           _vm._s(item.created_at.substring(0, 10)) +
-                          "\n                "
+                          "\r\n                "
                       )
                     ]),
                     _vm._v(" "),
@@ -28424,7 +28770,7 @@ var render = function() {
                                       "DisActiveAdmin"
                                     ) == true,
                                   expression:
-                                    "\n                            $parent.checkPermission('DisActiveAdmin') == true\n                        "
+                                    "\r\n                            $parent.checkPermission('DisActiveAdmin') == true\r\n                        "
                                 }
                               ],
                               staticClass:
@@ -28454,7 +28800,7 @@ var render = function() {
                                       "EditRoleAdmin"
                                     ) == true,
                                   expression:
-                                    "\n                                $parent.checkPermission('EditRoleAdmin') == true\n                            "
+                                    "\r\n                                $parent.checkPermission('EditRoleAdmin') == true\r\n                            "
                                 }
                               ],
                               staticClass:
@@ -28545,7 +28891,7 @@ var render = function() {
                 },
                 [
                   _vm._v(
-                    "\n                تعديل دور المشرف\n\n                "
+                    "\r\n                تعديل دور المشرف\r\n\r\n                "
                   ),
                   _c(
                     "router-link",
@@ -28556,7 +28902,7 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\n                    قائمة المشرفين\n                "
+                        "\r\n                    قائمة المشرفين\r\n                "
                       )
                     ]
                   )
@@ -28586,7 +28932,7 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\n                        إسم المشرف\n                    "
+                          "\r\n                        إسم المشرف\r\n                    "
                         )
                       ]
                     ),
@@ -28599,9 +28945,9 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\n                        " +
+                          "\r\n                        " +
                             _vm._s(_vm.admin.name) +
-                            "\n                    "
+                            "\r\n                    "
                         )
                       ]
                     )
@@ -28616,7 +28962,7 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\n                        دور المشرف\n                    "
+                          "\r\n                        دور المشرف\r\n                    "
                         )
                       ]
                     ),
@@ -28683,7 +29029,7 @@ var render = function() {
                     },
                     [
                       _c("i", { staticClass: "fas fa-check ml-2" }),
-                      _vm._v("\n                    حفظ\n                ")
+                      _vm._v("\r\n                    حفظ\r\n                ")
                     ]
                   )
                 ]
@@ -28741,7 +29087,9 @@ var render = function() {
                     "h-16 w-full border-b mb-2 px-4 flex items-center text-lg justify-between"
                 },
                 [
-                  _vm._v("\n                إضافة مشرف\n\n                "),
+                  _vm._v(
+                    "\r\n                إضافة مشرف\r\n\r\n                "
+                  ),
                   _c(
                     "router-link",
                     {
@@ -28751,7 +29099,7 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\n                    قائمة المشرفين\n                "
+                        "\r\n                    قائمة المشرفين\r\n                "
                       )
                     ]
                   )
@@ -28769,7 +29117,7 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\n                        إسم المشرف\n                    "
+                        "\r\n                        إسم المشرف\r\n                    "
                       )
                     ]
                   ),
@@ -28805,9 +29153,9 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\n                        " +
+                        "\r\n                        " +
                           _vm._s(_vm.formValidate.name) +
-                          "\n                    "
+                          "\r\n                    "
                       )
                     ]
                   )
@@ -28822,7 +29170,7 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\n                        إسم الدخول\n                    "
+                        "\r\n                        إسم الدخول\r\n                    "
                       )
                     ]
                   ),
@@ -28858,9 +29206,9 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\n                        " +
+                        "\r\n                        " +
                           _vm._s(_vm.formValidate.username) +
-                          "\n                    "
+                          "\r\n                    "
                       )
                     ]
                   )
@@ -28875,7 +29223,7 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\n                        دور المشرف\n                    "
+                        "\r\n                        دور المشرف\r\n                    "
                       )
                     ]
                   ),
@@ -28934,9 +29282,9 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\n                        " +
+                        "\r\n                        " +
                           _vm._s(_vm.formValidate.role) +
-                          "\n                    "
+                          "\r\n                    "
                       )
                     ]
                   )
@@ -28953,7 +29301,7 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\n                        كلمة المرور\n                    "
+                        "\r\n                        كلمة المرور\r\n                    "
                       )
                     ]
                   ),
@@ -28989,9 +29337,9 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\n                        " +
+                        "\r\n                        " +
                           _vm._s(_vm.formValidate.password) +
-                          "\n                    "
+                          "\r\n                    "
                       )
                     ]
                   )
@@ -29006,7 +29354,7 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\n                        تأكيد كلمة المرور\n                    "
+                        "\r\n                        تأكيد كلمة المرور\r\n                    "
                       )
                     ]
                   ),
@@ -29046,9 +29394,9 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\n                        " +
+                        "\r\n                        " +
                           _vm._s(_vm.formValidate.confirmPassword) +
-                          "\n                    "
+                          "\r\n                    "
                       )
                     ]
                   )
@@ -29063,7 +29411,7 @@ var render = function() {
                       "btn-color-one rounded shadow px-12 h-12 w-auto flex items-center justify-center text-white text-lg cursor-pointer",
                     on: { click: _vm.addAdmin }
                   },
-                  [_vm._v("\n                    إضافة\n                ")]
+                  [_vm._v("\r\n                    إضافة\r\n                ")]
                 )
               ])
             ]
@@ -29129,9 +29477,9 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\n                    " +
+                        "\r\n                    " +
                           _vm._s(_vm.data.todayVisitor) +
-                          " مادة\n                "
+                          " مادة\r\n                "
                       )
                     ]
                   ),
@@ -29141,7 +29489,7 @@ var render = function() {
                     { staticClass: "text-gray-500 flex items-center h-4" },
                     [
                       _vm._v(
-                        "\n                    المواذ الدراسية\n                "
+                        "\r\n                    المواذ الدراسية\r\n                "
                       )
                     ]
                   )
@@ -29167,9 +29515,9 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\n                    " +
+                        "\r\n                    " +
                           _vm._s(_vm.data.weekVisitor) +
-                          " الاختبارات\n                "
+                          " الاختبارات\r\n                "
                       )
                     ]
                   ),
@@ -29179,7 +29527,7 @@ var render = function() {
                     { staticClass: "text-gray-500 flex items-center h-4" },
                     [
                       _vm._v(
-                        "\n                    الاختبارات\n                "
+                        "\r\n                    الاختبارات\r\n                "
                       )
                     ]
                   )
@@ -29205,9 +29553,9 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\n                    " +
+                        "\r\n                    " +
                           _vm._s(_vm.data.monthVisitor) +
-                          " طالب\n                "
+                          " طالب\r\n                "
                       )
                     ]
                   ),
@@ -29215,7 +29563,11 @@ var render = function() {
                   _c(
                     "div",
                     { staticClass: "text-gray-500 flex items-center h-4" },
-                    [_vm._v("\n                    التلاميذ\n                ")]
+                    [
+                      _vm._v(
+                        "\r\n                    التلاميذ\r\n                "
+                      )
+                    ]
                   )
                 ])
               ]
@@ -29239,9 +29591,9 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\n                    " +
+                        "\r\n                    " +
                           _vm._s(_vm.data.todayMessage) +
-                          " أستاذ\n                "
+                          " أستاذ\r\n                "
                       )
                     ]
                   ),
@@ -29249,7 +29601,11 @@ var render = function() {
                   _c(
                     "div",
                     { staticClass: "text-gray-500 flex items-center h-4" },
-                    [_vm._v("\n                    الأساتذة\n                ")]
+                    [
+                      _vm._v(
+                        "\r\n                    الأساتذة\r\n                "
+                      )
+                    ]
                   )
                 ])
               ]
@@ -29358,7 +29714,7 @@ var render = function() {
               staticClass:
                 "h-20 items-center w-full flex justify-center text-xl border-b font-medium orange-color"
             },
-            [_vm._v("\n                 نظام الاختبارات \n            ")]
+            [_vm._v("\r\n                 نظام الاختبارات \r\n            ")]
           ),
           _vm._v(" "),
           _c(
@@ -29448,9 +29804,9 @@ var render = function() {
                           [
                             _c("i", { class: item.icon + " ml-6 text-lg" }),
                             _vm._v(
-                              "\n                        " +
+                              "\r\n                        " +
                                 _vm._s(item.name) +
-                                "\n                    "
+                                "\r\n                    "
                             )
                           ]
                         )
@@ -29466,9 +29822,9 @@ var render = function() {
                         [
                           _c("i", { class: item.icon + " ml-6 text-lg" }),
                           _vm._v(
-                            "\n                        " +
+                            "\r\n                        " +
                               _vm._s(item.name) +
-                              "\n                    "
+                              "\r\n                    "
                           )
                         ]
                       )
@@ -29665,7 +30021,11 @@ var render = function() {
                   staticClass:
                     "h-48 flex items-center justify-center text-4xl font-medium"
                 },
-                [_vm._v("\n                    تسجيل الدخول\n                ")]
+                [
+                  _vm._v(
+                    "\r\n                    تسجيل الدخول\r\n                "
+                  )
+                ]
               ),
               _vm._v(" "),
               _c(
@@ -29708,9 +30068,9 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\n                            " +
+                          "\r\n                            " +
                             _vm._s(_vm.formValidate.username) +
-                            "\n                        "
+                            "\r\n                        "
                         )
                       ]
                     )
@@ -29773,9 +30133,9 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\n                            " +
+                          "\r\n                            " +
                             _vm._s(_vm.formValidate.password) +
-                            "\n                        "
+                            "\r\n                        "
                         )
                       ]
                     )
@@ -29796,7 +30156,7 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\n                        تسجيل الدخول\n                    "
+                        "\r\n                        تسجيل الدخول\r\n                    "
                       )
                     ]
                   )
@@ -29812,7 +30172,7 @@ var render = function() {
                 },
                 [
                   _vm._v(
-                    "\n                    الذهاب للموقع\n                "
+                    "\r\n                    الذهاب للموقع\r\n                "
                   )
                 ]
               )
@@ -29850,7 +30210,7 @@ var staticRenderFns = [
             { staticClass: "text-2xl font-bold text-white text-center" },
             [
               _vm._v(
-                "\n                        لوحة التحكم\n                    "
+                "\r\n                        لوحة التحكم\r\n                    "
               )
             ]
           ),
@@ -29859,7 +30219,7 @@ var staticRenderFns = [
           _vm._v(" "),
           _c("div", { staticClass: " text-justify font-light text-gray-200" }, [
             _vm._v(
-              "\n                        من خلال هذه اللوحة يمكنك التحكم في الموقع بشكل كامل,\n                        كذلك يمكنك اضافة مستخدمين للموقع ومتابعة رسائل\n                        العملاء\n                    "
+              "\r\n                        من خلال هذه اللوحة يمكنك التحكم في الموقع بشكل كامل,\r\n                        كذلك يمكنك اضافة مستخدمين للموقع ومتابعة رسائل\r\n                        العملاء\r\n                    "
             )
           ]),
           _vm._v(" "),
@@ -29869,6 +30229,377 @@ var staticRenderFns = [
     )
   }
 ]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./resources/js/admin/pages/Materials/Materials.html?vue&type=template&id=e2579da0&scoped=true&":
+/*!**********************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./resources/js/admin/pages/Materials/Materials.html?vue&type=template&id=e2579da0&scoped=true& ***!
+  \**********************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "w-auto md:p-8 p-4" },
+    [
+      _c(
+        "div",
+        { staticClass: "flex justify-between w-full h-16 items-center" },
+        [
+          _c(
+            "div",
+            { staticClass: "text-2xl font-semibold cairo text-gray-600" },
+            [_vm._v("\r\n                المواد الدراسية\r\n            ")]
+          ),
+          _vm._v(" "),
+          _c(
+            "router-link",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.$parent.checkPermission("CreateAdmin") == true,
+                  expression: "$parent.checkPermission('CreateAdmin') == true"
+                }
+              ],
+              staticClass:
+                "rounded px-4 flex items-center cairo font-medium add-btn",
+              attrs: { to: "/admin/material/new" }
+            },
+            [
+              _c("span", { staticClass: "h-12 flex items-center" }, [
+                _c("i", { staticClass: "fas fa-plus ml-4 text-lg" }),
+                _vm._v("\r\n                    أضف مادة\r\n                ")
+              ])
+            ]
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "flex justify-between my-8" }, [
+        _c(
+          "div",
+          {
+            staticClass:
+              "border rounded font-semibold cairo flex bg-center text-gray-700"
+          },
+          _vm._l(_vm.filter, function(item, index) {
+            return _c(
+              "div",
+              {
+                key: index,
+                class: {
+                  "h-12 px-4 flex cursor-pointer items-center ": 1 == 1,
+                  "bg-white ": item.link == _vm.activeFilter,
+                  "rounded-r ": index == 0,
+                  " rounded-l border-l-0 ": index == _vm.filter.length - 1,
+                  "border-l ": index != _vm.filter.length - 1
+                },
+                on: {
+                  click: function($event) {
+                    return _vm.changeFilter(item.link)
+                  }
+                }
+              },
+              [
+                _vm._v(
+                  "\r\n                    " +
+                    _vm._s(item.name) +
+                    "\r\n                "
+                )
+              ]
+            )
+          }),
+          0
+        )
+      ]),
+      _vm._v(" "),
+      _vm.loaded && _vm.filterAdmin.length != 0
+        ? _c(
+            "table",
+            { staticClass: "w-full" },
+            [
+              _vm._m(0),
+              _vm._v(" "),
+              _vm._l(_vm.filterAdmin, function(item, index) {
+                return _c(
+                  "tr",
+                  {
+                    key: index,
+                    staticClass:
+                      "h-24 bg-white shadow-2 rounded-lg text-lg text-gray-600 font-medium hover:bg-gray-50"
+                  },
+                  [
+                    _c("td", { staticClass: "w-12 text-center rounded-r-lg" }, [
+                      _vm._v(_vm._s(item.id))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "lg:table-cell hidden" }, [
+                      _vm._v(
+                        "\r\n                    " +
+                          _vm._s(item.name) +
+                          "\r\n                "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _vm._v(_vm._s(item.description.substring(0, 20)))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "xl:table-cell hidden" }, [
+                      _vm._v(
+                        "\r\n                    " +
+                          _vm._s(item.created_at.substring(0, 10)) +
+                          "\r\n                "
+                      )
+                    ])
+                  ]
+                )
+              })
+            ],
+            2
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.loaded && _vm.filterAdmin.length == 0 ? _c("Empty-Box") : _vm._e()
+    ],
+    1
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tr", { staticClass: "h-12 text-lg font-bold text-gray-600" }, [
+      _c("td", { staticClass: "w-12 text-center" }, [_vm._v("#")]),
+      _vm._v(" "),
+      _c("td", { staticClass: "lg:table-cell hidden" }, [_vm._v("الإسم")]),
+      _vm._v(" "),
+      _c("td", { staticClass: "xl:table-cell hidden" }, [_vm._v("وصف المادة")]),
+      _vm._v(" "),
+      _c("td", { staticClass: "xl:table-cell hidden" }, [
+        _vm._v("تاريخ الإنشاء")
+      ])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./resources/js/admin/pages/Materials/NewMaterial/NewMaterial.html?vue&type=template&id=4c485a23&scoped=true&":
+/*!************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./resources/js/admin/pages/Materials/NewMaterial/NewMaterial.html?vue&type=template&id=4c485a23&scoped=true& ***!
+  \************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "w-auto md:p-8 p-4" },
+    [
+      _vm.loaded && _vm.roleList.length != 0
+        ? _c(
+            "div",
+            {
+              staticClass:
+                "w-full md:px-4 px-0 pb-8 pt-2 bg-white shadow-2 rounded-lg text-lg text-gray-600 font-medium"
+            },
+            [
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "h-16 w-full border-b mb-2 px-4 flex items-center text-lg justify-between"
+                },
+                [
+                  _vm._v(
+                    "\r\n                إضافة مادة\r\n\r\n                "
+                  ),
+                  _c(
+                    "router-link",
+                    {
+                      staticClass:
+                        "back-btn w-36 h-12 rounded font-normal flex items-center justify-center cursor-pointer",
+                      attrs: { to: "/admin/material/" }
+                    },
+                    [
+                      _vm._v(
+                        "\r\n                    قائمة المواد\r\n                "
+                      )
+                    ]
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "bg-blue-600a grid lg:grid-cols-2" }, [
+                _c("div", { staticClass: "w-full px-4 py-4" }, [
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "h-9 flex items-center text-gray-500 mr-2 text-sm"
+                    },
+                    [
+                      _vm._v(
+                        "\r\n                        إسم المادة\r\n                    "
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.formData.name,
+                        expression: "formData.name"
+                      }
+                    ],
+                    staticClass:
+                      "h-12 w-full rounded border border-gray-200 bg-gray-50 flex items-center px-4 text-lg",
+                    domProps: { value: _vm.formData.name },
+                    on: {
+                      change: _vm.validateName,
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.formData, "name", $event.target.value)
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "h-8 text-sm text-red-400 mr-2 flex items-center"
+                    },
+                    [
+                      _vm._v(
+                        "\r\n                        " +
+                          _vm._s(_vm.formValidate.name) +
+                          "\r\n                    "
+                      )
+                    ]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "w-full px-4 py-4" }, [
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "h-9 flex items-center text-gray-500 mr-2 text-sm"
+                    },
+                    [
+                      _vm._v(
+                        "\r\n                        وصف المادة \r\n                    "
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.formData.description,
+                        expression: "formData.description"
+                      }
+                    ],
+                    staticClass:
+                      "h-12 w-full rounded border border-gray-200 bg-gray-50 flex items-center px-4 text-lg",
+                    domProps: { value: _vm.formData.description },
+                    on: {
+                      change: _vm.validateDescription,
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(
+                          _vm.formData,
+                          "description",
+                          $event.target.value
+                        )
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "h-8 text-sm text-red-400 mr-2 flex items-center"
+                    },
+                    [
+                      _vm._v(
+                        "\r\n                        " +
+                          _vm._s(_vm.formValidate.description) +
+                          "\r\n                    "
+                      )
+                    ]
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "flex items-center h-20 mx-4" }, [
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "btn-color-one rounded shadow px-12 h-12 w-auto flex items-center justify-center text-white text-lg cursor-pointer",
+                    on: { click: _vm.addAdmin }
+                  },
+                  [_vm._v("\r\n                    إضافة\r\n                ")]
+                )
+              ])
+            ]
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.loaded && _vm.roleList.length == 0
+        ? _c("Empty-Box", {
+            attrs: {
+              message:
+                "لم نتمكن من جلب بيانات الأدوار, تأكد من أنك تمتلك صلاحية مشاهدة أدوار الصفحة"
+            }
+          })
+        : _vm._e()
+    ],
+    1
+  )
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -29910,7 +30641,7 @@ var render = function() {
                     "h-16 w-full border-b mb-2 px-4 flex items-center text-lg justify-between"
                 },
                 [
-                  _vm._v("\n            الرسائل الواردة\n\n            "),
+                  _vm._v("\r\n            الرسائل الواردة\r\n\r\n            "),
                   _c(
                     "router-link",
                     {
@@ -29918,7 +30649,7 @@ var render = function() {
                         "back-btn w-36 h-12 rounded font-normal flex items-center justify-center cursor-pointer",
                       attrs: { to: "/admin/message/" }
                     },
-                    [_vm._v("\n            قائمة الرسائل\n            ")]
+                    [_vm._v("\r\n            قائمة الرسائل\r\n            ")]
                   )
                 ],
                 1
@@ -29939,7 +30670,7 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\n                    إسم المرسل\n                "
+                          "\r\n                    إسم المرسل\r\n                "
                         )
                       ]
                     ),
@@ -29952,9 +30683,9 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\n                    " +
+                          "\r\n                    " +
                             _vm._s(_vm.message.name) +
-                            "\n                "
+                            "\r\n                "
                         )
                       ]
                     )
@@ -29969,7 +30700,7 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\n                    رقم الهاتف\n                "
+                          "\r\n                    رقم الهاتف\r\n                "
                         )
                       ]
                     ),
@@ -29982,13 +30713,13 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\n                    " +
+                          "\r\n                    " +
                             _vm._s(
                               !_vm.message.phone
                                 ? "لم يتم الإدخال"
                                 : _vm.message.phone
                             ) +
-                            "\n                "
+                            "\r\n                "
                         )
                       ]
                     )
@@ -30003,7 +30734,7 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\n                    البريد الإلكتروني\n                "
+                          "\r\n                    البريد الإلكتروني\r\n                "
                         )
                       ]
                     ),
@@ -30016,13 +30747,13 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\n                    " +
+                          "\r\n                    " +
                             _vm._s(
                               !_vm.message.email
                                 ? "لم يتم الإدخال"
                                 : _vm.message.email
                             ) +
-                            "\n                "
+                            "\r\n                "
                         )
                       ]
                     )
@@ -30037,7 +30768,7 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\n                    موجهة إلى\n                "
+                          "\r\n                    موجهة إلى\r\n                "
                         )
                       ]
                     ),
@@ -30050,13 +30781,13 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\n                    " +
+                          "\r\n                    " +
                             _vm._s(
                               !_vm.message.receiver
                                 ? "لم يتم الإدخال"
                                 : _vm.message.receiver.name
                             ) +
-                            "\n                "
+                            "\r\n                "
                         )
                       ]
                     )
@@ -30069,7 +30800,11 @@ var render = function() {
                         staticClass:
                           "h-9 flex items-center text-gray-500 mr-2 text-sm"
                       },
-                      [_vm._v("\n                    بتاريخ\n                ")]
+                      [
+                        _vm._v(
+                          "\r\n                    بتاريخ\r\n                "
+                        )
+                      ]
                     ),
                     _vm._v(" "),
                     _c(
@@ -30080,13 +30815,13 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\n                    " +
+                          "\r\n                    " +
                             _vm._s(
                               _vm.message.created_at
                                 ? _vm.message.created_at
                                 : "لم يتم الإدخال"
                             ) +
-                            "\n                "
+                            "\r\n                "
                         )
                       ]
                     )
@@ -30101,7 +30836,7 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\n                    حالة الرسالة\n                "
+                          "\r\n                    حالة الرسالة\r\n                "
                         )
                       ]
                     ),
@@ -30114,13 +30849,13 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\n                    " +
+                          "\r\n                    " +
                             _vm._s(
                               _vm.message.state == 1
                                 ? "تم التعامل"
                                 : "لم يتم الحل"
                             ) +
-                            "\n                "
+                            "\r\n                "
                         )
                       ]
                     )
@@ -30135,7 +30870,7 @@ var render = function() {
                     staticClass:
                       "h-9 flex items-center text-gray-500 mr-2 text-sm"
                   },
-                  [_vm._v("\n                محتوى الرسالة\n            ")]
+                  [_vm._v("\r\n                محتوى الرسالة\r\n            ")]
                 ),
                 _vm._v(" "),
                 _c("div", {
@@ -30161,7 +30896,7 @@ var render = function() {
                     },
                     [
                       _c("i", { staticClass: "far fa-trash-alt ml-2" }),
-                      _vm._v("\n                حذف\n            ")
+                      _vm._v("\r\n                حذف\r\n            ")
                     ]
                   ),
                   _vm._v(" "),
@@ -30175,7 +30910,7 @@ var render = function() {
                         },
                         [
                           _c("i", { staticClass: "fas fa-check ml-2" }),
-                          _vm._v("\n                تم الحل\n            ")
+                          _vm._v("\r\n                تم الحل\r\n            ")
                         ]
                       )
                     : _vm._e()
@@ -30248,7 +30983,9 @@ var render = function() {
               },
               [
                 _vm._v(
-                  "\n                " + _vm._s(item.name) + "\n            "
+                  "\r\n                " +
+                    _vm._s(item.name) +
+                    "\r\n            "
                 )
               ]
             )
@@ -30289,7 +31026,7 @@ var render = function() {
                             },
                             [
                               _vm._v(
-                                "\n                    محلولة\n                "
+                                "\r\n                    محلولة\r\n                "
                               )
                             ]
                           )
@@ -30301,7 +31038,7 @@ var render = function() {
                             },
                             [
                               _vm._v(
-                                "\n                    غير محلولة\n                "
+                                "\r\n                    غير محلولة\r\n                "
                               )
                             ]
                           )
@@ -30321,21 +31058,21 @@ var render = function() {
                     _vm._v(" "),
                     _c("td", { staticClass: "xl:table-cell hidden" }, [
                       _vm._v(
-                        "\n                " +
+                        "\r\n                " +
                           _vm._s(
                             !item.receiver
                               ? "لم يتم الإدخال"
                               : item.receiver.name
                           ) +
-                          "\n            "
+                          "\r\n            "
                       )
                     ]),
                     _vm._v(" "),
                     _c("td", { staticClass: "xl:table-cell hidden" }, [
                       _vm._v(
-                        "\n                " +
+                        "\r\n                " +
                           _vm._s(item.created_at) +
-                          "\n            "
+                          "\r\n            "
                       )
                     ]),
                     _vm._v(" "),
@@ -30364,7 +31101,7 @@ var render = function() {
                                 _vm.$parent.checkPermission("DeleteMessage") ==
                                 true,
                               expression:
-                                "\n                        $parent.checkPermission('DeleteMessage') == true\n                    "
+                                "\r\n                        $parent.checkPermission('DeleteMessage') == true\r\n                    "
                             }
                           ],
                           staticClass:
@@ -30429,7 +31166,7 @@ var staticRenderFns = [
         _c(
           "div",
           { staticClass: "text-2xl font-semibold cairo text-gray-600" },
-          [_vm._v("\n            صندوق الرسائل\n        ")]
+          [_vm._v("\r\n            صندوق الرسائل\r\n        ")]
         )
       ]
     )
@@ -30490,7 +31227,7 @@ var render = function() {
             staticClass:
               "text-2xl font-bold h-20 flex items-center justify-start border-b"
           },
-          [_vm._v("\n                الملف الشخصي\n            ")]
+          [_vm._v("\r\n                الملف الشخصي\r\n            ")]
         ),
         _vm._v(" "),
         _c("div", { staticClass: "md:flex items-center my-8" }, [
@@ -30526,7 +31263,7 @@ var render = function() {
                 "btn-color-one rounded shadow px-12 h-12 w-auto flex items-center justify-center text-white text-lg cursor-pointer",
               on: { click: _vm.changePhoto }
             },
-            [_vm._v("\n                    تحديث\n                ")]
+            [_vm._v("\r\n                    تحديث\r\n                ")]
           )
         ]),
         _vm._v(" "),
@@ -30534,13 +31271,17 @@ var render = function() {
           _c(
             "div",
             { staticClass: "text-2xl text-gray-600 font-medium mt-12" },
-            [_vm._v("\n                    البيانات الشخصية\n                ")]
+            [
+              _vm._v(
+                "\r\n                    البيانات الشخصية\r\n                "
+              )
+            ]
           ),
           _vm._v(" "),
           _c("div", { staticClass: "mt-4 lg:h-16 lg:flex items-center" }, [
             _c("div", { staticClass: "md:w-48 h-8 text-lg text-gray-600" }, [
               _vm._v(
-                "\n                        إسم المستخدم\n                    "
+                "\r\n                        إسم المستخدم\r\n                    "
               )
             ]),
             _vm._v(" "),
@@ -30576,9 +31317,9 @@ var render = function() {
                 },
                 [
                   _vm._v(
-                    "\n                            " +
+                    "\r\n                            " +
                       _vm._s(_vm.formValidate.name) +
-                      "\n                        "
+                      "\r\n                        "
                   )
                 ]
               )
@@ -30588,7 +31329,7 @@ var render = function() {
           _c("div", { staticClass: "mt-4 lg:h-16 lg:flex items-center" }, [
             _c("div", { staticClass: "md:w-48 h-8 text-lg text-gray-600" }, [
               _vm._v(
-                "\n                        إسم الدخول\n                    "
+                "\r\n                        إسم الدخول\r\n                    "
               )
             ]),
             _vm._v(" "),
@@ -30600,9 +31341,9 @@ var render = function() {
               },
               [
                 _vm._v(
-                  "\n                        " +
+                  "\r\n                        " +
                     _vm._s(_vm.user.username) +
-                    "\n                    "
+                    "\r\n                    "
                 )
               ]
             )
@@ -30611,7 +31352,7 @@ var render = function() {
           _c("div", { staticClass: "mt-4 lg:h-16 lg:flex items-center" }, [
             _c("div", { staticClass: "md:w-48 h-8 text-lg text-gray-600" }, [
               _vm._v(
-                "\n                        دور الحساب\n                    "
+                "\r\n                        دور الحساب\r\n                    "
               )
             ]),
             _vm._v(" "),
@@ -30623,9 +31364,9 @@ var render = function() {
               },
               [
                 _vm._v(
-                  "\n                        " +
+                  "\r\n                        " +
                     _vm._s(_vm.user.role) +
-                    "\n                    "
+                    "\r\n                    "
                 )
               ]
             )
@@ -30639,7 +31380,11 @@ var render = function() {
                   "btn-color-one rounded shadow px-12 h-12 w-auto flex items-center justify-center text-white text-lg cursor-pointer",
                 on: { click: _vm.changeName }
               },
-              [_vm._v("\n                        تحديث\n                    ")]
+              [
+                _vm._v(
+                  "\r\n                        تحديث\r\n                    "
+                )
+              ]
             )
           ])
         ]),
@@ -30650,7 +31395,7 @@ var render = function() {
             { staticClass: "text-2xl text-gray-600 font-medium mt-12" },
             [
               _vm._v(
-                "\n                    تغيير كلمة المرور\n                "
+                "\r\n                    تغيير كلمة المرور\r\n                "
               )
             ]
           ),
@@ -30658,7 +31403,7 @@ var render = function() {
           _c("div", { staticClass: "mt-4 lg:h-16 lg:flex items-center" }, [
             _c("div", { staticClass: "md:w-48 h-8 text-lg text-gray-600" }, [
               _vm._v(
-                "\n                        كلمة المرور الحالية\n                    "
+                "\r\n                        كلمة المرور الحالية\r\n                    "
               )
             ]),
             _vm._v(" "),
@@ -30694,9 +31439,9 @@ var render = function() {
                 },
                 [
                   _vm._v(
-                    "\n                            " +
+                    "\r\n                            " +
                       _vm._s(_vm.formValidate.oldPassword) +
-                      "\n                        "
+                      "\r\n                        "
                   )
                 ]
               )
@@ -30706,7 +31451,7 @@ var render = function() {
           _c("div", { staticClass: "mt-4 lg:h-16 lg:flex items-center" }, [
             _c("div", { staticClass: "md:w-48 h-8 text-lg text-gray-600" }, [
               _vm._v(
-                "\n                        كلمة المرور الجديدة\n                    "
+                "\r\n                        كلمة المرور الجديدة\r\n                    "
               )
             ]),
             _vm._v(" "),
@@ -30742,9 +31487,9 @@ var render = function() {
                 },
                 [
                   _vm._v(
-                    "\n                            " +
+                    "\r\n                            " +
                       _vm._s(_vm.formValidate.newPassword) +
-                      "\n                        "
+                      "\r\n                        "
                   )
                 ]
               )
@@ -30754,7 +31499,7 @@ var render = function() {
           _c("div", { staticClass: "mt-4 lg:h-16 lg:flex items-center" }, [
             _c("div", { staticClass: "md:w-48 h-8 text-lg text-gray-600" }, [
               _vm._v(
-                "\n                        تأكيد كلمة المرور\n                    "
+                "\r\n                        تأكيد كلمة المرور\r\n                    "
               )
             ]),
             _vm._v(" "),
@@ -30794,9 +31539,9 @@ var render = function() {
                 },
                 [
                   _vm._v(
-                    "\n                            " +
+                    "\r\n                            " +
                       _vm._s(_vm.formValidate.confirmPassword) +
-                      "\n                        "
+                      "\r\n                        "
                   )
                 ]
               )
@@ -30811,7 +31556,11 @@ var render = function() {
                   "btn-color-one rounded shadow px-12 h-12 w-auto flex items-center justify-center text-white text-lg cursor-pointer",
                 on: { click: _vm.changePassword }
               },
-              [_vm._v("\n                        تحديث\n                    ")]
+              [
+                _vm._v(
+                  "\r\n                        تحديث\r\n                    "
+                )
+              ]
             )
           ])
         ])
@@ -30832,7 +31581,7 @@ var staticRenderFns = [
       },
       [
         _c("i", { staticClass: "fas fa-folder-plus ml-2" }),
-        _vm._v("\n                        إختر الصورة")
+        _vm._v("\r\n                        إختر الصورة")
       ]
     )
   }
@@ -30878,7 +31627,9 @@ var render = function() {
                     "h-16 w-full border-b mb-2 px-4 flex items-center text-lg justify-between"
                 },
                 [
-                  _vm._v("\n                بيانات الدور\n\n                "),
+                  _vm._v(
+                    "\r\n                بيانات الدور\r\n\r\n                "
+                  ),
                   _c(
                     "router-link",
                     {
@@ -30888,7 +31639,7 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\n                    أدوار المشرفين\n                "
+                        "\r\n                    أدوار المشرفين\r\n                "
                       )
                     ]
                   )
@@ -30903,7 +31654,11 @@ var render = function() {
                     staticClass:
                       "h-9 flex items-center text-gray-500 mr-2 text-sm"
                   },
-                  [_vm._v("\n                    إسم الدور\n                ")]
+                  [
+                    _vm._v(
+                      "\r\n                    إسم الدور\r\n                "
+                    )
+                  ]
                 ),
                 _vm._v(" "),
                 _c("input", {
@@ -30937,9 +31692,9 @@ var render = function() {
                   },
                   [
                     _vm._v(
-                      "\n                    " +
+                      "\r\n                    " +
                         _vm._s(_vm.formValidate.name) +
-                        "\n                "
+                        "\r\n                "
                     )
                   ]
                 )
@@ -30951,7 +31706,7 @@ var render = function() {
                   staticClass:
                     " border-b mx-4 px-2 py-2 mt-6 text-gray-500 text-sm"
                 },
-                [_vm._v("\n                الصلاحيات\n            ")]
+                [_vm._v("\r\n                الصلاحيات\r\n            ")]
               ),
               _vm._v(" "),
               _c(
@@ -31013,9 +31768,9 @@ var render = function() {
                 },
                 [
                   _vm._v(
-                    "\n                " +
+                    "\r\n                " +
                       _vm._s(_vm.formValidate.permissions) +
-                      "\n            "
+                      "\r\n            "
                   )
                 ]
               ),
@@ -31036,7 +31791,7 @@ var render = function() {
                     },
                     [
                       _c("i", { staticClass: "fas fa-check ml-2" }),
-                      _vm._v("\n                    حفظ\n                ")
+                      _vm._v("\r\n                    حفظ\r\n                ")
                     ]
                   )
                 ]
@@ -31095,7 +31850,7 @@ var render = function() {
                 },
                 [
                   _vm._v(
-                    "\n                إضافة دور جديد\n\n                "
+                    "\r\n                إضافة دور جديد\r\n\r\n                "
                   ),
                   _c(
                     "router-link",
@@ -31106,7 +31861,7 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\n                    أدوار المشرفين\n                "
+                        "\r\n                    أدوار المشرفين\r\n                "
                       )
                     ]
                   )
@@ -31121,7 +31876,11 @@ var render = function() {
                     staticClass:
                       "h-9 flex items-center text-gray-500 mr-2 text-sm"
                   },
-                  [_vm._v("\n                    إسم الدور\n                ")]
+                  [
+                    _vm._v(
+                      "\r\n                    إسم الدور\r\n                "
+                    )
+                  ]
                 ),
                 _vm._v(" "),
                 _c("input", {
@@ -31155,9 +31914,9 @@ var render = function() {
                   },
                   [
                     _vm._v(
-                      "\n                    " +
+                      "\r\n                    " +
                         _vm._s(_vm.formValidate.name) +
-                        "\n                "
+                        "\r\n                "
                     )
                   ]
                 )
@@ -31169,7 +31928,7 @@ var render = function() {
                   staticClass:
                     " border-b mx-4 px-2 py-2 mt-6 text-gray-500 text-sm"
                 },
-                [_vm._v("\n                الصلاحيات\n            ")]
+                [_vm._v("\r\n                الصلاحيات\r\n            ")]
               ),
               _vm._v(" "),
               _c(
@@ -31232,9 +31991,9 @@ var render = function() {
                 },
                 [
                   _vm._v(
-                    "\n                " +
+                    "\r\n                " +
                       _vm._s(_vm.formValidate.permissions) +
-                      "\n            "
+                      "\r\n            "
                   )
                 ]
               ),
@@ -31247,7 +32006,7 @@ var render = function() {
                       "btn-color-one rounded shadow px-12 h-12 w-auto flex items-center justify-center text-white text-lg cursor-pointer",
                     on: { click: _vm.addRole }
                   },
-                  [_vm._v("\n                    إضافة\n                ")]
+                  [_vm._v("\r\n                    إضافة\r\n                ")]
                 )
               ])
             ]
@@ -31307,7 +32066,9 @@ var render = function() {
                     "h-16 w-full border-b mb-2 px-4 flex items-center text-lg justify-between"
                 },
                 [
-                  _vm._v("\n                بيانات الدور\n\n                "),
+                  _vm._v(
+                    "\r\n                بيانات الدور\r\n\r\n                "
+                  ),
                   _c(
                     "router-link",
                     {
@@ -31317,7 +32078,7 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\n                    أدوار المشرفين\n                "
+                        "\r\n                    أدوار المشرفين\r\n                "
                       )
                     ]
                   )
@@ -31332,7 +32093,11 @@ var render = function() {
                     staticClass:
                       "h-9 flex items-center text-gray-500 mr-2 text-sm"
                   },
-                  [_vm._v("\n                    إسم الدور\n                ")]
+                  [
+                    _vm._v(
+                      "\r\n                    إسم الدور\r\n                "
+                    )
+                  ]
                 ),
                 _vm._v(" "),
                 _c(
@@ -31343,9 +32108,9 @@ var render = function() {
                   },
                   [
                     _vm._v(
-                      "\n                    " +
+                      "\r\n                    " +
                         _vm._s(_vm.role.name) +
-                        "\n                "
+                        "\r\n                "
                     )
                   ]
                 )
@@ -31357,7 +32122,7 @@ var render = function() {
                   staticClass:
                     " border-b mx-4 px-2 py-2 mt-6 text-gray-500 text-sm"
                 },
-                [_vm._v("\n                الصلاحيات\n            ")]
+                [_vm._v("\r\n                الصلاحيات\r\n            ")]
               ),
               _vm._v(" "),
               _c(
@@ -31441,7 +32206,9 @@ var render = function() {
                         },
                         [
                           _c("i", { staticClass: "far fa-trash-alt ml-2" }),
-                          _vm._v("\n                    حذف\n                ")
+                          _vm._v(
+                            "\r\n                    حذف\r\n                "
+                          )
                         ]
                       )
                     : _vm._e(),
@@ -31467,7 +32234,9 @@ var render = function() {
                     },
                     [
                       _c("i", { staticClass: "far fa-edit ml-2" }),
-                      _vm._v("\n                    تعديل\n                ")
+                      _vm._v(
+                        "\r\n                    تعديل\r\n                "
+                      )
                     ]
                   )
                 ],
@@ -31518,7 +32287,7 @@ var render = function() {
           _c(
             "div",
             { staticClass: "text-2xl font-semibold cairo text-gray-600" },
-            [_vm._v("\n                أدوار المشرفين\n            ")]
+            [_vm._v("\r\n                أدوار المشرفين\r\n            ")]
           ),
           _vm._v(" "),
           _c(
@@ -31539,7 +32308,7 @@ var render = function() {
             [
               _c("span", { staticClass: "h-12 flex items-center" }, [
                 _c("i", { staticClass: "fas fa-plus ml-4 text-lg" }),
-                _vm._v("\n                    دور جديد\n                ")
+                _vm._v("\r\n                    دور جديد\r\n                ")
               ])
             ]
           )

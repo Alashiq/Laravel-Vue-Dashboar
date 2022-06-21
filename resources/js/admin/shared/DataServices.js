@@ -82,5 +82,16 @@ export default {
     },
     UpdateRole(role, formData) {
         return axios.put("/api/admin/role/" + role, formData);
-    }
+    },
+
+    
+    // ============== Material Part =======================
+    GetAllMaterials() {
+        return axios.get("/api/admin/material");
+    },
+    PostNewMaterial(role) {
+        return axios.post("/api/admin/material", role);
+    },
+
+    
 };
