@@ -41,7 +41,7 @@ Route::middleware(['auth:sanctum', 'type.admin'])->group(function () {
 
     # # # # # # # # # # # # # # # Admin # # # # # # # # # # # # # # # 
     Route::group(['prefix' => 'admin'], function () {
-        Route::get('/', [AdminDashApiController::class, 'index'])->middleware('check.role:ReadAdmin');
+        Route::get('/type/{type}', [AdminDashApiController::class, 'index'])->middleware('check.role:ReadAdmin');
         Route::get('/role', [AdminDashApiController::class, 'role'])->middleware('check.role:CreateAdmin');
         Route::get('/{admin}', [AdminDashApiController::class, 'show'])->middleware('check.role:ReadAdmin');
         Route::post('/', [AdminDashApiController::class, 'create'])->middleware('check.role:CreateAdmin');

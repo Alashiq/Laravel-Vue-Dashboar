@@ -2242,7 +2242,7 @@ __webpack_require__.r(__webpack_exports__);
 
     this.$store.commit("activePage", 3);
     this.$loading.Start();
-    this.$http.GetAllAdmins().then(function (response) {
+    this.$http.GetAllAdmins(0).then(function (response) {
       _this4.$loading.Stop();
 
       _this4.loaded = true;
@@ -2376,7 +2376,8 @@ __webpack_require__.r(__webpack_exports__);
         name: "",
         username: "",
         password: "",
-        role_id: null,
+        type: 0,
+        role_id: 1,
         confirmPassword: ""
       },
       formValidate: {
@@ -3879,6 +3880,1148 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./resources/js/admin/pages/Students/NewStudent/NewStudent.js?vue&type=script&lang=js&":
+/*!**************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./resources/js/admin/pages/Students/NewStudent/NewStudent.js?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      roleList: [],
+      formData: {
+        name: "",
+        username: "",
+        password: "",
+        type: 2,
+        role_id: 3,
+        confirmPassword: ""
+      },
+      formValidate: {
+        name: "",
+        username: "",
+        password: "",
+        confirmPassword: ""
+      },
+      loaded: false
+    };
+  },
+  methods: {
+    addAdmin: function addAdmin() {
+      var _this = this;
+
+      this.validateName();
+      this.validateUsername();
+      this.validateRole();
+      this.validatePassword();
+      this.validateConfirmPassword();
+      if (this.formValidate.name != "") return 0;
+      if (this.formValidate.username != "") return 0;
+      if (this.formValidate.role != "") return 0;
+      if (this.formValidate.password != "") return 0;
+      if (this.formValidate.confirmPassword != "") return 0;
+      this.$loading.Start();
+      this.$http.PostNewAdmin(this.formData).then(function (response) {
+        _this.$loading.Stop();
+
+        _this.loaded = true;
+
+        _this.$alert.Success(response.data.message);
+
+        _this.formData.name = "";
+        _this.formData.username = "";
+        _this.formData.password = "";
+        _this.formData.role_id = null;
+        _this.formData.confirmPassword = "";
+      })["catch"](function (error) {
+        _this.$loading.Stop();
+
+        _this.$alert.BadRequest(error.response);
+      });
+    },
+    validateName: function validateName() {
+      this.formValidate.name = "";
+
+      if (this.formData.name.trim() == "") {
+        this.formValidate.name = "لا يمكن ترك هذا الحقل فارغ";
+        return 1;
+      }
+
+      if (this.formData.name.trim().length < 5) {
+        this.formValidate.name = "يجب ان يكون الإسم 5 أحرف أو اكثر";
+        return 1;
+      }
+
+      if (this.formData.name.trim().length > 16) {
+        this.formValidate.name = "يجب ان يكون الإسم أقل من 16 حرف";
+        return 1;
+      }
+    },
+    validateUsername: function validateUsername() {
+      this.formValidate.username = "";
+
+      if (this.formData.username.trim() == "") {
+        this.formValidate.username = "لا يمكن ترك هذا الحقل فارغ";
+        return 1;
+      }
+
+      if (this.formData.username.trim().length < 5) {
+        this.formValidate.username = "يجب ان يكون إسم الدخول 5 أحرف أو اكثر";
+        return 1;
+      }
+
+      if (this.formData.username.trim().length > 16) {
+        this.formValidate.username = "يجب ان يكون إسم الدخول أقل من 16 حرف";
+        return 1;
+      }
+    },
+    validateRole: function validateRole() {
+      this.formValidate.role = "";
+
+      if (this.formData.role_id == null) {
+        this.formValidate.role = "يجب عليك تحديد دور المشرف";
+        return 1;
+      }
+    },
+    validatePassword: function validatePassword() {
+      this.formValidate.password = "";
+
+      if (this.formData.password.trim() == "") {
+        this.formValidate.password = "لا يمكن ترك هذا الحقل فارغ";
+        return 1;
+      }
+
+      if (this.formData.password.trim().length < 6) {
+        this.formValidate.password = "يجب ان تكون كلمة المرور أكثر من 6 أرقام ورموز";
+        return 1;
+      }
+
+      if (this.formData.password.trim() != this.formData.password) {
+        this.formValidate.password = "يجب أن لا تحتوي كلمة المرور على اي فراغات";
+        return 1;
+      }
+    },
+    validateConfirmPassword: function validateConfirmPassword() {
+      this.formValidate.confirmPassword = "";
+
+      if (this.formData.confirmPassword.trim() == "") {
+        this.formValidate.confirmPassword = "لا يمكن ترك هذا الحقل فارغ";
+        return 1;
+      }
+
+      if (this.formData.confirmPassword != this.formData.password) {
+        this.formValidate.confirmPassword = "يجب ان يتطابق كلمة المرور الجديدة مع تأكيد كلمة المرور";
+        return 1;
+      }
+    }
+  },
+  mounted: function mounted() {
+    var _this2 = this;
+
+    this.$store.commit("activePage", 6);
+    this.$loading.Start();
+    this.$http.GetAdminRolesForNewAdmin().then(function (response) {
+      _this2.$loading.Stop();
+
+      _this2.loaded = true;
+
+      if (response.status == 200) {
+        _this2.roleList = response.data.roleList;
+
+        _this2.$alert.Success(response.data.message);
+      } else if (response.status == 204) {
+        _this2.$alert.Empty("تنبيه لا يوجد اي أدوار");
+      }
+    })["catch"](function (error) {
+      _this2.$loading.Stop();
+
+      _this2.$alert.BadRequest(error.response);
+    });
+  },
+  computed: {},
+  created: function created() {}
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./resources/js/admin/pages/Students/Student/Student.js?vue&type=script&lang=js&":
+/*!********************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./resources/js/admin/pages/Students/Student/Student.js?vue&type=script&lang=js& ***!
+  \********************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_0__);
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      admin: [],
+      loaded: false
+    };
+  },
+  methods: {
+    activeAdmin: function activeAdmin() {
+      var _this = this;
+
+      sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire({
+        title: "هل أنت متأكد",
+        text: "هل أنت متأكد من أنك تريد تفعيل هذا الحساب !",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#16a085",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "نعم تفعيل",
+        cancelButtonText: "إلغاء"
+      }).then(function (result) {
+        if (result.isConfirmed) {
+          _this.$loading.Start();
+
+          _this.$http.ActiveAdmin(_this.$route.params.id).then(function (response) {
+            _this.$loading.Stop();
+
+            if (response.status == 200) {
+              _this.admin.state = 1;
+
+              _this.$alert.Success(response.data.message);
+            } else if (response.status == 204) {
+              _this.admin = [];
+
+              _this.$alert.Empty("لم يعد هذا الحساب متوفرة, قد يكون شخص أخر قام بحذفه");
+            }
+          })["catch"](function (error) {
+            _this.$loading.Stop();
+
+            _this.$alert.BadRequest(error.response);
+          });
+        }
+      });
+    },
+    disActiveAdmin: function disActiveAdmin() {
+      var _this2 = this;
+
+      sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire({
+        title: "هل أنت متأكد",
+        text: "هل أنت متأكد من أنك تريد الغاء تفعيل هذا الحساب !",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#16a085",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "نعم إلغاء التفعيل",
+        cancelButtonText: "إلغاء"
+      }).then(function (result) {
+        if (result.isConfirmed) {
+          _this2.$loading.Start();
+
+          _this2.$http.DisActiveAdmin(_this2.$route.params.id).then(function (response) {
+            _this2.$loading.Stop();
+
+            if (response.status == 200) {
+              _this2.admin.state = 0;
+
+              _this2.$alert.Success(response.data.message);
+            } else if (response.status == 204) {
+              _this2.admin = [];
+
+              _this2.$alert.Empty("لم يعد هذا الحساب متوفرة, قد يكون شخص أخر قام بحذفه");
+            }
+          })["catch"](function (error) {
+            _this2.$loading.Stop();
+
+            _this2.$alert.BadRequest(error.response);
+          });
+        }
+      });
+    },
+    bannedAdmin: function bannedAdmin() {
+      var _this3 = this;
+
+      sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire({
+        title: "هل أنت متأكد",
+        text: "هل أنت متأكد من أنك تريد حظر هذا الحساب ؟ إذا قمت بحظر الحساب فلا يمكنك استخدامه مجددا",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#16a085",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "نعم حظر الحساب",
+        cancelButtonText: "إلغاء"
+      }).then(function (result) {
+        if (result.isConfirmed) {
+          _this3.$loading.Start();
+
+          _this3.$http.BannedAdmin(_this3.$route.params.id).then(function (response) {
+            _this3.$loading.Stop();
+
+            if (response.status == 200) {
+              _this3.admin.state = 2;
+
+              _this3.$alert.Success(response.data.message);
+            } else if (response.status == 204) {
+              _this3.admin = [];
+
+              _this3.$alert.Empty("لم يعد هذا الحساب متوفرة, قد يكون شخص أخر قام بحذفه");
+            }
+          })["catch"](function (error) {
+            _this3.$loading.Stop();
+
+            _this3.$alert.BadRequest(error.response);
+          });
+        }
+      });
+    },
+    resetPassword: function resetPassword() {
+      var _this4 = this;
+
+      sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire({
+        title: "هل أنت متأكد",
+        text: "سيتم تغيير كلمة المرور لتصبح 123456",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#16a085",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "نعم تغيير",
+        cancelButtonText: "إلغاء"
+      }).then(function (result) {
+        if (result.isConfirmed) {
+          _this4.$loading.Start();
+
+          _this4.$http.ResetAdminPassword(_this4.$route.params.id).then(function (response) {
+            _this4.$loading.Stop();
+
+            if (response.status == 200) {
+              _this4.$alert.Success(response.data.message);
+            } else if (response.status == 204) {
+              _this4.admin = [];
+
+              _this4.$alert.Empty("لم يعد هذا الحساب متوفرة, قد يكون شخص أخر قام بحذفه");
+            }
+          })["catch"](function (error) {
+            _this4.$loading.Stop();
+
+            _this4.$alert.BadRequest(error.response);
+          });
+        }
+      });
+    }
+  },
+  mounted: function mounted() {
+    var _this5 = this;
+
+    this.$store.commit("activePage", 6);
+    this.$loading.Start();
+    this.$http.GetAdminById(this.$route.params.id).then(function (response) {
+      _this5.$loading.Stop();
+
+      _this5.loaded = true;
+
+      if (response.status == 200) {
+        _this5.admin = response.data.data;
+
+        _this5.$alert.Success(response.data.message);
+      } else if (response.status == 204) {
+        _this5.$alert.Empty("هذه الرسالة غير متوفرة");
+      }
+    })["catch"](function (error) {
+      _this5.$loading.Stop();
+
+      _this5.loaded = true;
+
+      _this5.$alert.BadRequest(error.response);
+    });
+  },
+  computed: {},
+  created: function created() {}
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./resources/js/admin/pages/Students/Students.js?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./resources/js/admin/pages/Students/Students.js?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_0__);
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      admins: [],
+      loaded: false,
+      filter: [{
+        link: "all",
+        name: "الكل",
+        active: true
+      }, {
+        link: "active",
+        name: "المفعلين",
+        active: false
+      }, {
+        link: "notActive",
+        name: "الغير مفعل",
+        active: true
+      }, {
+        link: "banned",
+        name: "المحظورين",
+        active: true
+      }],
+      activeFilter: "all"
+    };
+  },
+  methods: {
+    activeAdmin: function activeAdmin(id, index) {
+      var _this = this;
+
+      sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire({
+        title: "هل أنت متأكد",
+        text: "هل أنت متأكد من أنك تريد تفعيل هذا الحساب !",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#16a085",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "نعم تفعيل",
+        cancelButtonText: "إلغاء"
+      }).then(function (result) {
+        if (result.isConfirmed) {
+          _this.$loading.Start();
+
+          _this.$http.ActiveAdmin(id).then(function (response) {
+            _this.$loading.Stop();
+
+            if (response.status == 200) {
+              _this.admins[_this.admins.findIndex(function (m) {
+                return m.id === id;
+              })].state = 1;
+
+              _this.$alert.Success(response.data.message);
+            } else if (response.status == 204) {
+              _this.$alert.Empty("لم يعد هذا الحساب متوفرة, قد يكون شخص أخر قام بحذفه");
+            }
+          })["catch"](function (error) {
+            _this.$loading.Stop();
+
+            _this.$alert.BadRequest(error.response);
+          });
+        }
+      });
+    },
+    disActiveAdmin: function disActiveAdmin(id, index) {
+      var _this2 = this;
+
+      sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire({
+        title: "هل أنت متأكد",
+        text: "هل أنت متأكد من أنك تريد الغاء تفعيل هذا الحساب !",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#16a085",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "نعم إلغاء التفعيل",
+        cancelButtonText: "إلغاء"
+      }).then(function (result) {
+        if (result.isConfirmed) {
+          _this2.$loading.Start();
+
+          _this2.$http.DisActiveAdmin(id).then(function (response) {
+            _this2.$loading.Stop();
+
+            if (response.status == 200) {
+              _this2.admins[_this2.admins.findIndex(function (m) {
+                return m.id === id;
+              })].state = 0;
+
+              _this2.$alert.Success(response.data.message);
+            } else if (response.status == 204) {
+              _this2.$alert.Empty("لم يعد هذا الحساب متوفرة, قد يكون شخص أخر قام بحذفه");
+            }
+          })["catch"](function (error) {
+            _this2.$loading.Stop();
+
+            _this2.$alert.BadRequest(error.response);
+          });
+        }
+      });
+    },
+    bannedAdmin: function bannedAdmin(id, index) {
+      var _this3 = this;
+
+      sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire({
+        title: "هل أنت متأكد",
+        text: "هل أنت متأكد من أنك تريد حظر هذا الحساب ؟ إذا قمت بحظر الحساب فلا يمكنك استخدامه مجددا",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#16a085",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "نعم حظر الحساب",
+        cancelButtonText: "إلغاء"
+      }).then(function (result) {
+        if (result.isConfirmed) {
+          _this3.$loading.Start();
+
+          _this3.$http.BannedAdmin(id).then(function (response) {
+            _this3.$loading.Stop();
+
+            if (response.status == 200) {
+              _this3.admins[_this3.admins.findIndex(function (m) {
+                return m.id === id;
+              })].state = 2;
+
+              _this3.$alert.Success(response.data.message);
+            } else if (response.status == 204) {
+              _this3.$alert.Empty("لم يعد هذا الحساب متوفرة, قد يكون شخص أخر قام بحذفه");
+            }
+          })["catch"](function (error) {
+            _this3.$loading.Stop();
+
+            _this3.$alert.BadRequest(error.response);
+          });
+        }
+      });
+    },
+    changeFilter: function changeFilter(filterName) {
+      this.activeFilter = filterName;
+    }
+  },
+  mounted: function mounted() {
+    var _this4 = this;
+
+    this.$store.commit("activePage", 6);
+    this.$loading.Start();
+    this.$http.GetAllAdmins(2).then(function (response) {
+      _this4.$loading.Stop();
+
+      _this4.loaded = true;
+
+      if (response.status == 200) {
+        _this4.admins = response.data.data;
+
+        _this4.$alert.Success(response.data.message);
+      } else if (response.status == 204) {
+        _this4.$alert.Empty("تنبيه لا يوجد اي مشرفين");
+      }
+    })["catch"](function (error) {
+      _this4.loaded = true;
+
+      _this4.$loading.Stop();
+
+      _this4.$alert.BadRequest(error.response);
+    });
+  },
+  computed: {
+    filterAdmin: function filterAdmin() {
+      var list = [];
+
+      if (this.activeFilter == "all") {
+        list = this.admins;
+      } else if (this.activeFilter == "active") {
+        for (var i = 0; i < this.admins.length; i++) {
+          if (this.admins[i].state == 1) list.push(this.admins[i]);
+        }
+      } else if (this.activeFilter == "notActive") {
+        for (var i = 0; i < this.admins.length; i++) {
+          if (this.admins[i].state == 0) list.push(this.admins[i]);
+        }
+      } else if (this.activeFilter == "banned") {
+        for (var i = 0; i < this.admins.length; i++) {
+          if (this.admins[i].state == 2) list.push(this.admins[i]);
+        }
+      }
+
+      return list;
+    }
+  },
+  created: function created() {}
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./resources/js/admin/pages/Teachers/NewTeacher/NewTeacher.js?vue&type=script&lang=js&":
+/*!**************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./resources/js/admin/pages/Teachers/NewTeacher/NewTeacher.js?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      roleList: [],
+      formData: {
+        name: "",
+        username: "",
+        password: "",
+        type: 1,
+        role_id: 2,
+        confirmPassword: ""
+      },
+      formValidate: {
+        name: "",
+        username: "",
+        password: "",
+        confirmPassword: ""
+      },
+      loaded: false
+    };
+  },
+  methods: {
+    addAdmin: function addAdmin() {
+      var _this = this;
+
+      this.validateName();
+      this.validateUsername();
+      this.validateRole();
+      this.validatePassword();
+      this.validateConfirmPassword();
+      if (this.formValidate.name != "") return 0;
+      if (this.formValidate.username != "") return 0;
+      if (this.formValidate.role != "") return 0;
+      if (this.formValidate.password != "") return 0;
+      if (this.formValidate.confirmPassword != "") return 0;
+      this.$loading.Start();
+      this.$http.PostNewAdmin(this.formData).then(function (response) {
+        _this.$loading.Stop();
+
+        _this.loaded = true;
+
+        _this.$alert.Success(response.data.message);
+
+        _this.formData.name = "";
+        _this.formData.username = "";
+        _this.formData.password = "";
+        _this.formData.role_id = null;
+        _this.formData.confirmPassword = "";
+      })["catch"](function (error) {
+        _this.$loading.Stop();
+
+        _this.$alert.BadRequest(error.response);
+      });
+    },
+    validateName: function validateName() {
+      this.formValidate.name = "";
+
+      if (this.formData.name.trim() == "") {
+        this.formValidate.name = "لا يمكن ترك هذا الحقل فارغ";
+        return 1;
+      }
+
+      if (this.formData.name.trim().length < 5) {
+        this.formValidate.name = "يجب ان يكون الإسم 5 أحرف أو اكثر";
+        return 1;
+      }
+
+      if (this.formData.name.trim().length > 16) {
+        this.formValidate.name = "يجب ان يكون الإسم أقل من 16 حرف";
+        return 1;
+      }
+    },
+    validateUsername: function validateUsername() {
+      this.formValidate.username = "";
+
+      if (this.formData.username.trim() == "") {
+        this.formValidate.username = "لا يمكن ترك هذا الحقل فارغ";
+        return 1;
+      }
+
+      if (this.formData.username.trim().length < 5) {
+        this.formValidate.username = "يجب ان يكون إسم الدخول 5 أحرف أو اكثر";
+        return 1;
+      }
+
+      if (this.formData.username.trim().length > 16) {
+        this.formValidate.username = "يجب ان يكون إسم الدخول أقل من 16 حرف";
+        return 1;
+      }
+    },
+    validateRole: function validateRole() {
+      this.formValidate.role = "";
+
+      if (this.formData.role_id == null) {
+        this.formValidate.role = "يجب عليك تحديد دور المشرف";
+        return 1;
+      }
+    },
+    validatePassword: function validatePassword() {
+      this.formValidate.password = "";
+
+      if (this.formData.password.trim() == "") {
+        this.formValidate.password = "لا يمكن ترك هذا الحقل فارغ";
+        return 1;
+      }
+
+      if (this.formData.password.trim().length < 6) {
+        this.formValidate.password = "يجب ان تكون كلمة المرور أكثر من 6 أرقام ورموز";
+        return 1;
+      }
+
+      if (this.formData.password.trim() != this.formData.password) {
+        this.formValidate.password = "يجب أن لا تحتوي كلمة المرور على اي فراغات";
+        return 1;
+      }
+    },
+    validateConfirmPassword: function validateConfirmPassword() {
+      this.formValidate.confirmPassword = "";
+
+      if (this.formData.confirmPassword.trim() == "") {
+        this.formValidate.confirmPassword = "لا يمكن ترك هذا الحقل فارغ";
+        return 1;
+      }
+
+      if (this.formData.confirmPassword != this.formData.password) {
+        this.formValidate.confirmPassword = "يجب ان يتطابق كلمة المرور الجديدة مع تأكيد كلمة المرور";
+        return 1;
+      }
+    }
+  },
+  mounted: function mounted() {
+    var _this2 = this;
+
+    this.$store.commit("activePage", 5);
+    this.$loading.Start();
+    this.$http.GetAdminRolesForNewAdmin().then(function (response) {
+      _this2.$loading.Stop();
+
+      _this2.loaded = true;
+
+      if (response.status == 200) {
+        _this2.roleList = response.data.roleList;
+
+        _this2.$alert.Success(response.data.message);
+      } else if (response.status == 204) {
+        _this2.$alert.Empty("تنبيه لا يوجد اي أدوار");
+      }
+    })["catch"](function (error) {
+      _this2.$loading.Stop();
+
+      _this2.$alert.BadRequest(error.response);
+    });
+  },
+  computed: {},
+  created: function created() {}
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./resources/js/admin/pages/Teachers/Teacher/Teacher.js?vue&type=script&lang=js&":
+/*!********************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./resources/js/admin/pages/Teachers/Teacher/Teacher.js?vue&type=script&lang=js& ***!
+  \********************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_0__);
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      admin: [],
+      loaded: false
+    };
+  },
+  methods: {
+    activeAdmin: function activeAdmin() {
+      var _this = this;
+
+      sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire({
+        title: "هل أنت متأكد",
+        text: "هل أنت متأكد من أنك تريد تفعيل هذا الحساب !",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#16a085",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "نعم تفعيل",
+        cancelButtonText: "إلغاء"
+      }).then(function (result) {
+        if (result.isConfirmed) {
+          _this.$loading.Start();
+
+          _this.$http.ActiveAdmin(_this.$route.params.id).then(function (response) {
+            _this.$loading.Stop();
+
+            if (response.status == 200) {
+              _this.admin.state = 1;
+
+              _this.$alert.Success(response.data.message);
+            } else if (response.status == 204) {
+              _this.admin = [];
+
+              _this.$alert.Empty("لم يعد هذا الحساب متوفرة, قد يكون شخص أخر قام بحذفه");
+            }
+          })["catch"](function (error) {
+            _this.$loading.Stop();
+
+            _this.$alert.BadRequest(error.response);
+          });
+        }
+      });
+    },
+    disActiveAdmin: function disActiveAdmin() {
+      var _this2 = this;
+
+      sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire({
+        title: "هل أنت متأكد",
+        text: "هل أنت متأكد من أنك تريد الغاء تفعيل هذا الحساب !",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#16a085",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "نعم إلغاء التفعيل",
+        cancelButtonText: "إلغاء"
+      }).then(function (result) {
+        if (result.isConfirmed) {
+          _this2.$loading.Start();
+
+          _this2.$http.DisActiveAdmin(_this2.$route.params.id).then(function (response) {
+            _this2.$loading.Stop();
+
+            if (response.status == 200) {
+              _this2.admin.state = 0;
+
+              _this2.$alert.Success(response.data.message);
+            } else if (response.status == 204) {
+              _this2.admin = [];
+
+              _this2.$alert.Empty("لم يعد هذا الحساب متوفرة, قد يكون شخص أخر قام بحذفه");
+            }
+          })["catch"](function (error) {
+            _this2.$loading.Stop();
+
+            _this2.$alert.BadRequest(error.response);
+          });
+        }
+      });
+    },
+    bannedAdmin: function bannedAdmin() {
+      var _this3 = this;
+
+      sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire({
+        title: "هل أنت متأكد",
+        text: "هل أنت متأكد من أنك تريد حظر هذا الحساب ؟ إذا قمت بحظر الحساب فلا يمكنك استخدامه مجددا",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#16a085",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "نعم حظر الحساب",
+        cancelButtonText: "إلغاء"
+      }).then(function (result) {
+        if (result.isConfirmed) {
+          _this3.$loading.Start();
+
+          _this3.$http.BannedAdmin(_this3.$route.params.id).then(function (response) {
+            _this3.$loading.Stop();
+
+            if (response.status == 200) {
+              _this3.admin.state = 2;
+
+              _this3.$alert.Success(response.data.message);
+            } else if (response.status == 204) {
+              _this3.admin = [];
+
+              _this3.$alert.Empty("لم يعد هذا الحساب متوفرة, قد يكون شخص أخر قام بحذفه");
+            }
+          })["catch"](function (error) {
+            _this3.$loading.Stop();
+
+            _this3.$alert.BadRequest(error.response);
+          });
+        }
+      });
+    },
+    resetPassword: function resetPassword() {
+      var _this4 = this;
+
+      sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire({
+        title: "هل أنت متأكد",
+        text: "سيتم تغيير كلمة المرور لتصبح 123456",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#16a085",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "نعم تغيير",
+        cancelButtonText: "إلغاء"
+      }).then(function (result) {
+        if (result.isConfirmed) {
+          _this4.$loading.Start();
+
+          _this4.$http.ResetAdminPassword(_this4.$route.params.id).then(function (response) {
+            _this4.$loading.Stop();
+
+            if (response.status == 200) {
+              _this4.$alert.Success(response.data.message);
+            } else if (response.status == 204) {
+              _this4.admin = [];
+
+              _this4.$alert.Empty("لم يعد هذا الحساب متوفرة, قد يكون شخص أخر قام بحذفه");
+            }
+          })["catch"](function (error) {
+            _this4.$loading.Stop();
+
+            _this4.$alert.BadRequest(error.response);
+          });
+        }
+      });
+    }
+  },
+  mounted: function mounted() {
+    var _this5 = this;
+
+    this.$store.commit("activePage", 5);
+    this.$loading.Start();
+    this.$http.GetAdminById(this.$route.params.id).then(function (response) {
+      _this5.$loading.Stop();
+
+      _this5.loaded = true;
+
+      if (response.status == 200) {
+        _this5.admin = response.data.data;
+
+        _this5.$alert.Success(response.data.message);
+      } else if (response.status == 204) {
+        _this5.$alert.Empty("هذه الرسالة غير متوفرة");
+      }
+    })["catch"](function (error) {
+      _this5.$loading.Stop();
+
+      _this5.loaded = true;
+
+      _this5.$alert.BadRequest(error.response);
+    });
+  },
+  computed: {},
+  created: function created() {}
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./resources/js/admin/pages/Teachers/Teachers.js?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./resources/js/admin/pages/Teachers/Teachers.js?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_0__);
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      admins: [],
+      loaded: false,
+      filter: [{
+        link: "all",
+        name: "الكل",
+        active: true
+      }, {
+        link: "active",
+        name: "المفعلين",
+        active: false
+      }, {
+        link: "notActive",
+        name: "الغير مفعل",
+        active: true
+      }, {
+        link: "banned",
+        name: "المحظورين",
+        active: true
+      }],
+      activeFilter: "all"
+    };
+  },
+  methods: {
+    activeAdmin: function activeAdmin(id, index) {
+      var _this = this;
+
+      sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire({
+        title: "هل أنت متأكد",
+        text: "هل أنت متأكد من أنك تريد تفعيل هذا الحساب !",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#16a085",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "نعم تفعيل",
+        cancelButtonText: "إلغاء"
+      }).then(function (result) {
+        if (result.isConfirmed) {
+          _this.$loading.Start();
+
+          _this.$http.ActiveAdmin(id).then(function (response) {
+            _this.$loading.Stop();
+
+            if (response.status == 200) {
+              _this.admins[_this.admins.findIndex(function (m) {
+                return m.id === id;
+              })].state = 1;
+
+              _this.$alert.Success(response.data.message);
+            } else if (response.status == 204) {
+              _this.$alert.Empty("لم يعد هذا الحساب متوفرة, قد يكون شخص أخر قام بحذفه");
+            }
+          })["catch"](function (error) {
+            _this.$loading.Stop();
+
+            _this.$alert.BadRequest(error.response);
+          });
+        }
+      });
+    },
+    disActiveAdmin: function disActiveAdmin(id, index) {
+      var _this2 = this;
+
+      sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire({
+        title: "هل أنت متأكد",
+        text: "هل أنت متأكد من أنك تريد الغاء تفعيل هذا الحساب !",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#16a085",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "نعم إلغاء التفعيل",
+        cancelButtonText: "إلغاء"
+      }).then(function (result) {
+        if (result.isConfirmed) {
+          _this2.$loading.Start();
+
+          _this2.$http.DisActiveAdmin(id).then(function (response) {
+            _this2.$loading.Stop();
+
+            if (response.status == 200) {
+              _this2.admins[_this2.admins.findIndex(function (m) {
+                return m.id === id;
+              })].state = 0;
+
+              _this2.$alert.Success(response.data.message);
+            } else if (response.status == 204) {
+              _this2.$alert.Empty("لم يعد هذا الحساب متوفرة, قد يكون شخص أخر قام بحذفه");
+            }
+          })["catch"](function (error) {
+            _this2.$loading.Stop();
+
+            _this2.$alert.BadRequest(error.response);
+          });
+        }
+      });
+    },
+    bannedAdmin: function bannedAdmin(id, index) {
+      var _this3 = this;
+
+      sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire({
+        title: "هل أنت متأكد",
+        text: "هل أنت متأكد من أنك تريد حظر هذا الحساب ؟ إذا قمت بحظر الحساب فلا يمكنك استخدامه مجددا",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#16a085",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "نعم حظر الحساب",
+        cancelButtonText: "إلغاء"
+      }).then(function (result) {
+        if (result.isConfirmed) {
+          _this3.$loading.Start();
+
+          _this3.$http.BannedAdmin(id).then(function (response) {
+            _this3.$loading.Stop();
+
+            if (response.status == 200) {
+              _this3.admins[_this3.admins.findIndex(function (m) {
+                return m.id === id;
+              })].state = 2;
+
+              _this3.$alert.Success(response.data.message);
+            } else if (response.status == 204) {
+              _this3.$alert.Empty("لم يعد هذا الحساب متوفرة, قد يكون شخص أخر قام بحذفه");
+            }
+          })["catch"](function (error) {
+            _this3.$loading.Stop();
+
+            _this3.$alert.BadRequest(error.response);
+          });
+        }
+      });
+    },
+    changeFilter: function changeFilter(filterName) {
+      this.activeFilter = filterName;
+    }
+  },
+  mounted: function mounted() {
+    var _this4 = this;
+
+    this.$store.commit("activePage", 5);
+    this.$loading.Start();
+    this.$http.GetAllAdmins(1).then(function (response) {
+      _this4.$loading.Stop();
+
+      _this4.loaded = true;
+
+      if (response.status == 200) {
+        _this4.admins = response.data.data;
+
+        _this4.$alert.Success(response.data.message);
+      } else if (response.status == 204) {
+        _this4.$alert.Empty("تنبيه لا يوجد اي مشرفين");
+      }
+    })["catch"](function (error) {
+      _this4.loaded = true;
+
+      _this4.$loading.Stop();
+
+      _this4.$alert.BadRequest(error.response);
+    });
+  },
+  computed: {
+    filterAdmin: function filterAdmin() {
+      var list = [];
+
+      if (this.activeFilter == "all") {
+        list = this.admins;
+      } else if (this.activeFilter == "active") {
+        for (var i = 0; i < this.admins.length; i++) {
+          if (this.admins[i].state == 1) list.push(this.admins[i]);
+        }
+      } else if (this.activeFilter == "notActive") {
+        for (var i = 0; i < this.admins.length; i++) {
+          if (this.admins[i].state == 0) list.push(this.admins[i]);
+        }
+      } else if (this.activeFilter == "banned") {
+        for (var i = 0; i < this.admins.length; i++) {
+          if (this.admins[i].state == 2) list.push(this.admins[i]);
+        }
+      }
+
+      return list;
+    }
+  },
+  created: function created() {}
+});
+
+/***/ }),
+
 /***/ "./resources/js/admin/routes/routes.js":
 /*!*********************************************!*\
   !*** ./resources/js/admin/routes/routes.js ***!
@@ -3899,14 +5042,26 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pages_Admins_Admins_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../pages/Admins/Admins.vue */ "./resources/js/admin/pages/Admins/Admins.vue");
 /* harmony import */ var _pages_Admins_Admin_Admin_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../pages/Admins/Admin/Admin.vue */ "./resources/js/admin/pages/Admins/Admin/Admin.vue");
 /* harmony import */ var _pages_Admins_NewAdmin_NewAdmin_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../pages/Admins/NewAdmin/NewAdmin.vue */ "./resources/js/admin/pages/Admins/NewAdmin/NewAdmin.vue");
-/* harmony import */ var _pages_Roles_Roles_vue__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../pages/Roles/Roles.vue */ "./resources/js/admin/pages/Roles/Roles.vue");
-/* harmony import */ var _pages_Roles_NewRole_NewRole_vue__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../pages/Roles/NewRole/NewRole.vue */ "./resources/js/admin/pages/Roles/NewRole/NewRole.vue");
-/* harmony import */ var _pages_Roles_Role_Role_vue__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../pages/Roles/Role/Role.vue */ "./resources/js/admin/pages/Roles/Role/Role.vue");
-/* harmony import */ var _pages_Roles_EditRole_EditRole_vue__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../pages/Roles/EditRole/EditRole.vue */ "./resources/js/admin/pages/Roles/EditRole/EditRole.vue");
-/* harmony import */ var _pages_Admins_EditAdminRole_EditAdminRole_vue__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../pages/Admins/EditAdminRole/EditAdminRole.vue */ "./resources/js/admin/pages/Admins/EditAdminRole/EditAdminRole.vue");
-/* harmony import */ var _pages_Materials_Materials_vue__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../pages/Materials/Materials.vue */ "./resources/js/admin/pages/Materials/Materials.vue");
-/* harmony import */ var _pages_Materials_NewMaterial_NewMaterial_vue__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../pages/Materials/NewMaterial/NewMaterial.vue */ "./resources/js/admin/pages/Materials/NewMaterial/NewMaterial.vue");
-/* harmony import */ var _store_index__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ../store/index */ "./resources/js/admin/store/index.js");
+/* harmony import */ var _pages_Teachers_Teachers_vue__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../pages/Teachers/Teachers.vue */ "./resources/js/admin/pages/Teachers/Teachers.vue");
+/* harmony import */ var _pages_Teachers_Teacher_Teacher_vue__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../pages/Teachers/Teacher/Teacher.vue */ "./resources/js/admin/pages/Teachers/Teacher/Teacher.vue");
+/* harmony import */ var _pages_Teachers_NewTeacher_NewTeacher_vue__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../pages/Teachers/NewTeacher/NewTeacher.vue */ "./resources/js/admin/pages/Teachers/NewTeacher/NewTeacher.vue");
+/* harmony import */ var _pages_Students_Students_vue__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../pages/Students/Students.vue */ "./resources/js/admin/pages/Students/Students.vue");
+/* harmony import */ var _pages_Students_Student_Student_vue__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../pages/Students/Student/Student.vue */ "./resources/js/admin/pages/Students/Student/Student.vue");
+/* harmony import */ var _pages_Students_NewStudent_NewStudent_vue__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../pages/Students/NewStudent/NewStudent.vue */ "./resources/js/admin/pages/Students/NewStudent/NewStudent.vue");
+/* harmony import */ var _pages_Roles_Roles_vue__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../pages/Roles/Roles.vue */ "./resources/js/admin/pages/Roles/Roles.vue");
+/* harmony import */ var _pages_Roles_NewRole_NewRole_vue__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ../pages/Roles/NewRole/NewRole.vue */ "./resources/js/admin/pages/Roles/NewRole/NewRole.vue");
+/* harmony import */ var _pages_Roles_Role_Role_vue__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ../pages/Roles/Role/Role.vue */ "./resources/js/admin/pages/Roles/Role/Role.vue");
+/* harmony import */ var _pages_Roles_EditRole_EditRole_vue__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ../pages/Roles/EditRole/EditRole.vue */ "./resources/js/admin/pages/Roles/EditRole/EditRole.vue");
+/* harmony import */ var _pages_Admins_EditAdminRole_EditAdminRole_vue__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ../pages/Admins/EditAdminRole/EditAdminRole.vue */ "./resources/js/admin/pages/Admins/EditAdminRole/EditAdminRole.vue");
+/* harmony import */ var _pages_Materials_Materials_vue__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ../pages/Materials/Materials.vue */ "./resources/js/admin/pages/Materials/Materials.vue");
+/* harmony import */ var _pages_Materials_NewMaterial_NewMaterial_vue__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ../pages/Materials/NewMaterial/NewMaterial.vue */ "./resources/js/admin/pages/Materials/NewMaterial/NewMaterial.vue");
+/* harmony import */ var _store_index__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ../store/index */ "./resources/js/admin/store/index.js");
+
+
+
+
+
+
 
 
 
@@ -3926,7 +5081,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var ifAuth = function ifAuth(to, from, next) {
-  if (_store_index__WEBPACK_IMPORTED_MODULE_16__.default.state.auth == true) {
+  if (_store_index__WEBPACK_IMPORTED_MODULE_22__.default.state.auth == true) {
     next();
     return;
   }
@@ -3935,7 +5090,7 @@ var ifAuth = function ifAuth(to, from, next) {
 };
 
 var ifNotAuth = function ifNotAuth(to, from, next) {
-  if (_store_index__WEBPACK_IMPORTED_MODULE_16__.default.state.auth != true) {
+  if (_store_index__WEBPACK_IMPORTED_MODULE_22__.default.state.auth != true) {
     next();
     return;
   }
@@ -3970,25 +5125,43 @@ var routes = [{
     component: _pages_Admins_Admin_Admin_vue__WEBPACK_IMPORTED_MODULE_7__.default
   }, {
     path: "admin/admin/:id/edit",
-    component: _pages_Admins_EditAdminRole_EditAdminRole_vue__WEBPACK_IMPORTED_MODULE_13__.default
+    component: _pages_Admins_EditAdminRole_EditAdminRole_vue__WEBPACK_IMPORTED_MODULE_19__.default
+  }, {
+    path: "admin/teacher",
+    component: _pages_Teachers_Teachers_vue__WEBPACK_IMPORTED_MODULE_9__.default
+  }, {
+    path: "admin/teacher/new",
+    component: _pages_Teachers_NewTeacher_NewTeacher_vue__WEBPACK_IMPORTED_MODULE_11__.default
+  }, {
+    path: "admin/teacher/:id",
+    component: _pages_Teachers_Teacher_Teacher_vue__WEBPACK_IMPORTED_MODULE_10__.default
+  }, {
+    path: "admin/student",
+    component: _pages_Students_Students_vue__WEBPACK_IMPORTED_MODULE_12__.default
+  }, {
+    path: "admin/student/new",
+    component: _pages_Students_NewStudent_NewStudent_vue__WEBPACK_IMPORTED_MODULE_14__.default
+  }, {
+    path: "admin/student/:id",
+    component: _pages_Students_Student_Student_vue__WEBPACK_IMPORTED_MODULE_13__.default
   }, {
     path: "admin/role",
-    component: _pages_Roles_Roles_vue__WEBPACK_IMPORTED_MODULE_9__.default
+    component: _pages_Roles_Roles_vue__WEBPACK_IMPORTED_MODULE_15__.default
   }, {
     path: "admin/role/new",
-    component: _pages_Roles_NewRole_NewRole_vue__WEBPACK_IMPORTED_MODULE_10__.default
+    component: _pages_Roles_NewRole_NewRole_vue__WEBPACK_IMPORTED_MODULE_16__.default
   }, {
     path: "admin/role/:id",
-    component: _pages_Roles_Role_Role_vue__WEBPACK_IMPORTED_MODULE_11__.default
+    component: _pages_Roles_Role_Role_vue__WEBPACK_IMPORTED_MODULE_17__.default
   }, {
     path: "admin/role/:id/edit",
-    component: _pages_Roles_EditRole_EditRole_vue__WEBPACK_IMPORTED_MODULE_12__.default
+    component: _pages_Roles_EditRole_EditRole_vue__WEBPACK_IMPORTED_MODULE_18__.default
   }, {
     path: "admin/material",
-    component: _pages_Materials_Materials_vue__WEBPACK_IMPORTED_MODULE_14__.default
+    component: _pages_Materials_Materials_vue__WEBPACK_IMPORTED_MODULE_20__.default
   }, {
     path: "admin/material/new",
-    component: _pages_Materials_NewMaterial_NewMaterial_vue__WEBPACK_IMPORTED_MODULE_15__.default
+    component: _pages_Materials_NewMaterial_NewMaterial_vue__WEBPACK_IMPORTED_MODULE_21__.default
   }]
 }, {
   path: "/admin/login",
@@ -4097,8 +5270,8 @@ __webpack_require__.r(__webpack_exports__);
     return axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/admin/message/" + message);
   },
   // ============== Admin Part =======================
-  GetAllAdmins: function GetAllAdmins() {
-    return axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/admin/admin");
+  GetAllAdmins: function GetAllAdmins(type) {
+    return axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/admin/admin/type/" + type);
   },
   ActiveAdmin: function ActiveAdmin(admin) {
     return axios__WEBPACK_IMPORTED_MODULE_0___default().put("/api/admin/admin/" + admin + "/active");
@@ -4239,24 +5412,24 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         icon: "fas fa-book"
       }, {
         id: 5,
-        name: "السنوات الدراسية",
-        role: "ReadAdmin",
-        active: false,
-        path: "/admin/admin",
-        icon: "fas fa-users"
-      }, {
-        id: 6,
         name: "الأساتذة",
         role: "ReadAdmin",
         active: false,
-        path: "/admin/admin",
-        icon: "fas fa-users"
+        path: "/admin/teacher",
+        icon: "fas fa-chalkboard-teacher"
       }, {
-        id: 7,
+        id: 6,
         name: "التلاميذ",
         role: "ReadAdmin",
         active: false,
-        path: "/admin/admin",
+        path: "/admin/student",
+        icon: "fas fa-user-graduate"
+      }, {
+        id: 7,
+        name: "الاختبارات",
+        role: "ReadAdmin",
+        active: false,
+        path: "/admin/exam",
         icon: "fas fa-users"
       } // {
       //     id: 8,
@@ -27374,6 +28547,240 @@ component.options.__file = "resources/js/admin/pages/Roles/Roles.vue"
 
 /***/ }),
 
+/***/ "./resources/js/admin/pages/Students/NewStudent/NewStudent.vue":
+/*!*********************************************************************!*\
+  !*** ./resources/js/admin/pages/Students/NewStudent/NewStudent.vue ***!
+  \*********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _NewStudent_html_vue_type_template_id_595f3f61_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./NewStudent.html?vue&type=template&id=595f3f61&scoped=true& */ "./resources/js/admin/pages/Students/NewStudent/NewStudent.html?vue&type=template&id=595f3f61&scoped=true&");
+/* harmony import */ var _NewStudent_js_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./NewStudent.js?vue&type=script&lang=js& */ "./resources/js/admin/pages/Students/NewStudent/NewStudent.js?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
+  _NewStudent_js_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _NewStudent_html_vue_type_template_id_595f3f61_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
+  _NewStudent_html_vue_type_template_id_595f3f61_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  "595f3f61",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/admin/pages/Students/NewStudent/NewStudent.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/admin/pages/Students/Student/Student.vue":
+/*!***************************************************************!*\
+  !*** ./resources/js/admin/pages/Students/Student/Student.vue ***!
+  \***************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _Student_html_vue_type_template_id_ae0b8b0e_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Student.html?vue&type=template&id=ae0b8b0e&scoped=true& */ "./resources/js/admin/pages/Students/Student/Student.html?vue&type=template&id=ae0b8b0e&scoped=true&");
+/* harmony import */ var _Student_js_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Student.js?vue&type=script&lang=js& */ "./resources/js/admin/pages/Students/Student/Student.js?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
+  _Student_js_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _Student_html_vue_type_template_id_ae0b8b0e_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
+  _Student_html_vue_type_template_id_ae0b8b0e_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  "ae0b8b0e",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/admin/pages/Students/Student/Student.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/admin/pages/Students/Students.vue":
+/*!********************************************************!*\
+  !*** ./resources/js/admin/pages/Students/Students.vue ***!
+  \********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _Students_html_vue_type_template_id_16eeff54_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Students.html?vue&type=template&id=16eeff54&scoped=true& */ "./resources/js/admin/pages/Students/Students.html?vue&type=template&id=16eeff54&scoped=true&");
+/* harmony import */ var _Students_js_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Students.js?vue&type=script&lang=js& */ "./resources/js/admin/pages/Students/Students.js?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
+  _Students_js_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _Students_html_vue_type_template_id_16eeff54_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
+  _Students_html_vue_type_template_id_16eeff54_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  "16eeff54",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/admin/pages/Students/Students.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/admin/pages/Teachers/NewTeacher/NewTeacher.vue":
+/*!*********************************************************************!*\
+  !*** ./resources/js/admin/pages/Teachers/NewTeacher/NewTeacher.vue ***!
+  \*********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _NewTeacher_html_vue_type_template_id_cd98d20c_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./NewTeacher.html?vue&type=template&id=cd98d20c&scoped=true& */ "./resources/js/admin/pages/Teachers/NewTeacher/NewTeacher.html?vue&type=template&id=cd98d20c&scoped=true&");
+/* harmony import */ var _NewTeacher_js_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./NewTeacher.js?vue&type=script&lang=js& */ "./resources/js/admin/pages/Teachers/NewTeacher/NewTeacher.js?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
+  _NewTeacher_js_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _NewTeacher_html_vue_type_template_id_cd98d20c_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
+  _NewTeacher_html_vue_type_template_id_cd98d20c_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  "cd98d20c",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/admin/pages/Teachers/NewTeacher/NewTeacher.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/admin/pages/Teachers/Teacher/Teacher.vue":
+/*!***************************************************************!*\
+  !*** ./resources/js/admin/pages/Teachers/Teacher/Teacher.vue ***!
+  \***************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _Teacher_html_vue_type_template_id_10ba7480_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Teacher.html?vue&type=template&id=10ba7480&scoped=true& */ "./resources/js/admin/pages/Teachers/Teacher/Teacher.html?vue&type=template&id=10ba7480&scoped=true&");
+/* harmony import */ var _Teacher_js_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Teacher.js?vue&type=script&lang=js& */ "./resources/js/admin/pages/Teachers/Teacher/Teacher.js?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
+  _Teacher_js_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _Teacher_html_vue_type_template_id_10ba7480_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
+  _Teacher_html_vue_type_template_id_10ba7480_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  "10ba7480",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/admin/pages/Teachers/Teacher/Teacher.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/admin/pages/Teachers/Teachers.vue":
+/*!********************************************************!*\
+  !*** ./resources/js/admin/pages/Teachers/Teachers.vue ***!
+  \********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _Teachers_html_vue_type_template_id_3553ff14_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Teachers.html?vue&type=template&id=3553ff14&scoped=true& */ "./resources/js/admin/pages/Teachers/Teachers.html?vue&type=template&id=3553ff14&scoped=true&");
+/* harmony import */ var _Teachers_js_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Teachers.js?vue&type=script&lang=js& */ "./resources/js/admin/pages/Teachers/Teachers.js?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
+  _Teachers_js_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _Teachers_html_vue_type_template_id_3553ff14_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
+  _Teachers_html_vue_type_template_id_3553ff14_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  "3553ff14",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/admin/pages/Teachers/Teachers.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/admin/pages/Admins/Admin/Admin.js?vue&type=script&lang=js&":
 /*!*********************************************************************************!*\
   !*** ./resources/js/admin/pages/Admins/Admin/Admin.js?vue&type=script&lang=js& ***!
@@ -27659,6 +29066,102 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_Roles_js_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./Roles.js?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./resources/js/admin/pages/Roles/Roles.js?vue&type=script&lang=js&");
  /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_Roles_js_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
+/***/ "./resources/js/admin/pages/Students/NewStudent/NewStudent.js?vue&type=script&lang=js&":
+/*!*********************************************************************************************!*\
+  !*** ./resources/js/admin/pages/Students/NewStudent/NewStudent.js?vue&type=script&lang=js& ***!
+  \*********************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_NewStudent_js_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./NewStudent.js?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./resources/js/admin/pages/Students/NewStudent/NewStudent.js?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_NewStudent_js_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
+/***/ "./resources/js/admin/pages/Students/Student/Student.js?vue&type=script&lang=js&":
+/*!***************************************************************************************!*\
+  !*** ./resources/js/admin/pages/Students/Student/Student.js?vue&type=script&lang=js& ***!
+  \***************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_Student_js_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./Student.js?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./resources/js/admin/pages/Students/Student/Student.js?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_Student_js_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
+/***/ "./resources/js/admin/pages/Students/Students.js?vue&type=script&lang=js&":
+/*!********************************************************************************!*\
+  !*** ./resources/js/admin/pages/Students/Students.js?vue&type=script&lang=js& ***!
+  \********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_Students_js_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./Students.js?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./resources/js/admin/pages/Students/Students.js?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_Students_js_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
+/***/ "./resources/js/admin/pages/Teachers/NewTeacher/NewTeacher.js?vue&type=script&lang=js&":
+/*!*********************************************************************************************!*\
+  !*** ./resources/js/admin/pages/Teachers/NewTeacher/NewTeacher.js?vue&type=script&lang=js& ***!
+  \*********************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_NewTeacher_js_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./NewTeacher.js?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./resources/js/admin/pages/Teachers/NewTeacher/NewTeacher.js?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_NewTeacher_js_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
+/***/ "./resources/js/admin/pages/Teachers/Teacher/Teacher.js?vue&type=script&lang=js&":
+/*!***************************************************************************************!*\
+  !*** ./resources/js/admin/pages/Teachers/Teacher/Teacher.js?vue&type=script&lang=js& ***!
+  \***************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_Teacher_js_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./Teacher.js?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./resources/js/admin/pages/Teachers/Teacher/Teacher.js?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_Teacher_js_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
+/***/ "./resources/js/admin/pages/Teachers/Teachers.js?vue&type=script&lang=js&":
+/*!********************************************************************************!*\
+  !*** ./resources/js/admin/pages/Teachers/Teachers.js?vue&type=script&lang=js& ***!
+  \********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_Teachers_js_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./Teachers.js?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./resources/js/admin/pages/Teachers/Teachers.js?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_Teachers_js_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
 
 /***/ }),
 
@@ -28027,6 +29530,108 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_Roles_html_vue_type_template_id_3bd4bbdc_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_Roles_html_vue_type_template_id_3bd4bbdc_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./Roles.html?vue&type=template&id=3bd4bbdc&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./resources/js/admin/pages/Roles/Roles.html?vue&type=template&id=3bd4bbdc&scoped=true&");
+
+
+/***/ }),
+
+/***/ "./resources/js/admin/pages/Students/NewStudent/NewStudent.html?vue&type=template&id=595f3f61&scoped=true&":
+/*!*****************************************************************************************************************!*\
+  !*** ./resources/js/admin/pages/Students/NewStudent/NewStudent.html?vue&type=template&id=595f3f61&scoped=true& ***!
+  \*****************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_NewStudent_html_vue_type_template_id_595f3f61_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_NewStudent_html_vue_type_template_id_595f3f61_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_NewStudent_html_vue_type_template_id_595f3f61_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./NewStudent.html?vue&type=template&id=595f3f61&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./resources/js/admin/pages/Students/NewStudent/NewStudent.html?vue&type=template&id=595f3f61&scoped=true&");
+
+
+/***/ }),
+
+/***/ "./resources/js/admin/pages/Students/Student/Student.html?vue&type=template&id=ae0b8b0e&scoped=true&":
+/*!***********************************************************************************************************!*\
+  !*** ./resources/js/admin/pages/Students/Student/Student.html?vue&type=template&id=ae0b8b0e&scoped=true& ***!
+  \***********************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_Student_html_vue_type_template_id_ae0b8b0e_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_Student_html_vue_type_template_id_ae0b8b0e_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_Student_html_vue_type_template_id_ae0b8b0e_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./Student.html?vue&type=template&id=ae0b8b0e&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./resources/js/admin/pages/Students/Student/Student.html?vue&type=template&id=ae0b8b0e&scoped=true&");
+
+
+/***/ }),
+
+/***/ "./resources/js/admin/pages/Students/Students.html?vue&type=template&id=16eeff54&scoped=true&":
+/*!****************************************************************************************************!*\
+  !*** ./resources/js/admin/pages/Students/Students.html?vue&type=template&id=16eeff54&scoped=true& ***!
+  \****************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_Students_html_vue_type_template_id_16eeff54_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_Students_html_vue_type_template_id_16eeff54_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_Students_html_vue_type_template_id_16eeff54_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./Students.html?vue&type=template&id=16eeff54&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./resources/js/admin/pages/Students/Students.html?vue&type=template&id=16eeff54&scoped=true&");
+
+
+/***/ }),
+
+/***/ "./resources/js/admin/pages/Teachers/NewTeacher/NewTeacher.html?vue&type=template&id=cd98d20c&scoped=true&":
+/*!*****************************************************************************************************************!*\
+  !*** ./resources/js/admin/pages/Teachers/NewTeacher/NewTeacher.html?vue&type=template&id=cd98d20c&scoped=true& ***!
+  \*****************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_NewTeacher_html_vue_type_template_id_cd98d20c_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_NewTeacher_html_vue_type_template_id_cd98d20c_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_NewTeacher_html_vue_type_template_id_cd98d20c_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./NewTeacher.html?vue&type=template&id=cd98d20c&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./resources/js/admin/pages/Teachers/NewTeacher/NewTeacher.html?vue&type=template&id=cd98d20c&scoped=true&");
+
+
+/***/ }),
+
+/***/ "./resources/js/admin/pages/Teachers/Teacher/Teacher.html?vue&type=template&id=10ba7480&scoped=true&":
+/*!***********************************************************************************************************!*\
+  !*** ./resources/js/admin/pages/Teachers/Teacher/Teacher.html?vue&type=template&id=10ba7480&scoped=true& ***!
+  \***********************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_Teacher_html_vue_type_template_id_10ba7480_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_Teacher_html_vue_type_template_id_10ba7480_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_Teacher_html_vue_type_template_id_10ba7480_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./Teacher.html?vue&type=template&id=10ba7480&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./resources/js/admin/pages/Teachers/Teacher/Teacher.html?vue&type=template&id=10ba7480&scoped=true&");
+
+
+/***/ }),
+
+/***/ "./resources/js/admin/pages/Teachers/Teachers.html?vue&type=template&id=3553ff14&scoped=true&":
+/*!****************************************************************************************************!*\
+  !*** ./resources/js/admin/pages/Teachers/Teachers.html?vue&type=template&id=3553ff14&scoped=true& ***!
+  \****************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_Teachers_html_vue_type_template_id_3553ff14_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_Teachers_html_vue_type_template_id_3553ff14_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_Teachers_html_vue_type_template_id_3553ff14_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./Teachers.html?vue&type=template&id=3553ff14&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./resources/js/admin/pages/Teachers/Teachers.html?vue&type=template&id=3553ff14&scoped=true&");
 
 
 /***/ }),
@@ -29223,84 +30828,6 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\r\n                        دور المشرف\r\n                    "
-                      )
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "select",
-                    {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.formData.role_id,
-                          expression: "formData.role_id"
-                        }
-                      ],
-                      staticClass:
-                        "h-12 w-full rounded border border-gray-200 bg-gray-50 flex items-center px-4 text-lg",
-                      on: {
-                        change: [
-                          function($event) {
-                            var $$selectedVal = Array.prototype.filter
-                              .call($event.target.options, function(o) {
-                                return o.selected
-                              })
-                              .map(function(o) {
-                                var val = "_value" in o ? o._value : o.value
-                                return val
-                              })
-                            _vm.$set(
-                              _vm.formData,
-                              "role_id",
-                              $event.target.multiple
-                                ? $$selectedVal
-                                : $$selectedVal[0]
-                            )
-                          },
-                          _vm.validateRole
-                        ]
-                      }
-                    },
-                    _vm._l(_vm.roleList, function(item, index) {
-                      return _c(
-                        "option",
-                        { key: index, domProps: { value: item.id } },
-                        [_vm._v(_vm._s(item.name))]
-                      )
-                    }),
-                    0
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      staticClass:
-                        "h-8 text-sm text-red-400 mr-2 flex items-center"
-                    },
-                    [
-                      _vm._v(
-                        "\r\n                        " +
-                          _vm._s(_vm.formValidate.role) +
-                          "\r\n                    "
-                      )
-                    ]
-                  )
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "w-full px-4" }),
-                _vm._v(" "),
-                _c("div", { staticClass: "w-full px-4 py-4" }, [
-                  _c(
-                    "div",
-                    {
-                      staticClass:
-                        "h-9 flex items-center text-gray-500 mr-2 text-sm"
-                    },
-                    [
-                      _vm._v(
                         "\r\n                        كلمة المرور\r\n                    "
                       )
                     ]
@@ -29478,7 +31005,7 @@ var render = function() {
                     [
                       _vm._v(
                         "\r\n                    " +
-                          _vm._s(_vm.data.todayVisitor) +
+                          _vm._s(_vm.data.materials) +
                           " مادة\r\n                "
                       )
                     ]
@@ -32439,6 +33966,1914 @@ var staticRenderFns = [
       _c("td", { staticClass: "sm:table-cell" }, [_vm._v("عدد المشرفين")]),
       _vm._v(" "),
       _c("td", { staticClass: "sm:table-cell" }, [_vm._v("الإجراءات")])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./resources/js/admin/pages/Students/NewStudent/NewStudent.html?vue&type=template&id=595f3f61&scoped=true&":
+/*!*********************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./resources/js/admin/pages/Students/NewStudent/NewStudent.html?vue&type=template&id=595f3f61&scoped=true& ***!
+  \*********************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "w-auto md:p-8 p-4" },
+    [
+      _vm.loaded && _vm.roleList.length != 0
+        ? _c(
+            "div",
+            {
+              staticClass:
+                "w-full md:px-4 px-0 pb-8 pt-2 bg-white shadow-2 rounded-lg text-lg text-gray-600 font-medium"
+            },
+            [
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "h-16 w-full border-b mb-2 px-4 flex items-center text-lg justify-between"
+                },
+                [
+                  _vm._v(
+                    "\r\n                إضافة تلميذ\r\n\r\n                "
+                  ),
+                  _c(
+                    "router-link",
+                    {
+                      staticClass:
+                        "back-btn w-36 h-12 rounded font-normal flex items-center justify-center cursor-pointer",
+                      attrs: { to: "/admin/student/" }
+                    },
+                    [
+                      _vm._v(
+                        "\r\n                    قائمة التلاميذ\r\n                "
+                      )
+                    ]
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "bg-blue-600a grid lg:grid-cols-2" }, [
+                _c("div", { staticClass: "w-full px-4 py-4" }, [
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "h-9 flex items-center text-gray-500 mr-2 text-sm"
+                    },
+                    [
+                      _vm._v(
+                        "\r\n                        إسم التلميذ\r\n                    "
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.formData.name,
+                        expression: "formData.name"
+                      }
+                    ],
+                    staticClass:
+                      "h-12 w-full rounded border border-gray-200 bg-gray-50 flex items-center px-4 text-lg",
+                    domProps: { value: _vm.formData.name },
+                    on: {
+                      change: _vm.validateName,
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.formData, "name", $event.target.value)
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "h-8 text-sm text-red-400 mr-2 flex items-center"
+                    },
+                    [
+                      _vm._v(
+                        "\r\n                        " +
+                          _vm._s(_vm.formValidate.name) +
+                          "\r\n                    "
+                      )
+                    ]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "w-full px-4 py-4" }, [
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "h-9 flex items-center text-gray-500 mr-2 text-sm"
+                    },
+                    [
+                      _vm._v(
+                        "\r\n                        إسم الدخول\r\n                    "
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.formData.username,
+                        expression: "formData.username"
+                      }
+                    ],
+                    staticClass:
+                      "h-12 w-full rounded border border-gray-200 bg-gray-50 flex items-center px-4 text-lg",
+                    domProps: { value: _vm.formData.username },
+                    on: {
+                      change: _vm.validateUsername,
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.formData, "username", $event.target.value)
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "h-8 text-sm text-red-400 mr-2 flex items-center"
+                    },
+                    [
+                      _vm._v(
+                        "\r\n                        " +
+                          _vm._s(_vm.formValidate.username) +
+                          "\r\n                    "
+                      )
+                    ]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "w-full px-4 py-4" }, [
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "h-9 flex items-center text-gray-500 mr-2 text-sm"
+                    },
+                    [
+                      _vm._v(
+                        "\r\n                        كلمة المرور\r\n                    "
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.formData.password,
+                        expression: "formData.password"
+                      }
+                    ],
+                    staticClass:
+                      "h-12 w-full rounded border border-gray-200 bg-gray-50 flex items-center px-4 text-lg",
+                    domProps: { value: _vm.formData.password },
+                    on: {
+                      change: _vm.validatePassword,
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.formData, "password", $event.target.value)
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "h-8 text-sm text-red-400 mr-2 flex items-center"
+                    },
+                    [
+                      _vm._v(
+                        "\r\n                        " +
+                          _vm._s(_vm.formValidate.password) +
+                          "\r\n                    "
+                      )
+                    ]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "w-full px-4 py-4" }, [
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "h-9 flex items-center text-gray-500 mr-2 text-sm"
+                    },
+                    [
+                      _vm._v(
+                        "\r\n                        تأكيد كلمة المرور\r\n                    "
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.formData.confirmPassword,
+                        expression: "formData.confirmPassword"
+                      }
+                    ],
+                    staticClass:
+                      "h-12 w-full rounded border border-gray-200 bg-gray-50 flex items-center px-4 text-lg",
+                    domProps: { value: _vm.formData.confirmPassword },
+                    on: {
+                      change: _vm.validateConfirmPassword,
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(
+                          _vm.formData,
+                          "confirmPassword",
+                          $event.target.value
+                        )
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "h-8 text-sm text-red-400 mr-2 flex items-center"
+                    },
+                    [
+                      _vm._v(
+                        "\r\n                        " +
+                          _vm._s(_vm.formValidate.confirmPassword) +
+                          "\r\n                    "
+                      )
+                    ]
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "flex items-center h-20 mx-4" }, [
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "btn-color-one rounded shadow px-12 h-12 w-auto flex items-center justify-center text-white text-lg cursor-pointer",
+                    on: { click: _vm.addAdmin }
+                  },
+                  [_vm._v("\r\n                    إضافة\r\n                ")]
+                )
+              ])
+            ]
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.loaded && _vm.roleList.length == 0
+        ? _c("Empty-Box", {
+            attrs: {
+              message:
+                "لم نتمكن من جلب بيانات الأدوار, تأكد من أنك تمتلك صلاحية مشاهدة أدوار الصفحة"
+            }
+          })
+        : _vm._e()
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./resources/js/admin/pages/Students/Student/Student.html?vue&type=template&id=ae0b8b0e&scoped=true&":
+/*!***************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./resources/js/admin/pages/Students/Student/Student.html?vue&type=template&id=ae0b8b0e&scoped=true& ***!
+  \***************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "w-auto md:p-8 p-4" },
+    [
+      _vm.loaded && _vm.admin.length != 0
+        ? _c(
+            "div",
+            {
+              staticClass:
+                "w-full md:px-4 px-0 pb-8 pt-2 bg-white shadow-2 rounded-lg text-lg text-gray-600 font-medium"
+            },
+            [
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "h-16 w-full border-b mb-2 px-4 flex items-center text-lg justify-between"
+                },
+                [
+                  _vm._v(
+                    "\r\n                بيانات التلميذ\r\n\r\n                "
+                  ),
+                  _c(
+                    "router-link",
+                    {
+                      staticClass:
+                        "back-btn w-36 h-12 rounded font-normal flex items-center justify-center cursor-pointer",
+                      attrs: { to: "/admin/student/" }
+                    },
+                    [
+                      _vm._v(
+                        "\r\n                    قائمة التلاميذ\r\n                "
+                      )
+                    ]
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "w-full px-4 py-4" }, [
+                _c("img", {
+                  staticClass: "h-48 w-48 mx-auto rounded-full",
+                  attrs: { src: _vm.admin.photo }
+                })
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass: "bg-blue-600a grid lg:grid-cols-2 md:grid-cols-2"
+                },
+                [
+                  _c("div", { staticClass: "w-full px-4 py-4" }, [
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "h-9 flex items-center text-gray-500 mr-2 text-sm"
+                      },
+                      [
+                        _vm._v(
+                          "\r\n                        إسم التلميذ\r\n                    "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "h-12 rounded border border-gray-200 bg-gray-50 flex items-center px-4 text-lg"
+                      },
+                      [
+                        _vm._v(
+                          "\r\n                        " +
+                            _vm._s(_vm.admin.name) +
+                            "\r\n                    "
+                        )
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "w-full px-4 py-4" }, [
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "h-9 flex items-center text-gray-500 mr-2 text-sm"
+                      },
+                      [
+                        _vm._v(
+                          "\r\n                        إسم الدخول\r\n                    "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "h-12 rounded border border-gray-200 bg-gray-50 flex items-center px-4 text-lg"
+                      },
+                      [
+                        _vm._v(
+                          "\r\n                        " +
+                            _vm._s(_vm.admin.username) +
+                            "\r\n                    "
+                        )
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "w-full px-4 py-4" }, [
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "h-9 flex items-center text-gray-500 mr-2 text-sm"
+                      },
+                      [
+                        _vm._v(
+                          "\r\n                        تاريخ الإنشاء\r\n                    "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "h-12 rounded border border-gray-200 bg-gray-50 flex items-center px-4 text-lg"
+                      },
+                      [
+                        _vm._v(
+                          "\r\n                        " +
+                            _vm._s(_vm.admin.created_at.substring(0, 10)) +
+                            "\r\n                    "
+                        )
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "w-full px-4 py-4" }, [
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "h-9 flex items-center text-gray-500 mr-2 text-sm"
+                      },
+                      [
+                        _vm._v(
+                          "\r\n                        حالة الحساب\r\n                    "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "h-12 rounded border border-gray-200 bg-gray-50 flex items-center px-4 text-lg"
+                      },
+                      [
+                        _vm._v(
+                          "\r\n                        " +
+                            _vm._s(
+                              _vm.admin.state == 0
+                                ? "غير مفعل"
+                                : _vm.admin.state == 1
+                                ? "حساب نشط"
+                                : "محظور"
+                            ) +
+                            "\r\n                    "
+                        )
+                      ]
+                    )
+                  ])
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "w-full lg:h-20 mt-12 lg:flex items-center justify-start"
+                },
+                [
+                  _vm.admin.state != 2
+                    ? _c(
+                        "div",
+                        {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value:
+                                _vm.$parent.checkPermission(
+                                  "ResetPasswordAdmin"
+                                ) == true,
+                              expression:
+                                "\r\n                        $parent.checkPermission('ResetPasswordAdmin') == true\r\n                    "
+                            }
+                          ],
+                          staticClass:
+                            "h-12 px-6 mx-4 my-2 bg-blue-400 hover:bg-blue-500 flex items-center justify-center text-white shadow-lg rounded cursor-pointer",
+                          on: { click: _vm.resetPassword }
+                        },
+                        [
+                          _c("i", { staticClass: "fas fa-fingerprint ml-2" }),
+                          _vm._v(
+                            "\r\n                    تهيئة كلمة المرور\r\n                "
+                          )
+                        ]
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.admin.state == 0
+                    ? _c(
+                        "div",
+                        {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value:
+                                _vm.$parent.checkPermission("ActiveAdmin") ==
+                                true,
+                              expression:
+                                "$parent.checkPermission('ActiveAdmin') == true"
+                            }
+                          ],
+                          staticClass:
+                            "h-12 px-6 mx-4  md:mx-0 my-2 bg-green-400 hover:bg-green-500 flex items-center justify-center text-white shadow-lg rounded cursor-pointer",
+                          on: { click: _vm.activeAdmin }
+                        },
+                        [
+                          _c("i", { staticClass: "fas fa-lock-open ml-2" }),
+                          _vm._v(
+                            "\r\n                    تفعيل الحساب\r\n                "
+                          )
+                        ]
+                      )
+                    : _vm.admin.state == 1
+                    ? _c(
+                        "div",
+                        {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value:
+                                _vm.$parent.checkPermission("DisActiveAdmin") ==
+                                true,
+                              expression:
+                                "$parent.checkPermission('DisActiveAdmin') == true"
+                            }
+                          ],
+                          staticClass:
+                            "h-12 px-6 mx-4 my-2 bg-yellow-400 hover:bg-yellow-500 flex items-center justify-center text-white shadow-lg rounded cursor-pointer",
+                          on: { click: _vm.disActiveAdmin }
+                        },
+                        [
+                          _c("i", { staticClass: "fas fa-lock ml-2" }),
+                          _vm._v(
+                            "\r\n                    إلغاء تفعيل الحساب\r\n                "
+                          )
+                        ]
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.admin.state != 2
+                    ? _c(
+                        "div",
+                        {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value:
+                                _vm.$parent.checkPermission("BannedAdmin") ==
+                                true,
+                              expression:
+                                "$parent.checkPermission('BannedAdmin') == true"
+                            }
+                          ],
+                          staticClass:
+                            "h-12 px-6 mx-4 my-2 bg-red-400 hover:bg-red-500 flex items-center justify-center text-white shadow-lg rounded cursor-pointer",
+                          on: { click: _vm.bannedAdmin }
+                        },
+                        [
+                          _c("i", { staticClass: "fas fa-user-slash ml-2" }),
+                          _vm._v(
+                            "\r\n                    حظر الحساب\r\n                "
+                          )
+                        ]
+                      )
+                    : _vm._e()
+                ]
+              )
+            ]
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.loaded && _vm.admin.length == 0
+        ? _c("Empty-Box", { attrs: { message: "لا يوجد مشرف بهذا الرقم" } })
+        : _vm._e()
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./resources/js/admin/pages/Students/Students.html?vue&type=template&id=16eeff54&scoped=true&":
+/*!********************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./resources/js/admin/pages/Students/Students.html?vue&type=template&id=16eeff54&scoped=true& ***!
+  \********************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "w-auto md:p-8 p-4" },
+    [
+      _c(
+        "div",
+        { staticClass: "flex justify-between w-full h-16 items-center" },
+        [
+          _c(
+            "div",
+            { staticClass: "text-2xl font-semibold cairo text-gray-600" },
+            [_vm._v("\r\nالتلاميذ \r\n            ")]
+          ),
+          _vm._v(" "),
+          _c(
+            "router-link",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.$parent.checkPermission("CreateAdmin") == true,
+                  expression: "$parent.checkPermission('CreateAdmin') == true"
+                }
+              ],
+              staticClass:
+                "rounded px-4 flex items-center cairo font-medium add-btn",
+              attrs: { to: "/admin/student/new" }
+            },
+            [
+              _c("span", { staticClass: "h-12 flex items-center" }, [
+                _c("i", { staticClass: "fas fa-plus ml-4 text-lg" }),
+                _vm._v("\r\n                    أضف تلميذ\r\n                ")
+              ])
+            ]
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "flex justify-between my-8" }, [
+        _c(
+          "div",
+          {
+            staticClass:
+              "border rounded font-semibold cairo flex bg-center text-gray-700"
+          },
+          _vm._l(_vm.filter, function(item, index) {
+            return _c(
+              "div",
+              {
+                key: index,
+                class: {
+                  "h-12 px-4 flex cursor-pointer items-center ": 1 == 1,
+                  "bg-white ": item.link == _vm.activeFilter,
+                  "rounded-r ": index == 0,
+                  " rounded-l border-l-0 ": index == _vm.filter.length - 1,
+                  "border-l ": index != _vm.filter.length - 1
+                },
+                on: {
+                  click: function($event) {
+                    return _vm.changeFilter(item.link)
+                  }
+                }
+              },
+              [
+                _vm._v(
+                  "\r\n                    " +
+                    _vm._s(item.name) +
+                    "\r\n                "
+                )
+              ]
+            )
+          }),
+          0
+        )
+      ]),
+      _vm._v(" "),
+      _vm.loaded && _vm.filterAdmin.length != 0
+        ? _c(
+            "table",
+            { staticClass: "w-full" },
+            [
+              _vm._m(0),
+              _vm._v(" "),
+              _vm._l(_vm.filterAdmin, function(item, index) {
+                return _c(
+                  "tr",
+                  {
+                    key: index,
+                    staticClass:
+                      "h-24 bg-white shadow-2 rounded-lg text-lg text-gray-600 font-medium hover:bg-gray-50"
+                  },
+                  [
+                    _c("td", { staticClass: "w-12 text-center rounded-r-lg" }, [
+                      _vm._v(_vm._s(item.id))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "sm:table-cell hidden" }, [
+                      _c("img", {
+                        staticClass: "h-16 w-16",
+                        attrs: { src: item.photo, alt: "" }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "lg:table-cell hidden" }, [
+                      _vm._v(
+                        "\r\n                    " +
+                          _vm._s(item.name.substring(0, 10)) +
+                          "\r\n                "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(item.username))]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "xl:table-cell hidden" }, [
+                      item.state == 1
+                        ? _c(
+                            "div",
+                            {
+                              staticClass:
+                                "bg-green-100 flex items-center justify-center rounded shadowa h-10 w-24 text-green-700 text-base"
+                            },
+                            [
+                              _vm._v(
+                                "\r\n                        نشط\r\n                    "
+                              )
+                            ]
+                          )
+                        : item.state == 0
+                        ? _c(
+                            "div",
+                            {
+                              staticClass:
+                                "bg-yellow-100 flex items-center justify-center rounded shadows h-10 w-24 text-yellow-700 text-base"
+                            },
+                            [
+                              _vm._v(
+                                "\r\n                        غير نشط\r\n                    "
+                              )
+                            ]
+                          )
+                        : _c(
+                            "div",
+                            {
+                              staticClass:
+                                "bg-red-100 flex items-center justify-center rounded shadow1d h-10 w-24 text-red-700 text-base"
+                            },
+                            [
+                              _vm._v(
+                                "\r\n                        محظور\r\n                    "
+                              )
+                            ]
+                          )
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "xl:table-cell hidden" }, [
+                      _vm._v(
+                        "\r\n                    " +
+                          _vm._s(item.created_at.substring(0, 10)) +
+                          "\r\n                "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "td",
+                      { staticClass: "rounded-l-lg h-20" },
+                      [
+                        _c(
+                          "router-link",
+                          { attrs: { to: "/admin/student/" + item.id } },
+                          [
+                            _c("i", {
+                              staticClass:
+                                "fas fa-eye px-4 py-2 see-btn rounded ml-2",
+                              attrs: { title: "عرض بيانات المشرف" }
+                            })
+                          ]
+                        ),
+                        _vm._v(" "),
+                        item.state != 2
+                          ? _c("i", {
+                              directives: [
+                                {
+                                  name: "show",
+                                  rawName: "v-show",
+                                  value:
+                                    _vm.$parent.checkPermission(
+                                      "BannedAdmin"
+                                    ) == true,
+                                  expression:
+                                    "$parent.checkPermission('BannedAdmin') == true"
+                                }
+                              ],
+                              staticClass:
+                                "fas fa-ban px-4 py-2 delete-btn rounded ml-2",
+                              attrs: { title: "حظر المشرف" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.bannedAdmin(item.id, index)
+                                }
+                              }
+                            })
+                          : _vm._e(),
+                        _vm._v(" "),
+                        item.state == 0
+                          ? _c("i", {
+                              directives: [
+                                {
+                                  name: "show",
+                                  rawName: "v-show",
+                                  value:
+                                    _vm.$parent.checkPermission(
+                                      "ActiveAdmin"
+                                    ) == true,
+                                  expression:
+                                    "$parent.checkPermission('ActiveAdmin') == true"
+                                }
+                              ],
+                              staticClass:
+                                "fas fa-lock-open px-4 py-2 green-btn rounded ml-2",
+                              attrs: { title: "تفعيل المشرف" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.activeAdmin(item.id, index)
+                                }
+                              }
+                            })
+                          : item.state == 1
+                          ? _c("i", {
+                              directives: [
+                                {
+                                  name: "show",
+                                  rawName: "v-show",
+                                  value:
+                                    _vm.$parent.checkPermission(
+                                      "DisActiveAdmin"
+                                    ) == true,
+                                  expression:
+                                    "\r\n                            $parent.checkPermission('DisActiveAdmin') == true\r\n                        "
+                                }
+                              ],
+                              staticClass:
+                                "fas fa-lock px-4 py-2 yellow-btn rounded ml-2",
+                              attrs: { title: "إلغاء تفعيل المشرف" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.disActiveAdmin(item.id, index)
+                                }
+                              }
+                            })
+                          : _vm._e()
+                      ],
+                      1
+                    )
+                  ]
+                )
+              })
+            ],
+            2
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.loaded && _vm.filterAdmin.length == 0 ? _c("Empty-Box") : _vm._e()
+    ],
+    1
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tr", { staticClass: "h-12 text-lg font-bold text-gray-600" }, [
+      _c("td", { staticClass: "w-12 text-center" }, [_vm._v("#")]),
+      _vm._v(" "),
+      _c("td", { staticClass: "sm:table-cell hidden" }, [_vm._v("الصورة")]),
+      _vm._v(" "),
+      _c("td", { staticClass: "lg:table-cell hidden" }, [_vm._v("الإسم")]),
+      _vm._v(" "),
+      _c("td", {}, [_vm._v("إسم الدخول")]),
+      _vm._v(" "),
+      _c("td", { staticClass: "xl:table-cell hidden" }, [_vm._v("الحالة")]),
+      _vm._v(" "),
+      _c("td", { staticClass: "xl:table-cell hidden" }, [
+        _vm._v("تاريخ الإنشاء")
+      ]),
+      _vm._v(" "),
+      _c("td", { staticClass: "rounded-l-lg" }, [_vm._v("الإجراءات")])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./resources/js/admin/pages/Teachers/NewTeacher/NewTeacher.html?vue&type=template&id=cd98d20c&scoped=true&":
+/*!*********************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./resources/js/admin/pages/Teachers/NewTeacher/NewTeacher.html?vue&type=template&id=cd98d20c&scoped=true& ***!
+  \*********************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "w-auto md:p-8 p-4" },
+    [
+      _vm.loaded && _vm.roleList.length != 0
+        ? _c(
+            "div",
+            {
+              staticClass:
+                "w-full md:px-4 px-0 pb-8 pt-2 bg-white shadow-2 rounded-lg text-lg text-gray-600 font-medium"
+            },
+            [
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "h-16 w-full border-b mb-2 px-4 flex items-center text-lg justify-between"
+                },
+                [
+                  _vm._v(
+                    "\r\n                إضافة أستاذ\r\n\r\n                "
+                  ),
+                  _c(
+                    "router-link",
+                    {
+                      staticClass:
+                        "back-btn w-36 h-12 rounded font-normal flex items-center justify-center cursor-pointer",
+                      attrs: { to: "/admin/teacher/" }
+                    },
+                    [
+                      _vm._v(
+                        "\r\n                    قائمة الأساتذة\r\n                "
+                      )
+                    ]
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "bg-blue-600a grid lg:grid-cols-2" }, [
+                _c("div", { staticClass: "w-full px-4 py-4" }, [
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "h-9 flex items-center text-gray-500 mr-2 text-sm"
+                    },
+                    [
+                      _vm._v(
+                        "\r\n                        إسم الأستاذ\r\n                    "
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.formData.name,
+                        expression: "formData.name"
+                      }
+                    ],
+                    staticClass:
+                      "h-12 w-full rounded border border-gray-200 bg-gray-50 flex items-center px-4 text-lg",
+                    domProps: { value: _vm.formData.name },
+                    on: {
+                      change: _vm.validateName,
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.formData, "name", $event.target.value)
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "h-8 text-sm text-red-400 mr-2 flex items-center"
+                    },
+                    [
+                      _vm._v(
+                        "\r\n                        " +
+                          _vm._s(_vm.formValidate.name) +
+                          "\r\n                    "
+                      )
+                    ]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "w-full px-4 py-4" }, [
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "h-9 flex items-center text-gray-500 mr-2 text-sm"
+                    },
+                    [
+                      _vm._v(
+                        "\r\n                        إسم الدخول\r\n                    "
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.formData.username,
+                        expression: "formData.username"
+                      }
+                    ],
+                    staticClass:
+                      "h-12 w-full rounded border border-gray-200 bg-gray-50 flex items-center px-4 text-lg",
+                    domProps: { value: _vm.formData.username },
+                    on: {
+                      change: _vm.validateUsername,
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.formData, "username", $event.target.value)
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "h-8 text-sm text-red-400 mr-2 flex items-center"
+                    },
+                    [
+                      _vm._v(
+                        "\r\n                        " +
+                          _vm._s(_vm.formValidate.username) +
+                          "\r\n                    "
+                      )
+                    ]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "w-full px-4 py-4" }, [
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "h-9 flex items-center text-gray-500 mr-2 text-sm"
+                    },
+                    [
+                      _vm._v(
+                        "\r\n                        كلمة المرور\r\n                    "
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.formData.password,
+                        expression: "formData.password"
+                      }
+                    ],
+                    staticClass:
+                      "h-12 w-full rounded border border-gray-200 bg-gray-50 flex items-center px-4 text-lg",
+                    domProps: { value: _vm.formData.password },
+                    on: {
+                      change: _vm.validatePassword,
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.formData, "password", $event.target.value)
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "h-8 text-sm text-red-400 mr-2 flex items-center"
+                    },
+                    [
+                      _vm._v(
+                        "\r\n                        " +
+                          _vm._s(_vm.formValidate.password) +
+                          "\r\n                    "
+                      )
+                    ]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "w-full px-4 py-4" }, [
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "h-9 flex items-center text-gray-500 mr-2 text-sm"
+                    },
+                    [
+                      _vm._v(
+                        "\r\n                        تأكيد كلمة المرور\r\n                    "
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.formData.confirmPassword,
+                        expression: "formData.confirmPassword"
+                      }
+                    ],
+                    staticClass:
+                      "h-12 w-full rounded border border-gray-200 bg-gray-50 flex items-center px-4 text-lg",
+                    domProps: { value: _vm.formData.confirmPassword },
+                    on: {
+                      change: _vm.validateConfirmPassword,
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(
+                          _vm.formData,
+                          "confirmPassword",
+                          $event.target.value
+                        )
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "h-8 text-sm text-red-400 mr-2 flex items-center"
+                    },
+                    [
+                      _vm._v(
+                        "\r\n                        " +
+                          _vm._s(_vm.formValidate.confirmPassword) +
+                          "\r\n                    "
+                      )
+                    ]
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "flex items-center h-20 mx-4" }, [
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "btn-color-one rounded shadow px-12 h-12 w-auto flex items-center justify-center text-white text-lg cursor-pointer",
+                    on: { click: _vm.addAdmin }
+                  },
+                  [_vm._v("\r\n                    إضافة\r\n                ")]
+                )
+              ])
+            ]
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.loaded && _vm.roleList.length == 0
+        ? _c("Empty-Box", {
+            attrs: {
+              message:
+                "لم نتمكن من جلب بيانات الأدوار, تأكد من أنك تمتلك صلاحية مشاهدة أدوار الصفحة"
+            }
+          })
+        : _vm._e()
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./resources/js/admin/pages/Teachers/Teacher/Teacher.html?vue&type=template&id=10ba7480&scoped=true&":
+/*!***************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./resources/js/admin/pages/Teachers/Teacher/Teacher.html?vue&type=template&id=10ba7480&scoped=true& ***!
+  \***************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "w-auto md:p-8 p-4" },
+    [
+      _vm.loaded && _vm.admin.length != 0
+        ? _c(
+            "div",
+            {
+              staticClass:
+                "w-full md:px-4 px-0 pb-8 pt-2 bg-white shadow-2 rounded-lg text-lg text-gray-600 font-medium"
+            },
+            [
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "h-16 w-full border-b mb-2 px-4 flex items-center text-lg justify-between"
+                },
+                [
+                  _vm._v(
+                    "\r\n                بيانات الأستاذ\r\n\r\n                "
+                  ),
+                  _c(
+                    "router-link",
+                    {
+                      staticClass:
+                        "back-btn w-36 h-12 rounded font-normal flex items-center justify-center cursor-pointer",
+                      attrs: { to: "/admin/teacher/" }
+                    },
+                    [
+                      _vm._v(
+                        "\r\n                    قائمة الأساتذة\r\n                "
+                      )
+                    ]
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "w-full px-4 py-4" }, [
+                _c("img", {
+                  staticClass: "h-48 w-48 mx-auto rounded-full",
+                  attrs: { src: _vm.admin.photo }
+                })
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass: "bg-blue-600a grid lg:grid-cols-2 md:grid-cols-2"
+                },
+                [
+                  _c("div", { staticClass: "w-full px-4 py-4" }, [
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "h-9 flex items-center text-gray-500 mr-2 text-sm"
+                      },
+                      [
+                        _vm._v(
+                          "\r\n                        إسم الأستاذ\r\n                    "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "h-12 rounded border border-gray-200 bg-gray-50 flex items-center px-4 text-lg"
+                      },
+                      [
+                        _vm._v(
+                          "\r\n                        " +
+                            _vm._s(_vm.admin.name) +
+                            "\r\n                    "
+                        )
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "w-full px-4 py-4" }, [
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "h-9 flex items-center text-gray-500 mr-2 text-sm"
+                      },
+                      [
+                        _vm._v(
+                          "\r\n                        إسم الدخول\r\n                    "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "h-12 rounded border border-gray-200 bg-gray-50 flex items-center px-4 text-lg"
+                      },
+                      [
+                        _vm._v(
+                          "\r\n                        " +
+                            _vm._s(_vm.admin.username) +
+                            "\r\n                    "
+                        )
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "w-full px-4 py-4" }, [
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "h-9 flex items-center text-gray-500 mr-2 text-sm"
+                      },
+                      [
+                        _vm._v(
+                          "\r\n                        تاريخ الإنشاء\r\n                    "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "h-12 rounded border border-gray-200 bg-gray-50 flex items-center px-4 text-lg"
+                      },
+                      [
+                        _vm._v(
+                          "\r\n                        " +
+                            _vm._s(_vm.admin.created_at.substring(0, 10)) +
+                            "\r\n                    "
+                        )
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "w-full px-4 py-4" }, [
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "h-9 flex items-center text-gray-500 mr-2 text-sm"
+                      },
+                      [
+                        _vm._v(
+                          "\r\n                        حالة الحساب\r\n                    "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "h-12 rounded border border-gray-200 bg-gray-50 flex items-center px-4 text-lg"
+                      },
+                      [
+                        _vm._v(
+                          "\r\n                        " +
+                            _vm._s(
+                              _vm.admin.state == 0
+                                ? "غير مفعل"
+                                : _vm.admin.state == 1
+                                ? "حساب نشط"
+                                : "محظور"
+                            ) +
+                            "\r\n                    "
+                        )
+                      ]
+                    )
+                  ])
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "w-full lg:h-20 mt-12 lg:flex items-center justify-start"
+                },
+                [
+                  _vm.admin.state != 2
+                    ? _c(
+                        "div",
+                        {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value:
+                                _vm.$parent.checkPermission(
+                                  "ResetPasswordAdmin"
+                                ) == true,
+                              expression:
+                                "\r\n                        $parent.checkPermission('ResetPasswordAdmin') == true\r\n                    "
+                            }
+                          ],
+                          staticClass:
+                            "h-12 px-6 mx-4 my-2 bg-blue-400 hover:bg-blue-500 flex items-center justify-center text-white shadow-lg rounded cursor-pointer",
+                          on: { click: _vm.resetPassword }
+                        },
+                        [
+                          _c("i", { staticClass: "fas fa-fingerprint ml-2" }),
+                          _vm._v(
+                            "\r\n                    تهيئة كلمة المرور\r\n                "
+                          )
+                        ]
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.admin.state == 0
+                    ? _c(
+                        "div",
+                        {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value:
+                                _vm.$parent.checkPermission("ActiveAdmin") ==
+                                true,
+                              expression:
+                                "$parent.checkPermission('ActiveAdmin') == true"
+                            }
+                          ],
+                          staticClass:
+                            "h-12 px-6 mx-4  md:mx-0 my-2 bg-green-400 hover:bg-green-500 flex items-center justify-center text-white shadow-lg rounded cursor-pointer",
+                          on: { click: _vm.activeAdmin }
+                        },
+                        [
+                          _c("i", { staticClass: "fas fa-lock-open ml-2" }),
+                          _vm._v(
+                            "\r\n                    تفعيل الحساب\r\n                "
+                          )
+                        ]
+                      )
+                    : _vm.admin.state == 1
+                    ? _c(
+                        "div",
+                        {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value:
+                                _vm.$parent.checkPermission("DisActiveAdmin") ==
+                                true,
+                              expression:
+                                "$parent.checkPermission('DisActiveAdmin') == true"
+                            }
+                          ],
+                          staticClass:
+                            "h-12 px-6 mx-4 my-2 bg-yellow-400 hover:bg-yellow-500 flex items-center justify-center text-white shadow-lg rounded cursor-pointer",
+                          on: { click: _vm.disActiveAdmin }
+                        },
+                        [
+                          _c("i", { staticClass: "fas fa-lock ml-2" }),
+                          _vm._v(
+                            "\r\n                    إلغاء تفعيل الحساب\r\n                "
+                          )
+                        ]
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.admin.state != 2
+                    ? _c(
+                        "div",
+                        {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value:
+                                _vm.$parent.checkPermission("BannedAdmin") ==
+                                true,
+                              expression:
+                                "$parent.checkPermission('BannedAdmin') == true"
+                            }
+                          ],
+                          staticClass:
+                            "h-12 px-6 mx-4 my-2 bg-red-400 hover:bg-red-500 flex items-center justify-center text-white shadow-lg rounded cursor-pointer",
+                          on: { click: _vm.bannedAdmin }
+                        },
+                        [
+                          _c("i", { staticClass: "fas fa-user-slash ml-2" }),
+                          _vm._v(
+                            "\r\n                    حظر الحساب\r\n                "
+                          )
+                        ]
+                      )
+                    : _vm._e()
+                ]
+              )
+            ]
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.loaded && _vm.admin.length == 0
+        ? _c("Empty-Box", { attrs: { message: "لا يوجد مشرف بهذا الرقم" } })
+        : _vm._e()
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./resources/js/admin/pages/Teachers/Teachers.html?vue&type=template&id=3553ff14&scoped=true&":
+/*!********************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./resources/js/admin/pages/Teachers/Teachers.html?vue&type=template&id=3553ff14&scoped=true& ***!
+  \********************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "w-auto md:p-8 p-4" },
+    [
+      _c(
+        "div",
+        { staticClass: "flex justify-between w-full h-16 items-center" },
+        [
+          _c(
+            "div",
+            { staticClass: "text-2xl font-semibold cairo text-gray-600" },
+            [_vm._v("\r\nالأساتذة \r\n            ")]
+          ),
+          _vm._v(" "),
+          _c(
+            "router-link",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.$parent.checkPermission("CreateAdmin") == true,
+                  expression: "$parent.checkPermission('CreateAdmin') == true"
+                }
+              ],
+              staticClass:
+                "rounded px-4 flex items-center cairo font-medium add-btn",
+              attrs: { to: "/admin/teacher/new" }
+            },
+            [
+              _c("span", { staticClass: "h-12 flex items-center" }, [
+                _c("i", { staticClass: "fas fa-plus ml-4 text-lg" }),
+                _vm._v("\r\n                    أضف أستاذ\r\n                ")
+              ])
+            ]
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "flex justify-between my-8" }, [
+        _c(
+          "div",
+          {
+            staticClass:
+              "border rounded font-semibold cairo flex bg-center text-gray-700"
+          },
+          _vm._l(_vm.filter, function(item, index) {
+            return _c(
+              "div",
+              {
+                key: index,
+                class: {
+                  "h-12 px-4 flex cursor-pointer items-center ": 1 == 1,
+                  "bg-white ": item.link == _vm.activeFilter,
+                  "rounded-r ": index == 0,
+                  " rounded-l border-l-0 ": index == _vm.filter.length - 1,
+                  "border-l ": index != _vm.filter.length - 1
+                },
+                on: {
+                  click: function($event) {
+                    return _vm.changeFilter(item.link)
+                  }
+                }
+              },
+              [
+                _vm._v(
+                  "\r\n                    " +
+                    _vm._s(item.name) +
+                    "\r\n                "
+                )
+              ]
+            )
+          }),
+          0
+        )
+      ]),
+      _vm._v(" "),
+      _vm.loaded && _vm.filterAdmin.length != 0
+        ? _c(
+            "table",
+            { staticClass: "w-full" },
+            [
+              _vm._m(0),
+              _vm._v(" "),
+              _vm._l(_vm.filterAdmin, function(item, index) {
+                return _c(
+                  "tr",
+                  {
+                    key: index,
+                    staticClass:
+                      "h-24 bg-white shadow-2 rounded-lg text-lg text-gray-600 font-medium hover:bg-gray-50"
+                  },
+                  [
+                    _c("td", { staticClass: "w-12 text-center rounded-r-lg" }, [
+                      _vm._v(_vm._s(item.id))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "sm:table-cell hidden" }, [
+                      _c("img", {
+                        staticClass: "h-16 w-16",
+                        attrs: { src: item.photo, alt: "" }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "lg:table-cell hidden" }, [
+                      _vm._v(
+                        "\r\n                    " +
+                          _vm._s(item.name.substring(0, 10)) +
+                          "\r\n                "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(item.username))]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "xl:table-cell hidden" }, [
+                      item.state == 1
+                        ? _c(
+                            "div",
+                            {
+                              staticClass:
+                                "bg-green-100 flex items-center justify-center rounded shadowa h-10 w-24 text-green-700 text-base"
+                            },
+                            [
+                              _vm._v(
+                                "\r\n                        نشط\r\n                    "
+                              )
+                            ]
+                          )
+                        : item.state == 0
+                        ? _c(
+                            "div",
+                            {
+                              staticClass:
+                                "bg-yellow-100 flex items-center justify-center rounded shadows h-10 w-24 text-yellow-700 text-base"
+                            },
+                            [
+                              _vm._v(
+                                "\r\n                        غير نشط\r\n                    "
+                              )
+                            ]
+                          )
+                        : _c(
+                            "div",
+                            {
+                              staticClass:
+                                "bg-red-100 flex items-center justify-center rounded shadow1d h-10 w-24 text-red-700 text-base"
+                            },
+                            [
+                              _vm._v(
+                                "\r\n                        محظور\r\n                    "
+                              )
+                            ]
+                          )
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "xl:table-cell hidden" }, [
+                      _vm._v(
+                        "\r\n                    " +
+                          _vm._s(item.created_at.substring(0, 10)) +
+                          "\r\n                "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "td",
+                      { staticClass: "rounded-l-lg h-20" },
+                      [
+                        _c(
+                          "router-link",
+                          { attrs: { to: "/admin/teacher/" + item.id } },
+                          [
+                            _c("i", {
+                              staticClass:
+                                "fas fa-eye px-4 py-2 see-btn rounded ml-2",
+                              attrs: { title: "عرض بيانات المشرف" }
+                            })
+                          ]
+                        ),
+                        _vm._v(" "),
+                        item.state != 2
+                          ? _c("i", {
+                              directives: [
+                                {
+                                  name: "show",
+                                  rawName: "v-show",
+                                  value:
+                                    _vm.$parent.checkPermission(
+                                      "BannedAdmin"
+                                    ) == true,
+                                  expression:
+                                    "$parent.checkPermission('BannedAdmin') == true"
+                                }
+                              ],
+                              staticClass:
+                                "fas fa-ban px-4 py-2 delete-btn rounded ml-2",
+                              attrs: { title: "حظر المشرف" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.bannedAdmin(item.id, index)
+                                }
+                              }
+                            })
+                          : _vm._e(),
+                        _vm._v(" "),
+                        item.state == 0
+                          ? _c("i", {
+                              directives: [
+                                {
+                                  name: "show",
+                                  rawName: "v-show",
+                                  value:
+                                    _vm.$parent.checkPermission(
+                                      "ActiveAdmin"
+                                    ) == true,
+                                  expression:
+                                    "$parent.checkPermission('ActiveAdmin') == true"
+                                }
+                              ],
+                              staticClass:
+                                "fas fa-lock-open px-4 py-2 green-btn rounded ml-2",
+                              attrs: { title: "تفعيل المشرف" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.activeAdmin(item.id, index)
+                                }
+                              }
+                            })
+                          : item.state == 1
+                          ? _c("i", {
+                              directives: [
+                                {
+                                  name: "show",
+                                  rawName: "v-show",
+                                  value:
+                                    _vm.$parent.checkPermission(
+                                      "DisActiveAdmin"
+                                    ) == true,
+                                  expression:
+                                    "\r\n                            $parent.checkPermission('DisActiveAdmin') == true\r\n                        "
+                                }
+                              ],
+                              staticClass:
+                                "fas fa-lock px-4 py-2 yellow-btn rounded ml-2",
+                              attrs: { title: "إلغاء تفعيل المشرف" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.disActiveAdmin(item.id, index)
+                                }
+                              }
+                            })
+                          : _vm._e()
+                      ],
+                      1
+                    )
+                  ]
+                )
+              })
+            ],
+            2
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.loaded && _vm.filterAdmin.length == 0 ? _c("Empty-Box") : _vm._e()
+    ],
+    1
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tr", { staticClass: "h-12 text-lg font-bold text-gray-600" }, [
+      _c("td", { staticClass: "w-12 text-center" }, [_vm._v("#")]),
+      _vm._v(" "),
+      _c("td", { staticClass: "sm:table-cell hidden" }, [_vm._v("الصورة")]),
+      _vm._v(" "),
+      _c("td", { staticClass: "lg:table-cell hidden" }, [_vm._v("الإسم")]),
+      _vm._v(" "),
+      _c("td", {}, [_vm._v("إسم الدخول")]),
+      _vm._v(" "),
+      _c("td", { staticClass: "xl:table-cell hidden" }, [_vm._v("الحالة")]),
+      _vm._v(" "),
+      _c("td", { staticClass: "xl:table-cell hidden" }, [
+        _vm._v("تاريخ الإنشاء")
+      ]),
+      _vm._v(" "),
+      _c("td", { staticClass: "rounded-l-lg" }, [_vm._v("الإجراءات")])
     ])
   }
 ]

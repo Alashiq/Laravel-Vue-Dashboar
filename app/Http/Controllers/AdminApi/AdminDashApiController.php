@@ -18,11 +18,11 @@ class AdminDashApiController extends Controller
 
 
     // GET All Admins
-    public function index(Request $request)
+    public function index(Request $request,$type)
     {
         //return response()->json(['success' => false, 'message' => 'حدث خطأ فادح'], 204);
 
-        $admins = Admin::latest()->where('id', '<>', $request->user()->id)->get();
+        $admins = Admin::latest()->where('id', '<>', $request->user()->id)->where('type',$type)->get();
         if ($admins->isEmpty())
             return response()->json(['success' => false, 'message' => 'لا يوجد اي مشرفين في الموقع', 'data' => $admins], 204);
         return response()->json(['success' => true, 'message' => 'تم جلب  المشرفين بنجاح', 'data' => $admins], 200);
@@ -183,6 +183,7 @@ class AdminDashApiController extends Controller
         $admin = Admin::create([
             'name' => $request['name'],
             'username' => $request['username'],
+            'type' => $request['type'],
             'role_id' => $request['role_id'],
             'password' => Hash::make($request['password']),
         ]);

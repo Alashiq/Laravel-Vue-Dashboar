@@ -4,6 +4,7 @@ namespace App\Http\Controllers\AdminApi;
 
 use App\Http\Controllers\Controller;
 use App\Models\Message;
+use App\Models\Material;
 use App\Models\Visitor;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -14,6 +15,7 @@ class HomeDashApiController extends Controller
     // GET Home Charts
     public function index()
     {
+        $materials = count(Material::get());
         $todayMessage = count(Message::where('created_at', '>', Carbon::now()->format('Y-m-d'))->get());
         $notSloveMessage = count(Message::where('state', '=', 0)->get());
         $sloveMessage = count(Message::where('state', '=', 1)->get());
@@ -30,6 +32,7 @@ class HomeDashApiController extends Controller
             "todayVisitor"=>$todayVisitor,
             "weekVisitor"=>$weekVisitor,
             "monthVisitor"=>$monthVisitor,
+            "materials"=>$materials,
         ]], 200);
 
     }

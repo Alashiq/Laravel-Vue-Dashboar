@@ -6,8 +6,8 @@ export default {
                 name: "",
                 username: "",
                 password: "",
-                type: 0,
-                role_id: 1,
+                type: 1,
+                role_id: 2,
                 confirmPassword: ""
             },
             formValidate: {
@@ -121,7 +121,7 @@ export default {
         }
     },
     mounted() {
-        this.$store.commit("activePage", 3);
+        this.$store.commit("activePage", 5);
 
         this.$loading.Start();
         this.$http

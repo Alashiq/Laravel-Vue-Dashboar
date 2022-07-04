@@ -12,6 +12,7 @@ class Admin extends Model
     protected $fillable = [
         'username',
         'name',
+        'type',
         'role_id',
         'password',
     ];

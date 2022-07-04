@@ -4,9 +4,19 @@ import Login from "../pages/Login/Login.vue";
 import Messages from "../pages/Messages/Messages.vue";
 import Message from "../pages/Messages/Message/Message.vue";
 import Layout from "../pages/Layout/Layout.vue";
+
 import Admins from "../pages/Admins/Admins.vue";
 import Admin from "../pages/Admins/Admin/Admin.vue";
 import NewAdmin from "../pages/Admins/NewAdmin/NewAdmin.vue";
+
+import Teachers from "../pages/Teachers/Teachers.vue";
+import Teacher from "../pages/Teachers/Teacher/Teacher.vue";
+import NewTeacher from "../pages/Teachers/NewTeacher/NewTeacher.vue";
+
+import Students from "../pages/Students/Students.vue";
+import Student from "../pages/Students/Student/Student.vue";
+import NewStudent from "../pages/Students/NewStudent/NewStudent.vue";
+
 import Roles from "../pages/Roles/Roles.vue";
 import NewRole from "../pages/Roles/NewRole/NewRole.vue";
 import Role from "../pages/Roles/Role/Role.vue";
@@ -71,6 +81,30 @@ export const routes = [
             {
                 path: "admin/admin/:id/edit",
                 component: EditAdminRole
+            },
+            {
+                path: "admin/teacher",
+                component: Teachers
+            },
+            {
+                path: "admin/teacher/new",
+                component: NewTeacher
+            },
+            {
+                path: "admin/teacher/:id",
+                component: Teacher
+            },
+            {
+                path: "admin/student",
+                component: Students
+            },
+            {
+                path: "admin/student/new",
+                component: NewStudent
+            },
+            {
+                path: "admin/student/:id",
+                component: Student
             },
             {
                 path: "admin/role",

@@ -36,8 +36,8 @@ export default {
     },
     
     // ============== Admin Part =======================
-    GetAllAdmins() {
-        return axios.get("/api/admin/admin");
+    GetAllAdmins(type) {
+        return axios.get("/api/admin/admin/type/"+type);
     },
     ActiveAdmin(admin) {
         return axios.put("/api/admin/admin/" + admin + "/active");

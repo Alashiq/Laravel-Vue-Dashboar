@@ -136,10 +136,10 @@ export default {
         }
     },
     mounted() {
-        this.$store.commit("activePage", 3);
+        this.$store.commit("activePage", 5);
         this.$loading.Start();
         this.$http
-            .GetAllAdmins(0)
+            .GetAllAdmins(1)
             .then(response => {
                 this.$loading.Stop();
                 this.loaded = true;

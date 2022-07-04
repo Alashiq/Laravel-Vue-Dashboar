@@ -47,26 +47,26 @@ export default {
             },
             {
                 id: 5,
-                name: "السنوات الدراسية",
-                role: "ReadAdmin",
-                active: false,
-                path: "/admin/admin",
-                icon: "fas fa-users"
-            },
-            {
-                id: 6,
                 name: "الأساتذة",
                 role: "ReadAdmin",
                 active: false,
-                path: "/admin/admin",
-                icon: "fas fa-users"
+                path: "/admin/teacher",
+                icon: "fas fa-chalkboard-teacher"
             },
             {
-                id: 7,
+                id: 6,
                 name: "التلاميذ",
                 role: "ReadAdmin",
                 active: false,
-                path: "/admin/admin",
+                path: "/admin/student",
+                icon: "fas fa-user-graduate"
+            },
+            {
+                id: 7,
+                name: "الاختبارات",
+                role: "ReadAdmin",
+                active: false,
+                path: "/admin/exam",
                 icon: "fas fa-users"
             },
             // {

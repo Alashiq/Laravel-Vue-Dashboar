@@ -3,35 +3,12 @@ import Swal from "sweetalert2";
 export default {
     data() {
         return {
-            admins: [],
-            loaded: false,
-            filter: [
-                {
-                    link: "all",
-                    name: "الكل",
-                    active: true
-                },
-                {
-                    link: "active",
-                    name: "المفعلين",
-                    active: false
-                },
-                {
-                    link: "notActive",
-                    name: "الغير مفعل",
-                    active: true
-                },
-                {
-                    link: "banned",
-                    name: "المحظورين",
-                    active: true
-                }
-            ],
-            activeFilter: "all"
+            admin: [],
+            loaded: false
         };
     },
     methods: {
-        activeAdmin: function(id, index) {
+        activeAdmin: function() {
             Swal.fire({
                 title: "هل أنت متأكد",
                 text: "هل أنت متأكد من أنك تريد تفعيل هذا الحساب !",
@@ -45,13 +22,14 @@ export default {
                 if (result.isConfirmed) {
                     this.$loading.Start();
                     this.$http
-                        .ActiveAdmin(id)
+                        .ActiveAdmin(this.$route.params.id)
                         .then(response => {
                             this.$loading.Stop();
                             if (response.status == 200) {
-                                this.admins[this.admins.findIndex(m => m.id === id)].state = 1;
+                                this.admin.state = 1;
                                 this.$alert.Success(response.data.message);
                             } else if (response.status == 204) {
+                                this.admin = [];
                                 this.$alert.Empty(
                                     "لم يعد هذا الحساب متوفرة, قد يكون شخص أخر قام بحذفه"
                                 );
@@ -64,7 +42,7 @@ export default {
                 }
             });
         },
-        disActiveAdmin: function(id, index) {
+        disActiveAdmin: function() {
             Swal.fire({
                 title: "هل أنت متأكد",
                 text: "هل أنت متأكد من أنك تريد الغاء تفعيل هذا الحساب !",
@@ -78,13 +56,14 @@ export default {
                 if (result.isConfirmed) {
                     this.$loading.Start();
                     this.$http
-                        .DisActiveAdmin(id)
+                        .DisActiveAdmin(this.$route.params.id)
                         .then(response => {
                             this.$loading.Stop();
                             if (response.status == 200) {
-                                this.admins[this.admins.findIndex(m => m.id === id)].state = 0;
+                                this.admin.state = 0;
                                 this.$alert.Success(response.data.message);
                             } else if (response.status == 204) {
+                                this.admin = [];
                                 this.$alert.Empty(
                                     "لم يعد هذا الحساب متوفرة, قد يكون شخص أخر قام بحذفه"
                                 );
@@ -97,7 +76,7 @@ export default {
                 }
             });
         },
-        bannedAdmin: function(id, index) {
+        bannedAdmin: function() {
             Swal.fire({
                 title: "هل أنت متأكد",
                 text:
@@ -112,13 +91,14 @@ export default {
                 if (result.isConfirmed) {
                     this.$loading.Start();
                     this.$http
-                        .BannedAdmin(id)
+                        .BannedAdmin(this.$route.params.id)
                         .then(response => {
                             this.$loading.Stop();
                             if (response.status == 200) {
-                                this.admins[this.admins.findIndex(m => m.id === id)].state = 2;
+                                this.admin.state = 2;
                                 this.$alert.Success(response.data.message);
                             } else if (response.status == 204) {
+                                this.admin = [];
                                 this.$alert.Empty(
                                     "لم يعد هذا الحساب متوفرة, قد يكون شخص أخر قام بحذفه"
                                 );
@@ -131,48 +111,62 @@ export default {
                 }
             });
         },
-        changeFilter(filterName) {
-            this.activeFilter = filterName;
+        resetPassword: function() {
+            Swal.fire({
+                title: "هل أنت متأكد",
+                text: "سيتم تغيير كلمة المرور لتصبح 123456",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#16a085",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "نعم تغيير",
+                cancelButtonText: "إلغاء"
+            }).then(result => {
+                if (result.isConfirmed) {
+                    this.$loading.Start();
+                    this.$http
+                        .ResetAdminPassword(this.$route.params.id)
+                        .then(response => {
+                            this.$loading.Stop();
+                            if (response.status == 200) {
+                                this.$alert.Success(response.data.message);
+                            } else if (response.status == 204) {
+                                this.admin = [];
+                                this.$alert.Empty(
+                                    "لم يعد هذا الحساب متوفرة, قد يكون شخص أخر قام بحذفه"
+                                );
+                            }
+                        })
+                        .catch(error => {
+                            this.$loading.Stop();
+                            this.$alert.BadRequest(error.response);
+                        });
+                }
+            });
         }
     },
     mounted() {
-        this.$store.commit("activePage", 3);
+        this.$store.commit("activePage", 6);
+
         this.$loading.Start();
         this.$http
-            .GetAllAdmins(0)
+            .GetAdminById(this.$route.params.id)
             .then(response => {
                 this.$loading.Stop();
                 this.loaded = true;
                 if (response.status == 200) {
-                    this.admins = response.data.data;
+                    this.admin = response.data.data;
                     this.$alert.Success(response.data.message);
                 } else if (response.status == 204) {
-                    this.$alert.Empty("تنبيه لا يوجد اي مشرفين");
+                    this.$alert.Empty("هذه الرسالة غير متوفرة");
                 }
             })
             .catch(error => {
-                this.loaded = true;
                 this.$loading.Stop();
+                this.loaded = true;
                 this.$alert.BadRequest(error.response);
             });
     },
-    computed: {
-        filterAdmin() {
-            var list = [];
-            if (this.activeFilter == "all") {
-                list = this.admins;
-            } else if (this.activeFilter == "active") {
-                for (var i = 0; i < this.admins.length; i++)
-                    if (this.admins[i].state == 1) list.push(this.admins[i]);
-            } else if (this.activeFilter == "notActive") {
-                for (var i = 0; i < this.admins.length; i++)
-                    if (this.admins[i].state == 0) list.push(this.admins[i]);
-            } else if (this.activeFilter == "banned") {
-                for (var i = 0; i < this.admins.length; i++)
-                    if (this.admins[i].state == 2) list.push(this.admins[i]);
-            }
-            return list;
-        }
-    },
+    computed: {},
     created() {}
 };

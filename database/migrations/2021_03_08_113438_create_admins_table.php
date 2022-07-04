@@ -20,6 +20,7 @@ class CreateAdminsTable extends Migration
             $table->string('username')->unique();
             $table->string('password');
             $table->integer('role_id');
+            $table->integer('type')->default(2); //0 = admin   - 1 = teacher - 2 = student
             $table->rememberToken();
             $table->integer('state')->default(0); //1 => Active , 0 =>NAN Active , 2=>Banned
             $table->timestamps();
