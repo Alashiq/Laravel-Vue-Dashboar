@@ -26,6 +26,11 @@ import Materials from "../pages/Materials/Materials.vue";
 import NewMaterial from "../pages/Materials/NewMaterial/NewMaterial.vue";
 
 
+import Exams from "../pages/Exams/Exams.vue";
+import Exam from "../pages/Exams/Exam/Exam.vue";
+import NewExam from "../pages/Exams/NewExam/NewExam.vue";
+
+
 import store from "../store/index";
 
 const ifAuth = (to, from, next) => {
@@ -130,6 +135,19 @@ export const routes = [
                 path: "admin/material/new",
                 component: NewMaterial
             },
+            {
+                path: "admin/exam",
+                component: Exams
+            },
+            {
+                path: "admin/exam/new",
+                component: NewExam
+            },
+            {
+                path: "admin/exam/:id",
+                component: Exam
+            },
+
         ]
     },
     {

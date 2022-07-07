@@ -5,6 +5,7 @@ use App\Http\Controllers\AdminApi\AuthDashApiController;
 use App\Http\Controllers\AdminApi\HomeDashApiController;
 use App\Http\Controllers\AdminApi\MessageDashApiController;
 use App\Http\Controllers\AdminApi\MaterialDashApiController;
+use App\Http\Controllers\AdminApi\ExamDashApiController;
 use App\Http\Controllers\AdminApi\RoleDashApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -74,6 +75,18 @@ Route::middleware(['auth:sanctum', 'type.admin'])->group(function () {
 
     });
     # # # # # # # # # # # # # # # End Message # # # # # # # # # # # # # # # 
+
+
+
+    # # # # # # # # # # # # # # # Exam # # # # # # # # # # # # # # # 
+    Route::group(['prefix' => 'exam'], function () {
+        Route::get('/', [ExamDashApiController::class, 'index'])->middleware('check.role:ReadMessage');
+        Route::post('/', [ExamDashApiController::class, 'create'])->middleware('check.role:ReadMessage');
+        Route::get('/{team}', [ExamDashApiController::class, 'show'])->middleware('check.role:ReadMessage');
+        Route::delete('/{team}', [ExamDashApiController::class, 'delete'])->middleware('check.role:ReadMessage');
+        Route::put('/{team}', [ExamDashApiController::class, 'edit'])->middleware('check.role:ReadMessage');
+    });
+    # # # # # # # # # # # # # # # End Exam # # # # # # # # # # # # # # # 
 
 
 });

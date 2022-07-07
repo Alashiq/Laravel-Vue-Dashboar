@@ -93,5 +93,15 @@ export default {
         return axios.post("/api/admin/material", role);
     },
 
+    // ============== Exam Part =======================
+    GetAllExams() {
+        return axios.get("/api/admin/exam");
+    },
+    GetExamById(role) {
+        return axios.get("/api/admin/exam/" + role);
+    },
+    DeleteExam(role) {
+        return axios.delete("/api/admin/exam/" + role);
+    },
     
 };

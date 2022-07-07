@@ -2527,6 +2527,411 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./resources/js/admin/pages/Exams/Exam/Exam.js?vue&type=script&lang=js&":
+/*!***********************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./resources/js/admin/pages/Exams/Exam/Exam.js?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_0__);
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      team: [],
+      loaded: false
+    };
+  },
+  methods: {
+    deleteTeamMember: function deleteTeamMember() {
+      var _this = this;
+
+      sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire({
+        title: "هل أنت متأكد",
+        text: "هل أنت متأكد من أنك تريد حذف هذا العضو !",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#16a085",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "نعم قم بالحذف",
+        cancelButtonText: "إلغاء"
+      }).then(function (result) {
+        if (result.isConfirmed) {
+          _this.$loading.Start();
+
+          _this.$http.DeleteExam(_this.$route.params.id).then(function (response) {
+            _this.$loading.Stop();
+
+            if (response.status == 200) {
+              _this.team = [];
+
+              _this.$alert.Success(response.data.message);
+            } else if (response.status == 204) {
+              _this.team = [];
+
+              _this.$alert.Empty("لم يعد هذا العضو متوفرا, قد يكون شخص أخر قام بحذفه");
+            }
+          })["catch"](function (error) {
+            _this.$loading.Stop();
+
+            _this.$alert.BadRequest(error.response);
+          });
+        }
+      });
+    }
+  },
+  mounted: function mounted() {
+    var _this2 = this;
+
+    this.$store.commit("activePage", 7);
+    this.$loading.Start();
+    this.$http.GetExamById(this.$route.params.id).then(function (response) {
+      _this2.$loading.Stop();
+
+      _this2.loaded = true;
+
+      if (response.status == 200) {
+        _this2.team = response.data.data;
+
+        _this2.$alert.Success(response.data.message);
+      } else if (response.status == 204) {
+        _this2.$alert.Empty("هذا العضو غير متوفر");
+      }
+    })["catch"](function (error) {
+      _this2.$loading.Stop();
+
+      _this2.loaded = true;
+
+      _this2.$alert.BadRequest(error.response);
+    });
+  },
+  computed: {
+    qNumber: function qNumber() {
+      var b = 0;
+      if (this.team.q1_point > 0) b = b + 1;
+      if (this.team.q2_point > 0) b = b + 1;
+      if (this.team.q3_point > 0) b = b + 1;
+      return b;
+    },
+    pNumber: function pNumber() {
+      return this.team.q1_point + this.team.q2_point + this.team.q3_point;
+    }
+  },
+  created: function created() {}
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./resources/js/admin/pages/Exams/Exams.js?vue&type=script&lang=js&":
+/*!*******************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./resources/js/admin/pages/Exams/Exams.js?vue&type=script&lang=js& ***!
+  \*******************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_0__);
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      teams: [],
+      loaded: false
+    };
+  },
+  methods: {
+    deleteTeam: function deleteTeam(id) {
+      var _this = this;
+
+      sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire({
+        title: "هل أنت متأكد",
+        text: "هل أنت متأكد من أنك تريد حذف هذا الاختبار !",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#16a085",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "نعم قم بالحذف",
+        cancelButtonText: "إلغاء"
+      }).then(function (result) {
+        if (result.isConfirmed) {
+          _this.$loading.Start();
+
+          _this.$http.DeleteExam(id).then(function (response) {
+            _this.$loading.Stop();
+
+            if (response.status == 200) {
+              _this.teams.splice(_this.teams.findIndex(function (m) {
+                return m.id === id;
+              }), 1);
+
+              _this.$alert.Success(response.data.message);
+            } else if (response.status == 204) {
+              _this.$alert.Empty("لم يعد هذا الاختبار متوفرا, قد يكون شخص أخر قام بحذفه");
+
+              _this.teams.splice(_this.teams.findIndex(function (m) {
+                return m.id === id;
+              }), 1);
+            }
+          })["catch"](function (error) {
+            _this.$loading.Stop();
+
+            _this.$alert.BadRequest(error.response);
+          });
+        }
+      });
+    },
+    qNumber: function qNumber(i) {
+      var b = 0;
+      if (this.teams[i].q1_point > 0) b = b + 1;
+      if (this.teams[i].q2_point > 0) b = b + 1;
+      if (this.teams[i].q3_point > 0) b = b + 1;
+      return b;
+    },
+    pNumber: function pNumber(i) {
+      return this.teams[i].q1_point + this.teams[i].q2_point + this.teams[i].q3_point;
+    }
+  },
+  mounted: function mounted() {
+    var _this2 = this;
+
+    this.$store.commit("activePage", 7);
+    this.$loading.Start();
+    this.$http.GetAllExams().then(function (response) {
+      _this2.$loading.Stop();
+
+      _this2.loaded = true;
+
+      if (response.status == 200) {
+        _this2.teams = response.data.data;
+
+        _this2.$alert.Success(response.data.message);
+      } else if (response.status == 204) {
+        _this2.$alert.Empty("تنبيه لا يوجد اي عضو في فريق العمل حتى الان");
+      }
+    })["catch"](function (error) {
+      _this2.loaded = true;
+
+      _this2.$loading.Stop();
+
+      _this2.$alert.BadRequest(error.response);
+    });
+  },
+  computed: {},
+  created: function created() {}
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./resources/js/admin/pages/Exams/NewExam/NewExam.js?vue&type=script&lang=js&":
+/*!*****************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./resources/js/admin/pages/Exams/NewExam/NewExam.js?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      formData: {
+        file: "",
+        name: "",
+        job: "",
+        facebook: "",
+        twitter: "",
+        linkedin: "",
+        github: "",
+        email: "",
+        description: ""
+      },
+      formValidate: {
+        file: "",
+        name: "",
+        job: "",
+        facebook: "",
+        twitter: "",
+        linkedin: "",
+        github: "",
+        email: "",
+        description: ""
+      },
+      previewImage: null
+    };
+  },
+  methods: {
+    addTeamMember: function addTeamMember() {
+      var _this = this;
+
+      this.validateFile();
+      this.validateName();
+      this.validateJob();
+      this.validateFacebook();
+      this.validateTwitter();
+      this.validateLinkedin();
+      this.validateGithub();
+      this.validateEmail();
+      this.validateDescription();
+      if (this.formValidate.file != "") return 0;
+      if (this.formValidate.name != "") return 0;
+      if (this.formValidate.job != "") return 0;
+      if (this.formValidate.facebook != "") return 0;
+      if (this.formValidate.twitter != "") return 0;
+      if (this.formValidate.linkedin != "") return 0;
+      if (this.formValidate.github != "") return 0;
+      if (this.formValidate.email != "") return 0;
+      if (this.formValidate.description != "") return 0;
+      this.$loading.Start();
+      var config = {
+        headers: {
+          "content-type": "multipart/form-data"
+        }
+      };
+      var data = new FormData();
+      data.append("name", this.formData.name);
+      data.append("job", this.formData.job);
+      data.append("facebook", this.formData.facebook);
+      data.append("twitter", this.formData.twitter);
+      data.append("linkedin", this.formData.linkedin);
+      data.append("github", this.formData.github);
+      data.append("email", this.formData.email);
+      data.append("description", this.formData.description);
+      data.append("file", this.formData.file);
+      this.$http.PostNewTeam(data, config).then(function (response) {
+        _this.$loading.Stop();
+
+        _this.$alert.Success(response.data.message);
+
+        _this.formData.name = "";
+        _this.formData.job = "";
+        _this.formData.facebook = "";
+        _this.formData.twitter = "";
+        _this.formData.linkedin = "";
+        _this.formData.github = "";
+        _this.formData.email = "";
+        _this.formData.description = "";
+        _this.formData.file = "";
+        _this.previewImage = null;
+      })["catch"](function (error) {
+        _this.$loading.Stop();
+
+        console.log(error.response);
+
+        _this.$alert.BadRequest(error.response);
+      });
+    },
+    onChange: function onChange(e) {
+      var _this2 = this;
+
+      this.formData.file = e.target.files[0];
+      var reader = new FileReader();
+      reader.readAsDataURL(this.formData.file);
+
+      reader.onload = function (e) {
+        _this2.previewImage = e.target.result;
+      };
+    },
+    validateName: function validateName() {
+      this.formValidate.name = "";
+
+      if (this.formData.name.trim() == "") {
+        this.formValidate.name = "لا يمكن ترك هذا الحقل فارغ";
+        return 1;
+      }
+
+      if (this.formData.name.trim().length <= 5) {
+        this.formValidate.name = "يجب ان يكون الإسم 5 أحرف أو اكثر";
+        return 1;
+      }
+
+      if (this.formData.name.trim().length > 24) {
+        this.formValidate.name = "يجب ان يكون الإسم أقل من 24 حرف";
+        return 1;
+      }
+    },
+    validateJob: function validateJob() {
+      this.formValidate.job = "";
+
+      if (this.formData.job.trim() == "") {
+        this.formValidate.job = "لا يمكن ترك هذا الحقل فارغ";
+        return 1;
+      }
+
+      if (this.formData.job.trim().length <= 4) {
+        this.formValidate.job = "يجب ان يكون الوصف الوظيفي 4 أحرف أو اكثر";
+        return 1;
+      }
+
+      if (this.formData.job.trim().length > 24) {
+        this.formValidate.job = "يجب ان يكون الوصف الوظيفي أقل من 24 حرف";
+        return 1;
+      }
+    },
+    validateFacebook: function validateFacebook() {},
+    validateTwitter: function validateTwitter() {},
+    validateLinkedin: function validateLinkedin() {},
+    validateGithub: function validateGithub() {},
+    validateEmail: function validateEmail() {
+      this.formValidate.email = "";
+
+      if (this.formData.email.trim() == "") {
+        this.formValidate.email = "";
+        return 1;
+      }
+
+      if (!/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,24}))$/.test(this.formData.email)) {
+        this.formValidate.email = "هذا البريد غير صحيح";
+        return 1;
+      }
+    },
+    validateDescription: function validateDescription() {
+      this.formValidate.description = "";
+
+      if (this.formData.description.trim() == "") {
+        this.formValidate.description = "لا يمكن ترك هذا الحقل فارغ";
+        return 1;
+      }
+
+      if (this.formData.description.trim().length < 20) {
+        this.formValidate.description = "يجب ان يكون الوصف 20 أحرف أو اكثر";
+        return 1;
+      }
+
+      if (this.formData.description.trim().length > 130) {
+        this.formValidate.description = "يجب ان يكون الوصف أقل من 130 حرف";
+        return 1;
+      }
+    },
+    validateFile: function validateFile() {
+      this.formValidate.file = "";
+
+      if (this.formData.file == "") {
+        this.formValidate.file = "يجب اختيار صورة";
+        return 1;
+      }
+    }
+  },
+  mounted: function mounted() {
+    this.$store.commit("activePage", 7);
+  },
+  computed: {},
+  created: function created() {}
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./resources/js/admin/pages/Home/Home.js?vue&type=script&lang=js&":
 /*!*****************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./resources/js/admin/pages/Home/Home.js?vue&type=script&lang=js& ***!
@@ -5055,7 +5460,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pages_Admins_EditAdminRole_EditAdminRole_vue__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ../pages/Admins/EditAdminRole/EditAdminRole.vue */ "./resources/js/admin/pages/Admins/EditAdminRole/EditAdminRole.vue");
 /* harmony import */ var _pages_Materials_Materials_vue__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ../pages/Materials/Materials.vue */ "./resources/js/admin/pages/Materials/Materials.vue");
 /* harmony import */ var _pages_Materials_NewMaterial_NewMaterial_vue__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ../pages/Materials/NewMaterial/NewMaterial.vue */ "./resources/js/admin/pages/Materials/NewMaterial/NewMaterial.vue");
-/* harmony import */ var _store_index__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ../store/index */ "./resources/js/admin/store/index.js");
+/* harmony import */ var _pages_Exams_Exams_vue__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ../pages/Exams/Exams.vue */ "./resources/js/admin/pages/Exams/Exams.vue");
+/* harmony import */ var _pages_Exams_Exam_Exam_vue__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ../pages/Exams/Exam/Exam.vue */ "./resources/js/admin/pages/Exams/Exam/Exam.vue");
+/* harmony import */ var _pages_Exams_NewExam_NewExam_vue__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ../pages/Exams/NewExam/NewExam.vue */ "./resources/js/admin/pages/Exams/NewExam/NewExam.vue");
+/* harmony import */ var _store_index__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ../store/index */ "./resources/js/admin/store/index.js");
+
+
+
 
 
 
@@ -5081,7 +5492,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var ifAuth = function ifAuth(to, from, next) {
-  if (_store_index__WEBPACK_IMPORTED_MODULE_22__.default.state.auth == true) {
+  if (_store_index__WEBPACK_IMPORTED_MODULE_25__.default.state.auth == true) {
     next();
     return;
   }
@@ -5090,7 +5501,7 @@ var ifAuth = function ifAuth(to, from, next) {
 };
 
 var ifNotAuth = function ifNotAuth(to, from, next) {
-  if (_store_index__WEBPACK_IMPORTED_MODULE_22__.default.state.auth != true) {
+  if (_store_index__WEBPACK_IMPORTED_MODULE_25__.default.state.auth != true) {
     next();
     return;
   }
@@ -5162,6 +5573,15 @@ var routes = [{
   }, {
     path: "admin/material/new",
     component: _pages_Materials_NewMaterial_NewMaterial_vue__WEBPACK_IMPORTED_MODULE_21__.default
+  }, {
+    path: "admin/exam",
+    component: _pages_Exams_Exams_vue__WEBPACK_IMPORTED_MODULE_22__.default
+  }, {
+    path: "admin/exam/new",
+    component: _pages_Exams_NewExam_NewExam_vue__WEBPACK_IMPORTED_MODULE_24__.default
+  }, {
+    path: "admin/exam/:id",
+    component: _pages_Exams_Exam_Exam_vue__WEBPACK_IMPORTED_MODULE_23__.default
   }]
 }, {
   path: "/admin/login",
@@ -5322,6 +5742,16 @@ __webpack_require__.r(__webpack_exports__);
   },
   PostNewMaterial: function PostNewMaterial(role) {
     return axios__WEBPACK_IMPORTED_MODULE_0___default().post("/api/admin/material", role);
+  },
+  // ============== Exam Part =======================
+  GetAllExams: function GetAllExams() {
+    return axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/admin/exam");
+  },
+  GetExamById: function GetExamById(role) {
+    return axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/admin/exam/" + role);
+  },
+  DeleteExam: function DeleteExam(role) {
+    return axios__WEBPACK_IMPORTED_MODULE_0___default().delete("/api/admin/exam/" + role);
   }
 });
 
@@ -27923,6 +28353,123 @@ component.options.__file = "resources/js/admin/pages/Admins/NewAdmin/NewAdmin.vu
 
 /***/ }),
 
+/***/ "./resources/js/admin/pages/Exams/Exam/Exam.vue":
+/*!******************************************************!*\
+  !*** ./resources/js/admin/pages/Exams/Exam/Exam.vue ***!
+  \******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _Exam_html_vue_type_template_id_687e853b_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Exam.html?vue&type=template&id=687e853b&scoped=true& */ "./resources/js/admin/pages/Exams/Exam/Exam.html?vue&type=template&id=687e853b&scoped=true&");
+/* harmony import */ var _Exam_js_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Exam.js?vue&type=script&lang=js& */ "./resources/js/admin/pages/Exams/Exam/Exam.js?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
+  _Exam_js_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _Exam_html_vue_type_template_id_687e853b_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
+  _Exam_html_vue_type_template_id_687e853b_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  "687e853b",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/admin/pages/Exams/Exam/Exam.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/admin/pages/Exams/Exams.vue":
+/*!**************************************************!*\
+  !*** ./resources/js/admin/pages/Exams/Exams.vue ***!
+  \**************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _Exams_html_vue_type_template_id_27dc60c0_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Exams.html?vue&type=template&id=27dc60c0&scoped=true& */ "./resources/js/admin/pages/Exams/Exams.html?vue&type=template&id=27dc60c0&scoped=true&");
+/* harmony import */ var _Exams_js_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Exams.js?vue&type=script&lang=js& */ "./resources/js/admin/pages/Exams/Exams.js?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
+  _Exams_js_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _Exams_html_vue_type_template_id_27dc60c0_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
+  _Exams_html_vue_type_template_id_27dc60c0_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  "27dc60c0",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/admin/pages/Exams/Exams.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/admin/pages/Exams/NewExam/NewExam.vue":
+/*!************************************************************!*\
+  !*** ./resources/js/admin/pages/Exams/NewExam/NewExam.vue ***!
+  \************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _NewExam_html_vue_type_template_id_6e231f9b_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./NewExam.html?vue&type=template&id=6e231f9b&scoped=true& */ "./resources/js/admin/pages/Exams/NewExam/NewExam.html?vue&type=template&id=6e231f9b&scoped=true&");
+/* harmony import */ var _NewExam_js_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./NewExam.js?vue&type=script&lang=js& */ "./resources/js/admin/pages/Exams/NewExam/NewExam.js?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
+  _NewExam_js_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _NewExam_html_vue_type_template_id_6e231f9b_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
+  _NewExam_html_vue_type_template_id_6e231f9b_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  "6e231f9b",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/admin/pages/Exams/NewExam/NewExam.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/admin/pages/Home/Home.vue":
 /*!************************************************!*\
   !*** ./resources/js/admin/pages/Home/Home.vue ***!
@@ -28845,6 +29392,54 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/admin/pages/Exams/Exam/Exam.js?vue&type=script&lang=js&":
+/*!******************************************************************************!*\
+  !*** ./resources/js/admin/pages/Exams/Exam/Exam.js?vue&type=script&lang=js& ***!
+  \******************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_Exam_js_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./Exam.js?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./resources/js/admin/pages/Exams/Exam/Exam.js?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_Exam_js_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
+/***/ "./resources/js/admin/pages/Exams/Exams.js?vue&type=script&lang=js&":
+/*!**************************************************************************!*\
+  !*** ./resources/js/admin/pages/Exams/Exams.js?vue&type=script&lang=js& ***!
+  \**************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_Exams_js_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./Exams.js?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./resources/js/admin/pages/Exams/Exams.js?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_Exams_js_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
+/***/ "./resources/js/admin/pages/Exams/NewExam/NewExam.js?vue&type=script&lang=js&":
+/*!************************************************************************************!*\
+  !*** ./resources/js/admin/pages/Exams/NewExam/NewExam.js?vue&type=script&lang=js& ***!
+  \************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_NewExam_js_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./NewExam.js?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./resources/js/admin/pages/Exams/NewExam/NewExam.js?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_NewExam_js_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
 /***/ "./resources/js/admin/pages/Home/Home.js?vue&type=script&lang=js&":
 /*!************************************************************************!*\
   !*** ./resources/js/admin/pages/Home/Home.js?vue&type=script&lang=js& ***!
@@ -29292,6 +29887,57 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_NewAdmin_html_vue_type_template_id_0bc3bee6_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_NewAdmin_html_vue_type_template_id_0bc3bee6_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./NewAdmin.html?vue&type=template&id=0bc3bee6&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./resources/js/admin/pages/Admins/NewAdmin/NewAdmin.html?vue&type=template&id=0bc3bee6&scoped=true&");
+
+
+/***/ }),
+
+/***/ "./resources/js/admin/pages/Exams/Exam/Exam.html?vue&type=template&id=687e853b&scoped=true&":
+/*!**************************************************************************************************!*\
+  !*** ./resources/js/admin/pages/Exams/Exam/Exam.html?vue&type=template&id=687e853b&scoped=true& ***!
+  \**************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_Exam_html_vue_type_template_id_687e853b_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_Exam_html_vue_type_template_id_687e853b_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_Exam_html_vue_type_template_id_687e853b_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./Exam.html?vue&type=template&id=687e853b&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./resources/js/admin/pages/Exams/Exam/Exam.html?vue&type=template&id=687e853b&scoped=true&");
+
+
+/***/ }),
+
+/***/ "./resources/js/admin/pages/Exams/Exams.html?vue&type=template&id=27dc60c0&scoped=true&":
+/*!**********************************************************************************************!*\
+  !*** ./resources/js/admin/pages/Exams/Exams.html?vue&type=template&id=27dc60c0&scoped=true& ***!
+  \**********************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_Exams_html_vue_type_template_id_27dc60c0_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_Exams_html_vue_type_template_id_27dc60c0_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_Exams_html_vue_type_template_id_27dc60c0_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./Exams.html?vue&type=template&id=27dc60c0&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./resources/js/admin/pages/Exams/Exams.html?vue&type=template&id=27dc60c0&scoped=true&");
+
+
+/***/ }),
+
+/***/ "./resources/js/admin/pages/Exams/NewExam/NewExam.html?vue&type=template&id=6e231f9b&scoped=true&":
+/*!********************************************************************************************************!*\
+  !*** ./resources/js/admin/pages/Exams/NewExam/NewExam.html?vue&type=template&id=6e231f9b&scoped=true& ***!
+  \********************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_NewExam_html_vue_type_template_id_6e231f9b_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_NewExam_html_vue_type_template_id_6e231f9b_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_NewExam_html_vue_type_template_id_6e231f9b_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./NewExam.html?vue&type=template&id=6e231f9b&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./resources/js/admin/pages/Exams/NewExam/NewExam.html?vue&type=template&id=6e231f9b&scoped=true&");
 
 
 /***/ }),
@@ -30958,6 +31604,1032 @@ var render = function() {
   )
 }
 var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./resources/js/admin/pages/Exams/Exam/Exam.html?vue&type=template&id=687e853b&scoped=true&":
+/*!******************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./resources/js/admin/pages/Exams/Exam/Exam.html?vue&type=template&id=687e853b&scoped=true& ***!
+  \******************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "w-auto md:p-8 p-4" },
+    [
+      _vm.loaded && _vm.team.length != 0
+        ? _c(
+            "div",
+            {
+              staticClass:
+                "w-full md:px-4 px-0 pb-8 pt-2 bg-white shadow-2 rounded-lg text-lg text-gray-600 font-medium"
+            },
+            [
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "h-16 w-full border-b mb-2 px-4 flex items-center text-lg justify-between"
+                },
+                [
+                  _vm._v("\r\n            بيانات الإختبار\r\n\r\n            "),
+                  _c(
+                    "router-link",
+                    {
+                      staticClass:
+                        "back-btn w-36 h-12 rounded font-normal flex items-center justify-center cursor-pointer",
+                      attrs: { to: "/admin/exam/" }
+                    },
+                    [
+                      _vm._v(
+                        "\r\n                 قائمة الاختبارات\r\n            "
+                      )
+                    ]
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass: "bg-blue-600a grid lg:grid-cols-2 md:grid-cols-2"
+                },
+                [
+                  _c("div", { staticClass: "w-full px-4 py-4" }, [
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "h-9 flex items-center text-gray-500 mr-2 text-sm"
+                      },
+                      [
+                        _vm._v(
+                          "\r\n                    إسم الإختبار\r\n                "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "h-12 rounded border border-gray-200 bg-gray-50 flex items-center px-4 text-lg"
+                      },
+                      [
+                        _vm._v(
+                          "\r\n                    " +
+                            _vm._s(_vm.team.name) +
+                            "\r\n                "
+                        )
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "w-full px-4 py-4" }, [
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "h-9 flex items-center text-gray-500 mr-2 text-sm"
+                      },
+                      [
+                        _vm._v(
+                          "\r\n                    الوصف \r\n                "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "h-12 rounded border border-gray-200 bg-gray-50 flex items-center px-4 text-lg"
+                      },
+                      [
+                        _vm._v(
+                          "\r\n                    " +
+                            _vm._s(_vm.team.description) +
+                            "\r\n                "
+                        )
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "w-full px-4 py-4" }, [
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "h-9 flex items-center text-gray-500 mr-2 text-sm"
+                      },
+                      [
+                        _vm._v(
+                          "\r\n                    عدد الاسئلة\r\n                "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "h-12 rounded border border-gray-200 bg-gray-50 flex items-center px-4 text-lg"
+                      },
+                      [
+                        _vm._v(
+                          "\r\n                 " +
+                            _vm._s(_vm.qNumber) +
+                            "\r\n                "
+                        )
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "w-full px-4 py-4" }, [
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "h-9 flex items-center text-gray-500 mr-2 text-sm"
+                      },
+                      [
+                        _vm._v(
+                          "\r\n                    الدرجة النهائية\r\n                "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "h-12 rounded border border-gray-200 bg-gray-50 flex items-center px-4 text-lg"
+                      },
+                      [
+                        _vm._v(
+                          "\r\n                 " +
+                            _vm._s(_vm.pNumber) +
+                            "\r\n                "
+                        )
+                      ]
+                    )
+                  ])
+                ]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "w-full px-4 py-4" }, [
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "h-9 flex items-center text-gray-500 mr-2 text-sm"
+                  },
+                  [_vm._v("\r\n                السؤال الأول\r\n            ")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "py-3 rounded border border-gray-200 bg-gray-50 px-4 text-lg"
+                  },
+                  [
+                    _vm._v(
+                      "\r\n                " +
+                        _vm._s(_vm.team.q1) +
+                        "\r\n            "
+                    )
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "w-full lg:h-20 mt-12 lg:flex items-center justify-start"
+                },
+                [
+                  _c(
+                    "div",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value:
+                            _vm.$parent.checkPermission("DeleteTeam") == true,
+                          expression:
+                            "$parent.checkPermission('DeleteTeam') == true"
+                        }
+                      ],
+                      staticClass:
+                        "h-12 px-6 mx-4 my-2 bg-red-400 hover:bg-red-500 flex items-center justify-center text-white shadow-lg rounded cursor-pointer",
+                      on: { click: _vm.deleteTeamMember }
+                    },
+                    [
+                      _c("i", { staticClass: "fas fa-user-slash ml-2" }),
+                      _vm._v("\r\n                حذف\r\n            ")
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "router-link",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value:
+                            _vm.$parent.checkPermission("EditTeam") == true,
+                          expression:
+                            "$parent.checkPermission('EditTeam') == true"
+                        }
+                      ],
+                      staticClass:
+                        "h-12 px-6 mx-4 pink-btn flex items-center justify-center text-white shadow-lg rounded cursor-pointer",
+                      attrs: {
+                        to: "/admin/team/" + _vm.$route.params.id + "/edit"
+                      }
+                    },
+                    [
+                      _c("i", { staticClass: "far fa-edit ml-2" }),
+                      _vm._v("\r\n                تعديل\r\n            ")
+                    ]
+                  )
+                ],
+                1
+              )
+            ]
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.loaded && _vm.team.length == 0
+        ? _c("Empty-Box", { attrs: { message: "لا يوجد عضو بهذا الرقم" } })
+        : _vm._e()
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./resources/js/admin/pages/Exams/Exams.html?vue&type=template&id=27dc60c0&scoped=true&":
+/*!**************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./resources/js/admin/pages/Exams/Exams.html?vue&type=template&id=27dc60c0&scoped=true& ***!
+  \**************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "w-auto md:p-8 p-4" },
+    [
+      _c(
+        "div",
+        { staticClass: "flex justify-between w-full h-16 items-center" },
+        [
+          _c(
+            "div",
+            { staticClass: "text-2xl font-semibold cairo text-gray-600" },
+            [_vm._v("\r\n        اختباراتي\r\n        ")]
+          ),
+          _vm._v(" "),
+          _c(
+            "router-link",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.$parent.checkPermission("DeleteMessage") == true,
+                  expression: "$parent.checkPermission('DeleteMessage') == true"
+                }
+              ],
+              staticClass:
+                "rounded px-4 flex items-center cairo font-medium add-btn",
+              attrs: { to: "/admin/exam/new" }
+            },
+            [
+              _c("span", { staticClass: "h-12 flex items-center" }, [
+                _c("i", { staticClass: "fas fa-plus ml-4 text-lg" }),
+                _vm._v("\r\n                أضف اختبار\r\n            ")
+              ])
+            ]
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _vm._m(0),
+      _vm._v(" "),
+      _vm.loaded && _vm.teams.length != 0
+        ? _c(
+            "table",
+            { staticClass: "w-full" },
+            [
+              _vm._m(1),
+              _vm._v(" "),
+              _vm._l(_vm.teams, function(item, index) {
+                return _c(
+                  "tr",
+                  {
+                    key: index,
+                    staticClass:
+                      "h-24 bg-white shadow-2 rounded-lg text-lg text-gray-600 font-medium hover:bg-gray-50"
+                  },
+                  [
+                    _c("td", { staticClass: "w-12 text-center rounded-r-lg" }, [
+                      _vm._v(_vm._s(item.id))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "table-cell" }, [
+                      _vm._v(_vm._s(item.name))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "lg:table-cell hidden" }, [
+                      _vm._v(_vm._s(item.description))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "table-cell" }, [
+                      _vm._v(_vm._s(item.material.name))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "table-cell" }, [
+                      _vm._v(_vm._s(_vm.qNumber(index)))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "table-cell" }, [
+                      _vm._v(_vm._s(_vm.pNumber(index)))
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "td",
+                      { staticClass: "rounded-l-lg h-20" },
+                      [
+                        _c(
+                          "router-link",
+                          { attrs: { to: "/admin/exam/" + item.id } },
+                          [
+                            _c("i", {
+                              staticClass:
+                                "fas fa-eye px-4 py-2 see-btn rounded ml-2",
+                              attrs: { title: "عرض بيانات العضو" }
+                            })
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c("i", {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value:
+                                _vm.$parent.checkPermission("ReadMessage") ==
+                                true,
+                              expression:
+                                "\r\n                            $parent.checkPermission('ReadMessage') == true\r\n                        "
+                            }
+                          ],
+                          staticClass:
+                            "far fa-trash-alt px-4 py-2 delete-btn rounded ml-2",
+                          attrs: { title: "حذف العضو" },
+                          on: {
+                            click: function($event) {
+                              return _vm.deleteTeam(item.id)
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "router-link",
+                          { attrs: { to: "/admin/team/" + item.id + "/edit" } },
+                          [
+                            _c("i", {
+                              directives: [
+                                {
+                                  name: "show",
+                                  rawName: "v-show",
+                                  value:
+                                    _vm.$parent.checkPermission(
+                                      "ReadMessage"
+                                    ) == true,
+                                  expression:
+                                    "\r\n                                $parent.checkPermission('ReadMessage') == true\r\n                            "
+                                }
+                              ],
+                              staticClass:
+                                "far fa-edit px-4 py-2 pink-btn rounded",
+                              attrs: { title: "تعديل العضو" }
+                            })
+                          ]
+                        )
+                      ],
+                      1
+                    )
+                  ]
+                )
+              })
+            ],
+            2
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.loaded && _vm.teams.length == 0 ? _c("Empty-Box") : _vm._e()
+    ],
+    1
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "flex justify-between my-8" }, [
+      _c("div", {
+        staticClass:
+          "border rounded font-semibold cairo flex bg-center text-gray-700"
+      })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tr", { staticClass: "h-12 text-lg font-bold text-gray-600" }, [
+      _c("td", { staticClass: "w-12 text-center" }, [_vm._v("#")]),
+      _vm._v(" "),
+      _c("td", {}, [_vm._v("اسم الإختبار")]),
+      _vm._v(" "),
+      _c("td", { staticClass: "lg:table-cell hidden" }, [_vm._v("الوصف")]),
+      _vm._v(" "),
+      _c("td", { staticClass: "xl:table-cell hidden" }, [_vm._v("اسم المادة")]),
+      _vm._v(" "),
+      _c("td", { staticClass: "xl:table-cell hidden" }, [
+        _vm._v("عدد الأسئلة")
+      ]),
+      _vm._v(" "),
+      _c("td", { staticClass: "xl:table-cell hidden" }, [
+        _vm._v("الدرجة النهائية")
+      ]),
+      _vm._v(" "),
+      _c("td", { staticClass: "rounded-l-lg" }, [_vm._v("الإجراءات")])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./resources/js/admin/pages/Exams/NewExam/NewExam.html?vue&type=template&id=6e231f9b&scoped=true&":
+/*!************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./resources/js/admin/pages/Exams/NewExam/NewExam.html?vue&type=template&id=6e231f9b&scoped=true& ***!
+  \************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "w-auto md:p-8 p-4" }, [
+    _c(
+      "div",
+      {
+        staticClass:
+          "w-full md:px-4 px-0 pb-8 pt-2 bg-white shadow-2 rounded-lg text-lg text-gray-600 font-medium"
+      },
+      [
+        _c(
+          "div",
+          {
+            staticClass:
+              "h-16 w-full border-b mb-2 px-4 flex items-center text-lg justify-between"
+          },
+          [
+            _vm._v("\r\n            إضافة عضو جديد\r\n\r\n            "),
+            _c(
+              "router-link",
+              {
+                staticClass:
+                  "back-btn w-36 h-12 rounded font-normal flex items-center justify-center cursor-pointer",
+                attrs: { to: "/admin/team/" }
+              },
+              [_vm._v("\r\n                فريق العمل\r\n            ")]
+            )
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "my-8 bg-blue-200a" }, [
+          _c("div", { staticClass: "flex items-center justify-center" }, [
+            _c("div", { staticClass: " border" }, [
+              _vm.formData.file != ""
+                ? _c("img", {
+                    staticClass: "h-52 w-52",
+                    attrs: { src: _vm.previewImage }
+                  })
+                : _c(
+                    "div",
+                    {
+                      staticClass:
+                        "h-52 w-52 bg-gray-50 flex items-center justify-center text-lg "
+                    },
+                    [
+                      _vm._v(
+                        "\r\n                        لا يوجد صورة\r\n                    "
+                      )
+                    ]
+                  )
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass:
+                  "h-16 w-32 bg-blue-200 md:mr-4 md:ml-0 md:my-0 mx-auto my-4"
+              },
+              [
+                _c("input", {
+                  staticClass:
+                    "cursor-pointer absolute block h-16 w-32 opacity-0 pin-r pin-t",
+                  attrs: { type: "file" },
+                  on: { change: _vm.onChange }
+                }),
+                _vm._v(" "),
+                _vm._m(0)
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass:
+                "h-8 text-sm text-red-400 text-center flex items-center justify-center w-full"
+            },
+            [
+              _vm._v(
+                "\r\n                " +
+                  _vm._s(_vm.formValidate.file) +
+                  "\r\n            "
+              )
+            ]
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "bg-blue-600a grid lg:grid-cols-2" }, [
+          _c("div", { staticClass: "w-full px-4 py-4" }, [
+            _c(
+              "div",
+              {
+                staticClass: "h-9 flex items-center text-gray-500 mr-2 text-sm"
+              },
+              [_vm._v("\r\n                    إسم العضو\r\n                ")]
+            ),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.formData.name,
+                  expression: "formData.name"
+                }
+              ],
+              staticClass:
+                "h-12 w-full rounded border border-gray-200 bg-gray-50 flex items-center px-4 text-lg",
+              domProps: { value: _vm.formData.name },
+              on: {
+                change: _vm.validateName,
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.formData, "name", $event.target.value)
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass: "h-8 text-sm text-red-400 mr-2 flex items-center"
+              },
+              [
+                _vm._v(
+                  "\r\n                    " +
+                    _vm._s(_vm.formValidate.name) +
+                    "\r\n                "
+                )
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "w-full px-4 py-4" }, [
+            _c(
+              "div",
+              {
+                staticClass: "h-9 flex items-center text-gray-500 mr-2 text-sm"
+              },
+              [
+                _vm._v(
+                  "\r\n                                الوصف الوظيفي\r\n                            "
+                )
+              ]
+            ),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.formData.job,
+                  expression: "formData.job"
+                }
+              ],
+              staticClass:
+                "h-12 w-full rounded border border-gray-200 bg-gray-50 flex items-center px-4 text-lg",
+              domProps: { value: _vm.formData.job },
+              on: {
+                change: _vm.validateJob,
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.formData, "job", $event.target.value)
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass: "h-8 text-sm text-red-400 mr-2 flex items-center"
+              },
+              [
+                _vm._v(
+                  "\r\n                                " +
+                    _vm._s(_vm.formValidate.job) +
+                    "\r\n                            "
+                )
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "w-full px-4 py-4" }, [
+            _c(
+              "div",
+              {
+                staticClass: "h-9 flex items-center text-gray-500 mr-2 text-sm"
+              },
+              [_vm._v("\r\n                    فيس بوك\r\n                ")]
+            ),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.formData.facebook,
+                  expression: "formData.facebook"
+                }
+              ],
+              staticClass:
+                "h-12 w-full rounded border border-gray-200 bg-gray-50 flex items-center px-4 text-lg",
+              domProps: { value: _vm.formData.facebook },
+              on: {
+                change: _vm.validateFacebook,
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.formData, "facebook", $event.target.value)
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass: "h-8 text-sm text-red-400 mr-2 flex items-center"
+              },
+              [
+                _vm._v(
+                  "\r\n                    " +
+                    _vm._s(_vm.formValidate.facebook) +
+                    "\r\n                "
+                )
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "w-full px-4 py-4" }, [
+            _c(
+              "div",
+              {
+                staticClass: "h-9 flex items-center text-gray-500 mr-2 text-sm"
+              },
+              [_vm._v("\r\n                    تويتر\r\n                ")]
+            ),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.formData.twitter,
+                  expression: "formData.twitter"
+                }
+              ],
+              staticClass:
+                "h-12 w-full rounded border border-gray-200 bg-gray-50 flex items-center px-4 text-lg",
+              domProps: { value: _vm.formData.twitter },
+              on: {
+                change: _vm.validateTwitter,
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.formData, "twitter", $event.target.value)
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass: "h-8 text-sm text-red-400 mr-2 flex items-center"
+              },
+              [
+                _vm._v(
+                  "\r\n                    " +
+                    _vm._s(_vm.formValidate.twitter) +
+                    "\r\n                "
+                )
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "w-full px-4 py-4" }, [
+            _c(
+              "div",
+              {
+                staticClass: "h-9 flex items-center text-gray-500 mr-2 text-sm"
+              },
+              [_vm._v("\r\n                    لينكد ان\r\n                ")]
+            ),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.formData.linkedin,
+                  expression: "formData.linkedin"
+                }
+              ],
+              staticClass:
+                "h-12 w-full rounded border border-gray-200 bg-gray-50 flex items-center px-4 text-lg",
+              domProps: { value: _vm.formData.linkedin },
+              on: {
+                change: _vm.validateLinkedin,
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.formData, "linkedin", $event.target.value)
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass: "h-8 text-sm text-red-400 mr-2 flex items-center"
+              },
+              [
+                _vm._v(
+                  "\r\n                    " +
+                    _vm._s(_vm.formValidate.linkedin) +
+                    "\r\n                "
+                )
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "w-full px-4 py-4" }, [
+            _c(
+              "div",
+              {
+                staticClass: "h-9 flex items-center text-gray-500 mr-2 text-sm"
+              },
+              [_vm._v("\r\n                    GitHub\r\n                ")]
+            ),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.formData.github,
+                  expression: "formData.github"
+                }
+              ],
+              staticClass:
+                "h-12 w-full rounded border border-gray-200 bg-gray-50 flex items-center px-4 text-lg",
+              domProps: { value: _vm.formData.github },
+              on: {
+                change: _vm.validateGithub,
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.formData, "github", $event.target.value)
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass: "h-8 text-sm text-red-400 mr-2 flex items-center"
+              },
+              [
+                _vm._v(
+                  "\r\n                    " +
+                    _vm._s(_vm.formValidate.github) +
+                    "\r\n                "
+                )
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "w-full px-4 py-4" }, [
+            _c(
+              "div",
+              {
+                staticClass: "h-9 flex items-center text-gray-500 mr-2 text-sm"
+              },
+              [
+                _vm._v(
+                  "\r\n                    البريد الإلكتروني\r\n                "
+                )
+              ]
+            ),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.formData.email,
+                  expression: "formData.email"
+                }
+              ],
+              staticClass:
+                "h-12 w-full rounded border border-gray-200 bg-gray-50 flex items-center px-4 text-lg",
+              domProps: { value: _vm.formData.email },
+              on: {
+                change: _vm.validateEmail,
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.formData, "email", $event.target.value)
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass: "h-8 text-sm text-red-400 mr-2 flex items-center"
+              },
+              [
+                _vm._v(
+                  "\r\n                    " +
+                    _vm._s(_vm.formValidate.email) +
+                    "\r\n                "
+                )
+              ]
+            )
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "w-full px-4 py-4" }, [
+          _c(
+            "div",
+            { staticClass: "h-9 flex items-center text-gray-500 mr-2 text-sm" },
+            [_vm._v("\r\n                نبذة عن العضو\r\n            ")]
+          ),
+          _vm._v(" "),
+          _c("textarea", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.formData.description,
+                expression: "formData.description"
+              }
+            ],
+            staticClass:
+              "h-20 py-4 w-full rounded border border-gray-200 bg-gray-50 flex items-center px-4 text-lg",
+            attrs: { rows: "10" },
+            domProps: { value: _vm.formData.description },
+            on: {
+              change: _vm.validateDescription,
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.formData, "description", $event.target.value)
+              }
+            }
+          }),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "h-8 text-sm text-red-400 mr-2 flex items-center" },
+            [
+              _vm._v(
+                "\r\n                " +
+                  _vm._s(_vm.formValidate.description) +
+                  "\r\n            "
+              )
+            ]
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "flex items-center h-20 mx-4" }, [
+          _c(
+            "div",
+            {
+              staticClass:
+                "btn-color-one rounded shadow px-12 h-12 w-auto flex items-center justify-center text-white text-lg cursor-pointer",
+              on: { click: _vm.addTeamMember }
+            },
+            [_vm._v("\r\n                إضافة\r\n            ")]
+          )
+        ])
+      ]
+    )
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticClass:
+          "ml-2 bg-blue-400 h-16 w-32 text-white flex items-center justify-center rounded shadow cursor-pointer hover:bg-blue-500 text-lg"
+      },
+      [
+        _c("i", { staticClass: "fas fa-folder-plus ml-2" }),
+        _vm._v(
+          "\r\n                        إختر الصورة\r\n                    "
+        )
+      ]
+    )
+  }
+]
 render._withStripped = true
 
 

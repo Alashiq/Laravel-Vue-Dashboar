@@ -33,7 +33,6 @@ class Admin extends Model
     {
        // return $this->belongsTo(related: Role::class, foreignKey: 'role_id');
         return $this->belongsTo(Role::class);
-
     }
 
 }
