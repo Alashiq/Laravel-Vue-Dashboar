@@ -2746,26 +2746,35 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
+      materialList: [{
+        id: 1,
+        name: "one"
+      }],
       formData: {
-        file: "",
-        name: "",
-        job: "",
-        facebook: "",
-        twitter: "",
-        linkedin: "",
-        github: "",
-        email: "",
-        description: ""
+        name: "a",
+        description: "b",
+        materialId: 1,
+        q1: "Qustion One",
+        q1A: "Opetion A",
+        q1B: "Option B",
+        q1C: "Option C",
+        q1True: 1,
+        q1Point: 0,
+        q2: "Qustion Two",
+        q2A: "Option A",
+        q2B: "Optrion B",
+        q2C: "Optrion C",
+        q2True: 1,
+        q2Point: 0,
+        q3: "Qustion Three",
+        q3A: "Option A",
+        q3B: "Option B",
+        q3C: "Option C",
+        q3True: 1,
+        q3Point: 0
       },
       formValidate: {
-        file: "",
         name: "",
-        job: "",
-        facebook: "",
-        twitter: "",
-        linkedin: "",
-        github: "",
-        email: "",
         description: ""
       },
       previewImage: null
@@ -2775,23 +2784,9 @@ __webpack_require__.r(__webpack_exports__);
     addTeamMember: function addTeamMember() {
       var _this = this;
 
-      this.validateFile();
       this.validateName();
-      this.validateJob();
-      this.validateFacebook();
-      this.validateTwitter();
-      this.validateLinkedin();
-      this.validateGithub();
-      this.validateEmail();
       this.validateDescription();
-      if (this.formValidate.file != "") return 0;
       if (this.formValidate.name != "") return 0;
-      if (this.formValidate.job != "") return 0;
-      if (this.formValidate.facebook != "") return 0;
-      if (this.formValidate.twitter != "") return 0;
-      if (this.formValidate.linkedin != "") return 0;
-      if (this.formValidate.github != "") return 0;
-      if (this.formValidate.email != "") return 0;
       if (this.formValidate.description != "") return 0;
       this.$loading.Start();
       var config = {
@@ -2801,29 +2796,33 @@ __webpack_require__.r(__webpack_exports__);
       };
       var data = new FormData();
       data.append("name", this.formData.name);
-      data.append("job", this.formData.job);
-      data.append("facebook", this.formData.facebook);
-      data.append("twitter", this.formData.twitter);
-      data.append("linkedin", this.formData.linkedin);
-      data.append("github", this.formData.github);
-      data.append("email", this.formData.email);
       data.append("description", this.formData.description);
-      data.append("file", this.formData.file);
-      this.$http.PostNewTeam(data, config).then(function (response) {
+      data.append("material_id", this.formData.materialId);
+      data.append("q1", this.formData.q1);
+      data.append("q1_a", this.formData.q1A);
+      data.append("q1_b", this.formData.q1B);
+      data.append("q1_c", this.formData.q1C);
+      data.append("q1_true", this.formData.q1True);
+      data.append("q1_point", this.formData.q1Point);
+      data.append("q2", this.formData.q2);
+      data.append("q2_a", this.formData.q2A);
+      data.append("q2_b", this.formData.q2B);
+      data.append("q2_c", this.formData.q2C);
+      data.append("q2_true", this.formData.q2True);
+      data.append("q2_point", this.formData.q2Point);
+      data.append("q3", this.formData.q3);
+      data.append("q3_a", this.formData.q3A);
+      data.append("q3_b", this.formData.q3B);
+      data.append("q3_c", this.formData.q3C);
+      data.append("q3_true", this.formData.q3True);
+      data.append("q3_point", this.formData.q3Point);
+      this.$http.PostNewExam(data, config).then(function (response) {
         _this.$loading.Stop();
 
         _this.$alert.Success(response.data.message);
 
         _this.formData.name = "";
-        _this.formData.job = "";
-        _this.formData.facebook = "";
-        _this.formData.twitter = "";
-        _this.formData.linkedin = "";
-        _this.formData.github = "";
-        _this.formData.email = "";
         _this.formData.description = "";
-        _this.formData.file = "";
-        _this.previewImage = null;
       })["catch"](function (error) {
         _this.$loading.Stop();
 
@@ -2861,41 +2860,6 @@ __webpack_require__.r(__webpack_exports__);
         return 1;
       }
     },
-    validateJob: function validateJob() {
-      this.formValidate.job = "";
-
-      if (this.formData.job.trim() == "") {
-        this.formValidate.job = "لا يمكن ترك هذا الحقل فارغ";
-        return 1;
-      }
-
-      if (this.formData.job.trim().length <= 4) {
-        this.formValidate.job = "يجب ان يكون الوصف الوظيفي 4 أحرف أو اكثر";
-        return 1;
-      }
-
-      if (this.formData.job.trim().length > 24) {
-        this.formValidate.job = "يجب ان يكون الوصف الوظيفي أقل من 24 حرف";
-        return 1;
-      }
-    },
-    validateFacebook: function validateFacebook() {},
-    validateTwitter: function validateTwitter() {},
-    validateLinkedin: function validateLinkedin() {},
-    validateGithub: function validateGithub() {},
-    validateEmail: function validateEmail() {
-      this.formValidate.email = "";
-
-      if (this.formData.email.trim() == "") {
-        this.formValidate.email = "";
-        return 1;
-      }
-
-      if (!/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,24}))$/.test(this.formData.email)) {
-        this.formValidate.email = "هذا البريد غير صحيح";
-        return 1;
-      }
-    },
     validateDescription: function validateDescription() {
       this.formValidate.description = "";
 
@@ -2913,18 +2877,31 @@ __webpack_require__.r(__webpack_exports__);
         this.formValidate.description = "يجب ان يكون الوصف أقل من 130 حرف";
         return 1;
       }
-    },
-    validateFile: function validateFile() {
-      this.formValidate.file = "";
-
-      if (this.formData.file == "") {
-        this.formValidate.file = "يجب اختيار صورة";
-        return 1;
-      }
     }
   },
   mounted: function mounted() {
+    var _this3 = this;
+
     this.$store.commit("activePage", 7);
+    this.$loading.Start();
+    this.$http.GetAllMaterials().then(function (response) {
+      _this3.$loading.Stop();
+
+      _this3.loaded = true;
+
+      if (response.status == 200) {
+        _this3.materialList = response.data.data;
+        console.log(_this3.materialList);
+
+        _this3.$alert.Success(response.data.message);
+      } else if (response.status == 204) {
+        _this3.$alert.Empty("تنبيه لا يوجد اي مواد دراسية");
+      }
+    })["catch"](function (error) {
+      _this3.$loading.Stop();
+
+      _this3.$alert.BadRequest(error.response);
+    });
   },
   computed: {},
   created: function created() {}
@@ -5752,6 +5729,9 @@ __webpack_require__.r(__webpack_exports__);
   },
   DeleteExam: function DeleteExam(role) {
     return axios__WEBPACK_IMPORTED_MODULE_0___default().delete("/api/admin/exam/" + role);
+  },
+  PostNewExam: function PostNewExam(role) {
+    return axios__WEBPACK_IMPORTED_MODULE_0___default().post("/api/admin/exam", role);
   }
 });
 
@@ -32141,76 +32121,19 @@ var render = function() {
               "h-16 w-full border-b mb-2 px-4 flex items-center text-lg justify-between"
           },
           [
-            _vm._v("\r\n            إضافة عضو جديد\r\n\r\n            "),
+            _vm._v("\r\n            إضافة اختبار جديد\r\n\r\n            "),
             _c(
               "router-link",
               {
                 staticClass:
                   "back-btn w-36 h-12 rounded font-normal flex items-center justify-center cursor-pointer",
-                attrs: { to: "/admin/team/" }
+                attrs: { to: "/admin/exam/" }
               },
-              [_vm._v("\r\n                فريق العمل\r\n            ")]
+              [_vm._v("\r\n                الاختبارات\r\n            ")]
             )
           ],
           1
         ),
-        _vm._v(" "),
-        _c("div", { staticClass: "my-8 bg-blue-200a" }, [
-          _c("div", { staticClass: "flex items-center justify-center" }, [
-            _c("div", { staticClass: " border" }, [
-              _vm.formData.file != ""
-                ? _c("img", {
-                    staticClass: "h-52 w-52",
-                    attrs: { src: _vm.previewImage }
-                  })
-                : _c(
-                    "div",
-                    {
-                      staticClass:
-                        "h-52 w-52 bg-gray-50 flex items-center justify-center text-lg "
-                    },
-                    [
-                      _vm._v(
-                        "\r\n                        لا يوجد صورة\r\n                    "
-                      )
-                    ]
-                  )
-            ]),
-            _vm._v(" "),
-            _c(
-              "div",
-              {
-                staticClass:
-                  "h-16 w-32 bg-blue-200 md:mr-4 md:ml-0 md:my-0 mx-auto my-4"
-              },
-              [
-                _c("input", {
-                  staticClass:
-                    "cursor-pointer absolute block h-16 w-32 opacity-0 pin-r pin-t",
-                  attrs: { type: "file" },
-                  on: { change: _vm.onChange }
-                }),
-                _vm._v(" "),
-                _vm._m(0)
-              ]
-            )
-          ]),
-          _vm._v(" "),
-          _c(
-            "div",
-            {
-              staticClass:
-                "h-8 text-sm text-red-400 text-center flex items-center justify-center w-full"
-            },
-            [
-              _vm._v(
-                "\r\n                " +
-                  _vm._s(_vm.formValidate.file) +
-                  "\r\n            "
-              )
-            ]
-          )
-        ]),
         _vm._v(" "),
         _c("div", { staticClass: "bg-blue-600a grid lg:grid-cols-2" }, [
           _c("div", { staticClass: "w-full px-4 py-4" }, [
@@ -32219,7 +32142,11 @@ var render = function() {
               {
                 staticClass: "h-9 flex items-center text-gray-500 mr-2 text-sm"
               },
-              [_vm._v("\r\n                    إسم العضو\r\n                ")]
+              [
+                _vm._v(
+                  "\r\n                    إسم الاختبار\r\n                "
+                )
+              ]
             ),
             _vm._v(" "),
             _c("input", {
@@ -32268,286 +32195,55 @@ var render = function() {
               },
               [
                 _vm._v(
-                  "\r\n                                الوصف الوظيفي\r\n                            "
+                  "\r\n                     اسم المادة\r\n                "
                 )
               ]
             ),
             _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.formData.job,
-                  expression: "formData.job"
-                }
-              ],
-              staticClass:
-                "h-12 w-full rounded border border-gray-200 bg-gray-50 flex items-center px-4 text-lg",
-              domProps: { value: _vm.formData.job },
-              on: {
-                change: _vm.validateJob,
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
+            _c(
+              "select",
+              {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.formData.materialId,
+                    expression: "formData.materialId"
                   }
-                  _vm.$set(_vm.formData, "job", $event.target.value)
+                ],
+                staticClass:
+                  "h-12 w-full rounded border border-gray-200 bg-gray-50 flex items-center px-4 text-lg",
+                on: {
+                  change: function($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function(o) {
+                        return o.selected
+                      })
+                      .map(function(o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.$set(
+                      _vm.formData,
+                      "materialId",
+                      $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                    )
+                  }
                 }
-              }
-            }),
-            _vm._v(" "),
-            _c(
-              "div",
-              {
-                staticClass: "h-8 text-sm text-red-400 mr-2 flex items-center"
               },
-              [
-                _vm._v(
-                  "\r\n                                " +
-                    _vm._s(_vm.formValidate.job) +
-                    "\r\n                            "
+              _vm._l(_vm.materialList, function(item, index) {
+                return _c(
+                  "option",
+                  { key: index, domProps: { value: item.id } },
+                  [_vm._v(_vm._s(item.name))]
                 )
-              ]
-            )
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "w-full px-4 py-4" }, [
-            _c(
-              "div",
-              {
-                staticClass: "h-9 flex items-center text-gray-500 mr-2 text-sm"
-              },
-              [_vm._v("\r\n                    فيس بوك\r\n                ")]
+              }),
+              0
             ),
             _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.formData.facebook,
-                  expression: "formData.facebook"
-                }
-              ],
-              staticClass:
-                "h-12 w-full rounded border border-gray-200 bg-gray-50 flex items-center px-4 text-lg",
-              domProps: { value: _vm.formData.facebook },
-              on: {
-                change: _vm.validateFacebook,
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.$set(_vm.formData, "facebook", $event.target.value)
-                }
-              }
-            }),
-            _vm._v(" "),
-            _c(
-              "div",
-              {
-                staticClass: "h-8 text-sm text-red-400 mr-2 flex items-center"
-              },
-              [
-                _vm._v(
-                  "\r\n                    " +
-                    _vm._s(_vm.formValidate.facebook) +
-                    "\r\n                "
-                )
-              ]
-            )
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "w-full px-4 py-4" }, [
-            _c(
-              "div",
-              {
-                staticClass: "h-9 flex items-center text-gray-500 mr-2 text-sm"
-              },
-              [_vm._v("\r\n                    تويتر\r\n                ")]
-            ),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.formData.twitter,
-                  expression: "formData.twitter"
-                }
-              ],
-              staticClass:
-                "h-12 w-full rounded border border-gray-200 bg-gray-50 flex items-center px-4 text-lg",
-              domProps: { value: _vm.formData.twitter },
-              on: {
-                change: _vm.validateTwitter,
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.$set(_vm.formData, "twitter", $event.target.value)
-                }
-              }
-            }),
-            _vm._v(" "),
-            _c(
-              "div",
-              {
-                staticClass: "h-8 text-sm text-red-400 mr-2 flex items-center"
-              },
-              [
-                _vm._v(
-                  "\r\n                    " +
-                    _vm._s(_vm.formValidate.twitter) +
-                    "\r\n                "
-                )
-              ]
-            )
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "w-full px-4 py-4" }, [
-            _c(
-              "div",
-              {
-                staticClass: "h-9 flex items-center text-gray-500 mr-2 text-sm"
-              },
-              [_vm._v("\r\n                    لينكد ان\r\n                ")]
-            ),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.formData.linkedin,
-                  expression: "formData.linkedin"
-                }
-              ],
-              staticClass:
-                "h-12 w-full rounded border border-gray-200 bg-gray-50 flex items-center px-4 text-lg",
-              domProps: { value: _vm.formData.linkedin },
-              on: {
-                change: _vm.validateLinkedin,
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.$set(_vm.formData, "linkedin", $event.target.value)
-                }
-              }
-            }),
-            _vm._v(" "),
-            _c(
-              "div",
-              {
-                staticClass: "h-8 text-sm text-red-400 mr-2 flex items-center"
-              },
-              [
-                _vm._v(
-                  "\r\n                    " +
-                    _vm._s(_vm.formValidate.linkedin) +
-                    "\r\n                "
-                )
-              ]
-            )
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "w-full px-4 py-4" }, [
-            _c(
-              "div",
-              {
-                staticClass: "h-9 flex items-center text-gray-500 mr-2 text-sm"
-              },
-              [_vm._v("\r\n                    GitHub\r\n                ")]
-            ),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.formData.github,
-                  expression: "formData.github"
-                }
-              ],
-              staticClass:
-                "h-12 w-full rounded border border-gray-200 bg-gray-50 flex items-center px-4 text-lg",
-              domProps: { value: _vm.formData.github },
-              on: {
-                change: _vm.validateGithub,
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.$set(_vm.formData, "github", $event.target.value)
-                }
-              }
-            }),
-            _vm._v(" "),
-            _c(
-              "div",
-              {
-                staticClass: "h-8 text-sm text-red-400 mr-2 flex items-center"
-              },
-              [
-                _vm._v(
-                  "\r\n                    " +
-                    _vm._s(_vm.formValidate.github) +
-                    "\r\n                "
-                )
-              ]
-            )
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "w-full px-4 py-4" }, [
-            _c(
-              "div",
-              {
-                staticClass: "h-9 flex items-center text-gray-500 mr-2 text-sm"
-              },
-              [
-                _vm._v(
-                  "\r\n                    البريد الإلكتروني\r\n                "
-                )
-              ]
-            ),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.formData.email,
-                  expression: "formData.email"
-                }
-              ],
-              staticClass:
-                "h-12 w-full rounded border border-gray-200 bg-gray-50 flex items-center px-4 text-lg",
-              domProps: { value: _vm.formData.email },
-              on: {
-                change: _vm.validateEmail,
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.$set(_vm.formData, "email", $event.target.value)
-                }
-              }
-            }),
-            _vm._v(" "),
-            _c(
-              "div",
-              {
-                staticClass: "h-8 text-sm text-red-400 mr-2 flex items-center"
-              },
-              [
-                _vm._v(
-                  "\r\n                    " +
-                    _vm._s(_vm.formValidate.email) +
-                    "\r\n                "
-                )
-              ]
-            )
+            _c("div", {
+              staticClass: "h-8 text-sm text-red-400 mr-2 flex items-center"
+            })
           ])
         ]),
         _vm._v(" "),
@@ -32555,7 +32251,7 @@ var render = function() {
           _c(
             "div",
             { staticClass: "h-9 flex items-center text-gray-500 mr-2 text-sm" },
-            [_vm._v("\r\n                نبذة عن العضو\r\n            ")]
+            [_vm._v("\r\n                وصف الاختبار\r\n            ")]
           ),
           _vm._v(" "),
           _c("textarea", {
@@ -32595,6 +32291,678 @@ var render = function() {
           )
         ]),
         _vm._v(" "),
+        _c("div", { staticClass: "w-full px-4 py-4" }, [
+          _c(
+            "div",
+            { staticClass: "h-9 flex items-center text-gray-500 mr-2 text-sm" },
+            [_vm._v("\r\n                السؤال الأول\r\n            ")]
+          ),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.formData.q1,
+                expression: "formData.q1"
+              }
+            ],
+            staticClass:
+              "h-12 w-full rounded border border-gray-200 bg-gray-50 flex items-center px-4 text-lg",
+            domProps: { value: _vm.formData.q1 },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.formData, "q1", $event.target.value)
+              }
+            }
+          }),
+          _vm._v(" "),
+          _c("div", {
+            staticClass: "h-8 text-sm text-red-400 mr-2 flex items-center"
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "bg-blue-600a grid lg:grid-cols-3" }, [
+          _c("div", { staticClass: "w-full px-4 py-2" }, [
+            _c(
+              "div",
+              {
+                staticClass: "h-9 flex items-center text-gray-500 mr-2 text-sm"
+              },
+              [_vm._v("\r\n                    الاجابة A\r\n                ")]
+            ),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.formData.q1A,
+                  expression: "formData.q1A"
+                }
+              ],
+              staticClass:
+                "h-12 w-full rounded border border-gray-200 bg-gray-50 flex items-center px-4 text-lg",
+              domProps: { value: _vm.formData.q1A },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.formData, "q1A", $event.target.value)
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("div", {
+              staticClass: "h-8 text-sm text-red-400 mr-2 flex items-center"
+            })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "w-full px-4 py-4" }, [
+            _c(
+              "div",
+              {
+                staticClass: "h-9 flex items-center text-gray-500 mr-2 text-sm"
+              },
+              [_vm._v("\r\n                    الاجابة B\r\n                ")]
+            ),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.formData.q1B,
+                  expression: "formData.q1B"
+                }
+              ],
+              staticClass:
+                "h-12 w-full rounded border border-gray-200 bg-gray-50 flex items-center px-4 text-lg",
+              domProps: { value: _vm.formData.q1B },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.formData, "q1B", $event.target.value)
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("div", {
+              staticClass: "h-8 text-sm text-red-400 mr-2 flex items-center"
+            })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "w-full px-4 py-4" }, [
+            _c(
+              "div",
+              {
+                staticClass: "h-9 flex items-center text-gray-500 mr-2 text-sm"
+              },
+              [_vm._v("\r\n                    الاجابة C\r\n                ")]
+            ),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.formData.q1C,
+                  expression: "formData.q1C"
+                }
+              ],
+              staticClass:
+                "h-12 w-full rounded border border-gray-200 bg-gray-50 flex items-center px-4 text-lg",
+              domProps: { value: _vm.formData.q1C },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.formData, "q1C", $event.target.value)
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("div", {
+              staticClass: "h-8 text-sm text-red-400 mr-2 flex items-center"
+            })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "w-full px-4 py-4" }, [
+            _c(
+              "div",
+              {
+                staticClass: "h-9 flex items-center text-gray-500 mr-2 text-sm"
+              },
+              [
+                _vm._v(
+                  "\r\n                    الاجابة الصحيحة\r\n                "
+                )
+              ]
+            ),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.formData.q1True,
+                  expression: "formData.q1True"
+                }
+              ],
+              staticClass:
+                "h-12 w-full rounded border border-gray-200 bg-gray-50 flex items-center px-4 text-lg",
+              domProps: { value: _vm.formData.q1True },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.formData, "q1True", $event.target.value)
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("div", {
+              staticClass: "h-8 text-sm text-red-400 mr-2 flex items-center"
+            })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "w-full px-4 py-4" }, [
+            _c(
+              "div",
+              {
+                staticClass: "h-9 flex items-center text-gray-500 mr-2 text-sm"
+              },
+              [
+                _vm._v(
+                  "\r\n                    درجة السؤال\r\n                "
+                )
+              ]
+            ),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.formData.q1Point,
+                  expression: "formData.q1Point"
+                }
+              ],
+              staticClass:
+                "h-12 w-full rounded border border-gray-200 bg-gray-50 flex items-center px-4 text-lg",
+              domProps: { value: _vm.formData.q1Point },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.formData, "q1Point", $event.target.value)
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("div", {
+              staticClass: "h-8 text-sm text-red-400 mr-2 flex items-center"
+            })
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "w-full px-4 py-4" }, [
+          _c(
+            "div",
+            { staticClass: "h-9 flex items-center text-gray-500 mr-2 text-sm" },
+            [_vm._v("\r\n                السؤال الثاني\r\n            ")]
+          ),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.formData.q2,
+                expression: "formData.q2"
+              }
+            ],
+            staticClass:
+              "h-12 w-full rounded border border-gray-200 bg-gray-50 flex items-center px-4 text-lg",
+            domProps: { value: _vm.formData.q2 },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.formData, "q2", $event.target.value)
+              }
+            }
+          }),
+          _vm._v(" "),
+          _c("div", {
+            staticClass: "h-8 text-sm text-red-400 mr-2 flex items-center"
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "bg-blue-600a grid lg:grid-cols-3" }, [
+          _c("div", { staticClass: "w-full px-4 py-2" }, [
+            _c(
+              "div",
+              {
+                staticClass: "h-9 flex items-center text-gray-500 mr-2 text-sm"
+              },
+              [_vm._v("\r\n                    الاجابة A\r\n                ")]
+            ),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.formData.q2A,
+                  expression: "formData.q2A"
+                }
+              ],
+              staticClass:
+                "h-12 w-full rounded border border-gray-200 bg-gray-50 flex items-center px-4 text-lg",
+              domProps: { value: _vm.formData.q2A },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.formData, "q2A", $event.target.value)
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("div", {
+              staticClass: "h-8 text-sm text-red-400 mr-2 flex items-center"
+            })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "w-full px-4 py-4" }, [
+            _c(
+              "div",
+              {
+                staticClass: "h-9 flex items-center text-gray-500 mr-2 text-sm"
+              },
+              [_vm._v("\r\n                    الاجابة B\r\n                ")]
+            ),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.formData.q2B,
+                  expression: "formData.q2B"
+                }
+              ],
+              staticClass:
+                "h-12 w-full rounded border border-gray-200 bg-gray-50 flex items-center px-4 text-lg",
+              domProps: { value: _vm.formData.q2B },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.formData, "q2B", $event.target.value)
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("div", {
+              staticClass: "h-8 text-sm text-red-400 mr-2 flex items-center"
+            })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "w-full px-4 py-4" }, [
+            _c(
+              "div",
+              {
+                staticClass: "h-9 flex items-center text-gray-500 mr-2 text-sm"
+              },
+              [_vm._v("\r\n                    الاجابة C\r\n                ")]
+            ),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.formData.q2C,
+                  expression: "formData.q2C"
+                }
+              ],
+              staticClass:
+                "h-12 w-full rounded border border-gray-200 bg-gray-50 flex items-center px-4 text-lg",
+              domProps: { value: _vm.formData.q2C },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.formData, "q2C", $event.target.value)
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("div", {
+              staticClass: "h-8 text-sm text-red-400 mr-2 flex items-center"
+            })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "w-full px-4 py-4" }, [
+            _c(
+              "div",
+              {
+                staticClass: "h-9 flex items-center text-gray-500 mr-2 text-sm"
+              },
+              [
+                _vm._v(
+                  "\r\n                    الاجابة الصحيحة\r\n                "
+                )
+              ]
+            ),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.formData.q2True,
+                  expression: "formData.q2True"
+                }
+              ],
+              staticClass:
+                "h-12 w-full rounded border border-gray-200 bg-gray-50 flex items-center px-4 text-lg",
+              domProps: { value: _vm.formData.q2True },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.formData, "q2True", $event.target.value)
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("div", {
+              staticClass: "h-8 text-sm text-red-400 mr-2 flex items-center"
+            })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "w-full px-4 py-4" }, [
+            _c(
+              "div",
+              {
+                staticClass: "h-9 flex items-center text-gray-500 mr-2 text-sm"
+              },
+              [
+                _vm._v(
+                  "\r\n                    درجة السؤال\r\n                "
+                )
+              ]
+            ),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.formData.q2Point,
+                  expression: "formData.q2Point"
+                }
+              ],
+              staticClass:
+                "h-12 w-full rounded border border-gray-200 bg-gray-50 flex items-center px-4 text-lg",
+              domProps: { value: _vm.formData.q2Point },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.formData, "q2Point", $event.target.value)
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("div", {
+              staticClass: "h-8 text-sm text-red-400 mr-2 flex items-center"
+            })
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "w-full px-4 py-4" }, [
+          _c(
+            "div",
+            { staticClass: "h-9 flex items-center text-gray-500 mr-2 text-sm" },
+            [_vm._v("\r\n                السؤال الثالث\r\n            ")]
+          ),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.formData.q3,
+                expression: "formData.q3"
+              }
+            ],
+            staticClass:
+              "h-12 w-full rounded border border-gray-200 bg-gray-50 flex items-center px-4 text-lg",
+            domProps: { value: _vm.formData.q3 },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.formData, "q3", $event.target.value)
+              }
+            }
+          }),
+          _vm._v(" "),
+          _c("div", {
+            staticClass: "h-8 text-sm text-red-400 mr-2 flex items-center"
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "bg-blue-600a grid lg:grid-cols-3" }, [
+          _c("div", { staticClass: "w-full px-4 py-2" }, [
+            _c(
+              "div",
+              {
+                staticClass: "h-9 flex items-center text-gray-500 mr-2 text-sm"
+              },
+              [_vm._v("\r\n                    الاجابة A\r\n                ")]
+            ),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.formData.q3A,
+                  expression: "formData.q3A"
+                }
+              ],
+              staticClass:
+                "h-12 w-full rounded border border-gray-200 bg-gray-50 flex items-center px-4 text-lg",
+              domProps: { value: _vm.formData.q3A },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.formData, "q3A", $event.target.value)
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("div", {
+              staticClass: "h-8 text-sm text-red-400 mr-2 flex items-center"
+            })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "w-full px-4 py-4" }, [
+            _c(
+              "div",
+              {
+                staticClass: "h-9 flex items-center text-gray-500 mr-2 text-sm"
+              },
+              [_vm._v("\r\n                    الاجابة B\r\n                ")]
+            ),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.formData.q3B,
+                  expression: "formData.q3B"
+                }
+              ],
+              staticClass:
+                "h-12 w-full rounded border border-gray-200 bg-gray-50 flex items-center px-4 text-lg",
+              domProps: { value: _vm.formData.q3B },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.formData, "q3B", $event.target.value)
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("div", {
+              staticClass: "h-8 text-sm text-red-400 mr-2 flex items-center"
+            })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "w-full px-4 py-4" }, [
+            _c(
+              "div",
+              {
+                staticClass: "h-9 flex items-center text-gray-500 mr-2 text-sm"
+              },
+              [_vm._v("\r\n                    الاجابة C\r\n                ")]
+            ),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.formData.q3C,
+                  expression: "formData.q3C"
+                }
+              ],
+              staticClass:
+                "h-12 w-full rounded border border-gray-200 bg-gray-50 flex items-center px-4 text-lg",
+              domProps: { value: _vm.formData.q3C },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.formData, "q3C", $event.target.value)
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("div", {
+              staticClass: "h-8 text-sm text-red-400 mr-2 flex items-center"
+            })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "w-full px-4 py-4" }, [
+            _c(
+              "div",
+              {
+                staticClass: "h-9 flex items-center text-gray-500 mr-2 text-sm"
+              },
+              [
+                _vm._v(
+                  "\r\n                    الاجابة الصحيحة\r\n                "
+                )
+              ]
+            ),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.formData.q3True,
+                  expression: "formData.q3True"
+                }
+              ],
+              staticClass:
+                "h-12 w-full rounded border border-gray-200 bg-gray-50 flex items-center px-4 text-lg",
+              domProps: { value: _vm.formData.q3True },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.formData, "q3True", $event.target.value)
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("div", {
+              staticClass: "h-8 text-sm text-red-400 mr-2 flex items-center"
+            })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "w-full px-4 py-4" }, [
+            _c(
+              "div",
+              {
+                staticClass: "h-9 flex items-center text-gray-500 mr-2 text-sm"
+              },
+              [
+                _vm._v(
+                  "\r\n                    درجة السؤال\r\n                "
+                )
+              ]
+            ),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.formData.q3Point,
+                  expression: "formData.q3Point"
+                }
+              ],
+              staticClass:
+                "h-12 w-full rounded border border-gray-200 bg-gray-50 flex items-center px-4 text-lg",
+              domProps: { value: _vm.formData.q3Point },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.formData, "q3Point", $event.target.value)
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("div", {
+              staticClass: "h-8 text-sm text-red-400 mr-2 flex items-center"
+            })
+          ])
+        ]),
+        _vm._v(" "),
         _c("div", { staticClass: "flex items-center h-20 mx-4" }, [
           _c(
             "div",
@@ -32610,26 +32978,7 @@ var render = function() {
     )
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      {
-        staticClass:
-          "ml-2 bg-blue-400 h-16 w-32 text-white flex items-center justify-center rounded shadow cursor-pointer hover:bg-blue-500 text-lg"
-      },
-      [
-        _c("i", { staticClass: "fas fa-folder-plus ml-2" }),
-        _vm._v(
-          "\r\n                        إختر الصورة\r\n                    "
-        )
-      ]
-    )
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

@@ -103,5 +103,8 @@ export default {
     DeleteExam(role) {
         return axios.delete("/api/admin/exam/" + role);
     },
+    PostNewExam(role) {
+        return axios.post("/api/admin/exam", role);
+    },
     
 };
