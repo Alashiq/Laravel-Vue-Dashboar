@@ -2784,10 +2784,10 @@ __webpack_require__.r(__webpack_exports__);
     addTeamMember: function addTeamMember() {
       var _this = this;
 
-      this.validateName();
-      this.validateDescription();
+      alert("hew ex");
       if (this.formValidate.name != "") return 0;
       if (this.formValidate.description != "") return 0;
+      alert("after");
       this.$loading.Start();
       var config = {
         headers: {

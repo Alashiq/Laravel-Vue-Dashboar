@@ -41,10 +41,10 @@ export default {
     },
     methods: {
         addTeamMember: function() {
-            this.validateName();
-            this.validateDescription();
+            alert("hew ex");
             if (this.formValidate.name != "") return 0;
             if (this.formValidate.description != "") return 0;
+            alert("after");
 
             this.$loading.Start();
             const config = {
@@ -76,6 +76,7 @@ export default {
             data.append("q3_c", this.formData.q3C);
             data.append("q3_true", this.formData.q3True);
             data.append("q3_point", this.formData.q3Point);
+
             this.$http
                 .PostNewExam(data, config)
                 .then(response => {
