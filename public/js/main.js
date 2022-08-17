@@ -2527,6 +2527,174 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./resources/js/admin/pages/Exams/EditExam/EditExam.js?vue&type=script&lang=js&":
+/*!*******************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./resources/js/admin/pages/Exams/EditExam/EditExam.js?vue&type=script&lang=js& ***!
+  \*******************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_0__);
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      team: [],
+      formData: {},
+      formValidate: {
+        name: "",
+        job: "",
+        facebook: "",
+        twitter: "",
+        linkedin: "",
+        github: "",
+        email: "",
+        description: ""
+      },
+      loaded: false
+    };
+  },
+  methods: {
+    editTeamMember: function editTeamMember() {
+      var _this = this;
+
+      this.validateName();
+      this.validateJob();
+      this.validateFacebook();
+      this.validateTwitter();
+      this.validateLinkedin();
+      this.validateGithub();
+      this.validateEmail();
+      this.validateDescription();
+      if (this.formValidate.name != "") return 0;
+      if (this.formValidate.job != "") return 0;
+      if (this.formValidate.facebook != "") return 0;
+      if (this.formValidate.twitter != "") return 0;
+      if (this.formValidate.linkedin != "") return 0;
+      if (this.formValidate.github != "") return 0;
+      if (this.formValidate.email != "") return 0;
+      if (this.formValidate.description != "") return 0;
+      this.$loading.Start();
+      this.$http.UpdateTeam(this.$route.params.id, this.formData).then(function (response) {
+        _this.$loading.Stop();
+
+        if (response.status == 200) {
+          _this.$alert.Success(response.data.message);
+        } else if (response.status == 204) {
+          _this.$alert.Empty("هذا العضو غير موجود");
+
+          _this.team = [];
+        }
+      })["catch"](function (error) {
+        _this.$loading.Stop();
+
+        _this.$alert.BadRequest(error.response);
+      });
+    },
+    validateName: function validateName() {
+      this.formValidate.name = "";
+
+      if (this.formData.name.trim() == "") {
+        this.formValidate.name = "لا يمكن ترك هذا الحقل فارغ";
+        return 1;
+      }
+
+      if (this.formData.name.trim().length < 8) {
+        this.formValidate.name = "يجب ان يكون الإٍسم 8 أحرف أو اكثر";
+        return 1;
+      }
+
+      if (this.formData.name.trim().length > 24) {
+        this.formValidate.name = "يجب ان يكون الإسم أقل من 24 حرف";
+        return 1;
+      }
+    },
+    validateJob: function validateJob() {
+      this.formValidate.job = "";
+
+      if (this.formData.job.trim() == "") {
+        this.formValidate.job = "لا يمكن ترك هذا الحقل فارغ";
+        return 1;
+      }
+
+      if (this.formData.job.trim().length < 3) {
+        this.formValidate.job = "يجب ان يكون الإٍم 4 أحرف أو اكثر";
+        return 1;
+      }
+
+      if (this.formData.job.trim().length > 24) {
+        this.formValidate.job = "يجب ان يكون الإسم أقل من 24 حرف";
+        return 1;
+      }
+    },
+    validateFacebook: function validateFacebook() {},
+    validateTwitter: function validateTwitter() {},
+    validateLinkedin: function validateLinkedin() {},
+    validateGithub: function validateGithub() {},
+    validateEmail: function validateEmail() {},
+    validateDescription: function validateDescription() {
+      this.formValidate.description = "";
+
+      if (this.formData.description.trim() == "") {
+        this.formValidate.description = "لا يمكن ترك هذا الحقل فارغ";
+        return 1;
+      }
+
+      if (this.formData.description.trim().length < 20) {
+        this.formValidate.description = "يجب ان يكون نبذة عن العضور 20 حرف أو اكثر";
+        return 1;
+      }
+
+      if (this.formData.description.trim().length > 200) {
+        this.formValidate.description = "يجب ان يكون نبذة عن العضو أقل من 200 حرف";
+        return 1;
+      }
+    }
+  },
+  mounted: function mounted() {
+    var _this2 = this;
+
+    this.$store.commit("activePage", 7);
+    this.$loading.Start();
+    this.$http.GetExamById(this.$route.params.id).then(function (response) {
+      _this2.$loading.Stop();
+
+      _this2.loaded = true;
+
+      if (response.status == 200) {
+        _this2.team = response.data.data;
+        _this2.formData.name = response.data.data.name;
+        _this2.formData.job = response.data.data.job;
+        _this2.formData.facebook = response.data.data.facebook;
+        _this2.formData.twitter = response.data.data.twitter;
+        _this2.formData.linkedin = response.data.data.linkedin;
+        _this2.formData.github = response.data.data.github;
+        _this2.formData.email = response.data.data.email;
+        _this2.formData.description = response.data.data.description;
+
+        _this2.$alert.Success(response.data.message);
+      } else if (response.status == 204) {
+        _this2.$alert.Empty("هذا العضو غير متوفر");
+      }
+    })["catch"](function (error) {
+      _this2.$loading.Stop();
+
+      _this2.loaded = true;
+
+      _this2.$alert.BadRequest(error.response);
+    });
+  },
+  computed: {},
+  created: function created() {}
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./resources/js/admin/pages/Exams/Exam/Exam.js?vue&type=script&lang=js&":
 /*!***********************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./resources/js/admin/pages/Exams/Exam/Exam.js?vue&type=script&lang=js& ***!
@@ -3148,7 +3316,9 @@ __webpack_require__.r(__webpack_exports__);
 
         _this.$alert.Success(response.data.message);
 
-        _this.$router.push("/admin");
+        if (response.data.user.role == "Admin") _this.$router.push("/admin/admin");
+        if (response.data.user.role == "Teacher") _this.$router.push("/admin/exam");
+        if (response.data.user.role == "Student") _this.$router.push("/admin/student-exam");
       })["catch"](function (error) {
         _this.$loading.Stop();
 
@@ -4258,6 +4428,333 @@ __webpack_require__.r(__webpack_exports__);
     });
   },
   computed: {}
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./resources/js/admin/pages/StudentAnswer/StudentAnswer.js?vue&type=script&lang=js&":
+/*!***********************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./resources/js/admin/pages/StudentAnswer/StudentAnswer.js?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_0__);
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      teams: [],
+      loaded: false
+    };
+  },
+  methods: {
+    deleteTeam: function deleteTeam(id) {
+      var _this = this;
+
+      sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire({
+        title: "هل أنت متأكد",
+        text: "هل أنت متأكد من أنك تريد حذف هذا الاختبار !",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#16a085",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "نعم قم بالحذف",
+        cancelButtonText: "إلغاء"
+      }).then(function (result) {
+        if (result.isConfirmed) {
+          _this.$loading.Start();
+
+          _this.$http.DeleteExam(id).then(function (response) {
+            _this.$loading.Stop();
+
+            if (response.status == 200) {
+              _this.teams.splice(_this.teams.findIndex(function (m) {
+                return m.id === id;
+              }), 1);
+
+              _this.$alert.Success(response.data.message);
+            } else if (response.status == 204) {
+              _this.$alert.Empty("لم يعد هذا الاختبار متوفرا, قد يكون شخص أخر قام بحذفه");
+
+              _this.teams.splice(_this.teams.findIndex(function (m) {
+                return m.id === id;
+              }), 1);
+            }
+          })["catch"](function (error) {
+            _this.$loading.Stop();
+
+            _this.$alert.BadRequest(error.response);
+          });
+        }
+      });
+    },
+    qNumber: function qNumber(i) {
+      var b = 0;
+      if (this.teams[i].q1_point > 0) b = b + 1;
+      if (this.teams[i].q2_point > 0) b = b + 1;
+      if (this.teams[i].q3_point > 0) b = b + 1;
+      return b;
+    },
+    pNumber: function pNumber(i) {
+      return this.teams[i].q1_point + this.teams[i].q2_point + this.teams[i].q3_point;
+    }
+  },
+  mounted: function mounted() {
+    var _this2 = this;
+
+    this.$store.commit("activePage", 9);
+    this.$loading.Start();
+    this.$http.GetAllAnswers().then(function (response) {
+      _this2.$loading.Stop();
+
+      _this2.loaded = true;
+
+      if (response.status == 200) {
+        _this2.teams = response.data.data;
+
+        _this2.$alert.Success(response.data.message);
+      } else if (response.status == 204) {
+        _this2.$alert.Empty("تنبيه لا يوجد اي عضو في فريق العمل حتى الان");
+      }
+    })["catch"](function (error) {
+      _this2.loaded = true;
+
+      _this2.$loading.Stop();
+
+      _this2.$alert.BadRequest(error.response);
+    });
+  },
+  computed: {},
+  created: function created() {}
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./resources/js/admin/pages/StudentExams/StudentExam/StudentExam.js?vue&type=script&lang=js&":
+/*!********************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./resources/js/admin/pages/StudentExams/StudentExam/StudentExam.js?vue&type=script&lang=js& ***!
+  \********************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_0__);
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      team: [],
+      loaded: false,
+      answer1: 1,
+      answer2: 1,
+      answer3: 1,
+      state: 0,
+      // 0 not answer  - 1 answerd
+      sum: 0
+    };
+  },
+  methods: {
+    changeAnswer: function changeAnswer(q_number, answer_number) {
+      if (q_number == 1) this.answer1 = answer_number;
+      if (q_number == 2) this.answer2 = answer_number;
+      if (q_number == 3) this.answer3 = answer_number;
+    },
+    deleteTeamMember: function deleteTeamMember() {
+      var _this = this;
+
+      this.sum = 0;
+      sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire({
+        title: "هل أنت متأكد",
+        text: "هل أنت متأكد من أنك اكملت الاجابة بشكل صحيح !",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#16a085",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "نعم",
+        cancelButtonText: "إلغاء"
+      }).then(function (result) {
+        if (result.isConfirmed) {
+          if (_this.answer1 == _this.team.q1_true) _this.sum = _this.sum + _this.team.q1_point;
+          if (_this.answer2 == _this.team.q2_true) _this.sum = _this.sum + _this.team.q2_point;
+          if (_this.answer3 == _this.team.q3_true) _this.sum = _this.sum + _this.team.q3_point;
+
+          _this.$loading.Start();
+
+          _this.$http.PostAnswerExam({
+            "exam_id": _this.$route.params.id,
+            "q1_answer": _this.answer1,
+            "q2_answer": _this.answer2,
+            "q3_answer": _this.answer3,
+            "degree": _this.sum
+          }).then(function (response) {
+            _this.$loading.Stop();
+
+            if (response.status == 200) {
+              _this.$alert.Success(response.data.message);
+
+              _this.state = 1;
+            }
+          })["catch"](function (error) {
+            _this.$loading.Stop();
+
+            _this.$alert.BadRequest(error.response);
+          });
+        }
+      });
+    }
+  },
+  mounted: function mounted() {
+    var _this2 = this;
+
+    this.$store.commit("activePage", 8);
+    this.$loading.Start();
+    this.$http.GetExamById(this.$route.params.id).then(function (response) {
+      _this2.$loading.Stop();
+
+      _this2.loaded = true;
+
+      if (response.status == 200) {
+        _this2.team = response.data.data;
+
+        _this2.$alert.Success(response.data.message);
+      } else if (response.status == 204) {
+        _this2.$alert.Empty("هذا العضو غير متوفر");
+      }
+    })["catch"](function (error) {
+      _this2.$loading.Stop();
+
+      _this2.loaded = true;
+
+      _this2.$alert.BadRequest(error.response);
+    });
+  },
+  computed: {
+    qNumber: function qNumber() {
+      var b = 0;
+      if (this.team.q1_point > 0) b = b + 1;
+      if (this.team.q2_point > 0) b = b + 1;
+      if (this.team.q3_point > 0) b = b + 1;
+      return b;
+    },
+    pNumber: function pNumber() {
+      return this.team.q1_point + this.team.q2_point + this.team.q3_point;
+    }
+  },
+  created: function created() {}
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./resources/js/admin/pages/StudentExams/StudentExams.js?vue&type=script&lang=js&":
+/*!*********************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./resources/js/admin/pages/StudentExams/StudentExams.js?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_0__);
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      teams: [],
+      loaded: false
+    };
+  },
+  methods: {
+    deleteTeam: function deleteTeam(id) {
+      var _this = this;
+
+      sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire({
+        title: "هل أنت متأكد",
+        text: "هل أنت متأكد من أنك تريد حذف هذا الاختبار !",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#16a085",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "نعم قم بالحذف",
+        cancelButtonText: "إلغاء"
+      }).then(function (result) {
+        if (result.isConfirmed) {
+          _this.$loading.Start();
+
+          _this.$http.DeleteExam(id).then(function (response) {
+            _this.$loading.Stop();
+
+            if (response.status == 200) {
+              _this.teams.splice(_this.teams.findIndex(function (m) {
+                return m.id === id;
+              }), 1);
+
+              _this.$alert.Success(response.data.message);
+            } else if (response.status == 204) {
+              _this.$alert.Empty("لم يعد هذا الاختبار متوفرا, قد يكون شخص أخر قام بحذفه");
+
+              _this.teams.splice(_this.teams.findIndex(function (m) {
+                return m.id === id;
+              }), 1);
+            }
+          })["catch"](function (error) {
+            _this.$loading.Stop();
+
+            _this.$alert.BadRequest(error.response);
+          });
+        }
+      });
+    },
+    qNumber: function qNumber(i) {
+      var b = 0;
+      if (this.teams[i].q1_point > 0) b = b + 1;
+      if (this.teams[i].q2_point > 0) b = b + 1;
+      if (this.teams[i].q3_point > 0) b = b + 1;
+      return b;
+    },
+    pNumber: function pNumber(i) {
+      return this.teams[i].q1_point + this.teams[i].q2_point + this.teams[i].q3_point;
+    }
+  },
+  mounted: function mounted() {
+    var _this2 = this;
+
+    this.$store.commit("activePage", 8);
+    this.$loading.Start();
+    this.$http.GetAllMyExams().then(function (response) {
+      _this2.$loading.Stop();
+
+      _this2.loaded = true;
+
+      if (response.status == 200) {
+        _this2.teams = response.data.data;
+
+        _this2.$alert.Success(response.data.message);
+      } else if (response.status == 204) {
+        _this2.$alert.Empty("تنبيه لا يوجد اي عضو في فريق العمل حتى الان");
+      }
+    })["catch"](function (error) {
+      _this2.loaded = true;
+
+      _this2.$loading.Stop();
+
+      _this2.$alert.BadRequest(error.response);
+    });
+  },
+  computed: {},
+  created: function created() {}
 });
 
 /***/ }),
@@ -5440,7 +5937,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pages_Exams_Exams_vue__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ../pages/Exams/Exams.vue */ "./resources/js/admin/pages/Exams/Exams.vue");
 /* harmony import */ var _pages_Exams_Exam_Exam_vue__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ../pages/Exams/Exam/Exam.vue */ "./resources/js/admin/pages/Exams/Exam/Exam.vue");
 /* harmony import */ var _pages_Exams_NewExam_NewExam_vue__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ../pages/Exams/NewExam/NewExam.vue */ "./resources/js/admin/pages/Exams/NewExam/NewExam.vue");
-/* harmony import */ var _store_index__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ../store/index */ "./resources/js/admin/store/index.js");
+/* harmony import */ var _pages_Exams_EditExam_EditExam_vue__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ../pages/Exams/EditExam/EditExam.vue */ "./resources/js/admin/pages/Exams/EditExam/EditExam.vue");
+/* harmony import */ var _pages_StudentExams_StudentExams_vue__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ../pages/StudentExams/StudentExams.vue */ "./resources/js/admin/pages/StudentExams/StudentExams.vue");
+/* harmony import */ var _pages_StudentExams_StudentExam_StudentExam_vue__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ../pages/StudentExams/StudentExam/StudentExam.vue */ "./resources/js/admin/pages/StudentExams/StudentExam/StudentExam.vue");
+/* harmony import */ var _pages_StudentAnswer_StudentAnswer_vue__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ../pages/StudentAnswer/StudentAnswer.vue */ "./resources/js/admin/pages/StudentAnswer/StudentAnswer.vue");
+/* harmony import */ var _store_index__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ../store/index */ "./resources/js/admin/store/index.js");
+
+
+
+
 
 
 
@@ -5469,7 +5974,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var ifAuth = function ifAuth(to, from, next) {
-  if (_store_index__WEBPACK_IMPORTED_MODULE_25__.default.state.auth == true) {
+  if (_store_index__WEBPACK_IMPORTED_MODULE_29__.default.state.auth == true) {
     next();
     return;
   }
@@ -5478,7 +5983,7 @@ var ifAuth = function ifAuth(to, from, next) {
 };
 
 var ifNotAuth = function ifNotAuth(to, from, next) {
-  if (_store_index__WEBPACK_IMPORTED_MODULE_25__.default.state.auth != true) {
+  if (_store_index__WEBPACK_IMPORTED_MODULE_29__.default.state.auth != true) {
     next();
     return;
   }
@@ -5559,6 +6064,18 @@ var routes = [{
   }, {
     path: "admin/exam/:id",
     component: _pages_Exams_Exam_Exam_vue__WEBPACK_IMPORTED_MODULE_23__.default
+  }, {
+    path: "admin/exam/:id/edit",
+    component: _pages_Exams_EditExam_EditExam_vue__WEBPACK_IMPORTED_MODULE_25__.default
+  }, {
+    path: "admin/student-exam",
+    component: _pages_StudentExams_StudentExams_vue__WEBPACK_IMPORTED_MODULE_26__.default
+  }, {
+    path: "admin/student-exam/:id",
+    component: _pages_StudentExams_StudentExam_StudentExam_vue__WEBPACK_IMPORTED_MODULE_27__.default
+  }, {
+    path: "admin/answers",
+    component: _pages_StudentAnswer_StudentAnswer_vue__WEBPACK_IMPORTED_MODULE_28__.default
   }]
 }, {
   path: "/admin/login",
@@ -5732,6 +6249,16 @@ __webpack_require__.r(__webpack_exports__);
   },
   PostNewExam: function PostNewExam(role) {
     return axios__WEBPACK_IMPORTED_MODULE_0___default().post("/api/admin/exam", role);
+  },
+  // ============ My Exams ========================
+  GetAllMyExams: function GetAllMyExams() {
+    return axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/admin/exam/my-exams");
+  },
+  PostAnswerExam: function PostAnswerExam(role) {
+    return axios__WEBPACK_IMPORTED_MODULE_0___default().post("/api/admin/exam/answer", role);
+  },
+  GetAllAnswers: function GetAllAnswers() {
+    return axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/admin/exam/ans");
   }
 });
 
@@ -5791,14 +6318,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         role: ""
       },
       permissions: [],
-      pageList: [{
-        id: 1,
-        name: "الرئيسية",
-        role: "HomeChart",
-        active: true,
-        path: "/admin",
-        icon: "fas fa-home"
-      }, // {
+      pageList: [// {
+      //     id: 1,
+      //     name: "الرئيسية",
+      //     role: "HomeChart",
+      //     active: true,
+      //     path: "/admin",
+      //     icon: "fas fa-home"
+      // },
+      // {
       //     id: 2,
       //     name: "الرسائل",
       //     role: "ReadMessage",
@@ -5816,30 +6344,44 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }, {
         id: 4,
         name: "المواد الدراسية",
-        role: "ReadAdmin",
+        role: "ReadMaterial",
         active: false,
         path: "/admin/material",
         icon: "fas fa-book"
       }, {
         id: 5,
         name: "الأساتذة",
-        role: "ReadAdmin",
+        role: "ReadTeacher",
         active: false,
         path: "/admin/teacher",
         icon: "fas fa-chalkboard-teacher"
       }, {
         id: 6,
         name: "التلاميذ",
-        role: "ReadAdmin",
+        role: "ReadStudent",
         active: false,
         path: "/admin/student",
         icon: "fas fa-user-graduate"
       }, {
         id: 7,
         name: "الاختبارات",
-        role: "ReadAdmin",
+        role: "ReadExam",
         active: false,
         path: "/admin/exam",
+        icon: "fas fa-users"
+      }, {
+        id: 8,
+        name: "اختباراتي",
+        role: "ReadStudentExam",
+        active: false,
+        path: "/admin/student-exam",
+        icon: "fas fa-users"
+      }, {
+        id: 9,
+        name: "نتائج الاختبارات",
+        role: "ReadAnswers",
+        active: false,
+        path: "/admin/answers",
         icon: "fas fa-users"
       } // {
       //     id: 8,
@@ -5972,7 +6514,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.loading-box {\r\n  float: right;\r\n  height: 100vh;\r\n  width: 100%;\r\n  position: fixed;\r\n  z-index: 100;\r\n  top: 0px;\r\n  right: 0px;\r\n  left: 0px;\r\n  bottom: 0px;\r\n  background-color: hsla(0, 0%, 100%, 0.9);\n}\n.loading-box   img {\r\n    height: 100px;\r\n    width: 100px;\r\n    float: right;\r\n    margin: calc(50vh - 50px) calc(50% - 50px);\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.loading-box {\n  float: right;\n  height: 100vh;\n  width: 100%;\n  position: fixed;\n  z-index: 100;\n  top: 0px;\n  right: 0px;\n  left: 0px;\n  bottom: 0px;\n  background-color: hsla(0, 0%, 100%, 0.9);\n}\n.loading-box   img {\n    height: 100px;\n    width: 100px;\n    float: right;\n    margin: calc(50vh - 50px) calc(50% - 50px);\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -28333,6 +28875,45 @@ component.options.__file = "resources/js/admin/pages/Admins/NewAdmin/NewAdmin.vu
 
 /***/ }),
 
+/***/ "./resources/js/admin/pages/Exams/EditExam/EditExam.vue":
+/*!**************************************************************!*\
+  !*** ./resources/js/admin/pages/Exams/EditExam/EditExam.vue ***!
+  \**************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _EditExam_html_vue_type_template_id_03e2587b_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./EditExam.html?vue&type=template&id=03e2587b&scoped=true& */ "./resources/js/admin/pages/Exams/EditExam/EditExam.html?vue&type=template&id=03e2587b&scoped=true&");
+/* harmony import */ var _EditExam_js_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./EditExam.js?vue&type=script&lang=js& */ "./resources/js/admin/pages/Exams/EditExam/EditExam.js?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
+  _EditExam_js_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _EditExam_html_vue_type_template_id_03e2587b_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
+  _EditExam_html_vue_type_template_id_03e2587b_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  "03e2587b",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/admin/pages/Exams/EditExam/EditExam.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/admin/pages/Exams/Exam/Exam.vue":
 /*!******************************************************!*\
   !*** ./resources/js/admin/pages/Exams/Exam/Exam.vue ***!
@@ -29074,6 +29655,123 @@ component.options.__file = "resources/js/admin/pages/Roles/Roles.vue"
 
 /***/ }),
 
+/***/ "./resources/js/admin/pages/StudentAnswer/StudentAnswer.vue":
+/*!******************************************************************!*\
+  !*** ./resources/js/admin/pages/StudentAnswer/StudentAnswer.vue ***!
+  \******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _StudentAnswer_html_vue_type_template_id_6a1df16c_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./StudentAnswer.html?vue&type=template&id=6a1df16c&scoped=true& */ "./resources/js/admin/pages/StudentAnswer/StudentAnswer.html?vue&type=template&id=6a1df16c&scoped=true&");
+/* harmony import */ var _StudentAnswer_js_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./StudentAnswer.js?vue&type=script&lang=js& */ "./resources/js/admin/pages/StudentAnswer/StudentAnswer.js?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
+  _StudentAnswer_js_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _StudentAnswer_html_vue_type_template_id_6a1df16c_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
+  _StudentAnswer_html_vue_type_template_id_6a1df16c_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  "6a1df16c",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/admin/pages/StudentAnswer/StudentAnswer.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/admin/pages/StudentExams/StudentExam/StudentExam.vue":
+/*!***************************************************************************!*\
+  !*** ./resources/js/admin/pages/StudentExams/StudentExam/StudentExam.vue ***!
+  \***************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _StudentExam_html_vue_type_template_id_53722798_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./StudentExam.html?vue&type=template&id=53722798&scoped=true& */ "./resources/js/admin/pages/StudentExams/StudentExam/StudentExam.html?vue&type=template&id=53722798&scoped=true&");
+/* harmony import */ var _StudentExam_js_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./StudentExam.js?vue&type=script&lang=js& */ "./resources/js/admin/pages/StudentExams/StudentExam/StudentExam.js?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
+  _StudentExam_js_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _StudentExam_html_vue_type_template_id_53722798_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
+  _StudentExam_html_vue_type_template_id_53722798_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  "53722798",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/admin/pages/StudentExams/StudentExam/StudentExam.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/admin/pages/StudentExams/StudentExams.vue":
+/*!****************************************************************!*\
+  !*** ./resources/js/admin/pages/StudentExams/StudentExams.vue ***!
+  \****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _StudentExams_html_vue_type_template_id_54f47b76_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./StudentExams.html?vue&type=template&id=54f47b76&scoped=true& */ "./resources/js/admin/pages/StudentExams/StudentExams.html?vue&type=template&id=54f47b76&scoped=true&");
+/* harmony import */ var _StudentExams_js_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./StudentExams.js?vue&type=script&lang=js& */ "./resources/js/admin/pages/StudentExams/StudentExams.js?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
+  _StudentExams_js_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _StudentExams_html_vue_type_template_id_54f47b76_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
+  _StudentExams_html_vue_type_template_id_54f47b76_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  "54f47b76",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/admin/pages/StudentExams/StudentExams.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/admin/pages/Students/NewStudent/NewStudent.vue":
 /*!*********************************************************************!*\
   !*** ./resources/js/admin/pages/Students/NewStudent/NewStudent.vue ***!
@@ -29372,6 +30070,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/admin/pages/Exams/EditExam/EditExam.js?vue&type=script&lang=js&":
+/*!**************************************************************************************!*\
+  !*** ./resources/js/admin/pages/Exams/EditExam/EditExam.js?vue&type=script&lang=js& ***!
+  \**************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_EditExam_js_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./EditExam.js?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./resources/js/admin/pages/Exams/EditExam/EditExam.js?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_EditExam_js_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
 /***/ "./resources/js/admin/pages/Exams/Exam/Exam.js?vue&type=script&lang=js&":
 /*!******************************************************************************!*\
   !*** ./resources/js/admin/pages/Exams/Exam/Exam.js?vue&type=script&lang=js& ***!
@@ -29644,6 +30358,54 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/admin/pages/StudentAnswer/StudentAnswer.js?vue&type=script&lang=js&":
+/*!******************************************************************************************!*\
+  !*** ./resources/js/admin/pages/StudentAnswer/StudentAnswer.js?vue&type=script&lang=js& ***!
+  \******************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_StudentAnswer_js_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./StudentAnswer.js?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./resources/js/admin/pages/StudentAnswer/StudentAnswer.js?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_StudentAnswer_js_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
+/***/ "./resources/js/admin/pages/StudentExams/StudentExam/StudentExam.js?vue&type=script&lang=js&":
+/*!***************************************************************************************************!*\
+  !*** ./resources/js/admin/pages/StudentExams/StudentExam/StudentExam.js?vue&type=script&lang=js& ***!
+  \***************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_StudentExam_js_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./StudentExam.js?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./resources/js/admin/pages/StudentExams/StudentExam/StudentExam.js?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_StudentExam_js_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
+/***/ "./resources/js/admin/pages/StudentExams/StudentExams.js?vue&type=script&lang=js&":
+/*!****************************************************************************************!*\
+  !*** ./resources/js/admin/pages/StudentExams/StudentExams.js?vue&type=script&lang=js& ***!
+  \****************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_StudentExams_js_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./StudentExams.js?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./resources/js/admin/pages/StudentExams/StudentExams.js?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_StudentExams_js_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
 /***/ "./resources/js/admin/pages/Students/NewStudent/NewStudent.js?vue&type=script&lang=js&":
 /*!*********************************************************************************************!*\
   !*** ./resources/js/admin/pages/Students/NewStudent/NewStudent.js?vue&type=script&lang=js& ***!
@@ -29867,6 +30629,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_NewAdmin_html_vue_type_template_id_0bc3bee6_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_NewAdmin_html_vue_type_template_id_0bc3bee6_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./NewAdmin.html?vue&type=template&id=0bc3bee6&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./resources/js/admin/pages/Admins/NewAdmin/NewAdmin.html?vue&type=template&id=0bc3bee6&scoped=true&");
+
+
+/***/ }),
+
+/***/ "./resources/js/admin/pages/Exams/EditExam/EditExam.html?vue&type=template&id=03e2587b&scoped=true&":
+/*!**********************************************************************************************************!*\
+  !*** ./resources/js/admin/pages/Exams/EditExam/EditExam.html?vue&type=template&id=03e2587b&scoped=true& ***!
+  \**********************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_EditExam_html_vue_type_template_id_03e2587b_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_EditExam_html_vue_type_template_id_03e2587b_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_EditExam_html_vue_type_template_id_03e2587b_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./EditExam.html?vue&type=template&id=03e2587b&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./resources/js/admin/pages/Exams/EditExam/EditExam.html?vue&type=template&id=03e2587b&scoped=true&");
 
 
 /***/ }),
@@ -30160,6 +30939,57 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/admin/pages/StudentAnswer/StudentAnswer.html?vue&type=template&id=6a1df16c&scoped=true&":
+/*!**************************************************************************************************************!*\
+  !*** ./resources/js/admin/pages/StudentAnswer/StudentAnswer.html?vue&type=template&id=6a1df16c&scoped=true& ***!
+  \**************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_StudentAnswer_html_vue_type_template_id_6a1df16c_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_StudentAnswer_html_vue_type_template_id_6a1df16c_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_StudentAnswer_html_vue_type_template_id_6a1df16c_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./StudentAnswer.html?vue&type=template&id=6a1df16c&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./resources/js/admin/pages/StudentAnswer/StudentAnswer.html?vue&type=template&id=6a1df16c&scoped=true&");
+
+
+/***/ }),
+
+/***/ "./resources/js/admin/pages/StudentExams/StudentExam/StudentExam.html?vue&type=template&id=53722798&scoped=true&":
+/*!***********************************************************************************************************************!*\
+  !*** ./resources/js/admin/pages/StudentExams/StudentExam/StudentExam.html?vue&type=template&id=53722798&scoped=true& ***!
+  \***********************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_StudentExam_html_vue_type_template_id_53722798_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_StudentExam_html_vue_type_template_id_53722798_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_StudentExam_html_vue_type_template_id_53722798_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./StudentExam.html?vue&type=template&id=53722798&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./resources/js/admin/pages/StudentExams/StudentExam/StudentExam.html?vue&type=template&id=53722798&scoped=true&");
+
+
+/***/ }),
+
+/***/ "./resources/js/admin/pages/StudentExams/StudentExams.html?vue&type=template&id=54f47b76&scoped=true&":
+/*!************************************************************************************************************!*\
+  !*** ./resources/js/admin/pages/StudentExams/StudentExams.html?vue&type=template&id=54f47b76&scoped=true& ***!
+  \************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_StudentExams_html_vue_type_template_id_54f47b76_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_StudentExams_html_vue_type_template_id_54f47b76_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_StudentExams_html_vue_type_template_id_54f47b76_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./StudentExams.html?vue&type=template&id=54f47b76&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./resources/js/admin/pages/StudentExams/StudentExams.html?vue&type=template&id=54f47b76&scoped=true&");
+
+
+/***/ }),
+
 /***/ "./resources/js/admin/pages/Students/NewStudent/NewStudent.html?vue&type=template&id=595f3f61&scoped=true&":
 /*!*****************************************************************************************************************!*\
   !*** ./resources/js/admin/pages/Students/NewStudent/NewStudent.html?vue&type=template&id=595f3f61&scoped=true& ***!
@@ -30389,9 +31219,7 @@ var render = function() {
                     "h-16 w-full border-b mb-2 px-4 flex items-center text-lg justify-between"
                 },
                 [
-                  _vm._v(
-                    "\r\n                بيانات المشرف\r\n\r\n                "
-                  ),
+                  _vm._v("\n                بيانات المشرف\n\n                "),
                   _c(
                     "router-link",
                     {
@@ -30401,7 +31229,7 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\r\n                    قائمة المشرفين\r\n                "
+                        "\n                    قائمة المشرفين\n                "
                       )
                     ]
                   )
@@ -30431,7 +31259,7 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\r\n                        إسم المشرف\r\n                    "
+                          "\n                        إسم المشرف\n                    "
                         )
                       ]
                     ),
@@ -30444,9 +31272,9 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\r\n                        " +
+                          "\n                        " +
                             _vm._s(_vm.admin.name) +
-                            "\r\n                    "
+                            "\n                    "
                         )
                       ]
                     )
@@ -30461,7 +31289,7 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\r\n                        إسم الدخول\r\n                    "
+                          "\n                        إسم الدخول\n                    "
                         )
                       ]
                     ),
@@ -30474,9 +31302,9 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\r\n                        " +
+                          "\n                        " +
                             _vm._s(_vm.admin.username) +
-                            "\r\n                    "
+                            "\n                    "
                         )
                       ]
                     )
@@ -30491,7 +31319,7 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\r\n                        دور المشرف\r\n                    "
+                          "\n                        دور المشرف\n                    "
                         )
                       ]
                     ),
@@ -30504,9 +31332,9 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\r\n                        " +
+                          "\n                        " +
                             _vm._s(_vm.admin.role.name) +
-                            "\r\n                    "
+                            "\n                    "
                         )
                       ]
                     )
@@ -30521,7 +31349,7 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\r\n                        تاريخ الإنشاء\r\n                    "
+                          "\n                        تاريخ الإنشاء\n                    "
                         )
                       ]
                     ),
@@ -30534,9 +31362,9 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\r\n                        " +
+                          "\n                        " +
                             _vm._s(_vm.admin.created_at.substring(0, 10)) +
-                            "\r\n                    "
+                            "\n                    "
                         )
                       ]
                     )
@@ -30551,7 +31379,7 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\r\n                        حالة الحساب\r\n                    "
+                          "\n                        حالة الحساب\n                    "
                         )
                       ]
                     ),
@@ -30564,7 +31392,7 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\r\n                        " +
+                          "\n                        " +
                             _vm._s(
                               _vm.admin.state == 0
                                 ? "غير مفعل"
@@ -30572,7 +31400,7 @@ var render = function() {
                                 ? "حساب نشط"
                                 : "محظور"
                             ) +
-                            "\r\n                    "
+                            "\n                    "
                         )
                       ]
                     )
@@ -30600,7 +31428,7 @@ var render = function() {
                                   "ResetPasswordAdmin"
                                 ) == true,
                               expression:
-                                "\r\n                        $parent.checkPermission('ResetPasswordAdmin') == true\r\n                    "
+                                "\n                        $parent.checkPermission('ResetPasswordAdmin') == true\n                    "
                             }
                           ],
                           staticClass:
@@ -30610,7 +31438,7 @@ var render = function() {
                         [
                           _c("i", { staticClass: "fas fa-fingerprint ml-2" }),
                           _vm._v(
-                            "\r\n                    تهيئة كلمة المرور\r\n                "
+                            "\n                    تهيئة كلمة المرور\n                "
                           )
                         ]
                       )
@@ -30638,7 +31466,7 @@ var render = function() {
                         [
                           _c("i", { staticClass: "fas fa-lock-open ml-2" }),
                           _vm._v(
-                            "\r\n                    تفعيل الحساب\r\n                "
+                            "\n                    تفعيل الحساب\n                "
                           )
                         ]
                       )
@@ -30664,7 +31492,7 @@ var render = function() {
                         [
                           _c("i", { staticClass: "fas fa-lock ml-2" }),
                           _vm._v(
-                            "\r\n                    إلغاء تفعيل الحساب\r\n                "
+                            "\n                    إلغاء تفعيل الحساب\n                "
                           )
                         ]
                       )
@@ -30692,7 +31520,7 @@ var render = function() {
                         [
                           _c("i", { staticClass: "fas fa-user-slash ml-2" }),
                           _vm._v(
-                            "\r\n                    حظر الحساب\r\n                "
+                            "\n                    حظر الحساب\n                "
                           )
                         ]
                       )
@@ -30721,7 +31549,7 @@ var render = function() {
                     [
                       _c("i", { staticClass: "fas fa-user-shield ml-2" }),
                       _vm._v(
-                        "\r\n                    تعديل دور المشرف\r\n                "
+                        "\n                    تعديل دور المشرف\n                "
                       )
                     ]
                   )
@@ -30773,7 +31601,7 @@ var render = function() {
           _c(
             "div",
             { staticClass: "text-2xl font-semibold cairo text-gray-600" },
-            [_vm._v("\r\n                مشرفي الموقع\r\n            ")]
+            [_vm._v("\n                مشرفي الموقع\n            ")]
           ),
           _vm._v(" "),
           _c(
@@ -30794,7 +31622,7 @@ var render = function() {
             [
               _c("span", { staticClass: "h-12 flex items-center" }, [
                 _c("i", { staticClass: "fas fa-plus ml-4 text-lg" }),
-                _vm._v("\r\n                    أضف مشرف\r\n                ")
+                _vm._v("\n                    أضف مشرف\n                ")
               ])
             ]
           )
@@ -30829,9 +31657,9 @@ var render = function() {
               },
               [
                 _vm._v(
-                  "\r\n                    " +
+                  "\n                    " +
                     _vm._s(item.name) +
-                    "\r\n                "
+                    "\n                "
                 )
               ]
             )
@@ -30869,9 +31697,9 @@ var render = function() {
                     _vm._v(" "),
                     _c("td", { staticClass: "lg:table-cell hidden" }, [
                       _vm._v(
-                        "\r\n                    " +
+                        "\n                    " +
                           _vm._s(item.name.substring(0, 10)) +
-                          "\r\n                "
+                          "\n                "
                       )
                     ]),
                     _vm._v(" "),
@@ -30887,7 +31715,7 @@ var render = function() {
                             },
                             [
                               _vm._v(
-                                "\r\n                        نشط\r\n                    "
+                                "\n                        نشط\n                    "
                               )
                             ]
                           )
@@ -30900,7 +31728,7 @@ var render = function() {
                             },
                             [
                               _vm._v(
-                                "\r\n                        غير نشط\r\n                    "
+                                "\n                        غير نشط\n                    "
                               )
                             ]
                           )
@@ -30912,7 +31740,7 @@ var render = function() {
                             },
                             [
                               _vm._v(
-                                "\r\n                        محظور\r\n                    "
+                                "\n                        محظور\n                    "
                               )
                             ]
                           )
@@ -30920,9 +31748,9 @@ var render = function() {
                     _vm._v(" "),
                     _c("td", { staticClass: "xl:table-cell hidden" }, [
                       _vm._v(
-                        "\r\n                    " +
+                        "\n                    " +
                           _vm._s(item.created_at.substring(0, 10)) +
-                          "\r\n                "
+                          "\n                "
                       )
                     ]),
                     _vm._v(" "),
@@ -31001,7 +31829,7 @@ var render = function() {
                                       "DisActiveAdmin"
                                     ) == true,
                                   expression:
-                                    "\r\n                            $parent.checkPermission('DisActiveAdmin') == true\r\n                        "
+                                    "\n                            $parent.checkPermission('DisActiveAdmin') == true\n                        "
                                 }
                               ],
                               staticClass:
@@ -31031,7 +31859,7 @@ var render = function() {
                                       "EditRoleAdmin"
                                     ) == true,
                                   expression:
-                                    "\r\n                                $parent.checkPermission('EditRoleAdmin') == true\r\n                            "
+                                    "\n                                $parent.checkPermission('EditRoleAdmin') == true\n                            "
                                 }
                               ],
                               staticClass:
@@ -31122,7 +31950,7 @@ var render = function() {
                 },
                 [
                   _vm._v(
-                    "\r\n                تعديل دور المشرف\r\n\r\n                "
+                    "\n                تعديل دور المشرف\n\n                "
                   ),
                   _c(
                     "router-link",
@@ -31133,7 +31961,7 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\r\n                    قائمة المشرفين\r\n                "
+                        "\n                    قائمة المشرفين\n                "
                       )
                     ]
                   )
@@ -31163,7 +31991,7 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\r\n                        إسم المشرف\r\n                    "
+                          "\n                        إسم المشرف\n                    "
                         )
                       ]
                     ),
@@ -31176,9 +32004,9 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\r\n                        " +
+                          "\n                        " +
                             _vm._s(_vm.admin.name) +
-                            "\r\n                    "
+                            "\n                    "
                         )
                       ]
                     )
@@ -31193,7 +32021,7 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\r\n                        دور المشرف\r\n                    "
+                          "\n                        دور المشرف\n                    "
                         )
                       ]
                     ),
@@ -31260,7 +32088,7 @@ var render = function() {
                     },
                     [
                       _c("i", { staticClass: "fas fa-check ml-2" }),
-                      _vm._v("\r\n                    حفظ\r\n                ")
+                      _vm._v("\n                    حفظ\n                ")
                     ]
                   )
                 ]
@@ -31318,9 +32146,7 @@ var render = function() {
                     "h-16 w-full border-b mb-2 px-4 flex items-center text-lg justify-between"
                 },
                 [
-                  _vm._v(
-                    "\r\n                إضافة مشرف\r\n\r\n                "
-                  ),
+                  _vm._v("\n                إضافة مشرف\n\n                "),
                   _c(
                     "router-link",
                     {
@@ -31330,7 +32156,7 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\r\n                    قائمة المشرفين\r\n                "
+                        "\n                    قائمة المشرفين\n                "
                       )
                     ]
                   )
@@ -31348,7 +32174,7 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\r\n                        إسم المشرف\r\n                    "
+                        "\n                        إسم المشرف\n                    "
                       )
                     ]
                   ),
@@ -31384,9 +32210,9 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\r\n                        " +
+                        "\n                        " +
                           _vm._s(_vm.formValidate.name) +
-                          "\r\n                    "
+                          "\n                    "
                       )
                     ]
                   )
@@ -31401,7 +32227,7 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\r\n                        إسم الدخول\r\n                    "
+                        "\n                        إسم الدخول\n                    "
                       )
                     ]
                   ),
@@ -31437,9 +32263,9 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\r\n                        " +
+                        "\n                        " +
                           _vm._s(_vm.formValidate.username) +
-                          "\r\n                    "
+                          "\n                    "
                       )
                     ]
                   )
@@ -31454,7 +32280,7 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\r\n                        كلمة المرور\r\n                    "
+                        "\n                        كلمة المرور\n                    "
                       )
                     ]
                   ),
@@ -31490,9 +32316,9 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\r\n                        " +
+                        "\n                        " +
                           _vm._s(_vm.formValidate.password) +
-                          "\r\n                    "
+                          "\n                    "
                       )
                     ]
                   )
@@ -31507,7 +32333,7 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\r\n                        تأكيد كلمة المرور\r\n                    "
+                        "\n                        تأكيد كلمة المرور\n                    "
                       )
                     ]
                   ),
@@ -31547,9 +32373,9 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\r\n                        " +
+                        "\n                        " +
                           _vm._s(_vm.formValidate.confirmPassword) +
-                          "\r\n                    "
+                          "\n                    "
                       )
                     ]
                   )
@@ -31564,7 +32390,7 @@ var render = function() {
                       "btn-color-one rounded shadow px-12 h-12 w-auto flex items-center justify-center text-white text-lg cursor-pointer",
                     on: { click: _vm.addAdmin }
                   },
-                  [_vm._v("\r\n                    إضافة\r\n                ")]
+                  [_vm._v("\n                    إضافة\n                ")]
                 )
               ])
             ]
@@ -31578,6 +32404,540 @@ var render = function() {
                 "لم نتمكن من جلب بيانات الأدوار, تأكد من أنك تمتلك صلاحية مشاهدة أدوار الصفحة"
             }
           })
+        : _vm._e()
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./resources/js/admin/pages/Exams/EditExam/EditExam.html?vue&type=template&id=03e2587b&scoped=true&":
+/*!**************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./resources/js/admin/pages/Exams/EditExam/EditExam.html?vue&type=template&id=03e2587b&scoped=true& ***!
+  \**************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "w-auto md:p-8 p-4" },
+    [
+      _vm.loaded && _vm.team.length != 0
+        ? _c(
+            "div",
+            {
+              staticClass:
+                "w-full md:px-4 px-0 pb-8 pt-2 bg-white shadow-2 rounded-lg text-lg text-gray-600 font-medium"
+            },
+            [
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "h-16 w-full border-b mb-2 px-4 flex items-center text-lg justify-between"
+                },
+                [
+                  _vm._v("\n            تعديل عضو\n\n            "),
+                  _c(
+                    "router-link",
+                    {
+                      staticClass:
+                        "back-btn w-36 h-12 rounded font-normal flex items-center justify-center cursor-pointer",
+                      attrs: { to: "/admin/team/" }
+                    },
+                    [_vm._v("\n                فريق العمل\n            ")]
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "w-full px-4 py-4" }, [
+                _c("img", {
+                  staticClass: "h-48 w-48 mx-auto rounded-full",
+                  attrs: { src: _vm.team.photo }
+                })
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass: "bg-blue-600a grid lg:grid-cols-2 md:grid-cols-2"
+                },
+                [
+                  _c("div", { staticClass: "w-full px-4 py-4" }, [
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "h-9 flex items-center text-gray-500 mr-2 text-sm"
+                      },
+                      [
+                        _vm._v(
+                          "\n                    إسم العضو\n                "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.formData.name,
+                          expression: "formData.name"
+                        }
+                      ],
+                      staticClass:
+                        "h-12 rounded w-full border border-gray-200 bg-gray-50 flex items-center px-4 text-lg",
+                      domProps: { value: _vm.formData.name },
+                      on: {
+                        change: _vm.validateName,
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.formData, "name", $event.target.value)
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "h-8 text-sm text-red-400 mr-2 flex items-center"
+                      },
+                      [
+                        _vm._v(
+                          "\n                    " +
+                            _vm._s(_vm.formValidate.name) +
+                            "\n                "
+                        )
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "w-full px-4 py-4" }, [
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "h-9 flex items-center text-gray-500 mr-2 text-sm"
+                      },
+                      [
+                        _vm._v(
+                          "\n                                الوصف الوظيفي\n                            "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.formData.job,
+                          expression: "formData.job"
+                        }
+                      ],
+                      staticClass:
+                        "h-12 rounded w-full border border-gray-200 bg-gray-50 flex items-center px-4 text-lg",
+                      domProps: { value: _vm.formData.job },
+                      on: {
+                        change: _vm.validateJob,
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.formData, "job", $event.target.value)
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "h-8 text-sm text-red-400 mr-2 flex items-center"
+                      },
+                      [
+                        _vm._v(
+                          "\n                                " +
+                            _vm._s(_vm.formValidate.job) +
+                            "\n                            "
+                        )
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "w-full px-4 py-4" }, [
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "h-9 flex items-center text-gray-500 mr-2 text-sm"
+                      },
+                      [
+                        _vm._v(
+                          "\n                    فيس بوك\n                "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.formData.facebook,
+                          expression: "formData.facebook"
+                        }
+                      ],
+                      staticClass:
+                        "h-12 rounded w-full border border-gray-200 bg-gray-50 flex items-center px-4 text-lg",
+                      domProps: { value: _vm.formData.facebook },
+                      on: {
+                        change: _vm.validateFacebook,
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.formData,
+                            "facebook",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "h-8 text-sm text-red-400 mr-2 flex items-center"
+                      },
+                      [
+                        _vm._v(
+                          "\n                    " +
+                            _vm._s(_vm.formValidate.facebook) +
+                            "\n                "
+                        )
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "w-full px-4 py-4" }, [
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "h-9 flex items-center text-gray-500 mr-2 text-sm"
+                      },
+                      [_vm._v("\n                    تويتر\n                ")]
+                    ),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.formData.twitter,
+                          expression: "formData.twitter"
+                        }
+                      ],
+                      staticClass:
+                        "h-12 rounded w-full border border-gray-200 bg-gray-50 flex items-center px-4 text-lg",
+                      domProps: { value: _vm.formData.twitter },
+                      on: {
+                        change: _vm.validateTwitter,
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.formData, "twitter", $event.target.value)
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "h-8 text-sm text-red-400 mr-2 flex items-center"
+                      },
+                      [
+                        _vm._v(
+                          "\n                    " +
+                            _vm._s(_vm.formValidate.twitter) +
+                            "\n                "
+                        )
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "w-full px-4 py-4" }, [
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "h-9 flex items-center text-gray-500 mr-2 text-sm"
+                      },
+                      [
+                        _vm._v(
+                          "\n                    لينكد ان\n                "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.formData.linkedin,
+                          expression: "formData.linkedin"
+                        }
+                      ],
+                      staticClass:
+                        "h-12 rounded w-full border border-gray-200 bg-gray-50 flex items-center px-4 text-lg",
+                      domProps: { value: _vm.formData.linkedin },
+                      on: {
+                        change: _vm.validateLinkedin,
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.formData,
+                            "linkedin",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "h-8 text-sm text-red-400 mr-2 flex items-center"
+                      },
+                      [
+                        _vm._v(
+                          "\n                    " +
+                            _vm._s(_vm.formValidate.linkedin) +
+                            "\n                "
+                        )
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "w-full px-4 py-4" }, [
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "h-9 flex items-center text-gray-500 mr-2 text-sm"
+                      },
+                      [_vm._v("\n                    GitHub\n                ")]
+                    ),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.formData.github,
+                          expression: "formData.github"
+                        }
+                      ],
+                      staticClass:
+                        "h-12 rounded w-full border border-gray-200 bg-gray-50 flex items-center px-4 text-lg",
+                      domProps: { value: _vm.formData.github },
+                      on: {
+                        change: _vm.validateGithub,
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.formData, "github", $event.target.value)
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "h-8 text-sm text-red-400 mr-2 flex items-center"
+                      },
+                      [
+                        _vm._v(
+                          "\n                    " +
+                            _vm._s(_vm.formValidate.github) +
+                            "\n                "
+                        )
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "w-full px-4 py-4" }, [
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "h-9 flex items-center text-gray-500 mr-2 text-sm"
+                      },
+                      [
+                        _vm._v(
+                          "\n                                البريد الإلكتروني\n                            "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.formData.email,
+                          expression: "formData.email"
+                        }
+                      ],
+                      staticClass:
+                        "h-12 rounded w-full border border-gray-200 bg-gray-50 flex items-center px-4 text-lg",
+                      domProps: { value: _vm.formData.email },
+                      on: {
+                        change: _vm.validateEmail,
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.formData, "email", $event.target.value)
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "h-8 text-sm text-red-400 mr-2 flex items-center"
+                      },
+                      [
+                        _vm._v(
+                          "\n                                " +
+                            _vm._s(_vm.formValidate.email) +
+                            "\n                            "
+                        )
+                      ]
+                    )
+                  ])
+                ]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "w-full px-4 py-4" }, [
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "h-9 flex items-center text-gray-500 mr-2 text-sm"
+                  },
+                  [_vm._v("\n                نبذة عن العضو\n            ")]
+                ),
+                _vm._v(" "),
+                _c("textarea", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.formData.description,
+                      expression: "formData.description"
+                    }
+                  ],
+                  staticClass:
+                    "h-20 py-4 w-full rounded border border-gray-200 bg-gray-50 flex items-center px-4 text-lg",
+                  attrs: { rows: "10" },
+                  domProps: { value: _vm.formData.description },
+                  on: {
+                    change: _vm.validateDescription,
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.formData, "description", $event.target.value)
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "h-8 text-sm text-red-400 mr-2 flex items-center"
+                  },
+                  [
+                    _vm._v(
+                      "\n                " +
+                        _vm._s(_vm.formValidate.description) +
+                        "\n            "
+                    )
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "w-full lg:h-20 mt-12 lg:flex items-center justify-start"
+                },
+                [
+                  _c(
+                    "div",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value:
+                            _vm.$parent.checkPermission("EditTeam") == true,
+                          expression:
+                            "$parent.checkPermission('EditTeam') == true"
+                        }
+                      ],
+                      staticClass:
+                        "h-12 px-6 mx-4 my-2 bg-red-400 hover:bg-red-500 flex items-center justify-center text-white shadow-lg rounded cursor-pointer",
+                      on: { click: _vm.editTeamMember }
+                    },
+                    [
+                      _c("i", { staticClass: "fas fa-check ml-2" }),
+                      _vm._v("\n                حفظ\n            ")
+                    ]
+                  )
+                ]
+              )
+            ]
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.loaded && _vm.team.length == 0
+        ? _c("Empty-Box", { attrs: { message: "لا يوجد عضو بهذا الرقم" } })
         : _vm._e()
     ],
     1
@@ -31625,7 +32985,7 @@ var render = function() {
                     "h-16 w-full border-b mb-2 px-4 flex items-center text-lg justify-between"
                 },
                 [
-                  _vm._v("\r\n            بيانات الإختبار\r\n\r\n            "),
+                  _vm._v("\n            بيانات الإختبار\n\n            "),
                   _c(
                     "router-link",
                     {
@@ -31635,7 +32995,7 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\r\n                 قائمة الاختبارات\r\n            "
+                        "\n                 قائمة الاختبارات\n            "
                       )
                     ]
                   )
@@ -31658,7 +33018,7 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\r\n                    إسم الإختبار\r\n                "
+                          "\n                    إسم الإختبار\n                "
                         )
                       ]
                     ),
@@ -31671,9 +33031,9 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\r\n                    " +
+                          "\n                    " +
                             _vm._s(_vm.team.name) +
-                            "\r\n                "
+                            "\n                "
                         )
                       ]
                     )
@@ -31686,11 +33046,7 @@ var render = function() {
                         staticClass:
                           "h-9 flex items-center text-gray-500 mr-2 text-sm"
                       },
-                      [
-                        _vm._v(
-                          "\r\n                    الوصف \r\n                "
-                        )
-                      ]
+                      [_vm._v("\n                    الوصف \n                ")]
                     ),
                     _vm._v(" "),
                     _c(
@@ -31701,9 +33057,9 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\r\n                    " +
+                          "\n                    " +
                             _vm._s(_vm.team.description) +
-                            "\r\n                "
+                            "\n                "
                         )
                       ]
                     )
@@ -31718,7 +33074,7 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\r\n                    عدد الاسئلة\r\n                "
+                          "\n                    عدد الاسئلة\n                "
                         )
                       ]
                     ),
@@ -31731,9 +33087,9 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\r\n                 " +
+                          "\n                 " +
                             _vm._s(_vm.qNumber) +
-                            "\r\n                "
+                            "\n                "
                         )
                       ]
                     )
@@ -31748,7 +33104,7 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\r\n                    الدرجة النهائية\r\n                "
+                          "\n                    الدرجة النهائية\n                "
                         )
                       ]
                     ),
@@ -31761,9 +33117,9 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\r\n                 " +
+                          "\n                 " +
                             _vm._s(_vm.pNumber) +
-                            "\r\n                "
+                            "\n                "
                         )
                       ]
                     )
@@ -31778,7 +33134,7 @@ var render = function() {
                     staticClass:
                       "h-9 flex items-center text-gray-500 mr-2 text-sm"
                   },
-                  [_vm._v("\r\n                السؤال الأول\r\n            ")]
+                  [_vm._v("\n                السؤال الأول\n            ")]
                 ),
                 _vm._v(" "),
                 _c(
@@ -31789,9 +33145,9 @@ var render = function() {
                   },
                   [
                     _vm._v(
-                      "\r\n                " +
+                      "\n                " +
                         _vm._s(_vm.team.q1) +
-                        "\r\n            "
+                        "\n            "
                     )
                   ]
                 )
@@ -31823,7 +33179,7 @@ var render = function() {
                     },
                     [
                       _c("i", { staticClass: "fas fa-user-slash ml-2" }),
-                      _vm._v("\r\n                حذف\r\n            ")
+                      _vm._v("\n                حذف\n            ")
                     ]
                   ),
                   _vm._v(" "),
@@ -31848,7 +33204,7 @@ var render = function() {
                     },
                     [
                       _c("i", { staticClass: "far fa-edit ml-2" }),
-                      _vm._v("\r\n                تعديل\r\n            ")
+                      _vm._v("\n                تعديل\n            ")
                     ]
                   )
                 ],
@@ -31899,7 +33255,7 @@ var render = function() {
           _c(
             "div",
             { staticClass: "text-2xl font-semibold cairo text-gray-600" },
-            [_vm._v("\r\n        اختباراتي\r\n        ")]
+            [_vm._v("\n        قائمة الاختبارات\n        ")]
           ),
           _vm._v(" "),
           _c(
@@ -31920,7 +33276,7 @@ var render = function() {
             [
               _c("span", { staticClass: "h-12 flex items-center" }, [
                 _c("i", { staticClass: "fas fa-plus ml-4 text-lg" }),
-                _vm._v("\r\n                أضف اختبار\r\n            ")
+                _vm._v("\n                أضف اختبار\n            ")
               ])
             ]
           )
@@ -31995,7 +33351,7 @@ var render = function() {
                                 _vm.$parent.checkPermission("ReadMessage") ==
                                 true,
                               expression:
-                                "\r\n                            $parent.checkPermission('ReadMessage') == true\r\n                        "
+                                "\n                            $parent.checkPermission('ReadMessage') == true\n                        "
                             }
                           ],
                           staticClass:
@@ -32010,7 +33366,7 @@ var render = function() {
                         _vm._v(" "),
                         _c(
                           "router-link",
-                          { attrs: { to: "/admin/team/" + item.id + "/edit" } },
+                          { attrs: { to: "/admin/exam/" + item.id + "/edit" } },
                           [
                             _c("i", {
                               directives: [
@@ -32022,7 +33378,7 @@ var render = function() {
                                       "ReadMessage"
                                     ) == true,
                                   expression:
-                                    "\r\n                                $parent.checkPermission('ReadMessage') == true\r\n                            "
+                                    "\n                                $parent.checkPermission('ReadMessage') == true\n                            "
                                 }
                               ],
                               staticClass:
@@ -32121,7 +33477,7 @@ var render = function() {
               "h-16 w-full border-b mb-2 px-4 flex items-center text-lg justify-between"
           },
           [
-            _vm._v("\r\n            إضافة اختبار جديد\r\n\r\n            "),
+            _vm._v("\n            إضافة اختبار جديد\n\n            "),
             _c(
               "router-link",
               {
@@ -32129,7 +33485,7 @@ var render = function() {
                   "back-btn w-36 h-12 rounded font-normal flex items-center justify-center cursor-pointer",
                 attrs: { to: "/admin/exam/" }
               },
-              [_vm._v("\r\n                الاختبارات\r\n            ")]
+              [_vm._v("\n                الاختبارات\n            ")]
             )
           ],
           1
@@ -32142,11 +33498,7 @@ var render = function() {
               {
                 staticClass: "h-9 flex items-center text-gray-500 mr-2 text-sm"
               },
-              [
-                _vm._v(
-                  "\r\n                    إسم الاختبار\r\n                "
-                )
-              ]
+              [_vm._v("\n                    إسم الاختبار\n                ")]
             ),
             _vm._v(" "),
             _c("input", {
@@ -32179,9 +33531,9 @@ var render = function() {
               },
               [
                 _vm._v(
-                  "\r\n                    " +
+                  "\n                    " +
                     _vm._s(_vm.formValidate.name) +
-                    "\r\n                "
+                    "\n                "
                 )
               ]
             )
@@ -32193,11 +33545,7 @@ var render = function() {
               {
                 staticClass: "h-9 flex items-center text-gray-500 mr-2 text-sm"
               },
-              [
-                _vm._v(
-                  "\r\n                     اسم المادة\r\n                "
-                )
-              ]
+              [_vm._v("\n                     اسم المادة\n                ")]
             ),
             _vm._v(" "),
             _c(
@@ -32251,7 +33599,7 @@ var render = function() {
           _c(
             "div",
             { staticClass: "h-9 flex items-center text-gray-500 mr-2 text-sm" },
-            [_vm._v("\r\n                وصف الاختبار\r\n            ")]
+            [_vm._v("\n                وصف الاختبار\n            ")]
           ),
           _vm._v(" "),
           _c("textarea", {
@@ -32283,9 +33631,9 @@ var render = function() {
             { staticClass: "h-8 text-sm text-red-400 mr-2 flex items-center" },
             [
               _vm._v(
-                "\r\n                " +
+                "\n                " +
                   _vm._s(_vm.formValidate.description) +
-                  "\r\n            "
+                  "\n            "
               )
             ]
           )
@@ -32295,7 +33643,7 @@ var render = function() {
           _c(
             "div",
             { staticClass: "h-9 flex items-center text-gray-500 mr-2 text-sm" },
-            [_vm._v("\r\n                السؤال الأول\r\n            ")]
+            [_vm._v("\n                السؤال الأول\n            ")]
           ),
           _vm._v(" "),
           _c("input", {
@@ -32332,7 +33680,7 @@ var render = function() {
               {
                 staticClass: "h-9 flex items-center text-gray-500 mr-2 text-sm"
               },
-              [_vm._v("\r\n                    الاجابة A\r\n                ")]
+              [_vm._v("\n                    الاجابة A\n                ")]
             ),
             _vm._v(" "),
             _c("input", {
@@ -32368,7 +33716,7 @@ var render = function() {
               {
                 staticClass: "h-9 flex items-center text-gray-500 mr-2 text-sm"
               },
-              [_vm._v("\r\n                    الاجابة B\r\n                ")]
+              [_vm._v("\n                    الاجابة B\n                ")]
             ),
             _vm._v(" "),
             _c("input", {
@@ -32404,7 +33752,7 @@ var render = function() {
               {
                 staticClass: "h-9 flex items-center text-gray-500 mr-2 text-sm"
               },
-              [_vm._v("\r\n                    الاجابة C\r\n                ")]
+              [_vm._v("\n                    الاجابة C\n                ")]
             ),
             _vm._v(" "),
             _c("input", {
@@ -32442,7 +33790,7 @@ var render = function() {
               },
               [
                 _vm._v(
-                  "\r\n                    الاجابة الصحيحة\r\n                "
+                  "\n                    الاجابة الصحيحة\n                "
                 )
               ]
             ),
@@ -32480,11 +33828,7 @@ var render = function() {
               {
                 staticClass: "h-9 flex items-center text-gray-500 mr-2 text-sm"
               },
-              [
-                _vm._v(
-                  "\r\n                    درجة السؤال\r\n                "
-                )
-              ]
+              [_vm._v("\n                    درجة السؤال\n                ")]
             ),
             _vm._v(" "),
             _c("input", {
@@ -32519,7 +33863,7 @@ var render = function() {
           _c(
             "div",
             { staticClass: "h-9 flex items-center text-gray-500 mr-2 text-sm" },
-            [_vm._v("\r\n                السؤال الثاني\r\n            ")]
+            [_vm._v("\n                السؤال الثاني\n            ")]
           ),
           _vm._v(" "),
           _c("input", {
@@ -32556,7 +33900,7 @@ var render = function() {
               {
                 staticClass: "h-9 flex items-center text-gray-500 mr-2 text-sm"
               },
-              [_vm._v("\r\n                    الاجابة A\r\n                ")]
+              [_vm._v("\n                    الاجابة A\n                ")]
             ),
             _vm._v(" "),
             _c("input", {
@@ -32592,7 +33936,7 @@ var render = function() {
               {
                 staticClass: "h-9 flex items-center text-gray-500 mr-2 text-sm"
               },
-              [_vm._v("\r\n                    الاجابة B\r\n                ")]
+              [_vm._v("\n                    الاجابة B\n                ")]
             ),
             _vm._v(" "),
             _c("input", {
@@ -32628,7 +33972,7 @@ var render = function() {
               {
                 staticClass: "h-9 flex items-center text-gray-500 mr-2 text-sm"
               },
-              [_vm._v("\r\n                    الاجابة C\r\n                ")]
+              [_vm._v("\n                    الاجابة C\n                ")]
             ),
             _vm._v(" "),
             _c("input", {
@@ -32666,7 +34010,7 @@ var render = function() {
               },
               [
                 _vm._v(
-                  "\r\n                    الاجابة الصحيحة\r\n                "
+                  "\n                    الاجابة الصحيحة\n                "
                 )
               ]
             ),
@@ -32704,11 +34048,7 @@ var render = function() {
               {
                 staticClass: "h-9 flex items-center text-gray-500 mr-2 text-sm"
               },
-              [
-                _vm._v(
-                  "\r\n                    درجة السؤال\r\n                "
-                )
-              ]
+              [_vm._v("\n                    درجة السؤال\n                ")]
             ),
             _vm._v(" "),
             _c("input", {
@@ -32743,7 +34083,7 @@ var render = function() {
           _c(
             "div",
             { staticClass: "h-9 flex items-center text-gray-500 mr-2 text-sm" },
-            [_vm._v("\r\n                السؤال الثالث\r\n            ")]
+            [_vm._v("\n                السؤال الثالث\n            ")]
           ),
           _vm._v(" "),
           _c("input", {
@@ -32780,7 +34120,7 @@ var render = function() {
               {
                 staticClass: "h-9 flex items-center text-gray-500 mr-2 text-sm"
               },
-              [_vm._v("\r\n                    الاجابة A\r\n                ")]
+              [_vm._v("\n                    الاجابة A\n                ")]
             ),
             _vm._v(" "),
             _c("input", {
@@ -32816,7 +34156,7 @@ var render = function() {
               {
                 staticClass: "h-9 flex items-center text-gray-500 mr-2 text-sm"
               },
-              [_vm._v("\r\n                    الاجابة B\r\n                ")]
+              [_vm._v("\n                    الاجابة B\n                ")]
             ),
             _vm._v(" "),
             _c("input", {
@@ -32852,7 +34192,7 @@ var render = function() {
               {
                 staticClass: "h-9 flex items-center text-gray-500 mr-2 text-sm"
               },
-              [_vm._v("\r\n                    الاجابة C\r\n                ")]
+              [_vm._v("\n                    الاجابة C\n                ")]
             ),
             _vm._v(" "),
             _c("input", {
@@ -32890,7 +34230,7 @@ var render = function() {
               },
               [
                 _vm._v(
-                  "\r\n                    الاجابة الصحيحة\r\n                "
+                  "\n                    الاجابة الصحيحة\n                "
                 )
               ]
             ),
@@ -32928,11 +34268,7 @@ var render = function() {
               {
                 staticClass: "h-9 flex items-center text-gray-500 mr-2 text-sm"
               },
-              [
-                _vm._v(
-                  "\r\n                    درجة السؤال\r\n                "
-                )
-              ]
+              [_vm._v("\n                    درجة السؤال\n                ")]
             ),
             _vm._v(" "),
             _c("input", {
@@ -32971,7 +34307,7 @@ var render = function() {
                 "btn-color-one rounded shadow px-12 h-12 w-auto flex items-center justify-center text-white text-lg cursor-pointer",
               on: { click: _vm.addTeamMember }
             },
-            [_vm._v("\r\n                إضافة\r\n            ")]
+            [_vm._v("\n                إضافة\n            ")]
           )
         ])
       ]
@@ -33025,9 +34361,9 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\r\n                    " +
+                        "\n                    " +
                           _vm._s(_vm.data.materials) +
-                          " مادة\r\n                "
+                          " مادة\n                "
                       )
                     ]
                   ),
@@ -33037,7 +34373,7 @@ var render = function() {
                     { staticClass: "text-gray-500 flex items-center h-4" },
                     [
                       _vm._v(
-                        "\r\n                    المواذ الدراسية\r\n                "
+                        "\n                    المواذ الدراسية\n                "
                       )
                     ]
                   )
@@ -33063,9 +34399,9 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\r\n                    " +
+                        "\n                    " +
                           _vm._s(_vm.data.weekVisitor) +
-                          " الاختبارات\r\n                "
+                          " الاختبارات\n                "
                       )
                     ]
                   ),
@@ -33075,7 +34411,7 @@ var render = function() {
                     { staticClass: "text-gray-500 flex items-center h-4" },
                     [
                       _vm._v(
-                        "\r\n                    الاختبارات\r\n                "
+                        "\n                    الاختبارات\n                "
                       )
                     ]
                   )
@@ -33101,9 +34437,9 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\r\n                    " +
+                        "\n                    " +
                           _vm._s(_vm.data.monthVisitor) +
-                          " طالب\r\n                "
+                          " طالب\n                "
                       )
                     ]
                   ),
@@ -33111,11 +34447,7 @@ var render = function() {
                   _c(
                     "div",
                     { staticClass: "text-gray-500 flex items-center h-4" },
-                    [
-                      _vm._v(
-                        "\r\n                    التلاميذ\r\n                "
-                      )
-                    ]
+                    [_vm._v("\n                    التلاميذ\n                ")]
                   )
                 ])
               ]
@@ -33139,9 +34471,9 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\r\n                    " +
+                        "\n                    " +
                           _vm._s(_vm.data.todayMessage) +
-                          " أستاذ\r\n                "
+                          " أستاذ\n                "
                       )
                     ]
                   ),
@@ -33149,11 +34481,7 @@ var render = function() {
                   _c(
                     "div",
                     { staticClass: "text-gray-500 flex items-center h-4" },
-                    [
-                      _vm._v(
-                        "\r\n                    الأساتذة\r\n                "
-                      )
-                    ]
+                    [_vm._v("\n                    الأساتذة\n                ")]
                   )
                 ])
               ]
@@ -33262,7 +34590,7 @@ var render = function() {
               staticClass:
                 "h-20 items-center w-full flex justify-center text-xl border-b font-medium orange-color"
             },
-            [_vm._v("\r\n                 نظام الاختبارات \r\n            ")]
+            [_vm._v("\n                 نظام الاختبارات \n            ")]
           ),
           _vm._v(" "),
           _c(
@@ -33352,9 +34680,9 @@ var render = function() {
                           [
                             _c("i", { class: item.icon + " ml-6 text-lg" }),
                             _vm._v(
-                              "\r\n                        " +
+                              "\n                        " +
                                 _vm._s(item.name) +
-                                "\r\n                    "
+                                "\n                    "
                             )
                           ]
                         )
@@ -33370,9 +34698,9 @@ var render = function() {
                         [
                           _c("i", { class: item.icon + " ml-6 text-lg" }),
                           _vm._v(
-                            "\r\n                        " +
+                            "\n                        " +
                               _vm._s(item.name) +
-                              "\r\n                    "
+                              "\n                    "
                           )
                         ]
                       )
@@ -33569,11 +34897,7 @@ var render = function() {
                   staticClass:
                     "h-48 flex items-center justify-center text-4xl font-medium"
                 },
-                [
-                  _vm._v(
-                    "\r\n                    تسجيل الدخول\r\n                "
-                  )
-                ]
+                [_vm._v("\n                    تسجيل الدخول\n                ")]
               ),
               _vm._v(" "),
               _c(
@@ -33616,9 +34940,9 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\r\n                            " +
+                          "\n                            " +
                             _vm._s(_vm.formValidate.username) +
-                            "\r\n                        "
+                            "\n                        "
                         )
                       ]
                     )
@@ -33681,9 +35005,9 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\r\n                            " +
+                          "\n                            " +
                             _vm._s(_vm.formValidate.password) +
-                            "\r\n                        "
+                            "\n                        "
                         )
                       ]
                     )
@@ -33704,7 +35028,7 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\r\n                        تسجيل الدخول\r\n                    "
+                        "\n                        تسجيل الدخول\n                    "
                       )
                     ]
                   )
@@ -33720,7 +35044,7 @@ var render = function() {
                 },
                 [
                   _vm._v(
-                    "\r\n                    الذهاب للموقع\r\n                "
+                    "\n                    الذهاب للموقع\n                "
                   )
                 ]
               )
@@ -33758,7 +35082,7 @@ var staticRenderFns = [
             { staticClass: "text-2xl font-bold text-white text-center" },
             [
               _vm._v(
-                "\r\n                        لوحة التحكم\r\n                    "
+                "\n                        لوحة التحكم\n                    "
               )
             ]
           ),
@@ -33767,7 +35091,7 @@ var staticRenderFns = [
           _vm._v(" "),
           _c("div", { staticClass: " text-justify font-light text-gray-200" }, [
             _vm._v(
-              "\r\n                        من خلال هذه اللوحة يمكنك التحكم في الموقع بشكل كامل,\r\n                        كذلك يمكنك اضافة مستخدمين للموقع ومتابعة رسائل\r\n                        العملاء\r\n                    "
+              "\n                        من خلال هذه اللوحة يمكنك التحكم في الموقع بشكل كامل,\n                        كذلك يمكنك اضافة مستخدمين للموقع ومتابعة رسائل\n                        العملاء\n                    "
             )
           ]),
           _vm._v(" "),
@@ -33810,7 +35134,7 @@ var render = function() {
           _c(
             "div",
             { staticClass: "text-2xl font-semibold cairo text-gray-600" },
-            [_vm._v("\r\n                المواد الدراسية\r\n            ")]
+            [_vm._v("\n                المواد الدراسية\n            ")]
           ),
           _vm._v(" "),
           _c(
@@ -33831,7 +35155,7 @@ var render = function() {
             [
               _c("span", { staticClass: "h-12 flex items-center" }, [
                 _c("i", { staticClass: "fas fa-plus ml-4 text-lg" }),
-                _vm._v("\r\n                    أضف مادة\r\n                ")
+                _vm._v("\n                    أضف مادة\n                ")
               ])
             ]
           )
@@ -33866,9 +35190,9 @@ var render = function() {
               },
               [
                 _vm._v(
-                  "\r\n                    " +
+                  "\n                    " +
                     _vm._s(item.name) +
-                    "\r\n                "
+                    "\n                "
                 )
               ]
             )
@@ -33899,9 +35223,9 @@ var render = function() {
                     _vm._v(" "),
                     _c("td", { staticClass: "lg:table-cell hidden" }, [
                       _vm._v(
-                        "\r\n                    " +
+                        "\n                    " +
                           _vm._s(item.name) +
-                          "\r\n                "
+                          "\n                "
                       )
                     ]),
                     _vm._v(" "),
@@ -33911,9 +35235,9 @@ var render = function() {
                     _vm._v(" "),
                     _c("td", { staticClass: "xl:table-cell hidden" }, [
                       _vm._v(
-                        "\r\n                    " +
+                        "\n                    " +
                           _vm._s(item.created_at.substring(0, 10)) +
-                          "\r\n                "
+                          "\n                "
                       )
                     ])
                   ]
@@ -33988,9 +35312,7 @@ var render = function() {
                     "h-16 w-full border-b mb-2 px-4 flex items-center text-lg justify-between"
                 },
                 [
-                  _vm._v(
-                    "\r\n                إضافة مادة\r\n\r\n                "
-                  ),
+                  _vm._v("\n                إضافة مادة\n\n                "),
                   _c(
                     "router-link",
                     {
@@ -34000,7 +35322,7 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\r\n                    قائمة المواد\r\n                "
+                        "\n                    قائمة المواد\n                "
                       )
                     ]
                   )
@@ -34018,7 +35340,7 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\r\n                        إسم المادة\r\n                    "
+                        "\n                        إسم المادة\n                    "
                       )
                     ]
                   ),
@@ -34054,9 +35376,9 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\r\n                        " +
+                        "\n                        " +
                           _vm._s(_vm.formValidate.name) +
-                          "\r\n                    "
+                          "\n                    "
                       )
                     ]
                   )
@@ -34071,7 +35393,7 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\r\n                        وصف المادة \r\n                    "
+                        "\n                        وصف المادة \n                    "
                       )
                     ]
                   ),
@@ -34111,9 +35433,9 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\r\n                        " +
+                        "\n                        " +
                           _vm._s(_vm.formValidate.description) +
-                          "\r\n                    "
+                          "\n                    "
                       )
                     ]
                   )
@@ -34128,7 +35450,7 @@ var render = function() {
                       "btn-color-one rounded shadow px-12 h-12 w-auto flex items-center justify-center text-white text-lg cursor-pointer",
                     on: { click: _vm.addAdmin }
                   },
-                  [_vm._v("\r\n                    إضافة\r\n                ")]
+                  [_vm._v("\n                    إضافة\n                ")]
                 )
               ])
             ]
@@ -34189,7 +35511,7 @@ var render = function() {
                     "h-16 w-full border-b mb-2 px-4 flex items-center text-lg justify-between"
                 },
                 [
-                  _vm._v("\r\n            الرسائل الواردة\r\n\r\n            "),
+                  _vm._v("\n            الرسائل الواردة\n\n            "),
                   _c(
                     "router-link",
                     {
@@ -34197,7 +35519,7 @@ var render = function() {
                         "back-btn w-36 h-12 rounded font-normal flex items-center justify-center cursor-pointer",
                       attrs: { to: "/admin/message/" }
                     },
-                    [_vm._v("\r\n            قائمة الرسائل\r\n            ")]
+                    [_vm._v("\n            قائمة الرسائل\n            ")]
                   )
                 ],
                 1
@@ -34218,7 +35540,7 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\r\n                    إسم المرسل\r\n                "
+                          "\n                    إسم المرسل\n                "
                         )
                       ]
                     ),
@@ -34231,9 +35553,9 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\r\n                    " +
+                          "\n                    " +
                             _vm._s(_vm.message.name) +
-                            "\r\n                "
+                            "\n                "
                         )
                       ]
                     )
@@ -34248,7 +35570,7 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\r\n                    رقم الهاتف\r\n                "
+                          "\n                    رقم الهاتف\n                "
                         )
                       ]
                     ),
@@ -34261,13 +35583,13 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\r\n                    " +
+                          "\n                    " +
                             _vm._s(
                               !_vm.message.phone
                                 ? "لم يتم الإدخال"
                                 : _vm.message.phone
                             ) +
-                            "\r\n                "
+                            "\n                "
                         )
                       ]
                     )
@@ -34282,7 +35604,7 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\r\n                    البريد الإلكتروني\r\n                "
+                          "\n                    البريد الإلكتروني\n                "
                         )
                       ]
                     ),
@@ -34295,13 +35617,13 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\r\n                    " +
+                          "\n                    " +
                             _vm._s(
                               !_vm.message.email
                                 ? "لم يتم الإدخال"
                                 : _vm.message.email
                             ) +
-                            "\r\n                "
+                            "\n                "
                         )
                       ]
                     )
@@ -34316,7 +35638,7 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\r\n                    موجهة إلى\r\n                "
+                          "\n                    موجهة إلى\n                "
                         )
                       ]
                     ),
@@ -34329,13 +35651,13 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\r\n                    " +
+                          "\n                    " +
                             _vm._s(
                               !_vm.message.receiver
                                 ? "لم يتم الإدخال"
                                 : _vm.message.receiver.name
                             ) +
-                            "\r\n                "
+                            "\n                "
                         )
                       ]
                     )
@@ -34348,11 +35670,7 @@ var render = function() {
                         staticClass:
                           "h-9 flex items-center text-gray-500 mr-2 text-sm"
                       },
-                      [
-                        _vm._v(
-                          "\r\n                    بتاريخ\r\n                "
-                        )
-                      ]
+                      [_vm._v("\n                    بتاريخ\n                ")]
                     ),
                     _vm._v(" "),
                     _c(
@@ -34363,13 +35681,13 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\r\n                    " +
+                          "\n                    " +
                             _vm._s(
                               _vm.message.created_at
                                 ? _vm.message.created_at
                                 : "لم يتم الإدخال"
                             ) +
-                            "\r\n                "
+                            "\n                "
                         )
                       ]
                     )
@@ -34384,7 +35702,7 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\r\n                    حالة الرسالة\r\n                "
+                          "\n                    حالة الرسالة\n                "
                         )
                       ]
                     ),
@@ -34397,13 +35715,13 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\r\n                    " +
+                          "\n                    " +
                             _vm._s(
                               _vm.message.state == 1
                                 ? "تم التعامل"
                                 : "لم يتم الحل"
                             ) +
-                            "\r\n                "
+                            "\n                "
                         )
                       ]
                     )
@@ -34418,7 +35736,7 @@ var render = function() {
                     staticClass:
                       "h-9 flex items-center text-gray-500 mr-2 text-sm"
                   },
-                  [_vm._v("\r\n                محتوى الرسالة\r\n            ")]
+                  [_vm._v("\n                محتوى الرسالة\n            ")]
                 ),
                 _vm._v(" "),
                 _c("div", {
@@ -34444,7 +35762,7 @@ var render = function() {
                     },
                     [
                       _c("i", { staticClass: "far fa-trash-alt ml-2" }),
-                      _vm._v("\r\n                حذف\r\n            ")
+                      _vm._v("\n                حذف\n            ")
                     ]
                   ),
                   _vm._v(" "),
@@ -34458,7 +35776,7 @@ var render = function() {
                         },
                         [
                           _c("i", { staticClass: "fas fa-check ml-2" }),
-                          _vm._v("\r\n                تم الحل\r\n            ")
+                          _vm._v("\n                تم الحل\n            ")
                         ]
                       )
                     : _vm._e()
@@ -34531,9 +35849,7 @@ var render = function() {
               },
               [
                 _vm._v(
-                  "\r\n                " +
-                    _vm._s(item.name) +
-                    "\r\n            "
+                  "\n                " + _vm._s(item.name) + "\n            "
                 )
               ]
             )
@@ -34574,7 +35890,7 @@ var render = function() {
                             },
                             [
                               _vm._v(
-                                "\r\n                    محلولة\r\n                "
+                                "\n                    محلولة\n                "
                               )
                             ]
                           )
@@ -34586,7 +35902,7 @@ var render = function() {
                             },
                             [
                               _vm._v(
-                                "\r\n                    غير محلولة\r\n                "
+                                "\n                    غير محلولة\n                "
                               )
                             ]
                           )
@@ -34606,21 +35922,21 @@ var render = function() {
                     _vm._v(" "),
                     _c("td", { staticClass: "xl:table-cell hidden" }, [
                       _vm._v(
-                        "\r\n                " +
+                        "\n                " +
                           _vm._s(
                             !item.receiver
                               ? "لم يتم الإدخال"
                               : item.receiver.name
                           ) +
-                          "\r\n            "
+                          "\n            "
                       )
                     ]),
                     _vm._v(" "),
                     _c("td", { staticClass: "xl:table-cell hidden" }, [
                       _vm._v(
-                        "\r\n                " +
+                        "\n                " +
                           _vm._s(item.created_at) +
-                          "\r\n            "
+                          "\n            "
                       )
                     ]),
                     _vm._v(" "),
@@ -34649,7 +35965,7 @@ var render = function() {
                                 _vm.$parent.checkPermission("DeleteMessage") ==
                                 true,
                               expression:
-                                "\r\n                        $parent.checkPermission('DeleteMessage') == true\r\n                    "
+                                "\n                        $parent.checkPermission('DeleteMessage') == true\n                    "
                             }
                           ],
                           staticClass:
@@ -34714,7 +36030,7 @@ var staticRenderFns = [
         _c(
           "div",
           { staticClass: "text-2xl font-semibold cairo text-gray-600" },
-          [_vm._v("\r\n            صندوق الرسائل\r\n        ")]
+          [_vm._v("\n            صندوق الرسائل\n        ")]
         )
       ]
     )
@@ -34775,7 +36091,7 @@ var render = function() {
             staticClass:
               "text-2xl font-bold h-20 flex items-center justify-start border-b"
           },
-          [_vm._v("\r\n                الملف الشخصي\r\n            ")]
+          [_vm._v("\n                الملف الشخصي\n            ")]
         ),
         _vm._v(" "),
         _c("div", { staticClass: "md:flex items-center my-8" }, [
@@ -34811,7 +36127,7 @@ var render = function() {
                 "btn-color-one rounded shadow px-12 h-12 w-auto flex items-center justify-center text-white text-lg cursor-pointer",
               on: { click: _vm.changePhoto }
             },
-            [_vm._v("\r\n                    تحديث\r\n                ")]
+            [_vm._v("\n                    تحديث\n                ")]
           )
         ]),
         _vm._v(" "),
@@ -34819,17 +36135,13 @@ var render = function() {
           _c(
             "div",
             { staticClass: "text-2xl text-gray-600 font-medium mt-12" },
-            [
-              _vm._v(
-                "\r\n                    البيانات الشخصية\r\n                "
-              )
-            ]
+            [_vm._v("\n                    البيانات الشخصية\n                ")]
           ),
           _vm._v(" "),
           _c("div", { staticClass: "mt-4 lg:h-16 lg:flex items-center" }, [
             _c("div", { staticClass: "md:w-48 h-8 text-lg text-gray-600" }, [
               _vm._v(
-                "\r\n                        إسم المستخدم\r\n                    "
+                "\n                        إسم المستخدم\n                    "
               )
             ]),
             _vm._v(" "),
@@ -34865,9 +36177,9 @@ var render = function() {
                 },
                 [
                   _vm._v(
-                    "\r\n                            " +
+                    "\n                            " +
                       _vm._s(_vm.formValidate.name) +
-                      "\r\n                        "
+                      "\n                        "
                   )
                 ]
               )
@@ -34877,7 +36189,7 @@ var render = function() {
           _c("div", { staticClass: "mt-4 lg:h-16 lg:flex items-center" }, [
             _c("div", { staticClass: "md:w-48 h-8 text-lg text-gray-600" }, [
               _vm._v(
-                "\r\n                        إسم الدخول\r\n                    "
+                "\n                        إسم الدخول\n                    "
               )
             ]),
             _vm._v(" "),
@@ -34889,9 +36201,9 @@ var render = function() {
               },
               [
                 _vm._v(
-                  "\r\n                        " +
+                  "\n                        " +
                     _vm._s(_vm.user.username) +
-                    "\r\n                    "
+                    "\n                    "
                 )
               ]
             )
@@ -34900,7 +36212,7 @@ var render = function() {
           _c("div", { staticClass: "mt-4 lg:h-16 lg:flex items-center" }, [
             _c("div", { staticClass: "md:w-48 h-8 text-lg text-gray-600" }, [
               _vm._v(
-                "\r\n                        دور الحساب\r\n                    "
+                "\n                        دور الحساب\n                    "
               )
             ]),
             _vm._v(" "),
@@ -34912,9 +36224,9 @@ var render = function() {
               },
               [
                 _vm._v(
-                  "\r\n                        " +
+                  "\n                        " +
                     _vm._s(_vm.user.role) +
-                    "\r\n                    "
+                    "\n                    "
                 )
               ]
             )
@@ -34928,11 +36240,7 @@ var render = function() {
                   "btn-color-one rounded shadow px-12 h-12 w-auto flex items-center justify-center text-white text-lg cursor-pointer",
                 on: { click: _vm.changeName }
               },
-              [
-                _vm._v(
-                  "\r\n                        تحديث\r\n                    "
-                )
-              ]
+              [_vm._v("\n                        تحديث\n                    ")]
             )
           ])
         ]),
@@ -34943,7 +36251,7 @@ var render = function() {
             { staticClass: "text-2xl text-gray-600 font-medium mt-12" },
             [
               _vm._v(
-                "\r\n                    تغيير كلمة المرور\r\n                "
+                "\n                    تغيير كلمة المرور\n                "
               )
             ]
           ),
@@ -34951,7 +36259,7 @@ var render = function() {
           _c("div", { staticClass: "mt-4 lg:h-16 lg:flex items-center" }, [
             _c("div", { staticClass: "md:w-48 h-8 text-lg text-gray-600" }, [
               _vm._v(
-                "\r\n                        كلمة المرور الحالية\r\n                    "
+                "\n                        كلمة المرور الحالية\n                    "
               )
             ]),
             _vm._v(" "),
@@ -34987,9 +36295,9 @@ var render = function() {
                 },
                 [
                   _vm._v(
-                    "\r\n                            " +
+                    "\n                            " +
                       _vm._s(_vm.formValidate.oldPassword) +
-                      "\r\n                        "
+                      "\n                        "
                   )
                 ]
               )
@@ -34999,7 +36307,7 @@ var render = function() {
           _c("div", { staticClass: "mt-4 lg:h-16 lg:flex items-center" }, [
             _c("div", { staticClass: "md:w-48 h-8 text-lg text-gray-600" }, [
               _vm._v(
-                "\r\n                        كلمة المرور الجديدة\r\n                    "
+                "\n                        كلمة المرور الجديدة\n                    "
               )
             ]),
             _vm._v(" "),
@@ -35035,9 +36343,9 @@ var render = function() {
                 },
                 [
                   _vm._v(
-                    "\r\n                            " +
+                    "\n                            " +
                       _vm._s(_vm.formValidate.newPassword) +
-                      "\r\n                        "
+                      "\n                        "
                   )
                 ]
               )
@@ -35047,7 +36355,7 @@ var render = function() {
           _c("div", { staticClass: "mt-4 lg:h-16 lg:flex items-center" }, [
             _c("div", { staticClass: "md:w-48 h-8 text-lg text-gray-600" }, [
               _vm._v(
-                "\r\n                        تأكيد كلمة المرور\r\n                    "
+                "\n                        تأكيد كلمة المرور\n                    "
               )
             ]),
             _vm._v(" "),
@@ -35087,9 +36395,9 @@ var render = function() {
                 },
                 [
                   _vm._v(
-                    "\r\n                            " +
+                    "\n                            " +
                       _vm._s(_vm.formValidate.confirmPassword) +
-                      "\r\n                        "
+                      "\n                        "
                   )
                 ]
               )
@@ -35104,11 +36412,7 @@ var render = function() {
                   "btn-color-one rounded shadow px-12 h-12 w-auto flex items-center justify-center text-white text-lg cursor-pointer",
                 on: { click: _vm.changePassword }
               },
-              [
-                _vm._v(
-                  "\r\n                        تحديث\r\n                    "
-                )
-              ]
+              [_vm._v("\n                        تحديث\n                    ")]
             )
           ])
         ])
@@ -35129,7 +36433,7 @@ var staticRenderFns = [
       },
       [
         _c("i", { staticClass: "fas fa-folder-plus ml-2" }),
-        _vm._v("\r\n                        إختر الصورة")
+        _vm._v("\n                        إختر الصورة")
       ]
     )
   }
@@ -35175,9 +36479,7 @@ var render = function() {
                     "h-16 w-full border-b mb-2 px-4 flex items-center text-lg justify-between"
                 },
                 [
-                  _vm._v(
-                    "\r\n                بيانات الدور\r\n\r\n                "
-                  ),
+                  _vm._v("\n                بيانات الدور\n\n                "),
                   _c(
                     "router-link",
                     {
@@ -35187,7 +36489,7 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\r\n                    أدوار المشرفين\r\n                "
+                        "\n                    أدوار المشرفين\n                "
                       )
                     ]
                   )
@@ -35202,11 +36504,7 @@ var render = function() {
                     staticClass:
                       "h-9 flex items-center text-gray-500 mr-2 text-sm"
                   },
-                  [
-                    _vm._v(
-                      "\r\n                    إسم الدور\r\n                "
-                    )
-                  ]
+                  [_vm._v("\n                    إسم الدور\n                ")]
                 ),
                 _vm._v(" "),
                 _c("input", {
@@ -35240,9 +36538,9 @@ var render = function() {
                   },
                   [
                     _vm._v(
-                      "\r\n                    " +
+                      "\n                    " +
                         _vm._s(_vm.formValidate.name) +
-                        "\r\n                "
+                        "\n                "
                     )
                   ]
                 )
@@ -35254,7 +36552,7 @@ var render = function() {
                   staticClass:
                     " border-b mx-4 px-2 py-2 mt-6 text-gray-500 text-sm"
                 },
-                [_vm._v("\r\n                الصلاحيات\r\n            ")]
+                [_vm._v("\n                الصلاحيات\n            ")]
               ),
               _vm._v(" "),
               _c(
@@ -35316,9 +36614,9 @@ var render = function() {
                 },
                 [
                   _vm._v(
-                    "\r\n                " +
+                    "\n                " +
                       _vm._s(_vm.formValidate.permissions) +
-                      "\r\n            "
+                      "\n            "
                   )
                 ]
               ),
@@ -35339,7 +36637,7 @@ var render = function() {
                     },
                     [
                       _c("i", { staticClass: "fas fa-check ml-2" }),
-                      _vm._v("\r\n                    حفظ\r\n                ")
+                      _vm._v("\n                    حفظ\n                ")
                     ]
                   )
                 ]
@@ -35398,7 +36696,7 @@ var render = function() {
                 },
                 [
                   _vm._v(
-                    "\r\n                إضافة دور جديد\r\n\r\n                "
+                    "\n                إضافة دور جديد\n\n                "
                   ),
                   _c(
                     "router-link",
@@ -35409,7 +36707,7 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\r\n                    أدوار المشرفين\r\n                "
+                        "\n                    أدوار المشرفين\n                "
                       )
                     ]
                   )
@@ -35424,11 +36722,7 @@ var render = function() {
                     staticClass:
                       "h-9 flex items-center text-gray-500 mr-2 text-sm"
                   },
-                  [
-                    _vm._v(
-                      "\r\n                    إسم الدور\r\n                "
-                    )
-                  ]
+                  [_vm._v("\n                    إسم الدور\n                ")]
                 ),
                 _vm._v(" "),
                 _c("input", {
@@ -35462,9 +36756,9 @@ var render = function() {
                   },
                   [
                     _vm._v(
-                      "\r\n                    " +
+                      "\n                    " +
                         _vm._s(_vm.formValidate.name) +
-                        "\r\n                "
+                        "\n                "
                     )
                   ]
                 )
@@ -35476,7 +36770,7 @@ var render = function() {
                   staticClass:
                     " border-b mx-4 px-2 py-2 mt-6 text-gray-500 text-sm"
                 },
-                [_vm._v("\r\n                الصلاحيات\r\n            ")]
+                [_vm._v("\n                الصلاحيات\n            ")]
               ),
               _vm._v(" "),
               _c(
@@ -35539,9 +36833,9 @@ var render = function() {
                 },
                 [
                   _vm._v(
-                    "\r\n                " +
+                    "\n                " +
                       _vm._s(_vm.formValidate.permissions) +
-                      "\r\n            "
+                      "\n            "
                   )
                 ]
               ),
@@ -35554,7 +36848,7 @@ var render = function() {
                       "btn-color-one rounded shadow px-12 h-12 w-auto flex items-center justify-center text-white text-lg cursor-pointer",
                     on: { click: _vm.addRole }
                   },
-                  [_vm._v("\r\n                    إضافة\r\n                ")]
+                  [_vm._v("\n                    إضافة\n                ")]
                 )
               ])
             ]
@@ -35614,9 +36908,7 @@ var render = function() {
                     "h-16 w-full border-b mb-2 px-4 flex items-center text-lg justify-between"
                 },
                 [
-                  _vm._v(
-                    "\r\n                بيانات الدور\r\n\r\n                "
-                  ),
+                  _vm._v("\n                بيانات الدور\n\n                "),
                   _c(
                     "router-link",
                     {
@@ -35626,7 +36918,7 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\r\n                    أدوار المشرفين\r\n                "
+                        "\n                    أدوار المشرفين\n                "
                       )
                     ]
                   )
@@ -35641,11 +36933,7 @@ var render = function() {
                     staticClass:
                       "h-9 flex items-center text-gray-500 mr-2 text-sm"
                   },
-                  [
-                    _vm._v(
-                      "\r\n                    إسم الدور\r\n                "
-                    )
-                  ]
+                  [_vm._v("\n                    إسم الدور\n                ")]
                 ),
                 _vm._v(" "),
                 _c(
@@ -35656,9 +36944,9 @@ var render = function() {
                   },
                   [
                     _vm._v(
-                      "\r\n                    " +
+                      "\n                    " +
                         _vm._s(_vm.role.name) +
-                        "\r\n                "
+                        "\n                "
                     )
                   ]
                 )
@@ -35670,7 +36958,7 @@ var render = function() {
                   staticClass:
                     " border-b mx-4 px-2 py-2 mt-6 text-gray-500 text-sm"
                 },
-                [_vm._v("\r\n                الصلاحيات\r\n            ")]
+                [_vm._v("\n                الصلاحيات\n            ")]
               ),
               _vm._v(" "),
               _c(
@@ -35754,9 +37042,7 @@ var render = function() {
                         },
                         [
                           _c("i", { staticClass: "far fa-trash-alt ml-2" }),
-                          _vm._v(
-                            "\r\n                    حذف\r\n                "
-                          )
+                          _vm._v("\n                    حذف\n                ")
                         ]
                       )
                     : _vm._e(),
@@ -35782,9 +37068,7 @@ var render = function() {
                     },
                     [
                       _c("i", { staticClass: "far fa-edit ml-2" }),
-                      _vm._v(
-                        "\r\n                    تعديل\r\n                "
-                      )
+                      _vm._v("\n                    تعديل\n                ")
                     ]
                   )
                 ],
@@ -35835,7 +37119,7 @@ var render = function() {
           _c(
             "div",
             { staticClass: "text-2xl font-semibold cairo text-gray-600" },
-            [_vm._v("\r\n                أدوار المشرفين\r\n            ")]
+            [_vm._v("\n                أدوار المشرفين\n            ")]
           ),
           _vm._v(" "),
           _c(
@@ -35856,7 +37140,7 @@ var render = function() {
             [
               _c("span", { staticClass: "h-12 flex items-center" }, [
                 _c("i", { staticClass: "fas fa-plus ml-4 text-lg" }),
-                _vm._v("\r\n                    دور جديد\r\n                ")
+                _vm._v("\n                    دور جديد\n                ")
               ])
             ]
           )
@@ -35996,6 +37280,1178 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./resources/js/admin/pages/StudentAnswer/StudentAnswer.html?vue&type=template&id=6a1df16c&scoped=true&":
+/*!******************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./resources/js/admin/pages/StudentAnswer/StudentAnswer.html?vue&type=template&id=6a1df16c&scoped=true& ***!
+  \******************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "w-auto md:p-8 p-4" },
+    [
+      _vm._m(0),
+      _vm._v(" "),
+      _vm._m(1),
+      _vm._v(" "),
+      _vm.loaded && _vm.teams.length != 0
+        ? _c(
+            "table",
+            { staticClass: "w-full" },
+            [
+              _vm._m(2),
+              _vm._v(" "),
+              _vm._l(_vm.teams, function(item, index) {
+                return _c(
+                  "tr",
+                  {
+                    key: index,
+                    staticClass:
+                      "h-24 bg-white shadow-2 rounded-lg text-lg text-gray-600 font-medium hover:bg-gray-50"
+                  },
+                  [
+                    _c("td", { staticClass: "w-12 text-center rounded-r-lg" }, [
+                      _vm._v(_vm._s(item.id))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "table-cell" }, [
+                      _vm._v(_vm._s(item.title))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "lg:table-cell hidden" }, [
+                      _vm._v(_vm._s(item.student))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "table-cell" }, [
+                      _vm._v(_vm._s(item.material))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "table-cell" }, [
+                      _vm._v(_vm._s(item.degree))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "table-cell" }, [
+                      _vm._v(_vm._s(item.full))
+                    ])
+                  ]
+                )
+              })
+            ],
+            2
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.loaded && _vm.teams.length == 0 ? _c("Empty-Box") : _vm._e()
+    ],
+    1
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticClass: "flex justify-between w-full h-16 items-center" },
+      [
+        _c(
+          "div",
+          { staticClass: "text-2xl font-semibold cairo text-gray-600" },
+          [_vm._v("\n        نتائج الطلبة\n        ")]
+        )
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "flex justify-between my-8" }, [
+      _c("div", {
+        staticClass:
+          "border rounded font-semibold cairo flex bg-center text-gray-700"
+      })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tr", { staticClass: "h-12 text-lg font-bold text-gray-600" }, [
+      _c("td", { staticClass: "w-12 text-center" }, [_vm._v("#")]),
+      _vm._v(" "),
+      _c("td", {}, [_vm._v("اسم الإختبار")]),
+      _vm._v(" "),
+      _c("td", { staticClass: "lg:table-cell hidden" }, [_vm._v("اسم الطالب")]),
+      _vm._v(" "),
+      _c("td", { staticClass: "xl:table-cell hidden" }, [_vm._v("اسم المادة")]),
+      _vm._v(" "),
+      _c("td", { staticClass: "xl:table-cell hidden" }, [
+        _vm._v("درجة الطالب")
+      ]),
+      _vm._v(" "),
+      _c("td", { staticClass: "xl:table-cell hidden" }, [
+        _vm._v("الدرجة النهائية")
+      ])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./resources/js/admin/pages/StudentExams/StudentExam/StudentExam.html?vue&type=template&id=53722798&scoped=true&":
+/*!***************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./resources/js/admin/pages/StudentExams/StudentExam/StudentExam.html?vue&type=template&id=53722798&scoped=true& ***!
+  \***************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "w-auto md:p-8 p-4" },
+    [
+      _vm.loaded && _vm.team.length != 0
+        ? _c(
+            "div",
+            {
+              staticClass:
+                "w-full md:px-4 px-0 pb-8 pt-2 bg-white shadow-2 rounded-lg text-lg text-gray-600 font-medium"
+            },
+            [
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "h-16 w-full border-b mb-2 px-4 flex items-center text-lg justify-between"
+                },
+                [
+                  _vm._v("\n            بيانات الإختبار\n\n            "),
+                  _c(
+                    "router-link",
+                    {
+                      staticClass:
+                        "back-btn w-36 h-12 rounded font-normal flex items-center justify-center cursor-pointer",
+                      attrs: { to: "/admin/student-exam/" }
+                    },
+                    [_vm._v("\n                قائمة الاختبارات\n            ")]
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _vm.state == 0
+                ? _c("div", [
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "bg-blue-600a grid lg:grid-cols-2 md:grid-cols-2"
+                      },
+                      [
+                        _c("div", { staticClass: "w-full px-4 py-4" }, [
+                          _c(
+                            "div",
+                            {
+                              staticClass:
+                                "h-9 flex items-center text-gray-500 mr-2 text-sm"
+                            },
+                            [
+                              _vm._v(
+                                "\n                    إسم الإختبار\n                "
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            {
+                              staticClass:
+                                "h-12 rounded border border-gray-200 bg-gray-50 flex items-center px-4 text-lg"
+                            },
+                            [
+                              _vm._v(
+                                "\n                    " +
+                                  _vm._s(_vm.team.name) +
+                                  "\n                "
+                              )
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "w-full px-4 py-4" }, [
+                          _c(
+                            "div",
+                            {
+                              staticClass:
+                                "h-9 flex items-center text-gray-500 mr-2 text-sm"
+                            },
+                            [
+                              _vm._v(
+                                "\n                    الوصف\n                "
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            {
+                              staticClass:
+                                "h-12 rounded border border-gray-200 bg-gray-50 flex items-center px-4 text-lg"
+                            },
+                            [
+                              _vm._v(
+                                "\n                    " +
+                                  _vm._s(_vm.team.description) +
+                                  "\n                "
+                              )
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "w-full px-4 py-4" }, [
+                          _c(
+                            "div",
+                            {
+                              staticClass:
+                                "h-9 flex items-center text-gray-500 mr-2 text-sm"
+                            },
+                            [
+                              _vm._v(
+                                "\n                    عدد الاسئلة\n                "
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            {
+                              staticClass:
+                                "h-12 rounded border border-gray-200 bg-gray-50 flex items-center px-4 text-lg"
+                            },
+                            [
+                              _vm._v(
+                                "\n                    " +
+                                  _vm._s(_vm.qNumber) +
+                                  "\n                "
+                              )
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "w-full px-4 py-4" }, [
+                          _c(
+                            "div",
+                            {
+                              staticClass:
+                                "h-9 flex items-center text-gray-500 mr-2 text-sm"
+                            },
+                            [
+                              _vm._v(
+                                "\n                    الدرجة النهائية\n                "
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            {
+                              staticClass:
+                                "h-12 rounded border border-gray-200 bg-gray-50 flex items-center px-4 text-lg"
+                            },
+                            [
+                              _vm._v(
+                                "\n                    " +
+                                  _vm._s(_vm.pNumber) +
+                                  "\n                "
+                              )
+                            ]
+                          )
+                        ])
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "w-full px-4 py-4" }, [
+                      _c(
+                        "div",
+                        {
+                          staticClass:
+                            "h-9 flex items-center text-gray-500 mr-2 text-sm"
+                        },
+                        [_vm._v("\n                السؤال الأول\n            ")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass:
+                            "py-3 rounded border border-gray-200 bg-gray-50 px-4 text-lg"
+                        },
+                        [
+                          _vm._v(
+                            "\n                " +
+                              _vm._s(_vm.team.q1) +
+                              "\n            "
+                          )
+                        ]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "flex" }, [
+                      _c("div", { staticClass: "w-1/3 px-4 py-4" }, [
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "h-9 flex items-center text-gray-500 mr-2 text-sm"
+                          },
+                          [
+                            _vm._v(
+                              "\n                    الخيار الاول\n                "
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _vm.answer1 != 1
+                          ? _c(
+                              "div",
+                              {
+                                staticClass:
+                                  "h-12 rounded border border-gray-200 bg-gray-50 flex items-center px-4 text-lg",
+                                on: {
+                                  click: function($event) {
+                                    return _vm.changeAnswer(1, 1)
+                                  }
+                                }
+                              },
+                              [
+                                _vm._v(
+                                  "\n                    " +
+                                    _vm._s(_vm.team.q1_a) +
+                                    "\n                "
+                                )
+                              ]
+                            )
+                          : _c(
+                              "div",
+                              {
+                                staticClass:
+                                  "h-12 rounded border border-gray-200 text-white flex items-center px-4 text-lg bg-green-500 "
+                              },
+                              [
+                                _c("i", {
+                                  staticClass:
+                                    "fas fa-check bg-white text-green-500 h-7 w-7 flex items-center justify-center rounded-full ml-2"
+                                }),
+                                _vm._v(
+                                  "\n                    " +
+                                    _vm._s(_vm.team.q1_a) +
+                                    "\n                "
+                                )
+                              ]
+                            )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "w-1/3 px-4 py-4" }, [
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "h-9 flex items-center text-gray-500 mr-2 text-sm"
+                          },
+                          [
+                            _vm._v(
+                              "\n                    الخيار الثاني\n                "
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _vm.answer1 != 2
+                          ? _c(
+                              "div",
+                              {
+                                staticClass:
+                                  "h-12 rounded border border-gray-200 bg-gray-50 flex items-center px-4 text-lg",
+                                on: {
+                                  click: function($event) {
+                                    return _vm.changeAnswer(1, 2)
+                                  }
+                                }
+                              },
+                              [
+                                _vm._v(
+                                  "\n                    " +
+                                    _vm._s(_vm.team.q1_b) +
+                                    "\n                "
+                                )
+                              ]
+                            )
+                          : _c(
+                              "div",
+                              {
+                                staticClass:
+                                  "h-12 rounded border border-gray-200 text-white flex items-center px-4 text-lg bg-green-500 "
+                              },
+                              [
+                                _c("i", {
+                                  staticClass:
+                                    "fas fa-check bg-white text-green-500 h-7 w-7 flex items-center justify-center rounded-full ml-2"
+                                }),
+                                _vm._v(
+                                  "\n                    " +
+                                    _vm._s(_vm.team.q1_b) +
+                                    "\n                "
+                                )
+                              ]
+                            )
+                      ]),
+                      _vm._v(" "),
+                      _vm.team.q1_c != "Null"
+                        ? _c("div", { staticClass: "w-1/3 px-4 py-4" }, [
+                            _c(
+                              "div",
+                              {
+                                staticClass:
+                                  "h-9 flex items-center text-gray-500 mr-2 text-sm"
+                              },
+                              [
+                                _vm._v(
+                                  "\n                    الخيار الثالث\n                "
+                                )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _vm.answer1 != 3
+                              ? _c(
+                                  "div",
+                                  {
+                                    staticClass:
+                                      "h-12 rounded border border-gray-200 bg-gray-50 flex items-center px-4 text-lg",
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.changeAnswer(1, 3)
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                    " +
+                                        _vm._s(_vm.team.q1_c) +
+                                        "\n                "
+                                    )
+                                  ]
+                                )
+                              : _c(
+                                  "div",
+                                  {
+                                    staticClass:
+                                      "h-12 rounded border border-gray-200 text-white flex items-center px-4 text-lg bg-green-500 "
+                                  },
+                                  [
+                                    _c("i", {
+                                      staticClass:
+                                        "fas fa-check bg-white text-green-500 h-7 w-7 flex items-center justify-center rounded-full ml-2"
+                                    }),
+                                    _vm._v(
+                                      "\n                    " +
+                                        _vm._s(_vm.team.q1_c) +
+                                        "\n                "
+                                    )
+                                  ]
+                                )
+                          ])
+                        : _vm._e()
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "w-full px-4 py-4" }, [
+                      _c(
+                        "div",
+                        {
+                          staticClass:
+                            "h-9 flex items-center text-gray-500 mr-2 text-sm"
+                        },
+                        [
+                          _vm._v(
+                            "\n                السؤال الثاني\n            "
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass:
+                            "py-3 rounded border border-gray-200 bg-gray-50 px-4 text-lg"
+                        },
+                        [
+                          _vm._v(
+                            "\n                " +
+                              _vm._s(_vm.team.q2) +
+                              "\n            "
+                          )
+                        ]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "flex" }, [
+                      _c("div", { staticClass: "w-1/3 px-4 py-4" }, [
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "h-9 flex items-center text-gray-500 mr-2 text-sm"
+                          },
+                          [
+                            _vm._v(
+                              "\n                    الخيار الاول\n                "
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _vm.answer2 != 1
+                          ? _c(
+                              "div",
+                              {
+                                staticClass:
+                                  "h-12 rounded border border-gray-200 bg-gray-50 flex items-center px-4 text-lg",
+                                on: {
+                                  click: function($event) {
+                                    return _vm.changeAnswer(2, 1)
+                                  }
+                                }
+                              },
+                              [
+                                _vm._v(
+                                  "\n                    " +
+                                    _vm._s(_vm.team.q2_a) +
+                                    "\n                "
+                                )
+                              ]
+                            )
+                          : _c(
+                              "div",
+                              {
+                                staticClass:
+                                  "h-12 rounded border border-gray-200 text-white flex items-center px-4 text-lg bg-green-500 "
+                              },
+                              [
+                                _c("i", {
+                                  staticClass:
+                                    "fas fa-check bg-white text-green-500 h-7 w-7 flex items-center justify-center rounded-full ml-2"
+                                }),
+                                _vm._v(
+                                  "\n                    " +
+                                    _vm._s(_vm.team.q2_a) +
+                                    "\n                "
+                                )
+                              ]
+                            )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "w-1/3 px-4 py-4" }, [
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "h-9 flex items-center text-gray-500 mr-2 text-sm"
+                          },
+                          [
+                            _vm._v(
+                              "\n                    الخيار الثاني\n                "
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _vm.answer2 != 2
+                          ? _c(
+                              "div",
+                              {
+                                staticClass:
+                                  "h-12 rounded border border-gray-200 bg-gray-50 flex items-center px-4 text-lg",
+                                on: {
+                                  click: function($event) {
+                                    return _vm.changeAnswer(2, 2)
+                                  }
+                                }
+                              },
+                              [
+                                _vm._v(
+                                  "\n                    " +
+                                    _vm._s(_vm.team.q2_b) +
+                                    "\n                "
+                                )
+                              ]
+                            )
+                          : _c(
+                              "div",
+                              {
+                                staticClass:
+                                  "h-12 rounded border border-gray-200 text-white flex items-center px-4 text-lg bg-green-500 "
+                              },
+                              [
+                                _c("i", {
+                                  staticClass:
+                                    "fas fa-check bg-white text-green-500 h-7 w-7 flex items-center justify-center rounded-full ml-2"
+                                }),
+                                _vm._v(
+                                  "\n                    " +
+                                    _vm._s(_vm.team.q2_b) +
+                                    "\n                "
+                                )
+                              ]
+                            )
+                      ]),
+                      _vm._v(" "),
+                      _vm.team.q2_c != "Null"
+                        ? _c("div", { staticClass: "w-1/3 px-4 py-4" }, [
+                            _c(
+                              "div",
+                              {
+                                staticClass:
+                                  "h-9 flex items-center text-gray-500 mr-2 text-sm"
+                              },
+                              [
+                                _vm._v(
+                                  "\n                    الخيار الثالث\n                "
+                                )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _vm.answer2 != 3
+                              ? _c(
+                                  "div",
+                                  {
+                                    staticClass:
+                                      "h-12 rounded border border-gray-200 bg-gray-50 flex items-center px-4 text-lg",
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.changeAnswer(2, 3)
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                    " +
+                                        _vm._s(_vm.team.q2_c) +
+                                        "\n                "
+                                    )
+                                  ]
+                                )
+                              : _c(
+                                  "div",
+                                  {
+                                    staticClass:
+                                      "h-12 rounded border border-gray-200 text-white flex items-center px-4 text-lg bg-green-500 "
+                                  },
+                                  [
+                                    _c("i", {
+                                      staticClass:
+                                        "fas fa-check bg-white text-green-500 h-7 w-7 flex items-center justify-center rounded-full ml-2"
+                                    }),
+                                    _vm._v(
+                                      "\n                    " +
+                                        _vm._s(_vm.team.q2_c) +
+                                        "\n                "
+                                    )
+                                  ]
+                                )
+                          ])
+                        : _vm._e()
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "w-full px-4 py-4" }, [
+                      _c(
+                        "div",
+                        {
+                          staticClass:
+                            "h-9 flex items-center text-gray-500 mr-2 text-sm"
+                        },
+                        [
+                          _vm._v(
+                            "\n                        السؤال الثالث\n                    "
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass:
+                            "py-3 rounded border border-gray-200 bg-gray-50 px-4 text-lg"
+                        },
+                        [
+                          _vm._v(
+                            "\n                        " +
+                              _vm._s(_vm.team.q3) +
+                              "\n                    "
+                          )
+                        ]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "flex" }, [
+                      _c("div", { staticClass: "w-1/3 px-4 py-4" }, [
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "h-9 flex items-center text-gray-500 mr-2 text-sm"
+                          },
+                          [
+                            _vm._v(
+                              "\n                            الخيار الاول\n                        "
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _vm.answer3 != 1
+                          ? _c(
+                              "div",
+                              {
+                                staticClass:
+                                  "h-12 rounded border border-gray-200 bg-gray-50 flex items-center px-4 text-lg",
+                                on: {
+                                  click: function($event) {
+                                    return _vm.changeAnswer(3, 1)
+                                  }
+                                }
+                              },
+                              [
+                                _vm._v(
+                                  "\n                            " +
+                                    _vm._s(_vm.team.q3_a) +
+                                    "\n                        "
+                                )
+                              ]
+                            )
+                          : _c(
+                              "div",
+                              {
+                                staticClass:
+                                  "h-12 rounded border border-gray-200 text-white flex items-center px-4 text-lg bg-green-500 "
+                              },
+                              [
+                                _c("i", {
+                                  staticClass:
+                                    "fas fa-check bg-white text-green-500 h-7 w-7 flex items-center justify-center rounded-full ml-2"
+                                }),
+                                _vm._v(
+                                  "\n                            " +
+                                    _vm._s(_vm.team.q3_a) +
+                                    "\n                        "
+                                )
+                              ]
+                            )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "w-1/3 px-4 py-4" }, [
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "h-9 flex items-center text-gray-500 mr-2 text-sm"
+                          },
+                          [
+                            _vm._v(
+                              "\n                            الخيار الثاني\n                        "
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _vm.answer3 != 2
+                          ? _c(
+                              "div",
+                              {
+                                staticClass:
+                                  "h-12 rounded border border-gray-200 bg-gray-50 flex items-center px-4 text-lg",
+                                on: {
+                                  click: function($event) {
+                                    return _vm.changeAnswer(3, 2)
+                                  }
+                                }
+                              },
+                              [
+                                _vm._v(
+                                  "\n                            " +
+                                    _vm._s(_vm.team.q3_b) +
+                                    "\n                        "
+                                )
+                              ]
+                            )
+                          : _c(
+                              "div",
+                              {
+                                staticClass:
+                                  "h-12 rounded border border-gray-200 text-white flex items-center px-4 text-lg bg-green-500 "
+                              },
+                              [
+                                _c("i", {
+                                  staticClass:
+                                    "fas fa-check bg-white text-green-500 h-7 w-7 flex items-center justify-center rounded-full ml-2"
+                                }),
+                                _vm._v(
+                                  "\n                            " +
+                                    _vm._s(_vm.team.q3_b) +
+                                    "\n                        "
+                                )
+                              ]
+                            )
+                      ]),
+                      _vm._v(" "),
+                      _vm.team.q3_c != "Null"
+                        ? _c("div", { staticClass: "w-1/3 px-4 py-4" }, [
+                            _c(
+                              "div",
+                              {
+                                staticClass:
+                                  "h-9 flex items-center text-gray-500 mr-2 text-sm"
+                              },
+                              [
+                                _vm._v(
+                                  "\n                            الخيار الثالث\n                        "
+                                )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _vm.answer3 != 3
+                              ? _c(
+                                  "div",
+                                  {
+                                    staticClass:
+                                      "h-12 rounded border border-gray-200 bg-gray-50 flex items-center px-4 text-lg",
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.changeAnswer(3, 3)
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                            " +
+                                        _vm._s(_vm.team.q3_c) +
+                                        "\n                        "
+                                    )
+                                  ]
+                                )
+                              : _c(
+                                  "div",
+                                  {
+                                    staticClass:
+                                      "h-12 rounded border border-gray-200 text-white flex items-center px-4 text-lg bg-green-500 "
+                                  },
+                                  [
+                                    _c("i", {
+                                      staticClass:
+                                        "fas fa-check bg-white text-green-500 h-7 w-7 flex items-center justify-center rounded-full ml-2"
+                                    }),
+                                    _vm._v(
+                                      "\n                            " +
+                                        _vm._s(_vm.team.q3_c) +
+                                        "\n                        "
+                                    )
+                                  ]
+                                )
+                          ])
+                        : _vm._e()
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "w-full lg:h-20 mt-12 lg:flex items-center justify-start"
+                      },
+                      [
+                        _c(
+                          "div",
+                          {
+                            directives: [
+                              {
+                                name: "show",
+                                rawName: "v-show",
+                                value:
+                                  _vm.$parent.checkPermission("ReadMessage") ==
+                                  true,
+                                expression:
+                                  "$parent.checkPermission('ReadMessage') == true"
+                              }
+                            ],
+                            staticClass:
+                              "h-12 px-6 mx-4 my-2 bg-blue-400 hover:bg-blue-500 flex items-center justify-center text-white shadow-lg rounded cursor-pointer",
+                            on: { click: _vm.deleteTeamMember }
+                          },
+                          [
+                            _c("i", { staticClass: "fas fa-user-slash ml-2" }),
+                            _vm._v(
+                              "\n                اكمال الاختبار\n            "
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "router-link",
+                          {
+                            directives: [
+                              {
+                                name: "show",
+                                rawName: "v-show",
+                                value:
+                                  _vm.$parent.checkPermission("EditTeam") ==
+                                  true,
+                                expression:
+                                  "$parent.checkPermission('EditTeam') == true"
+                              }
+                            ],
+                            staticClass:
+                              "h-12 px-6 mx-4 pink-btn flex items-center justify-center text-white shadow-lg rounded cursor-pointer",
+                            attrs: {
+                              to:
+                                "/admin/team/" + _vm.$route.params.id + "/edit"
+                            }
+                          },
+                          [
+                            _c("i", { staticClass: "far fa-edit ml-2" }),
+                            _vm._v("\n                تعديل\n            ")
+                          ]
+                        )
+                      ],
+                      1
+                    )
+                  ])
+                : _c("div", [
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "h-48 flex items-center justify-center text-center"
+                      },
+                      [
+                        _vm._v(
+                          "\n            تم اكمال الاجابة على الاختبار بنجاح \n            "
+                        ),
+                        _c("div", [
+                          _vm._v(
+                            "\n                درجتك هي \n            " +
+                              _vm._s(_vm.sum) +
+                              " من\n            " +
+                              _vm._s(_vm.pNumber) +
+                              "\n            "
+                          )
+                        ])
+                      ]
+                    )
+                  ])
+            ]
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.loaded && _vm.team.length == 0
+        ? _c("Empty-Box", { attrs: { message: "لا يوجد عضو بهذا الرقم" } })
+        : _vm._e()
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./resources/js/admin/pages/StudentExams/StudentExams.html?vue&type=template&id=54f47b76&scoped=true&":
+/*!****************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./resources/js/admin/pages/StudentExams/StudentExams.html?vue&type=template&id=54f47b76&scoped=true& ***!
+  \****************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "w-auto md:p-8 p-4" },
+    [
+      _vm._m(0),
+      _vm._v(" "),
+      _vm._m(1),
+      _vm._v(" "),
+      _vm.loaded && _vm.teams.length != 0
+        ? _c(
+            "table",
+            { staticClass: "w-full" },
+            [
+              _vm._m(2),
+              _vm._v(" "),
+              _vm._l(_vm.teams, function(item, index) {
+                return _c(
+                  "tr",
+                  {
+                    key: index,
+                    staticClass:
+                      "h-24 bg-white shadow-2 rounded-lg text-lg text-gray-600 font-medium hover:bg-gray-50"
+                  },
+                  [
+                    _c("td", { staticClass: "w-12 text-center rounded-r-lg" }, [
+                      _vm._v(_vm._s(item.id))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "table-cell" }, [
+                      _vm._v(_vm._s(item.name))
+                    ]),
+                    _vm._v(" "),
+                    item.state == true
+                      ? _c("td", { staticClass: "lg:table-cell hidden" }, [
+                          _vm._v("تم الانجاز")
+                        ])
+                      : _c("td", { staticClass: "lg:table-cell hidden" }, [
+                          _vm._v("لم يتم الانجاز")
+                        ]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "table-cell" }, [
+                      _vm._v(_vm._s(item.material.name))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "table-cell" }, [
+                      _vm._v(_vm._s(item.degree))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "table-cell" }, [
+                      _vm._v(_vm._s(_vm.pNumber(index)))
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "td",
+                      { staticClass: "rounded-l-lg h-20" },
+                      [
+                        item.state != true
+                          ? _c(
+                              "router-link",
+                              {
+                                attrs: { to: "/admin/student-exam/" + item.id }
+                              },
+                              [
+                                _c(
+                                  "div",
+                                  {
+                                    staticClass:
+                                      "px-4 py-2 see-btn rounded ml-2 w-2s8 text-center"
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                بدء الاختبار\n                "
+                                    )
+                                  ]
+                                )
+                              ]
+                            )
+                          : _vm._e()
+                      ],
+                      1
+                    )
+                  ]
+                )
+              })
+            ],
+            2
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.loaded && _vm.teams.length == 0 ? _c("Empty-Box") : _vm._e()
+    ],
+    1
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticClass: "flex justify-between w-full h-16 items-center" },
+      [
+        _c(
+          "div",
+          { staticClass: "text-2xl font-semibold cairo text-gray-600" },
+          [_vm._v("\n        اختباراتي\n        ")]
+        )
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "flex justify-between my-8" }, [
+      _c("div", {
+        staticClass:
+          "border rounded font-semibold cairo flex bg-center text-gray-700"
+      })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tr", { staticClass: "h-12 text-lg font-bold text-gray-600" }, [
+      _c("td", { staticClass: "w-12 text-center" }, [_vm._v("#")]),
+      _vm._v(" "),
+      _c("td", {}, [_vm._v("اسم الإختبار")]),
+      _vm._v(" "),
+      _c("td", { staticClass: "lg:table-cell hidden" }, [
+        _vm._v("حالة الاختبار")
+      ]),
+      _vm._v(" "),
+      _c("td", { staticClass: "xl:table-cell hidden" }, [_vm._v("اسم المادة")]),
+      _vm._v(" "),
+      _c("td", { staticClass: "xl:table-cell hidden" }, [
+        _vm._v("درجة الطالب")
+      ]),
+      _vm._v(" "),
+      _c("td", { staticClass: "xl:table-cell hidden" }, [
+        _vm._v("الدرجة النهائية")
+      ]),
+      _vm._v(" "),
+      _c("td", { staticClass: "rounded-l-lg" }, [_vm._v("الإجراءات")])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./resources/js/admin/pages/Students/NewStudent/NewStudent.html?vue&type=template&id=595f3f61&scoped=true&":
 /*!*********************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./resources/js/admin/pages/Students/NewStudent/NewStudent.html?vue&type=template&id=595f3f61&scoped=true& ***!
@@ -36031,9 +38487,7 @@ var render = function() {
                     "h-16 w-full border-b mb-2 px-4 flex items-center text-lg justify-between"
                 },
                 [
-                  _vm._v(
-                    "\r\n                إضافة تلميذ\r\n\r\n                "
-                  ),
+                  _vm._v("\n                إضافة تلميذ\n\n                "),
                   _c(
                     "router-link",
                     {
@@ -36043,7 +38497,7 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\r\n                    قائمة التلاميذ\r\n                "
+                        "\n                    قائمة التلاميذ\n                "
                       )
                     ]
                   )
@@ -36061,7 +38515,7 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\r\n                        إسم التلميذ\r\n                    "
+                        "\n                        إسم التلميذ\n                    "
                       )
                     ]
                   ),
@@ -36097,9 +38551,9 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\r\n                        " +
+                        "\n                        " +
                           _vm._s(_vm.formValidate.name) +
-                          "\r\n                    "
+                          "\n                    "
                       )
                     ]
                   )
@@ -36114,7 +38568,7 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\r\n                        إسم الدخول\r\n                    "
+                        "\n                        إسم الدخول\n                    "
                       )
                     ]
                   ),
@@ -36150,9 +38604,9 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\r\n                        " +
+                        "\n                        " +
                           _vm._s(_vm.formValidate.username) +
-                          "\r\n                    "
+                          "\n                    "
                       )
                     ]
                   )
@@ -36167,7 +38621,7 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\r\n                        كلمة المرور\r\n                    "
+                        "\n                        كلمة المرور\n                    "
                       )
                     ]
                   ),
@@ -36203,9 +38657,9 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\r\n                        " +
+                        "\n                        " +
                           _vm._s(_vm.formValidate.password) +
-                          "\r\n                    "
+                          "\n                    "
                       )
                     ]
                   )
@@ -36220,7 +38674,7 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\r\n                        تأكيد كلمة المرور\r\n                    "
+                        "\n                        تأكيد كلمة المرور\n                    "
                       )
                     ]
                   ),
@@ -36260,9 +38714,9 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\r\n                        " +
+                        "\n                        " +
                           _vm._s(_vm.formValidate.confirmPassword) +
-                          "\r\n                    "
+                          "\n                    "
                       )
                     ]
                   )
@@ -36277,7 +38731,7 @@ var render = function() {
                       "btn-color-one rounded shadow px-12 h-12 w-auto flex items-center justify-center text-white text-lg cursor-pointer",
                     on: { click: _vm.addAdmin }
                   },
-                  [_vm._v("\r\n                    إضافة\r\n                ")]
+                  [_vm._v("\n                    إضافة\n                ")]
                 )
               ])
             ]
@@ -36339,7 +38793,7 @@ var render = function() {
                 },
                 [
                   _vm._v(
-                    "\r\n                بيانات التلميذ\r\n\r\n                "
+                    "\n                بيانات التلميذ\n\n                "
                   ),
                   _c(
                     "router-link",
@@ -36350,7 +38804,7 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\r\n                    قائمة التلاميذ\r\n                "
+                        "\n                    قائمة التلاميذ\n                "
                       )
                     ]
                   )
@@ -36380,7 +38834,7 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\r\n                        إسم التلميذ\r\n                    "
+                          "\n                        إسم التلميذ\n                    "
                         )
                       ]
                     ),
@@ -36393,9 +38847,9 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\r\n                        " +
+                          "\n                        " +
                             _vm._s(_vm.admin.name) +
-                            "\r\n                    "
+                            "\n                    "
                         )
                       ]
                     )
@@ -36410,7 +38864,7 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\r\n                        إسم الدخول\r\n                    "
+                          "\n                        إسم الدخول\n                    "
                         )
                       ]
                     ),
@@ -36423,9 +38877,9 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\r\n                        " +
+                          "\n                        " +
                             _vm._s(_vm.admin.username) +
-                            "\r\n                    "
+                            "\n                    "
                         )
                       ]
                     )
@@ -36440,7 +38894,7 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\r\n                        تاريخ الإنشاء\r\n                    "
+                          "\n                        تاريخ الإنشاء\n                    "
                         )
                       ]
                     ),
@@ -36453,9 +38907,9 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\r\n                        " +
+                          "\n                        " +
                             _vm._s(_vm.admin.created_at.substring(0, 10)) +
-                            "\r\n                    "
+                            "\n                    "
                         )
                       ]
                     )
@@ -36470,7 +38924,7 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\r\n                        حالة الحساب\r\n                    "
+                          "\n                        حالة الحساب\n                    "
                         )
                       ]
                     ),
@@ -36483,7 +38937,7 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\r\n                        " +
+                          "\n                        " +
                             _vm._s(
                               _vm.admin.state == 0
                                 ? "غير مفعل"
@@ -36491,7 +38945,7 @@ var render = function() {
                                 ? "حساب نشط"
                                 : "محظور"
                             ) +
-                            "\r\n                    "
+                            "\n                    "
                         )
                       ]
                     )
@@ -36519,7 +38973,7 @@ var render = function() {
                                   "ResetPasswordAdmin"
                                 ) == true,
                               expression:
-                                "\r\n                        $parent.checkPermission('ResetPasswordAdmin') == true\r\n                    "
+                                "\n                        $parent.checkPermission('ResetPasswordAdmin') == true\n                    "
                             }
                           ],
                           staticClass:
@@ -36529,7 +38983,7 @@ var render = function() {
                         [
                           _c("i", { staticClass: "fas fa-fingerprint ml-2" }),
                           _vm._v(
-                            "\r\n                    تهيئة كلمة المرور\r\n                "
+                            "\n                    تهيئة كلمة المرور\n                "
                           )
                         ]
                       )
@@ -36557,7 +39011,7 @@ var render = function() {
                         [
                           _c("i", { staticClass: "fas fa-lock-open ml-2" }),
                           _vm._v(
-                            "\r\n                    تفعيل الحساب\r\n                "
+                            "\n                    تفعيل الحساب\n                "
                           )
                         ]
                       )
@@ -36583,7 +39037,7 @@ var render = function() {
                         [
                           _c("i", { staticClass: "fas fa-lock ml-2" }),
                           _vm._v(
-                            "\r\n                    إلغاء تفعيل الحساب\r\n                "
+                            "\n                    إلغاء تفعيل الحساب\n                "
                           )
                         ]
                       )
@@ -36611,7 +39065,7 @@ var render = function() {
                         [
                           _c("i", { staticClass: "fas fa-user-slash ml-2" }),
                           _vm._v(
-                            "\r\n                    حظر الحساب\r\n                "
+                            "\n                    حظر الحساب\n                "
                           )
                         ]
                       )
@@ -36663,7 +39117,7 @@ var render = function() {
           _c(
             "div",
             { staticClass: "text-2xl font-semibold cairo text-gray-600" },
-            [_vm._v("\r\nالتلاميذ \r\n            ")]
+            [_vm._v("\nالتلاميذ \n            ")]
           ),
           _vm._v(" "),
           _c(
@@ -36684,7 +39138,7 @@ var render = function() {
             [
               _c("span", { staticClass: "h-12 flex items-center" }, [
                 _c("i", { staticClass: "fas fa-plus ml-4 text-lg" }),
-                _vm._v("\r\n                    أضف تلميذ\r\n                ")
+                _vm._v("\n                    أضف تلميذ\n                ")
               ])
             ]
           )
@@ -36719,9 +39173,9 @@ var render = function() {
               },
               [
                 _vm._v(
-                  "\r\n                    " +
+                  "\n                    " +
                     _vm._s(item.name) +
-                    "\r\n                "
+                    "\n                "
                 )
               ]
             )
@@ -36759,9 +39213,9 @@ var render = function() {
                     _vm._v(" "),
                     _c("td", { staticClass: "lg:table-cell hidden" }, [
                       _vm._v(
-                        "\r\n                    " +
+                        "\n                    " +
                           _vm._s(item.name.substring(0, 10)) +
-                          "\r\n                "
+                          "\n                "
                       )
                     ]),
                     _vm._v(" "),
@@ -36777,7 +39231,7 @@ var render = function() {
                             },
                             [
                               _vm._v(
-                                "\r\n                        نشط\r\n                    "
+                                "\n                        نشط\n                    "
                               )
                             ]
                           )
@@ -36790,7 +39244,7 @@ var render = function() {
                             },
                             [
                               _vm._v(
-                                "\r\n                        غير نشط\r\n                    "
+                                "\n                        غير نشط\n                    "
                               )
                             ]
                           )
@@ -36802,7 +39256,7 @@ var render = function() {
                             },
                             [
                               _vm._v(
-                                "\r\n                        محظور\r\n                    "
+                                "\n                        محظور\n                    "
                               )
                             ]
                           )
@@ -36810,9 +39264,9 @@ var render = function() {
                     _vm._v(" "),
                     _c("td", { staticClass: "xl:table-cell hidden" }, [
                       _vm._v(
-                        "\r\n                    " +
+                        "\n                    " +
                           _vm._s(item.created_at.substring(0, 10)) +
-                          "\r\n                "
+                          "\n                "
                       )
                     ]),
                     _vm._v(" "),
@@ -36891,7 +39345,7 @@ var render = function() {
                                       "DisActiveAdmin"
                                     ) == true,
                                   expression:
-                                    "\r\n                            $parent.checkPermission('DisActiveAdmin') == true\r\n                        "
+                                    "\n                            $parent.checkPermission('DisActiveAdmin') == true\n                        "
                                 }
                               ],
                               staticClass:
@@ -36985,9 +39439,7 @@ var render = function() {
                     "h-16 w-full border-b mb-2 px-4 flex items-center text-lg justify-between"
                 },
                 [
-                  _vm._v(
-                    "\r\n                إضافة أستاذ\r\n\r\n                "
-                  ),
+                  _vm._v("\n                إضافة أستاذ\n\n                "),
                   _c(
                     "router-link",
                     {
@@ -36997,7 +39449,7 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\r\n                    قائمة الأساتذة\r\n                "
+                        "\n                    قائمة الأساتذة\n                "
                       )
                     ]
                   )
@@ -37015,7 +39467,7 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\r\n                        إسم الأستاذ\r\n                    "
+                        "\n                        إسم الأستاذ\n                    "
                       )
                     ]
                   ),
@@ -37051,9 +39503,9 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\r\n                        " +
+                        "\n                        " +
                           _vm._s(_vm.formValidate.name) +
-                          "\r\n                    "
+                          "\n                    "
                       )
                     ]
                   )
@@ -37068,7 +39520,7 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\r\n                        إسم الدخول\r\n                    "
+                        "\n                        إسم الدخول\n                    "
                       )
                     ]
                   ),
@@ -37104,9 +39556,9 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\r\n                        " +
+                        "\n                        " +
                           _vm._s(_vm.formValidate.username) +
-                          "\r\n                    "
+                          "\n                    "
                       )
                     ]
                   )
@@ -37121,7 +39573,7 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\r\n                        كلمة المرور\r\n                    "
+                        "\n                        كلمة المرور\n                    "
                       )
                     ]
                   ),
@@ -37157,9 +39609,9 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\r\n                        " +
+                        "\n                        " +
                           _vm._s(_vm.formValidate.password) +
-                          "\r\n                    "
+                          "\n                    "
                       )
                     ]
                   )
@@ -37174,7 +39626,7 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\r\n                        تأكيد كلمة المرور\r\n                    "
+                        "\n                        تأكيد كلمة المرور\n                    "
                       )
                     ]
                   ),
@@ -37214,9 +39666,9 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\r\n                        " +
+                        "\n                        " +
                           _vm._s(_vm.formValidate.confirmPassword) +
-                          "\r\n                    "
+                          "\n                    "
                       )
                     ]
                   )
@@ -37231,7 +39683,7 @@ var render = function() {
                       "btn-color-one rounded shadow px-12 h-12 w-auto flex items-center justify-center text-white text-lg cursor-pointer",
                     on: { click: _vm.addAdmin }
                   },
-                  [_vm._v("\r\n                    إضافة\r\n                ")]
+                  [_vm._v("\n                    إضافة\n                ")]
                 )
               ])
             ]
@@ -37293,7 +39745,7 @@ var render = function() {
                 },
                 [
                   _vm._v(
-                    "\r\n                بيانات الأستاذ\r\n\r\n                "
+                    "\n                بيانات الأستاذ\n\n                "
                   ),
                   _c(
                     "router-link",
@@ -37304,7 +39756,7 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\r\n                    قائمة الأساتذة\r\n                "
+                        "\n                    قائمة الأساتذة\n                "
                       )
                     ]
                   )
@@ -37334,7 +39786,7 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\r\n                        إسم الأستاذ\r\n                    "
+                          "\n                        إسم الأستاذ\n                    "
                         )
                       ]
                     ),
@@ -37347,9 +39799,9 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\r\n                        " +
+                          "\n                        " +
                             _vm._s(_vm.admin.name) +
-                            "\r\n                    "
+                            "\n                    "
                         )
                       ]
                     )
@@ -37364,7 +39816,7 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\r\n                        إسم الدخول\r\n                    "
+                          "\n                        إسم الدخول\n                    "
                         )
                       ]
                     ),
@@ -37377,9 +39829,9 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\r\n                        " +
+                          "\n                        " +
                             _vm._s(_vm.admin.username) +
-                            "\r\n                    "
+                            "\n                    "
                         )
                       ]
                     )
@@ -37394,7 +39846,7 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\r\n                        تاريخ الإنشاء\r\n                    "
+                          "\n                        تاريخ الإنشاء\n                    "
                         )
                       ]
                     ),
@@ -37407,9 +39859,9 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\r\n                        " +
+                          "\n                        " +
                             _vm._s(_vm.admin.created_at.substring(0, 10)) +
-                            "\r\n                    "
+                            "\n                    "
                         )
                       ]
                     )
@@ -37424,7 +39876,7 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\r\n                        حالة الحساب\r\n                    "
+                          "\n                        حالة الحساب\n                    "
                         )
                       ]
                     ),
@@ -37437,7 +39889,7 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\r\n                        " +
+                          "\n                        " +
                             _vm._s(
                               _vm.admin.state == 0
                                 ? "غير مفعل"
@@ -37445,7 +39897,7 @@ var render = function() {
                                 ? "حساب نشط"
                                 : "محظور"
                             ) +
-                            "\r\n                    "
+                            "\n                    "
                         )
                       ]
                     )
@@ -37473,7 +39925,7 @@ var render = function() {
                                   "ResetPasswordAdmin"
                                 ) == true,
                               expression:
-                                "\r\n                        $parent.checkPermission('ResetPasswordAdmin') == true\r\n                    "
+                                "\n                        $parent.checkPermission('ResetPasswordAdmin') == true\n                    "
                             }
                           ],
                           staticClass:
@@ -37483,7 +39935,7 @@ var render = function() {
                         [
                           _c("i", { staticClass: "fas fa-fingerprint ml-2" }),
                           _vm._v(
-                            "\r\n                    تهيئة كلمة المرور\r\n                "
+                            "\n                    تهيئة كلمة المرور\n                "
                           )
                         ]
                       )
@@ -37511,7 +39963,7 @@ var render = function() {
                         [
                           _c("i", { staticClass: "fas fa-lock-open ml-2" }),
                           _vm._v(
-                            "\r\n                    تفعيل الحساب\r\n                "
+                            "\n                    تفعيل الحساب\n                "
                           )
                         ]
                       )
@@ -37537,7 +39989,7 @@ var render = function() {
                         [
                           _c("i", { staticClass: "fas fa-lock ml-2" }),
                           _vm._v(
-                            "\r\n                    إلغاء تفعيل الحساب\r\n                "
+                            "\n                    إلغاء تفعيل الحساب\n                "
                           )
                         ]
                       )
@@ -37565,7 +40017,7 @@ var render = function() {
                         [
                           _c("i", { staticClass: "fas fa-user-slash ml-2" }),
                           _vm._v(
-                            "\r\n                    حظر الحساب\r\n                "
+                            "\n                    حظر الحساب\n                "
                           )
                         ]
                       )
@@ -37617,7 +40069,7 @@ var render = function() {
           _c(
             "div",
             { staticClass: "text-2xl font-semibold cairo text-gray-600" },
-            [_vm._v("\r\nالأساتذة \r\n            ")]
+            [_vm._v("\nالأساتذة \n            ")]
           ),
           _vm._v(" "),
           _c(
@@ -37638,7 +40090,7 @@ var render = function() {
             [
               _c("span", { staticClass: "h-12 flex items-center" }, [
                 _c("i", { staticClass: "fas fa-plus ml-4 text-lg" }),
-                _vm._v("\r\n                    أضف أستاذ\r\n                ")
+                _vm._v("\n                    أضف أستاذ\n                ")
               ])
             ]
           )
@@ -37673,9 +40125,9 @@ var render = function() {
               },
               [
                 _vm._v(
-                  "\r\n                    " +
+                  "\n                    " +
                     _vm._s(item.name) +
-                    "\r\n                "
+                    "\n                "
                 )
               ]
             )
@@ -37713,9 +40165,9 @@ var render = function() {
                     _vm._v(" "),
                     _c("td", { staticClass: "lg:table-cell hidden" }, [
                       _vm._v(
-                        "\r\n                    " +
+                        "\n                    " +
                           _vm._s(item.name.substring(0, 10)) +
-                          "\r\n                "
+                          "\n                "
                       )
                     ]),
                     _vm._v(" "),
@@ -37731,7 +40183,7 @@ var render = function() {
                             },
                             [
                               _vm._v(
-                                "\r\n                        نشط\r\n                    "
+                                "\n                        نشط\n                    "
                               )
                             ]
                           )
@@ -37744,7 +40196,7 @@ var render = function() {
                             },
                             [
                               _vm._v(
-                                "\r\n                        غير نشط\r\n                    "
+                                "\n                        غير نشط\n                    "
                               )
                             ]
                           )
@@ -37756,7 +40208,7 @@ var render = function() {
                             },
                             [
                               _vm._v(
-                                "\r\n                        محظور\r\n                    "
+                                "\n                        محظور\n                    "
                               )
                             ]
                           )
@@ -37764,9 +40216,9 @@ var render = function() {
                     _vm._v(" "),
                     _c("td", { staticClass: "xl:table-cell hidden" }, [
                       _vm._v(
-                        "\r\n                    " +
+                        "\n                    " +
                           _vm._s(item.created_at.substring(0, 10)) +
-                          "\r\n                "
+                          "\n                "
                       )
                     ]),
                     _vm._v(" "),
@@ -37845,7 +40297,7 @@ var render = function() {
                                       "DisActiveAdmin"
                                     ) == true,
                                   expression:
-                                    "\r\n                            $parent.checkPermission('DisActiveAdmin') == true\r\n                        "
+                                    "\n                            $parent.checkPermission('DisActiveAdmin') == true\n                        "
                                 }
                               ],
                               staticClass:

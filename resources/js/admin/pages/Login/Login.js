@@ -36,7 +36,12 @@ export default {
                     );
                     this.$store.commit("authLoaded");
                     this.$alert.Success(response.data.message);
-                    this.$router.push("/admin");
+                    if(response.data.user.role=="Admin")
+                    this.$router.push("/admin/admin");
+                    if(response.data.user.role=="Teacher")
+                    this.$router.push("/admin/exam");
+                    if(response.data.user.role=="Student")
+                    this.$router.push("/admin/student-exam");
                 })
                 .catch(error => {
                     this.$loading.Stop();

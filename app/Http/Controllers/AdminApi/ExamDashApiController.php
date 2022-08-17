@@ -4,6 +4,8 @@ namespace App\Http\Controllers\AdminApi;
 
 use App\Http\Controllers\Controller;
 use App\Models\Exam;
+use App\Models\Admin;
+use App\Models\StudenExam;
 use Illuminate\Http\Request;
 
 class ExamDashApiController extends Controller
@@ -14,9 +16,82 @@ class ExamDashApiController extends Controller
     {
         $messages = Exam::with('material:id,name')->latest()->get();
         if ($messages->isEmpty())
-            return response()->json(['success' => false, 'message' => 'لا يوجد اي مواد دراسية', 'data' => $messages], 204);
-        return response()->json(['success' => true, 'message' => 'تم جلب المواد الدراسية بنجاح', 'data' => $messages], 200);
+            return response()->json(['success' => false, 'message' => 'لا يوجد اي اختبارات', 'data' => $messages], 204);
+        return response()->json(['success' => true, 'message' => 'تم جلب الاختبارات بنجاح', 'data' => $messages], 200);
     }
+
+
+        // GET Messages API =>Auth
+        public function myExams(Request $request)
+        {
+            $exams = Exam::with('material:id,name')->latest()->get();
+            $i=0;
+            foreach ($exams as $item){ 
+                $exam = StudenExam::where('user_id',$request->user()->id)->where('exam_id',$item->id)->first();
+                if($exam==[]){
+                    $exams[$i]['state']=false;
+                    $exams[$i]['degree']=0;
+                }else{
+                    $exams[$i]['state']=true;
+                    $exams[$i]['degree']=$exam->degree;
+                }
+                $i++;
+                }
+            if ($exams->isEmpty())
+                return response()->json(['success' => false, 'message' => 'لا يوجد اي اختبارات', 'data' => $exams], 204);
+            return response()->json(['success' => true, 'message' => 'تم جلب الاختبارات بنجاح', 'data' => $exams], 200);
+        }
+
+
+
+
+        // GET Messages API =>Auth
+        public function loadAns(Request $request)
+        {
+
+            // $exams = Exam::with('material:id,name')->latest()->get();
+            // $i=0;
+            // foreach ($exams as $item){ 
+            //     $exam = StudenExam::where('user_id',$request->user()->id)->where('exam_id',$item->id)->first();
+            //     if($exam==[]){
+            //         $exams[$i]['state']=false;
+            //         $exams[$i]['degree']=0;
+            //     }else{
+            //         $exams[$i]['state']=true;
+            //         $exams[$i]['degree']=$exam->degree;
+            //     }
+            //     $i++;
+            //     }
+            // if ($exams->isEmpty())
+            //     return response()->json(['success' => false, 'message' => 'لا يوجد اي اختبارات', 'data' => $exams], 204);
+            // return response()->json(['success' => true, 'message' => 'تم جلب الاختبارات بنجاح', 'data' => $exams], 200);
+
+
+            $exams = StudenExam::get();
+            $i=0;
+
+            foreach ($exams as $item){ 
+                $exam = Exam::with('material:id,name')->where('id',$item->exam_id)->first();
+                $student = Admin::where('id',$item->user_id)->first();
+
+                if($exam==[]){
+                    $exams[$i]['title']="";
+                    $exams[$i]['material']="";
+                    $exams[$i]['full']=0;
+                    $exams[$i]['student']="";
+                }else{
+                    $exams[$i]['title']=$exam->name;
+                    $exams[$i]['material']=$exam->material->name;
+                    $exams[$i]['full']=$exam->q1_point+$exam->q2_point+$exam->q3_point;
+                    $exams[$i]['student']=$student->name;
+                }
+                $i++;
+                }
+
+            if ($exams->isEmpty())
+                return response()->json(['success' => false, 'message' => 'لا يوجد اي اختبارات', 'data' => $exams], 204);
+            return response()->json(['success' => true, 'message' => 'تم جلب الاختبارات بنجاح', 'data' => $exams], 200);
+        }
 
 
 
@@ -72,6 +147,23 @@ class ExamDashApiController extends Controller
         ]);
         return response()->json(['success' => true, 'message' => 'تم إضافة الاختبار بنجاح'], 200);
     }
+
+
+
+
+        // Add New Role
+        public function createAnswer(Request $request)
+        {
+            $admin = StudenExam::create([
+                'exam_id' => $request['exam_id'],
+                'user_id' => $request->user()->id,
+                'q1_answer' => $request['q1_answer'],
+                'q2_answer' => $request['q2_answer'],
+                'q3_answer' => $request['q3_answer'],
+                'degree' => $request['degree'],
+            ]);
+            return response()->json(['success' => true, 'message' => 'تم إضافة الاجابة بنجاح بنجاح'], 200);
+        }
 
 
 

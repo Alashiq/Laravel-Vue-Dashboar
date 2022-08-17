@@ -5,7 +5,7 @@
 
     <div class="flex justify-between w-full h-16 items-center">
         <div class="text-2xl font-semibold cairo text-gray-600">
-        اختباراتي
+        قائمة الاختبارات
         </div>
         <router-link
             v-show="$parent.checkPermission('DeleteMessage') == true"
@@ -72,7 +72,7 @@
 
 
 
-                <router-link :to="'/admin/team/' + item.id + '/edit'">
+                <router-link :to="'/admin/exam/' + item.id + '/edit'">
                     <i
                         v-show="
                                 $parent.checkPermission('ReadMessage') == true

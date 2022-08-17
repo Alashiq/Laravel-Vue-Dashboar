@@ -11,14 +11,14 @@ export default {
         },
         permissions: [],
         pageList: [
-            {
-                id: 1,
-                name: "الرئيسية",
-                role: "HomeChart",
-                active: true,
-                path: "/admin",
-                icon: "fas fa-home"
-            },
+            // {
+            //     id: 1,
+            //     name: "الرئيسية",
+            //     role: "HomeChart",
+            //     active: true,
+            //     path: "/admin",
+            //     icon: "fas fa-home"
+            // },
 
             // {
             //     id: 2,
@@ -40,7 +40,7 @@ export default {
             {
                 id: 4,
                 name: "المواد الدراسية",
-                role: "ReadAdmin",
+                role: "ReadMaterial",
                 active: false,
                 path: "/admin/material",
                 icon: "fas fa-book"
@@ -48,7 +48,7 @@ export default {
             {
                 id: 5,
                 name: "الأساتذة",
-                role: "ReadAdmin",
+                role: "ReadTeacher",
                 active: false,
                 path: "/admin/teacher",
                 icon: "fas fa-chalkboard-teacher"
@@ -56,7 +56,7 @@ export default {
             {
                 id: 6,
                 name: "التلاميذ",
-                role: "ReadAdmin",
+                role: "ReadStudent",
                 active: false,
                 path: "/admin/student",
                 icon: "fas fa-user-graduate"
@@ -64,9 +64,28 @@ export default {
             {
                 id: 7,
                 name: "الاختبارات",
-                role: "ReadAdmin",
+                role: "ReadExam",
                 active: false,
                 path: "/admin/exam",
+                icon: "fas fa-users"
+            },
+
+            {
+                id: 8,
+                name: "اختباراتي",
+                role: "ReadStudentExam",
+                active: false,
+                path: "/admin/student-exam",
+                icon: "fas fa-users"
+            },
+
+
+            {
+                id: 9,
+                name: "نتائج الاختبارات",
+                role: "ReadAnswers",
+                active: false,
+                path: "/admin/answers",
                 icon: "fas fa-users"
             },
             // {

@@ -29,6 +29,14 @@ import NewMaterial from "../pages/Materials/NewMaterial/NewMaterial.vue";
 import Exams from "../pages/Exams/Exams.vue";
 import Exam from "../pages/Exams/Exam/Exam.vue";
 import NewExam from "../pages/Exams/NewExam/NewExam.vue";
+import EditExam from "../pages/Exams/EditExam/EditExam.vue";
+
+
+
+import StudentExams from "../pages/StudentExams/StudentExams.vue";
+import StudentExam from "../pages/StudentExams/StudentExam/StudentExam.vue";
+
+import StudentAnswers from "../pages/StudentAnswer/StudentAnswer.vue";
 
 
 import store from "../store/index";
@@ -147,6 +155,25 @@ export const routes = [
                 path: "admin/exam/:id",
                 component: Exam
             },
+            {
+                path: "admin/exam/:id/edit",
+                component: EditExam
+            },
+
+            {
+                path: "admin/student-exam",
+                component: StudentExams
+            },
+            {
+                path: "admin/student-exam/:id",
+                component: StudentExam
+            },
+
+            {
+                path: "admin/answers",
+                component: StudentAnswers
+            },
+
 
         ]
     },

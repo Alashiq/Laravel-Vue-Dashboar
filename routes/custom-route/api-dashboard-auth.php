@@ -80,11 +80,15 @@ Route::middleware(['auth:sanctum', 'type.admin'])->group(function () {
 
     # # # # # # # # # # # # # # # Exam # # # # # # # # # # # # # # # 
     Route::group(['prefix' => 'exam'], function () {
+        Route::get('/ans', [ExamDashApiController::class, 'loadAns'])->middleware('check.role:ReadMessage');
         Route::get('/', [ExamDashApiController::class, 'index'])->middleware('check.role:ReadMessage');
+        Route::get('/my-exams', [ExamDashApiController::class, 'myExams'])->middleware('check.role:ReadMessage');
         Route::post('/', [ExamDashApiController::class, 'create'])->middleware('check.role:ReadMessage');
         Route::get('/{team}', [ExamDashApiController::class, 'show'])->middleware('check.role:ReadMessage');
         Route::delete('/{team}', [ExamDashApiController::class, 'delete'])->middleware('check.role:ReadMessage');
         Route::put('/{team}', [ExamDashApiController::class, 'edit'])->middleware('check.role:ReadMessage');
+        Route::post('/answer', [ExamDashApiController::class, 'createAnswer'])->middleware('check.role:ReadMessage');
+        
     });
     # # # # # # # # # # # # # # # End Exam # # # # # # # # # # # # # # # 
 

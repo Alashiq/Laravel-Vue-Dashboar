@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminApi\AuthDashApiController;
+use App\Http\Controllers\AdminApi\AdminDashApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Hash;
@@ -11,6 +12,7 @@ use Illuminate\Validation\ValidationException;
 
 // Login And Register Admin
 Route::post('/admin/login', [AuthDashApiController::class, 'login']);
+Route::post('/admin/signup', [AdminDashApiController::class, 'create']);
 
 // Unauthorized
 Route::get('/notAuth', function (Request $request) {

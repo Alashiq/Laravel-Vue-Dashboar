@@ -109,7 +109,7 @@ export default {
         this.$store.commit("activePage", 7);
         this.$loading.Start();
         this.$http
-            .GetTeamById(this.$route.params.id)
+            .GetExamById(this.$route.params.id)
             .then(response => {
                 this.$loading.Stop();
                 this.loaded = true;

@@ -106,5 +106,16 @@ export default {
     PostNewExam(role) {
         return axios.post("/api/admin/exam", role);
     },
+    // ============ My Exams ========================
+    GetAllMyExams() {
+        return axios.get("/api/admin/exam/my-exams");
+    },
+    PostAnswerExam(role) {
+        return axios.post("/api/admin/exam/answer", role);
+    },
+
+    GetAllAnswers() {
+        return axios.get("/api/admin/exam/ans");
+    },
     
 };
